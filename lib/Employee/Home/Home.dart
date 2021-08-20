@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:helping_hand/drawer/drawer.dart';
+
 class EmployeeHome extends StatefulWidget {
   const EmployeeHome({key}) : super(key: key);
 
@@ -12,20 +14,12 @@ class _EmployeeHomeState extends State<EmployeeHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("HomePage"),
+        title: Text('Appbar'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            UserAccountsDrawerHeader(
-              accountName: Text("Employer"),
-              accountEmail: Text(
-                "admin@gmail.com",
-              ),
-            ),
-          ],
-        ),
+      body: Center(
+        child: Text('homepage'),
       ),
+      drawer: drawer(),
     );
   }
 }
