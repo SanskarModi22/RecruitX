@@ -3,10 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/resetpassword.dart';
 
-void main() {
-  runApp(login_page());
-}
-
 // ignore: camel_case_types
 class login_page extends StatefulWidget {
   // This widget is the root of your application.

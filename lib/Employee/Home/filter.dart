@@ -11,6 +11,11 @@ class Filter extends StatefulWidget {
 class _FilterState extends State<Filter> {
   @override
   Widget build(BuildContext context) {
-    return Container(child: IconButton(icon: FaIcon(FontAwesomeIcons.filter)));
+    return Container(
+      child: IconButton(
+        icon: FaIcon(FontAwesomeIcons.filter),
+        onPressed: () {},
+      ),
+    );
   }
 }
