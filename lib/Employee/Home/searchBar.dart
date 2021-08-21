@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+// ignore: camel_case_types
 class searchBar extends StatefulWidget {
   const searchBar({key}) : super(key: key);
 
@@ -11,6 +12,7 @@ class searchBar extends StatefulWidget {
 
 int toggle = 0;
 
+// ignore: camel_case_types
 class _searchBarState extends State<searchBar>
     with SingleTickerProviderStateMixin {
   AnimationController _con;
