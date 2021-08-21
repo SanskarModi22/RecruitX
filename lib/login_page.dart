@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/resetpassword.dart';
 
 void main() {
@@ -72,7 +73,10 @@ class _login_pageState extends State<login_page> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    print('welcome');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EmployeeHome()),
+                    );
                   },
                   child: Text('Login')),
               SizedBox(
