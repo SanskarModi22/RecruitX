@@ -12,6 +12,7 @@ class _FilterState extends State<Filter> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(top: 8),
       child: IconButton(
         icon: FaIcon(FontAwesomeIcons.filter),
         onPressed: () {},

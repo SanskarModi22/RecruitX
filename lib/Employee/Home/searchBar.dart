@@ -33,8 +33,8 @@ class _searchBarState extends State<searchBar>
     final double width = MediaQuery.of(context).size.width;
     // print(height);
     // print(width);
-    return Scaffold(
-      body: Container(
+    return Container(
+      child: Container(
         // color: Colors.wh,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
