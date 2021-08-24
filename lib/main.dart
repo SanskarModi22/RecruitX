@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:helping_hand/base.dart';
+import './Employee/screens/employee_account_screen.dart';
+import './Employer/screens/employer_account_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,6 +17,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Base(),
+      routes: {
+        EmployeeAccountScreen.routeName: (ctx) => EmployeeAccountScreen(),
+        EmployeerAccountScreen.routeName: (ctx) => EmployeerAccountScreen(),
+      },
     );
   }
 }
