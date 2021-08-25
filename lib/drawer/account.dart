@@ -12,6 +12,7 @@ class account extends StatefulWidget {
 
 // ignore: camel_case_types
 class _accountState extends State<account> {
+  // ignore: non_constant_identifier_names
   var _notification_enabled = true;
 
   @override
