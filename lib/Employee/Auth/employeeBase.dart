@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Auth/signUp.dart';
+import 'package:helping_hand/Employee/Auth/signUp1.dart';
 
 import 'package:helping_hand/login_page.dart';
 
