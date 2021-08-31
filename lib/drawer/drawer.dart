@@ -25,11 +25,20 @@ class _drawerState extends State<drawer> {
           DrawerHeader(
               padding: EdgeInsets.zero,
               child: UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  image: new DecorationImage(
+                      image: NetworkImage(
+                          "https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg"),
+                      fit: BoxFit.cover),
+                ),
                 margin: EdgeInsets.zero,
-                accountName: Text('Name'),
-                accountEmail: Text('abc@gmail.com'),
+                accountName: Text('Mellow'),
+                accountEmail: Text('+91 8888888888'),
                 currentAccountPicture: CircleAvatar(
-                  backgroundImage: AssetImage(""),
+                  backgroundColor: Colors.blueGrey,
+                  backgroundImage: NetworkImage(
+                      'https://i.pinimg.com/originals/9a/25/d8/9a25d86d090fc965a7f9c0ad25668b10.jpg'),
                 ),
               )),
           Divider(
