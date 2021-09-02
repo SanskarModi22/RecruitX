@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employer/Auth/SignUp2.dart';
+
 import 'package:helping_hand/resetpassword.dart';
 
-// ignore: camel_case_types
-class login_page extends StatefulWidget {
-  // This widget is the root of your application.
-  @override
-  _login_pageState createState() => _login_pageState();
+void main() {
+  runApp(login_employer());
 }
 
 // ignore: camel_case_types
-class _login_pageState extends State<login_page> {
-  var child;
+class login_employer extends StatefulWidget {
+  @override
+  _login_employerState createState() => _login_employerState();
+}
 
+// ignore: camel_case_types
+class _login_employerState extends State<login_employer> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       color: Colors.white,
       home: Scaffold(
+        appBar: AppBar(
+          title: Text("login"),
+          iconTheme: IconThemeData(color: Colors.white),
+          centerTitle: true,
+        ),
         body: SingleChildScrollView(
           child: Center(
               child: Column(
@@ -85,7 +94,30 @@ class _login_pageState extends State<login_page> {
                       MaterialPageRoute(builder: (context) => resetpassword()),
                     );
                   },
-                  child: Text('Forgot Password'))
+                  child: Text('Forgot Password')),
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: Container(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Dont Have an account?"),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EmployerSignUp()));
+                        },
+                        child: Text("Sign Up")),
+                  ],
+                )),
+              ),
             ],
           )),
         ),
