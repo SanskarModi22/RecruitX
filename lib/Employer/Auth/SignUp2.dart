@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Auth/login_employee.dart';
-import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employer/Auth/login_employer.dart';
+import 'package:helping_hand/Employer/Home/Home.dart';
 
-class EmployeeSignUp extends StatefulWidget {
-  const EmployeeSignUp({key}) : super(key: key);
+class EmployerSignUp extends StatefulWidget {
+  const EmployerSignUp({key}) : super(key: key);
 
   @override
-  _EmployeeSignUpState createState() => _EmployeeSignUpState();
+  _EmployerSignUpState createState() => _EmployerSignUpState();
 }
 
-class _EmployeeSignUpState extends State<EmployeeSignUp> {
+class _EmployerSignUpState extends State<EmployerSignUp> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,8 +20,8 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
       ),
       child: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.white),
           title: Text("signup"),
+          iconTheme: IconThemeData(color: Colors.white),
           centerTitle: true,
         ),
         body: Padding(
@@ -29,19 +29,17 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  height: 100,
-                ),
                 TextFormField(
                   decoration: InputDecoration(
-                      hintText: 'Username', labelText: 'Username'),
+                      hintText: 'Shop/Company name',
+                      labelText: 'Shop/Company name'),
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                      hintText: 'Full Name', labelText: 'Full Name'),
+                      hintText: 'Owner name', labelText: 'Owner name'),
                 ),
                 SizedBox(
                   height: 30,
@@ -71,37 +69,15 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                 SizedBox(
                   height: 30,
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                      hintText: 'Address', labelText: 'Address'),
+                Container(
+                  child: Text('Authentication proof and shop photo'),
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                Container(
-                  child: Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        height: 30,
-                        width: 30,
-                        child: Text(
-                          "Age",
-                        ),
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Container(
-                        height: 30,
-                        width: 30,
-                        child: TextFormField(
-                          decoration: InputDecoration(hintText: ''),
-                          keyboardType: TextInputType.number,
-                        ),
-                      )
-                    ],
-                  ),
+                TextFormField(
+                  decoration: InputDecoration(
+                      hintText: 'Shop Address', labelText: 'Shop Address'),
                 ),
                 SizedBox(
                   height: 30,
@@ -138,8 +114,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                      hintText: 'Salary Expectations',
-                      labelText: 'Salary Expectations'),
+                      hintText: 'Working Hours', labelText: 'Working Hours'),
                 ),
                 SizedBox(
                   height: 30,
@@ -148,16 +123,14 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                   minLines: 2,
                   maxLines: null,
                   decoration: InputDecoration(
-                      hintText: '  Description', labelText: ' Description'),
+                      hintText: ' Shop Description',
+                      labelText: 'Shop Description'),
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                TextFormField(
-                  minLines: 2,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                      hintText: 'Experience', labelText: 'Experience'),
+                Container(
+                  child: Text("License Photo"),
                 ),
                 SizedBox(
                   height: 30,
@@ -167,9 +140,12 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EmployeeHome()));
+                              builder: (context) => EmployerHome()));
                     },
                     child: Text("Sign up")),
+                SizedBox(
+                  height: 10,
+                ),
                 Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -180,7 +156,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => login_employee()));
+                                    builder: (context) => login_employer()));
                           },
                           child: Text("Login")),
                     ],

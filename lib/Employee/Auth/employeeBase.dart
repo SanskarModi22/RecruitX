@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Employee/Auth/signUp1.dart';
-
-import 'package:helping_hand/login_page.dart';
 
 class EmployeeBase extends StatefulWidget {
   const EmployeeBase({key}) : super(key: key);
@@ -17,7 +16,11 @@ class _EmployeeBaseState extends State<EmployeeBase> {
     // final height = MediaQuery.of(context).size.height.toDouble();
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
         title: Text("Choice"),
+        centerTitle: true,
       ),
       body: Center(
         child: Container(
@@ -62,7 +65,7 @@ class _EmployeeBaseState extends State<EmployeeBase> {
                       onPressed: () => {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (BuildContext context) => login_page(),
+                            builder: (BuildContext context) => login_employee(),
                           ),
                         )
                       },

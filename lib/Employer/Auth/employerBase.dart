@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employer/Auth/SignUp.dart';
-
-import 'package:helping_hand/login_page.dart';
+import 'package:helping_hand/Employer/Auth/SignUp2.dart';
+import 'package:helping_hand/Employer/Auth/login_employer.dart';
 
 class EmployerBase extends StatefulWidget {
   const EmployerBase({key}) : super(key: key);
@@ -62,7 +61,7 @@ class _EmployerBaseState extends State<EmployerBase> {
                       onPressed: () => {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (BuildContext context) => login_page(),
+                            builder: (BuildContext context) => login_employer(),
                           ),
                         )
                       },
