@@ -6,6 +6,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'shop_refs.dart';
 
+import './newjob.dart';
+
 void main() {
   runApp(profile());
 }
@@ -226,7 +228,25 @@ class _profileState extends State<profile> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 8.0),
                                             child: TextButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                showModalBottomSheet<void>(
+                                                  isScrollControlled: true,
+                                                  context: context,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft: Radius
+                                                                .circular(20),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    20)),
+                                                  ),
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return NewJob();
+                                                  },
+                                                );
+                                              },
                                               child: Row(
                                                 children: [
                                                   FaIcon(

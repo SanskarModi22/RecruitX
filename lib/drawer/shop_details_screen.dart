@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import './newjob.dart';
 
 class ShopDetailsScreen extends StatefulWidget {
   // const ShopDetailsScreen({ Key? key }) : super(key: key);
@@ -167,7 +168,23 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                         size: 30,
                       ),
                       title: Text('Jobs Available'),
-                      trailing: Icon(Icons.add),
+                      trailing: IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: () {
+                          showModalBottomSheet<void>(
+                            isScrollControlled: true,
+                            context: context,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20)),
+                            ),
+                            builder: (BuildContext context) {
+                              return NewJob();
+                            },
+                          );
+                        },
+                      ),
                     ),
                     SingleChildScrollView(
                       child: Container(
