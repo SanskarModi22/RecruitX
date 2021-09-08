@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/drawer/about_us.dart';
 import 'package:helping_hand/drawer/account.dart';
+import 'package:helping_hand/drawer/help.dart';
 import 'package:helping_hand/drawer/profile.dart';
 
 void main() {
@@ -107,6 +108,23 @@ class _drawerState extends State<drawer> {
           ),
           ListTile(
             leading: Icon(
+              Icons.edit,
+              color: Colors.black,
+            ),
+            title: Text(
+              'Manage Posts',
+              textScaleFactor: 1.2,
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {},
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          ListTile(
+            leading: Icon(
               Icons.thumb_up,
               color: Colors.black,
             ),
@@ -120,6 +138,26 @@ class _drawerState extends State<drawer> {
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => profile()));
+            },
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.help,
+              color: Colors.black,
+            ),
+            title: Text(
+              'Help',
+              textScaleFactor: 1.2,
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => help()));
             },
           ),
           SizedBox(
@@ -141,6 +179,9 @@ class _drawerState extends State<drawer> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => login_employee()));
             },
+          ),
+          SizedBox(
+            height: 10,
           ),
         ],
       ),
