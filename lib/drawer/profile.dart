@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:helping_hand/drawer/manage_shops_screen.dart';
+import 'package:helping_hand/drawer/newshop.dart';
 
 import 'shop_refs.dart';
 
@@ -499,9 +501,39 @@ class _profileState extends State<profile> {
                           ),
                           title: Text('Shops'),
                           subtitle: Text('shops owned '),
-                          trailing: IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {},
+                          trailing: Container(
+                            width: 100,
+                            child: Row(
+                              children: [
+                                IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ManageShops(),
+                                        ),
+                                      );
+                                    }),
+                                IconButton(
+                                  icon: Icon(Icons.add_business_sharp),
+                                  onPressed: () {
+                                    showModalBottomSheet<void>(
+                                      isScrollControlled: true,
+                                      context: context,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(20),
+                                            topRight: Radius.circular(20)),
+                                      ),
+                                      builder: (BuildContext context) {
+                                        return NewShop();
+                                      },
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         ShopRefs(),

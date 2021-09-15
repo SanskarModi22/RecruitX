@@ -1,263 +1,38 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:helping_hand/drawer/shop_details_screen.dart';
 
-import './newjob.dart';
-
-class ShopDetailsScreen extends StatefulWidget {
-  // const ShopDetailsScreen({ Key? key }) : super(key: key);
-  final String shopName;
-  final String imageurl;
-  final String shopType;
-  ShopDetailsScreen({this.shopName, this.imageurl, this.shopType});
+class ManagePost extends StatefulWidget {
+  // const ManagePost({ Key? key }) : super(key: key);
+  var isemployee;
+  var isemployer;
+  ManagePost({this.isemployee, this.isemployer});
   @override
-  _ShopDetailsScreenState createState() => _ShopDetailsScreenState(
-        shopName: shopName,
-        shopType: shopType,
-        imageurl: imageurl,
+  _ManagePostState createState() => _ManagePostState(
+        isemployee: isemployee,
+        isemployer: isemployer,
       );
 }
 
-class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
-  final String shopName;
-  final String imageurl;
-  final String shopType;
-  _ShopDetailsScreenState({this.shopName, this.imageurl, this.shopType});
+class _ManagePostState extends State<ManagePost> {
+  var isemployee;
+  var isemployer;
+  _ManagePostState({this.isemployee, this.isemployer});
   @override
   Widget build(BuildContext context) {
-    var jobslist = 5.0;
     return Scaffold(
       appBar: AppBar(
-        title: Text(shopName),
+        title: Text('Manage your posts'),
         backgroundColor: Colors.teal,
       ),
-      body: Container(
+      body: Center(
         child: SingleChildScrollView(
           child: Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Card(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                margin: EdgeInsets.all(8),
-                child: Container(
-                  height: 220,
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 220,
-                        width: MediaQuery.of(context).size.width * 0.95,
-                        child: Image(
-                          image: NetworkImage(imageurl),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 20,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 12,
-                          ),
-                          decoration: BoxDecoration(
-                              color: Colors.teal,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(8),
-                                  bottomRight: Radius.circular(8))),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.flag,
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                shopType + ' Shop',
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.account_circle,
-                    color: Colors.teal,
-                    size: 30,
-                  ),
-                  title: Text('Owner'),
-                  subtitle: Text('Mellow Works'),
-                  // trailing: Icon(Icons.edit),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.adjust_outlined,
-                    color: Colors.teal,
-                    size: 30,
-                  ),
-                  title: Text('Type of shop'),
-                  subtitle: Text(shopType),
-                  trailing: Icon(Icons.edit),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.work,
-                    color: Colors.teal,
-                    size: 30,
-                  ),
-                  title: Text('No of employees hired '),
-                  subtitle: Text('30'),
-                  trailing: Icon(Icons.edit),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        Icons.place_rounded,
-                        color: Colors.teal,
-                        size: 30,
-                      ),
-
-                      title: Text('Shop Address'),
-                      // subtitle: Text('30'),
-                      trailing: Icon(Icons.edit),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.teal[100],
-                        border: Border.all(
-                          color: Colors.teal,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      margin: EdgeInsets.only(
-                          left: 10, right: 10, top: 0, bottom: 10),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Text(
-                          'Behind your house, in front of the pole, your ward, your city, your district, India'),
-                    )
-                  ],
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        Icons.work_outline_rounded,
-                        color: Colors.teal,
-                        size: 30,
-                      ),
-                      title: Text('Jobs Available'),
-                      trailing: IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () {
-                          showModalBottomSheet<void>(
-                            isScrollControlled: true,
-                            context: context,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20)),
-                            ),
-                            builder: (BuildContext context) {
-                              return NewJob();
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    SingleChildScrollView(
-                      child: Container(
-                        height: min(jobslist * 120, 500),
-                        padding: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 5,
-                        ),
-                        child: ListView(
-                          children: <Widget>[
-                            JobAvailable(
-                              id: '1',
-                              job: 'Cashier',
-                              salary: '30000',
-                              workDays: 'Full Week excluding sun.',
-                              workHours: '12:00 am to 5:00 pm',
-                              specialRequests:
-                                  'Should be able to stay for late night meetings occasionaly',
-                            ),
-                            JobAvailable(
-                              id: '2',
-                              job: 'Security Guard',
-                              salary: '15,000',
-                              workDays: 'Mon, Wed, fri',
-                              workHours: '9:00 am to 9:00 pm',
-                            ),
-                            JobAvailable(
-                              id: '3',
-                              job: 'Dish Washer',
-                              salary: '4000',
-                              workDays: 'Sunday, Saturday',
-                              workHours: '11:00 am to 5:00 pm',
-                              specialRequests:
-                                  'Women only. and she should be able to handle 1000 dishes per day',
-                            ),
-                            JobAvailable(
-                              id: '4',
-                              job: 'Dresser',
-                              salary: '40,000',
-                              workDays: 'Complete Week',
-                              workHours: '9:00 am to 4:00 pm',
-                            ),
-                            JobAvailable(
-                              id: '5',
-                              job: 'Dancer',
-                              salary: '20000',
-                              workDays: 'Tue, web, thr, fri',
-                              workHours: '1:00 pm to 3:00 pm',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    )
-                  ],
-                ),
-              ),
+              ShopPostItem('Outfitters'),
+              ShopPostItem('Penneys'),
+              ShopPostItem('TopShop'),
             ],
           ),
         ),
@@ -266,14 +41,91 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   }
 }
 
-class JobAvailable extends StatefulWidget {
+class ShopPostItem extends StatefulWidget {
+  // const ShopPostItem({ Key? key }) : super(key: key);
+  final String shopname;
+  ShopPostItem(this.shopname);
+  @override
+  _ShopPostItemState createState() => _ShopPostItemState(shopname);
+}
+
+class _ShopPostItemState extends State<ShopPostItem> {
+  final String shopname;
+  _ShopPostItemState(this.shopname);
+  var _isexpanded = false;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.teal,
+              child: Text(
+                '3',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            title: Text(shopname),
+            subtitle: Text('Jobs posted for this Shop.'),
+            trailing: IconButton(
+              iconSize: 35,
+              color: Colors.teal,
+              icon: Icon(
+                _isexpanded ? Icons.expand_less : Icons.expand_more,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isexpanded = !_isexpanded;
+                });
+              },
+            ),
+          ),
+          if (_isexpanded)
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 15),
+              height: 400,
+              child: ListView(
+                children: [
+                  AvailableJobItem(
+                      id: '2',
+                      job: 'job',
+                      salary: '12555',
+                      workDays: 'workDays',
+                      workHours: 'workHours'),
+                  AvailableJobItem(
+                      id: '2',
+                      job: 'job',
+                      salary: '12555',
+                      workDays: 'workDays',
+                      workHours: 'workHours'),
+                  AvailableJobItem(
+                      id: '2',
+                      job: 'job',
+                      salary: '12555',
+                      workDays: 'workDays',
+                      workHours: 'workHours'),
+                ],
+              ),
+            )
+        ],
+      ),
+    );
+  }
+}
+
+class AvailableJobItem extends StatefulWidget {
   final String id;
   final String job;
   final String salary;
   final String workHours;
   final String workDays;
   final String specialRequests;
-  JobAvailable({
+  AvailableJobItem({
     @required this.id,
     @required this.job,
     @required this.salary,
@@ -283,7 +135,7 @@ class JobAvailable extends StatefulWidget {
   });
 
   @override
-  _JobAvailableState createState() => _JobAvailableState(
+  _AvailableJobItemState createState() => _AvailableJobItemState(
         id: id,
         job: job,
         salary: salary,
@@ -293,7 +145,7 @@ class JobAvailable extends StatefulWidget {
       );
 }
 
-class _JobAvailableState extends State<JobAvailable> {
+class _AvailableJobItemState extends State<AvailableJobItem> {
   final String job;
   final String id;
 
@@ -302,7 +154,7 @@ class _JobAvailableState extends State<JobAvailable> {
   final String workDays;
   final String specialRequests;
 
-  _JobAvailableState({
+  _AvailableJobItemState({
     this.job,
     this.salary,
     this.workDays,
@@ -636,26 +488,58 @@ class _InsideBodyState extends State<InsideBody> {
                 bottom: -25,
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: TextButton(
-                    style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                    onPressed: () {},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: Colors.teal[700],
-                          width: 2,
+                  child: SizedBox(
+                    width: 200,
+                    child: Row(
+                      children: [
+                        TextButton(
+                          style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                          onPressed: () {},
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Colors.teal[700],
+                                width: 2,
+                              ),
+                              color: Colors.teal[200],
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            child: Text(
+                              'Edit',
+                              style: TextStyle(
+                                color: Colors.teal[800],
+                              ),
+                            ),
+                          ),
                         ),
-                        color: Colors.teal[200],
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      child: Text(
-                        'Apply Now !',
-                        style: TextStyle(
-                          color: Colors.teal[800],
+                        SizedBox(
+                          width: 30,
                         ),
-                      ),
+                        TextButton(
+                          style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                          onPressed: () {},
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Colors.teal[700],
+                                width: 2,
+                              ),
+                              color: Colors.teal[200],
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            child: Text(
+                              'Delete',
+                              style: TextStyle(
+                                color: Colors.teal[800],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
