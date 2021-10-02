@@ -46,7 +46,94 @@ class _login_employeeState extends State<login_employee> {
               SizedBox(
                 height: 20,
               ),
-              Text(
+              Container(
+                  child: Column(
+                children: [
+                  Text(
+                    'Welcome',
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontFamily: GoogleFonts.notoSans().fontFamily,
+                      color: Colors.blue,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          decoration: InputDecoration(
+                            hintText: 'Enter Mobile Number',
+                            labelText: 'Mobile Number',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            hintText: 'Enter password',
+                            labelText: 'Password',
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EmployeeHome()),
+                        );
+                      },
+                      child: Text('Login')),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => resetpassword()),
+                        );
+                      },
+                      child: Text('Forgot Password')),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Dont Have an account?"),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            EmployeeSignUp()));
+                              },
+                              child: Text("Sign Up")),
+                        ],
+                      ),
+                    ),
+                  )
+
+                  /*  Text(
                 'Welcome',
                 style: TextStyle(
                   fontSize: 40,
@@ -121,10 +208,9 @@ class _login_employeeState extends State<login_employee> {
                               MaterialPageRoute(
                                   builder: (context) => EmployeeSignUp()));
                         },
-                        child: Text("Sign Up")),
-                  ],
-                )),
-              ),
+                        child: Text("Sign Up")),*/
+                ],
+              )),
             ],
           )),
         ),
