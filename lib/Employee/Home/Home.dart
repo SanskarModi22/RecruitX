@@ -52,9 +52,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // SizedBox(
-                    //   height: 3.h,
-                    // ),
+
                     Padding(
                       padding: EdgeInsets.fromLTRB(15.sp, 0, 0, 0),
                       child: Align(

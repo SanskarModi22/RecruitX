@@ -50,30 +50,7 @@ class EmpPref extends StatelessWidget {
                   ),
                   trailing: Icon(FontAwesomeIcons.arrowRight),
                 ),
-                // child: Container(
-                //   width: 40.w,
-                //   decoration: BoxDecoration(
-                //       color: (index % 2) == 0 ? Colors.purple : Colors.orange,
-                //       borderRadius: BorderRadius.circular(20.sp)),
-                //   child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //       children: [
-                //         Text(
-                //           PopularJobs[index],
-                //           style: TextStyle(
-                //               fontSize: 15.sp,
-                //               fontWeight: FontWeight.bold,
-                //               color: Colors.white),
-                //         ),
-                //         SizedBox(
-                //           height: 2.h,
-                //         ),
-                //         Text(
-                //           "${JobAvailable[index]} are availaible",
-                //           style: TextStyle(fontSize: 13.sp),
-                //         )
-                //       ]),
-                // ),
+
               ),
             );
           }),

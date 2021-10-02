@@ -14,9 +14,7 @@ class CustomSearch extends StatelessWidget {
         shape: BoxShape.rectangle,
         color: Colors.white,
         borderRadius: BorderRadius.circular(2.h),
-        // border: Border.all(
-        //   color: Color.fromRGBO(71, 71, 71, 1),
-        // ),
+
       ),
       child: TextField(
         cursorColor: Colors.blue[100],
