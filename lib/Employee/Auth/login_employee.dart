@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Auth/signUp1.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/base.dart';
 import 'package:helping_hand/resetpassword.dart';
 
 void main() {
@@ -23,6 +24,14 @@ class _login_employeeState extends State<login_employee> {
       color: Colors.white,
       home: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) => Base(),
+              ),
+            ),
+          ),
           iconTheme: IconThemeData(color: Colors.white),
           title: Text("Login"),
           centerTitle: true,

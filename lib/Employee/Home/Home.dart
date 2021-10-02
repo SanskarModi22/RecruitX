@@ -23,33 +23,35 @@ class _EmployeeHomeState extends State<EmployeeHome> {
         iconTheme: IconThemeData(color: Colors.black),
         actions: <Widget>[searchBar(), Filter()],
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  // children: [
-                  //   searchBar(),
-                  //   Filter()
-                  //   // IconButton(icon: Icon(Icons.settings), onPressed: () {}),
-                  // ],
-                  ),
-            ),
-            Center(
-                child: Text(
-              "Job Options",
-              style: TextStyle(fontSize: 24.0),
-            )),
-            JobOptions(),
-            Center(
-                child: Text(
-              "High Paying Jobs",
-              style: TextStyle(fontSize: 24.0),
-            )),
-            JobCards(),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    // children: [
+                    //   searchBar(),
+                    //   Filter()
+                    //   // IconButton(icon: Icon(Icons.settings), onPressed: () {}),
+                    // ],
+                    ),
+              ),
+              Center(
+                  child: Text(
+                "Job Options",
+                style: TextStyle(fontSize: 24.0),
+              )),
+              JobOptions(),
+              Center(
+                  child: Text(
+                "High Paying Jobs",
+                style: TextStyle(fontSize: 24.0),
+              )),
+              JobCards(),
+            ],
+          ),
         ),
       ),
       drawer: drawer(),
