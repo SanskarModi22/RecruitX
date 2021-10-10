@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 
+// ignore: must_be_immutable
 class EmpPref extends StatelessWidget {
   EmpPref({Key key}) : super(key: key);
 
-  @override
+  // ignore: non_constant_identifier_names
   List<String> Pref = ["Driving", "Washing", "Maid"];
-  List<String> Job = ["23","24","32"];
+  // ignore: non_constant_identifier_names
+  List<String> Job = ["23", "24", "32"];
   List<IconData> icons = [
     Icons.drive_eta_rounded,
     FontAwesomeIcons.tshirt,
@@ -33,24 +35,20 @@ class EmpPref extends StatelessWidget {
                   ),
                   title: Text(
                     Pref[index],
-                    style: TextStyle(
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.bold
-                    ),
+                    style:
+                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Padding(
-                    padding:  EdgeInsets.all(5.sp),
+                    padding: EdgeInsets.all(5.sp),
                     child: Text(
                       "${Job[index]} jobs availaible",
                       style: TextStyle(
-                          fontSize: 12.sp,
-
+                        fontSize: 12.sp,
                       ),
                     ),
                   ),
                   trailing: Icon(FontAwesomeIcons.arrowRight),
                 ),
-
               ),
             );
           }),

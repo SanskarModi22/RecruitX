@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:helping_hand/base.dart';
 import 'package:sizer/sizer.dart';
 
-import 'Employee/Home/Home.dart';
-
 void main() {
   runApp(MyApp());
 }
