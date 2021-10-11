@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'Services/Authentication.dart';
 class MobileSignUp extends StatefulWidget {
   const MobileSignUp({Key key}) : super(key: key);
 
@@ -8,6 +10,9 @@ class MobileSignUp extends StatefulWidget {
 }
 
 class _MobileSignUpState extends State<MobileSignUp> {
+  final AuthServices _auth = AuthServices();
+  TextEditingController _phoneController=TextEditingController();
+  String phNo;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +27,7 @@ class _MobileSignUpState extends State<MobileSignUp> {
             Padding(
               padding: EdgeInsets.fromLTRB(25, 35, 25, 0),
               child: TextFormField(
+                controller: _phoneController,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: new BorderRadius.circular(
@@ -54,12 +60,13 @@ class _MobileSignUpState extends State<MobileSignUp> {
                   hintText: 'Enter Mobile Number',
 
                 ),
-                validator: (number) {
-                  if (number.length >= 10)
-                    return null;
-                  else
-                    return 'Enter a valid Number';
-                },
+                // validator: (number) {
+                //   print(number);
+                //   setState(() {
+                //     _phoneController.text=number;
+                //   });
+
+                // },
               ),
             ),
             SizedBox(
@@ -78,15 +85,17 @@ class _MobileSignUpState extends State<MobileSignUp> {
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                     )),
-                onPressed: () {
+                onPressed: () async{
+                  print(_phoneController.text);
+                  await _auth.loginUser("+91${_phoneController.text}", context);
                   // if (formGlobalKey.currentState.validate()) {
                   //   formGlobalKey.currentState.save();
                   // }
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MobileSignUp()),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => MobileSignUp()),
+                  // );
                 },
                 child: Row(
                   mainAxisAlignment:

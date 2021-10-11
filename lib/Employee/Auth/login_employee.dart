@@ -7,13 +7,13 @@ import 'package:helping_hand/mobile_signUp.dart';
 import 'package:helping_hand/resetpassword.dart';
 
 // ignore: camel_case_types
-class login_employee extends StatefulWidget {
+class LoginEmp extends StatefulWidget {
   @override
-  _login_employeeState createState() => _login_employeeState();
+  _LoginEmpState createState() => _LoginEmpState();
 }
 
 // ignore: camel_case_types
-class _login_employeeState extends State<login_employee> {
+class _LoginEmpState extends State<LoginEmp> {
   final formGlobalKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {

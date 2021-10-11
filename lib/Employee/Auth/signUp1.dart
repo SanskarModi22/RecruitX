@@ -180,7 +180,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => login_employee()));
+                                    builder: (context) => LoginEmp()));
                           },
                           child: Text("Login")),
                     ],
