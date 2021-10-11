@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/login_employee.dart';
-import 'package:helping_hand/drawer/about_us.dart';
-import 'package:helping_hand/drawer/account.dart';
+import 'package:helping_hand/screens/about_us_screen.dart';
+import 'package:helping_hand/screens/account_screen.dart';
 import 'package:helping_hand/drawer/help.dart';
-import 'package:helping_hand/drawer/manage_post.dart';
-import 'package:helping_hand/drawer/profile.dart';
+import 'package:helping_hand/screens/manage_post_screen.dart';
+import 'package:helping_hand/screens/profile_screen.dart';
 import 'package:helping_hand/drawer/rate_us.dart';
 
 void main() {

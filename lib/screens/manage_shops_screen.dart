@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:helping_hand/drawer/newshop.dart';
+import 'package:helping_hand/widgets/newshop.dart';
 
 class ManageShops extends StatefulWidget {
   // const ManageShops({ Key? key }) : super(key: key);
@@ -13,8 +13,14 @@ class _ManageShopsState extends State<ManageShops> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Manage Shops'),
-        backgroundColor: Colors.teal,
+        title: Text(
+          'Manage Shops',
+          style: TextStyle(color: Colors.teal),
+        ),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.teal, //change your color here
+        ),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.add_business_sharp),
@@ -28,7 +34,10 @@ class _ManageShopsState extends State<ManageShops> {
                         topRight: Radius.circular(20)),
                   ),
                   builder: (BuildContext context) {
-                    return NewShop();
+                    return Padding(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: NewShop(),
+                    );
                   },
                 );
               })
@@ -39,6 +48,7 @@ class _ManageShopsState extends State<ManageShops> {
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ManageShopItem(
                 imageurl:
@@ -105,7 +115,7 @@ class ManageShopItem extends StatelessWidget {
                   horizontal: 12,
                 ),
                 decoration: BoxDecoration(
-                    color: Colors.teal,
+                    color: Colors.teal.withOpacity(0.9),
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(8),
                         bottomRight: Radius.circular(8))),

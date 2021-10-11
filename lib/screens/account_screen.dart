@@ -21,8 +21,16 @@ class _accountState extends State<account> {
       child: Center(
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.teal,
-            title: Text('Account'),
+            iconTheme: IconThemeData(
+              color: Colors.black, //change your color here
+            ),
+            backgroundColor: Colors.white,
+            title: Text(
+              'Account',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
           ),
           body: SingleChildScrollView(
             child: Column(

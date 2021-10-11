@@ -3,12 +3,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:helping_hand/drawer/manage_shops_screen.dart';
-import 'package:helping_hand/drawer/newshop.dart';
+import 'package:helping_hand/screens/manage_shops_screen.dart';
+import 'package:helping_hand/widgets/newshop.dart';
+import '../widgets/newReview.dart';
+import '../widgets/shop_refs.dart';
 
-import 'shop_refs.dart';
-
-import './newjob.dart';
+import '../widgets/newjob.dart';
 
 void main() {
   runApp(profile());
@@ -32,8 +32,16 @@ class _profileState extends State<profile> {
       child: Center(
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.teal,
-            title: Text('Profile'),
+            iconTheme: IconThemeData(
+              color: Colors.teal, //change your color here
+            ),
+            backgroundColor: Colors.white,
+            title: Text(
+              'Mellow Works',
+              style: TextStyle(
+                color: Colors.teal[600],
+              ),
+            ),
             actions: [
               IconButton(
                 icon: Icon(Icons.edit),
@@ -245,7 +253,12 @@ class _profileState extends State<profile> {
                                                   ),
                                                   builder:
                                                       (BuildContext context) {
-                                                    return NewJob();
+                                                    return Padding(
+                                                      padding:
+                                                          MediaQuery.of(context)
+                                                              .viewInsets,
+                                                      child: NewJob(),
+                                                    );
                                                   },
                                                 );
                                               },
@@ -306,7 +319,7 @@ class _profileState extends State<profile> {
                                     Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
-                                        color: Colors.teal[100],
+                                        // color: Colors.white,
                                         border: Border.all(
                                             width: 2, color: Colors.teal),
                                       ),
@@ -339,7 +352,7 @@ class _profileState extends State<profile> {
                                     Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
-                                        color: Colors.teal[100],
+                                        // color: Colors.teal[100],
                                         border: Border.all(
                                             width: 2, color: Colors.teal),
                                       ),
@@ -390,7 +403,7 @@ class _profileState extends State<profile> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(8),
-                                          color: Colors.teal[100],
+                                          // color: Colors.teal[100],
                                           border: Border.all(
                                               width: 2, color: Colors.teal),
                                         ),
@@ -428,7 +441,7 @@ class _profileState extends State<profile> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(8),
-                                          color: Colors.teal[100],
+                                          // color: Colors.teal[100],
                                           border: Border.all(
                                               width: 2, color: Colors.teal),
                                         ),
@@ -527,7 +540,11 @@ class _profileState extends State<profile> {
                                             topRight: Radius.circular(20)),
                                       ),
                                       builder: (BuildContext context) {
-                                        return NewShop();
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.of(context).viewInsets,
+                                          child: NewShop(),
+                                        );
                                       },
                                     );
                                   },
@@ -637,7 +654,11 @@ class _profileState extends State<profile> {
                                   isScrollControlled: true,
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return NewReview();
+                                    return Padding(
+                                      padding:
+                                          MediaQuery.of(context).viewInsets,
+                                      child: NewReview(),
+                                    );
                                   },
                                 );
                               }),
@@ -694,7 +715,11 @@ class _profileState extends State<profile> {
                                   isScrollControlled: true,
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return NewReview();
+                                    return Padding(
+                                      padding:
+                                          MediaQuery.of(context).viewInsets,
+                                      child: NewReview(),
+                                    );
                                   },
                                 );
                               }),
@@ -754,6 +779,7 @@ class PreferenceItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7.5),
+        // color: Colors.teal,
         color: Colors.teal,
       ),
       padding: EdgeInsets.all(2.5),
@@ -834,7 +860,7 @@ class EmployeeReviewItem extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(8),
                           bottomRight: Radius.circular(8)),
-                      color: Colors.teal,
+                      color: Colors.teal.withOpacity(0.8),
                     ),
                     child: Row(
                       children: [
@@ -904,7 +930,7 @@ class EmployeeReviewItem extends StatelessWidget {
                   height: 150,
                   // color: Color.fromRGBO(248, 239, 206, 1),
                   decoration: BoxDecoration(
-                      color: Colors.teal[100],
+                      // color: Colors.teal[100],
                       border: Border.all(width: 2, color: Colors.teal),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
@@ -1080,7 +1106,7 @@ class EmployerReviewItem extends StatelessWidget {
                   height: 150,
                   // color: Color.fromRGBO(248, 239, 206, 1),
                   decoration: BoxDecoration(
-                      color: Colors.teal[100],
+                      // color: Colors.teal[100],
                       border: Border.all(width: 2, color: Colors.teal),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
@@ -1122,88 +1148,6 @@ class EmployerReviewItem extends StatelessWidget {
             ),
           )
         ],
-      ),
-    );
-  }
-}
-
-class NewReview extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        // height: 400,
-        color: Colors.teal,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            // mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                color: Colors.teal[100],
-                margin: EdgeInsets.only(top: 20, bottom: 0),
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Text(
-                  'Write a Review',
-                  style: TextStyle(color: Colors.teal[900], fontSize: 15),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.all(20),
-                child: RatingBar.builder(
-                  itemSize: 40,
-                  initialRating: 0,
-                  minRating: 0,
-                  direction: Axis.horizontal,
-                  allowHalfRating: false,
-                  itemCount: 5,
-                  itemPadding:
-                      EdgeInsets.symmetric(horizontal: 1.0, vertical: 0),
-                  itemBuilder: (context, _) => Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (ctx) {},
-                ),
-              ),
-              Container(
-                color: Colors.teal[200],
-                margin: EdgeInsets.symmetric(
-                  horizontal: 10,
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
-                child: TextFormField(
-                  maxLines: 5,
-                  maxLength: 150,
-                  decoration: InputDecoration(
-                    labelText: 'Decribe your Experience',
-                    labelStyle: TextStyle(color: Colors.teal[900]),
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.teal[100],
-                    ),
-                    margin: EdgeInsets.only(top: 20, bottom: 0),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    child: Text(
-                      'Submit',
-                      style: TextStyle(
-                        color: Colors.teal[900],
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 20,
-              )
-            ],
-          ),
-        ),
       ),
     );
   }

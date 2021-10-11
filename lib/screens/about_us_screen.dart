@@ -12,8 +12,14 @@ class aboutus extends StatelessWidget {
       child: Center(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('About us'),
-            backgroundColor: Colors.teal,
+            title: Text(
+              'About us',
+              style: TextStyle(color: Colors.teal),
+            ),
+            iconTheme: IconThemeData(
+              color: Colors.teal, //change your color here
+            ),
+            backgroundColor: Colors.white,
           ),
           body: Center(child: Text('about us')),
         ),

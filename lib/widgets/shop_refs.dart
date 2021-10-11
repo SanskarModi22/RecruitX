@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'shop_details_screen.dart';
+import '../screens/shop_details_screen.dart';
 
 class ShopRefs extends StatefulWidget {
   const ShopRefs({key}) : super(key: key);

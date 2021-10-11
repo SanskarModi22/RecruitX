@@ -91,10 +91,11 @@ class _NewShopState extends State<NewShop> {
         Container(
           padding: EdgeInsets.all(20),
           // margin: EdgeInsets.all(8),
-          height: 500,
+          // height: 500,
           child: SingleChildScrollView(
             child: Form(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
@@ -146,6 +147,7 @@ class _NewShopState extends State<NewShop> {
                   ),
                   // Shop Name
                   TextFormField(
+                    autofocus: true,
                     maxLength: 20,
                     decoration: InputDecoration(
                       // contentPadding: EdgeInsets.all(8),
@@ -157,6 +159,7 @@ class _NewShopState extends State<NewShop> {
                   ),
                   // Working Hours
                   TextFormField(
+                    autofocus: true,
                     maxLength: 20,
                     decoration: InputDecoration(
                       // contentPadding: EdgeInsets.all(8),
@@ -166,6 +169,7 @@ class _NewShopState extends State<NewShop> {
                     ),
                   ),
                   TextFormField(
+                    autofocus: true,
                     maxLines: 2,
                     maxLength: 100,
                     decoration: InputDecoration(
@@ -176,6 +180,7 @@ class _NewShopState extends State<NewShop> {
                     ),
                   ),
                   TextFormField(
+                    autofocus: true,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       // contentPadding: EdgeInsets.all(8),
