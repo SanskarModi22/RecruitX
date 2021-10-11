@@ -9,7 +9,7 @@ class JobOptions extends StatefulWidget {
 }
 
 class _JobOptionsState extends State<JobOptions> {
-  @override
+  // ignore: non_constant_identifier_names
   List<String> Jobs = [
     "Grocery",
     "Halwai",
@@ -57,6 +57,5 @@ class _JobOptionsState extends State<JobOptions> {
             }),
       ),
     );
-
   }
 }

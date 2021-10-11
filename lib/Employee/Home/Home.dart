@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:helping_hand/Custom_Search.dart';
 import 'package:helping_hand/Employee/Home/employee_pref.dart';
-import 'package:helping_hand/Employee/Home/filter.dart';
 
-import 'package:helping_hand/Employee/Home/searchBar.dart';
 import 'package:helping_hand/cards.dart';
 import 'package:helping_hand/drawer/drawer.dart';
 import 'package:helping_hand/job_options.dart';
@@ -52,7 +49,6 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
                     Padding(
                       padding: EdgeInsets.fromLTRB(15.sp, 0, 0, 0),
                       child: Align(

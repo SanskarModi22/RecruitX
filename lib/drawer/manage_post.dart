@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:helping_hand/drawer/shop_details_screen.dart';
 
+// ignore: must_be_immutable
 class ManagePost extends StatefulWidget {
   // const ManagePost({ Key? key }) : super(key: key);
   var isemployee;
@@ -268,7 +268,6 @@ class _InsideBodyState extends State<InsideBody> {
     @required this.workHours,
     this.specialRequests,
   });
-  @override
   var _expanded = false;
 
   Widget build(BuildContext context) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:sizer/sizer.dart';
 
 class JobCards extends StatefulWidget {
@@ -10,7 +9,7 @@ class JobCards extends StatefulWidget {
 }
 
 class _JobCardsState extends State<JobCards> {
-  @override
+  // ignore: non_constant_identifier_names
   List<String> PopularJobs = [
     "Driver",
     "Lundary",
@@ -19,6 +18,7 @@ class _JobCardsState extends State<JobCards> {
     "Compounder",
     "Washerman"
   ];
+  // ignore: non_constant_identifier_names
   List<String> JobAvailable = ["15", "27", "18", "19", "20", "21"];
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +34,8 @@ class _JobCardsState extends State<JobCards> {
                 child: Container(
                   width: 40.w,
                   decoration: BoxDecoration(
-                      color: (index % 2) == 0 ? Colors.purple[300] : Colors.orange,
+                      color:
+                          (index % 2) == 0 ? Colors.purple[300] : Colors.orange,
                       borderRadius: BorderRadius.circular(20.sp)),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -64,7 +65,6 @@ class _JobCardsState extends State<JobCards> {
               ),
             );
           }),
-
     );
   }
 }
