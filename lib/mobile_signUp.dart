@@ -12,7 +12,6 @@ class MobileSignUp extends StatefulWidget {
 class _MobileSignUpState extends State<MobileSignUp> {
   final AuthServices _auth = AuthServices();
   TextEditingController _phoneController=TextEditingController();
-  String phNo;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

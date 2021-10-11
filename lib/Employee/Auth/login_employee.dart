@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Auth/signUp1.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/mobile_signUp.dart';
 import 'package:helping_hand/resetpassword.dart';
 
@@ -14,6 +15,7 @@ class LoginEmp extends StatefulWidget {
 
 // ignore: camel_case_types
 class _LoginEmpState extends State<LoginEmp> {
+  final AuthServices _auth = AuthServices();
   final formGlobalKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -110,7 +112,15 @@ class _LoginEmpState extends State<LoginEmp> {
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                   )),
-                              onPressed: () {},
+                              onPressed: () async{
+                                final res=await _auth.signInWithGoogle();
+                                if(res!=null)
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EmployeeHome()),
+                                );
+                              },
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
