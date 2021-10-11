@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:helping_hand/widgets/newjob.dart';
 
-import './newjob.dart';
 
 class ShopDetailsScreen extends StatefulWidget {
   // const ShopDetailsScreen({ Key? key }) : super(key: key);

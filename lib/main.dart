@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/base.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
             // primarySwatch: Colors.blue,
             ),
         debugShowCheckedModeBanner: false,
-        home: Base(),
+        home: login_employee(),
       );
     });
   }
