@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'Services/Authentication.dart';
+import '../Services/Authentication.dart';
 class MobileSignUp extends StatefulWidget {
   const MobileSignUp({Key key}) : super(key: key);
 

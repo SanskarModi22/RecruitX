@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Model/user.dart';
+
+import '../wrapper.dart';
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -14,6 +16,14 @@ class AuthServices {
     return _auth
         .authStateChanges()
         .map((User user) => userfromFirebase(user));
+  }
+  Future signOut() async{
+    try{
+      return await _auth.signOut();
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
   }
   Future signInWithGoogle() async {
     // Trigger the authentication flow
@@ -88,7 +98,7 @@ return user;
                         userfromFirebase(user);
                         if(user != null){
                           Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => EmployeeHome()
+                              builder: (context) => Wrapper()
                           ));
                         }else{
                           print("Error");

@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Model/user.dart';
-import 'package:helping_hand/base.dart';
+import 'package:helping_hand/Splash/splash_screen.dart';
+import 'package:helping_hand/Shared/base.dart';
 import 'package:sizer/sizer.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
               // primarySwatch: Colors.blue,
               ),
           debugShowCheckedModeBanner: false,
-          home: Base(),
+          home: SplashScreen(),
         ),
       );
     });

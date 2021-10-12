@@ -1,11 +1,13 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Auth/signUp1.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Services/Authentication.dart';
-import 'package:helping_hand/mobile_signUp.dart';
-import 'package:helping_hand/resetpassword.dart';
+import 'package:helping_hand/Shared/mobile_signUp.dart';
+import 'package:helping_hand/Shared/resetpassword.dart';
+import 'package:sizer/sizer.dart';
 
 // ignore: camel_case_types
 class LoginEmp extends StatefulWidget {
@@ -27,8 +29,34 @@ class _LoginEmpState extends State<LoginEmp> {
           child: Center(
               child: Column(
             children: [
-              SizedBox(
-                height: 180,
+              SizedBox(height: 20.h,),
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                  18.w,
+                  10.h,
+                  10.w,
+                  0,
+                ),
+                child: Container(
+                  width: 100.w,
+                  height: 10.h,
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      WavyAnimatedText(
+                        'RecruitX Welcomes You !',
+                        textStyle: TextStyle(
+                          color: Colors.pink,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                    isRepeatingAnimation: true,
+                    onTap: () {
+                      print("Tap Event");
+                    },
+                  ),
+                ),
               ),
               Align(
                 alignment: Alignment.center,
@@ -59,11 +87,11 @@ class _LoginEmpState extends State<LoginEmp> {
                                 // if (formGlobalKey.currentState.validate()) {
                                 //   formGlobalKey.currentState.save();
                                 // }
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MobileSignUp()),
-                                  );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MobileSignUp()),
+                                );
                               },
                               child: Row(
                                 mainAxisAlignment:
@@ -112,14 +140,14 @@ class _LoginEmpState extends State<LoginEmp> {
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                   )),
-                              onPressed: () async{
-                                final res=await _auth.signInWithGoogle();
-                                if(res!=null)
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => EmployeeHome()),
-                                );
+                              onPressed: () async {
+                                final res = await _auth.signInWithGoogle();
+                                if (res != null)
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EmployeeHome()),
+                                  );
                               },
                               child: Row(
                                 mainAxisAlignment:
@@ -142,25 +170,6 @@ class _LoginEmpState extends State<LoginEmp> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => resetpassword()),
-                                );
-                              },
-                              child: Text(
-                                'Forgot Password',
-                                style: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              )),
                           SizedBox(
                             height: 20,
                           ),

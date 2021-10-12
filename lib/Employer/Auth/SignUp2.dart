@@ -156,7 +156,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => login_employer()));
+                                    builder: (context) => LoginEmployer()));
                           },
                           child: Text("Login")),
                     ],

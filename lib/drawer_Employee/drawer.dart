@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Auth/login_employee.dart';
+import 'package:helping_hand/Services/Authentication.dart';
+import 'package:helping_hand/drawer_Employee/rate_us.dart';
 import 'package:helping_hand/screens/about_us_screen.dart';
 import 'package:helping_hand/screens/account_screen.dart';
-import 'package:helping_hand/drawer/help.dart';
 import 'package:helping_hand/screens/manage_post_screen.dart';
 import 'package:helping_hand/screens/profile_screen.dart';
-import 'package:helping_hand/drawer/rate_us.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Shared/base.dart';
+import 'help.dart';
 
 void main() {
   runApp(drawer());
@@ -20,6 +23,7 @@ class drawer extends StatefulWidget {
 
 // ignore: camel_case_types
 class _drawerState extends State<drawer> {
+  final AuthServices _auth = AuthServices();
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -186,9 +190,17 @@ class _drawerState extends State<drawer> {
                 color: Colors.black,
               ),
             ),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginEmp()));
+            onTap: () async {
+              _auth.signOut();
+              final SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+              preferences.remove('option');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Base(),
+                ),
+              );
             },
           ),
           SizedBox(
