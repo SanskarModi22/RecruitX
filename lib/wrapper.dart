@@ -42,11 +42,11 @@ class _WrapperState extends State<Wrapper> {
     if(user!=null&&option=='1') {
       return EmployerHome();
     }
-    else  if(user!=null&&option=='2'){
-      return EmployeeHome();
+    else  if(user==null){
+      return Base();
     }
     else{
-      return Base();
+      return EmployeeHome();
     }
 
   }
