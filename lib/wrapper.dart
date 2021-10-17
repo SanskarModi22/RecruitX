@@ -9,7 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Model/user.dart';
 import 'Shared/base.dart';
-var option="";
+
+var option = "";
+
 class Wrapper extends StatefulWidget {
   const Wrapper({Key key}) : super(key: key);
 
@@ -27,27 +29,27 @@ class _WrapperState extends State<Wrapper> {
       option = obtainedOption;
     });
   }
+
   @override
   void initState() {
     getValidationData().whenComplete(() async {
-      Timer(Duration(seconds: 2), () {
-      });
-    super.initState();
-  });}
+      Timer(Duration(seconds: 2), () {});
+      super.initState();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     print(option);
     final user = Provider.of<MyUser>(context);
+
     print(user);
-    if(user!=null&&option=='1') {
+    if (user != null && option == '1') {
       return EmployerHome();
-    }
-    else  if(user==null){
+    } else if (user == null) {
       return Base();
-    }
-    else{
+    } else {
       return EmployeeHome();
     }
-
   }
 }

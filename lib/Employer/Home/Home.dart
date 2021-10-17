@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/base.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:helping_hand/Model/user.dart';
+// import 'package:provider/provider.dart';
+// import '../../drawer/drawer.dart';
 
 class EmployerHome extends StatefulWidget {
   const EmployerHome({key}) : super(key: key);
