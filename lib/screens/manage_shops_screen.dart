@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/widgets/newshop.dart';
+import 'package:provider/provider.dart';
 
 class ManageShops extends StatefulWidget {
   // const ManageShops({ Key? key }) : super(key: key);
@@ -11,6 +13,8 @@ class ManageShops extends StatefulWidget {
 class _ManageShopsState extends State<ManageShops> {
   @override
   Widget build(BuildContext context) {
+    final shops =
+        Provider.of<GetUserInfo>(context).fetchAndSetEmployerShops.shops;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -46,29 +50,13 @@ class _ManageShopsState extends State<ManageShops> {
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 5),
         width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ManageShopItem(
-                imageurl:
-                    'https://www.independent.ie/irish-news/cc37f/40429349.ece/AUTOCROP/w1240h700/penneys.jpg',
-                shopName: 'Penneys',
-                shopType: 'Shoes',
-              ),
-              ManageShopItem(
-                imageurl:
-                    'https://ichef.bbci.co.uk/news/976/cpsprodpb/8A13/production/_116574353_gettyimages-1229868118.jpg',
-                shopName: 'Topshop',
-                shopType: 'Sweets',
-              ),
-              ManageShopItem(
-                imageurl:
-                    'https://imganuncios.mitula.net/shop_from_12_lacs_showroom_warehouse_rent_store_main_gate_shops_office_2750077626957635821.jpg',
-                shopName: 'Outfitters',
-                shopType: 'Clothes',
-              ),
-            ],
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: ListView.builder(
+            itemCount: shops.length,
+            itemBuilder: (ctx, i) => ManageShopItem(
+              shopId: shops[i].shopid,
+            ),
           ),
         ),
       ),
@@ -78,17 +66,17 @@ class _ManageShopsState extends State<ManageShops> {
 
 class ManageShopItem extends StatelessWidget {
   // const Shop({ Key? key }) : super(key: key);
+  final String shopId;
 
-  final String imageurl;
-  final String shopName;
-  final String shopType;
   ManageShopItem({
-    this.imageurl,
-    this.shopName,
-    this.shopType,
+    this.shopId,
   });
   @override
   Widget build(BuildContext context) {
+    final fetchedShop = Provider.of<GetUserInfo>(context)
+        .fetchAndSetEmployerShops
+        .shops
+        .firstWhere((e) => e.shopid == shopId);
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       shape: RoundedRectangleBorder(
@@ -103,7 +91,7 @@ class ManageShopItem extends StatelessWidget {
               height: 200,
               width: MediaQuery.of(context).size.width * 0.95,
               child: Image(
-                image: NetworkImage(imageurl),
+                image: NetworkImage(fetchedShop.shopImageUrl),
                 fit: BoxFit.cover,
               ),
             ),
@@ -129,7 +117,7 @@ class ManageShopItem extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      shopType + ' Shop',
+                      fetchedShop.shopType + ' Shop',
                       style: TextStyle(
                         fontSize: 28,
                         color: Colors.white,

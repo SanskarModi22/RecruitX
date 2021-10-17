@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:helping_hand/screens/profile_screen.dart';
+import 'package:helping_hand/screens/employee_profile_screen.dart';
 
 class JobDetailsScreen extends StatelessWidget {
   // const JobDetailsScreen({ Key? key }) : super(key: key);

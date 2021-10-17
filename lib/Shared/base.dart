@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:helping_hand/Employee/Auth/employeeBase.dart';
+// import 'package:helping_hand/Employer/Auth/employerBase.dart';
+import 'package:provider/provider.dart';
+import 'package:helping_hand/Model/user.dart';
+
 class Base extends StatefulWidget {
   const Base({key}) : super(key: key);
 
@@ -69,11 +74,15 @@ class _BaseState extends State<Base> {
                                   fixedSize: Size(140, 50),
                                   elevation: 15,
                                 ),
-                                onPressed: () async{
-                                  SharedPreferences.setMockInitialValues({});
-                                  final SharedPreferences preferences = await SharedPreferences.getInstance();
-                                  preferences.setString(
-                                      'option','1' );
+                                // onPressed: () async{
+                                //   SharedPreferences.setMockInitialValues({});
+                                //   final SharedPreferences preferences = await SharedPreferences.getInstance();
+                                //   preferences.setString(
+                                //       'option','1' );
+                                onPressed: () {
+                                  Provider.of<UserType>(context, listen: false)
+                                      .setUserAsEmployer();
+
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) =>
@@ -117,11 +126,14 @@ class _BaseState extends State<Base> {
                                   primary: Colors.green,
                                   fixedSize: Size(140, 50),
                                 ),
-                                onPressed: () async{
-                                  SharedPreferences.setMockInitialValues({});
-                                  final SharedPreferences preferences = await SharedPreferences.getInstance();
-                                  preferences.setString(
-                                      'option','2' );
+                                // onPressed: () async{
+                                //   SharedPreferences.setMockInitialValues({});
+                                //   final SharedPreferences preferences = await SharedPreferences.getInstance();
+                                //   preferences.setString(
+                                //       'option','2' );
+                                onPressed: () {
+                                  Provider.of<UserType>(context, listen: false)
+                                      .setUserAsEmployee();
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) =>

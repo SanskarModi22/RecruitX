@@ -1,36 +1,44 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Model/shop.dart';
+import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/job_details_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/newjob.dart';
 
 class ShopDetailsScreen extends StatefulWidget {
   // const ShopDetailsScreen({ Key? key }) : super(key: key);
-  final String shopName;
-  final String imageurl;
-  final String shopType;
-  ShopDetailsScreen({this.shopName, this.imageurl, this.shopType});
+  final String providedShopId;
+
+  ShopDetailsScreen({
+    @required this.providedShopId,
+  });
   @override
   _ShopDetailsScreenState createState() => _ShopDetailsScreenState(
-        shopName: shopName,
-        shopType: shopType,
-        imageurl: imageurl,
+        providedShopId: providedShopId,
       );
 }
 
 class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
-  final String shopName;
-  final String imageurl;
-  final String shopType;
-  _ShopDetailsScreenState({this.shopName, this.imageurl, this.shopType});
+  final String providedShopId;
+
+  _ShopDetailsScreenState({
+    this.providedShopId,
+  });
   @override
   Widget build(BuildContext context) {
-    var jobslist = 5.0;
+    final loadedshop = Provider.of<GetUserInfo>(context)
+        .fetchAndSetEmployerShops
+        .shops
+        .firstWhere((shopEx) => shopEx.shopid == providedShopId);
+    final jobs = loadedshop.jobsAvailable;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          shopName,
+          loadedshop.shopName,
           style: TextStyle(color: Colors.teal),
         ),
         iconTheme: IconThemeData(
@@ -56,7 +64,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                         height: 220,
                         width: MediaQuery.of(context).size.width * 0.95,
                         child: Image(
-                          image: NetworkImage(imageurl),
+                          image: NetworkImage(loadedshop.shopImageUrl),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -82,7 +90,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                                 width: 5,
                               ),
                               Text(
-                                shopType + ' Shop',
+                                loadedshop.shopType + ' Shop',
                                 style: TextStyle(
                                   fontSize: 28,
                                   color: Colors.white,
@@ -118,7 +126,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                     size: 30,
                   ),
                   title: Text('Type of shop'),
-                  subtitle: Text(shopType),
+                  subtitle: Text(loadedshop.shopType),
                   trailing: Icon(Icons.edit),
                 ),
               ),
@@ -134,7 +142,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                     size: 30,
                   ),
                   title: Text('No of employees hired '),
-                  subtitle: Text('30'),
+                  subtitle: Text(loadedshop.numOfEmployees),
                   trailing: Icon(Icons.edit),
                 ),
               ),
@@ -212,55 +220,24 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                     ),
                     SingleChildScrollView(
                       child: Container(
-                        height: min(jobslist * 120, 500),
+                        height: min(jobs.length.toDouble() * 160, 500),
                         padding: EdgeInsets.only(
                           top: 0,
                           bottom: 10,
                           right: 5,
                           left: 5,
                         ),
-                        child: ListView(
-                          children: <Widget>[
-                            JobAvailable(
-                              id: '1',
-                              job: 'Cashier',
-                              salary: '30000',
-                              workDays: 'Full Week excluding sun.',
-                              workHours: '12:00 am to 5:00 pm',
-                              specialRequests:
-                                  'Should be able to stay for late night meetings occasionaly',
-                            ),
-                            JobAvailable(
-                              id: '2',
-                              job: 'Security Guard',
-                              salary: '15,000',
-                              workDays: 'Mon, Wed, fri',
-                              workHours: '9:00 am to 9:00 pm',
-                            ),
-                            JobAvailable(
-                              id: '3',
-                              job: 'Dish Washer',
-                              salary: '4000',
-                              workDays: 'Sunday, Saturday',
-                              workHours: '11:00 am to 5:00 pm',
-                              specialRequests:
-                                  'Women only. and she should be able to handle 1000 dishes per day',
-                            ),
-                            JobAvailable(
-                              id: '4',
-                              job: 'Dresser',
-                              salary: '40,000',
-                              workDays: 'Complete Week',
-                              workHours: '9:00 am to 4:00 pm',
-                            ),
-                            JobAvailable(
-                              id: '5',
-                              job: 'Dancer',
-                              salary: '20000',
-                              workDays: 'Tue, web, thr, fri',
-                              workHours: '1:00 pm to 3:00 pm',
-                            ),
-                          ],
+                        child: ListView.builder(
+                          // scrollDirection: Axis.horizontal,
+                          itemCount: jobs.length,
+                          itemBuilder: (ctx, i) => JobAvailable(
+                            id: jobs[i].jobId,
+                            job: jobs[i].jobName,
+                            salary: jobs[i].salary,
+                            workDays: jobs[i].workingDays,
+                            workHours: jobs[i].workingHours,
+                            specialRequests: jobs[i].specialRequest,
+                          ),
                         ),
                       ),
                     ),
