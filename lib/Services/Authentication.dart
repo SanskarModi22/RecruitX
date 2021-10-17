@@ -4,6 +4,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Model/user.dart';
 
+<<<<<<< HEAD
+=======
+import '../wrapper.dart';
+>>>>>>> cd961e07917b307894312651b2f5d44bb2378f58
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -14,7 +18,18 @@ class AuthServices {
   Stream<MyUser> get user {
     return _auth.authStateChanges().map((User user) => userfromFirebase(user));
   }
+<<<<<<< HEAD
 
+=======
+  Future signOut() async{
+    try{
+      return await _auth.signOut();
+    }catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
+>>>>>>> cd961e07917b307894312651b2f5d44bb2378f58
   Future signInWithGoogle() async {
     // Trigger the authentication flow
     try {
@@ -94,12 +109,20 @@ class AuthServices {
 
                         User user = result.user;
                         userfromFirebase(user);
+<<<<<<< HEAD
                         if (user != null) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => EmployeeHome()));
                         } else {
+=======
+                        if(user != null){
+                          Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => Wrapper()
+                          ));
+                        }else{
+>>>>>>> cd961e07917b307894312651b2f5d44bb2378f58
                           print("Error");
                         }
                       },

@@ -1,26 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Services/Authentication.dart';
-import 'package:helping_hand/drawer/rate_us.dart';
-// import 'package:helping_hand/drawer_Employee/rate_us.dart';
+import 'package:helping_hand/drawer_Employee/rate_us.dart';
 import 'package:helping_hand/screens/about_us_screen.dart';
 import 'package:helping_hand/screens/account_screen.dart';
 import 'package:helping_hand/screens/manage_post_screen.dart';
-// import 'package:helping_hand/screens/profile_screen.dart';
+import 'package:helping_hand/screens/profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Shared/base.dart';
 import 'help.dart';
-// import 'package:helping_hand/Employee/Auth/login_employee.dart';
-import 'package:helping_hand/Model/user.dart';
-// import 'package:helping_hand/screens/about_us_screen.dart';
-// import 'package:helping_hand/screens/account_screen.dart';
-// import 'package:helping_hand/drawer/help.dart';
-import 'package:helping_hand/screens/employer_profile_screen.dart';
-// import 'package:helping_hand/screens/manage_post_screen.dart';
-import 'package:helping_hand/screens/employee_profile_screen.dart';
-// import 'package:helping_hand/drawer/rate_us.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(drawer());
@@ -37,8 +26,6 @@ class _drawerState extends State<drawer> {
   final AuthServices _auth = AuthServices();
   @override
   Widget build(BuildContext context) {
-    bool userIsEmployee = Provider.of<UserType>(context).userAsEmployee;
-    bool userIsEmployer = Provider.of<UserType>(context).userAsEmployer;
     return Drawer(
       child: ListView(
         children: [
@@ -78,21 +65,8 @@ class _drawerState extends State<drawer> {
               ),
             ),
             onTap: () {
-              userIsEmployee
-                  ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EmployeeProfile(),
-                      ),
-                    )
-                  : userIsEmployer
-                      ? Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EmployerProfile(),
-                          ),
-                        )
-                      : Navigator.of(context).pop();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => profile()));
             },
           ),
           SizedBox(

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+<<<<<<< HEAD:lib/mobile_signUp.dart
 import 'Services/Authentication.dart';
 
+=======
+import '../Services/Authentication.dart';
+>>>>>>> cd961e07917b307894312651b2f5d44bb2378f58:lib/Shared/mobile_signUp.dart
 class MobileSignUp extends StatefulWidget {
   const MobileSignUp({Key key}) : super(key: key);
 

@@ -637,6 +637,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                         ),
                       ),
                       TextButton(
+<<<<<<< HEAD
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -651,6 +652,15 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                           ),
                         ),
                       ),
+=======
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginEmployer()));
+                          },
+                          child: Text("Login")),
+>>>>>>> cd961e07917b307894312651b2f5d44bb2378f58
                     ],
                   ),
                 )

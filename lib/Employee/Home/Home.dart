@@ -1,10 +1,17 @@
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Custom_Search.dart';
+import 'package:helping_hand/Employee/Custom_Search.dart';
 import 'package:helping_hand/Employee/Home/employee_pref.dart';
+// import 'package:helping_hand/Model/user.dart';
 
-import 'package:helping_hand/cards.dart';
+import 'package:helping_hand/Shared/cards.dart';
 import 'package:helping_hand/drawer/drawer.dart';
-import 'package:helping_hand/job_options.dart';
+// import 'package:helping_hand/drawer_Employee/drawer.dart';
+import 'package:helping_hand/Employee/job_options.dart';
+// import 'package:helping_hand/cards.dart';
+// import 'package:helping_hand/drawer/drawer.dart';
+// import 'package:helping_hand/job_options.dart';
+// import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class EmployeeHome extends StatefulWidget {

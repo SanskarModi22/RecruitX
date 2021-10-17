@@ -1,4 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+import 'package:helping_hand/providers/user_information.dart';
+import 'package:provider/provider.dart';
+import 'shop_details_screen.dart';
+>>>>>>> cd961e07917b307894312651b2f5d44bb2378f58
 
 // ignore: must_be_immutable
 class ManagePost extends StatefulWidget {
@@ -19,62 +27,51 @@ class _ManagePostState extends State<ManagePost> {
   _ManagePostState({this.isemployee, this.isemployer});
   @override
   Widget build(BuildContext context) {
+    final shops =
+        Provider.of<GetUserInfo>(context).fetchAndSetEmployerShops.shops;
+
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.teal, //change your color here
+        appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.teal, //change your color here
+          ),
+          title: Text(
+            'Manage your posts',
+            style: TextStyle(color: Colors.teal),
+          ),
+          backgroundColor: Colors.white,
         ),
-        title: Text(
-          'Manage your posts',
-          style: TextStyle(color: Colors.teal),
-        ),
-        backgroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ShopPostItem(
-              shopname: 'Outfitters',
-              imageUrl:
-                  'https://imganuncios.mitula.net/shop_from_12_lacs_showroom_warehouse_rent_store_main_gate_shops_office_2750077626957635821.jpg',
-            ),
-            ShopPostItem(
-              imageUrl:
-                  'https://www.independent.ie/irish-news/cc37f/40429349.ece/AUTOCROP/w1240h700/penneys.jpg',
-              shopname: 'Penneys',
-            ),
-            ShopPostItem(
-              imageUrl:
-                  'https://ichef.bbci.co.uk/news/976/cpsprodpb/8A13/production/_116574353_gettyimages-1229868118.jpg',
-              shopname: 'TopShop',
-            ),
-          ],
-        ),
-      ),
-    );
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          child: ListView.builder(
+              itemCount: shops.length,
+              itemBuilder: (ctx, i) => ShopPostItem(
+                    shopId: shops[i].shopid,
+                  )),
+        ));
   }
 }
 
 class ShopPostItem extends StatefulWidget {
   // const ShopPostItem({ Key? key }) : super(key: key);
-  final String shopname;
-  final String imageUrl;
-  ShopPostItem({this.shopname, this.imageUrl});
+  final String shopId;
+
+  ShopPostItem({this.shopId});
   @override
-  _ShopPostItemState createState() =>
-      _ShopPostItemState(shopname: shopname, imageUrl: imageUrl);
+  _ShopPostItemState createState() => _ShopPostItemState(shopId: shopId);
 }
 
 class _ShopPostItemState extends State<ShopPostItem> {
-  final String imageUrl;
-  final String shopname;
-  _ShopPostItemState({this.shopname, this.imageUrl});
+  final String shopId;
+  _ShopPostItemState({this.shopId});
   var _isexpanded = false;
   @override
   Widget build(BuildContext context) {
+    final loadedShop = Provider.of<GetUserInfo>(context)
+        .fetchAndSetEmployerShops
+        .shops
+        .firstWhere((e) => e.shopid == shopId);
+    final jobsPosted = loadedShop.jobsAvailable;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Card(
@@ -92,21 +89,21 @@ class _ShopPostItemState extends State<ShopPostItem> {
               height: 100,
               width: MediaQuery.of(context).size.width,
               child: Image(
-                image: NetworkImage(imageUrl),
+                image: NetworkImage(loadedShop.shopImageUrl),
                 fit: BoxFit.cover,
               ),
             ),
             ListTile(
               leading: CircleAvatar(
-                backgroundColor: Colors.teal,
+                backgroundColor: Colors.orange,
                 child: Text(
-                  '3',
+                  loadedShop.jobsAvailable.length.toString(),
                   style: TextStyle(
                     color: Colors.white,
                   ),
                 ),
               ),
-              title: Text(shopname),
+              title: Text(loadedShop.shopName),
               subtitle: Text('Jobs posted for this Shop.'),
               trailing: IconButton(
                 iconSize: 35,
@@ -123,31 +120,15 @@ class _ShopPostItemState extends State<ShopPostItem> {
             ),
             if (_isexpanded)
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15),
-                height: 400,
-                child: ListView(
-                  children: [
-                    AvailableJobItem(
-                        id: '2',
-                        job: 'job',
-                        salary: '12555',
-                        workDays: 'workDays',
-                        workHours: 'workHours'),
-                    AvailableJobItem(
-                        id: '2',
-                        job: 'job',
-                        salary: '12555',
-                        workDays: 'workDays',
-                        workHours: 'workHours'),
-                    AvailableJobItem(
-                        id: '2',
-                        job: 'job',
-                        salary: '12555',
-                        workDays: 'workDays',
-                        workHours: 'workHours'),
-                  ],
-                ),
-              )
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  height: jobsPosted.length.toDouble() * 160,
+                  child: ListView.builder(
+                    itemCount: jobsPosted.length,
+                    itemBuilder: (ctx, i) => AvailableJobItem(
+                      shopId: shopId,
+                      jobId: jobsPosted[i].jobId,
+                    ),
+                  ))
           ],
         ),
       ),
@@ -156,56 +137,40 @@ class _ShopPostItemState extends State<ShopPostItem> {
 }
 
 class AvailableJobItem extends StatefulWidget {
-  final String id;
-  final String job;
-  final String salary;
-  final String workHours;
-  final String workDays;
-  final String specialRequests;
+  final String jobId;
+  final String shopId;
   AvailableJobItem({
-    @required this.id,
-    @required this.job,
-    @required this.salary,
-    @required this.workDays,
-    @required this.workHours,
-    this.specialRequests,
+    @required this.shopId,
+    @required this.jobId,
   });
 
   @override
   _AvailableJobItemState createState() => _AvailableJobItemState(
-        id: id,
-        job: job,
-        salary: salary,
-        workDays: workDays,
-        workHours: workHours,
-        specialRequests: specialRequests,
+        shopId: shopId,
+        jobId: jobId,
       );
 }
 
 class _AvailableJobItemState extends State<AvailableJobItem> {
-  final String job;
-  final String id;
-
-  final String salary;
-  final String workHours;
-  final String workDays;
-  final String specialRequests;
-
+  final String jobId;
+  final String shopId;
   _AvailableJobItemState({
-    this.job,
-    this.salary,
-    this.workDays,
-    this.workHours,
-    this.specialRequests,
-    this.id,
+    @required this.shopId,
+    @required this.jobId,
   });
 
   var _owner = true;
   @override
   Widget build(BuildContext context) {
+    final fetchedJob = Provider.of<GetUserInfo>(context)
+        .fetchAndSetEmployerShops
+        .shops
+        .firstWhere((e) => e.shopid == shopId)
+        .jobsAvailable
+        .firstWhere((element) => element.jobId == jobId);
     return (_owner)
         ? Dismissible(
-            key: ValueKey(id),
+            key: ValueKey(jobId),
             background: Container(
               color: Colors.teal[200],
               child: Icon(
@@ -244,21 +209,21 @@ class _AvailableJobItemState extends State<AvailableJobItem> {
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {},
             child: InsideBody(
-              id: id,
-              job: job,
-              salary: salary,
-              workDays: workDays,
-              workHours: workHours,
-              specialRequests: specialRequests,
+              id: fetchedJob.jobId,
+              job: fetchedJob.jobName,
+              salary: fetchedJob.salary,
+              workDays: fetchedJob.workingDays,
+              workHours: fetchedJob.workingHours,
+              specialRequests: fetchedJob.specialRequest,
             ),
           )
         : InsideBody(
-            id: id,
-            job: job,
-            salary: salary,
-            workDays: workDays,
-            workHours: workHours,
-            specialRequests: specialRequests,
+            id: fetchedJob.jobId,
+            job: fetchedJob.jobName,
+            salary: fetchedJob.salary,
+            workDays: fetchedJob.workingDays,
+            workHours: fetchedJob.workingHours,
+            specialRequests: fetchedJob.specialRequest,
           );
   }
 }

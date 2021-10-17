@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Employee/Auth/signUp1.dart';
+import 'package:provider/provider.dart';
 
 class EmployeeBase extends StatefulWidget {
   const EmployeeBase({key}) : super(key: key);
@@ -42,25 +43,28 @@ class _EmployeeBaseState extends State<EmployeeBase> {
                     children: <Widget>[
                       ElevatedButton(
                         style: ButtonStyle(
-                            minimumSize: MaterialStateProperty.all(Size(40, 45)),
+                            minimumSize:
+                                MaterialStateProperty.all(Size(40, 45)),
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.greenAccent)),
                         onPressed: () => {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (BuildContext context) => EmployeeSignUp(),
+                              builder: (BuildContext context) =>
+                                  EmployeeSignUp(),
                             ),
                           )
                         },
                         child: Text(
                           "SignUp",
-                          style:
-                              TextStyle(color: Colors.redAccent, fontSize: 19.0),
+                          style: TextStyle(
+                              color: Colors.redAccent, fontSize: 19.0),
                         ),
                       ),
                       ElevatedButton(
                         style: ButtonStyle(
-                            minimumSize: MaterialStateProperty.all(Size(40, 45)),
+                            minimumSize:
+                                MaterialStateProperty.all(Size(40, 45)),
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.greenAccent)),
                         onPressed: () => {
@@ -72,8 +76,8 @@ class _EmployeeBaseState extends State<EmployeeBase> {
                         },
                         child: Text(
                           "LogIn",
-                          style:
-                              TextStyle(color: Colors.redAccent, fontSize: 19.0),
+                          style: TextStyle(
+                              color: Colors.redAccent, fontSize: 19.0),
                         ),
                       ),
                     ],
