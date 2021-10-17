@@ -637,30 +637,14 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                         ),
                       ),
                       TextButton(
-<<<<<<< HEAD
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => login_employer()));
-                        },
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-=======
-                          onPressed: () {
+                  onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => LoginEmployer()));
                           },
                           child: Text("Login")),
->>>>>>> cd961e07917b307894312651b2f5d44bb2378f58
+
                     ],
                   ),
                 )

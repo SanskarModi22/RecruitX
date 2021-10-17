@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-<<<<<<< HEAD
-=======
+
 import 'package:helping_hand/screens/employee_profile_screen.dart';
->>>>>>> cd961e07917b307894312651b2f5d44bb2378f58
+
 
 class JobDetailsScreen extends StatelessWidget {
   // const JobDetailsScreen({ Key? key }) : super(key: key);

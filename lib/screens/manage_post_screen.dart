@@ -1,12 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
+
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:provider/provider.dart';
 import 'shop_details_screen.dart';
->>>>>>> cd961e07917b307894312651b2f5d44bb2378f58
+
 
 // ignore: must_be_immutable
 class ManagePost extends StatefulWidget {

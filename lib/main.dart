@@ -1,15 +1,15 @@
-<<<<<<< HEAD
+
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-=======
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // import 'package:helping_hand/Employee/Auth/login_employee.dart';
 // import 'package:helping_hand/Model/shop.dart';
->>>>>>> cd961e07917b307894312651b2f5d44bb2378f58
+
 import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/database_service.dart';
 import 'package:helping_hand/Splash/splash_screen.dart';
@@ -37,13 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-<<<<<<< HEAD
-      return StreamProvider<MyUser>.value(
-        value: AuthServices()
-            .user, //Getting the instance of the user through stream
-        initialData: null,
-        catchError: (User, MyUser) => null,
-=======
+
       return MultiProvider(
         providers: [
           StreamProvider<MyUser>.value(
@@ -59,7 +53,7 @@ class MyApp extends StatelessWidget {
             create: (ctx) => UserType(),
           ),
         ],
->>>>>>> cd961e07917b307894312651b2f5d44bb2378f58
+
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
