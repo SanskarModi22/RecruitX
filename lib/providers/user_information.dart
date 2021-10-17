@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Model/Profile/employee_profile.dart';
+import 'package:helping_hand/Model/Profile/employer_profile.dart';
 import 'package:helping_hand/Model/job.dart';
 import 'package:helping_hand/Model/review.dart';
 import 'package:helping_hand/Model/shop.dart';
-import 'package:helping_hand/Model/user.dart';
+
 
 class GetUserInfo with ChangeNotifier {
   final fetchAndSetUserinfoForEmployee = Employee(

@@ -6,7 +6,7 @@ import 'package:helping_hand/Employee/Auth/signUp1.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/mobile_signUp.dart';
-import 'package:helping_hand/Shared/resetpassword.dart';
+
 import 'package:sizer/sizer.dart';
 
 // ignore: camel_case_types
