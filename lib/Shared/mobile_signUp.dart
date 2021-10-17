@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+<<<<<<< HEAD:lib/mobile_signUp.dart
+import 'Services/Authentication.dart';
+
+=======
 import '../Services/Authentication.dart';
+>>>>>>> cd961e07917b307894312651b2f5d44bb2378f58:lib/Shared/mobile_signUp.dart
 class MobileSignUp extends StatefulWidget {
   const MobileSignUp({Key key}) : super(key: key);
 
@@ -11,11 +15,13 @@ class MobileSignUp extends StatefulWidget {
 
 class _MobileSignUpState extends State<MobileSignUp> {
   final AuthServices _auth = AuthServices();
-  TextEditingController _phoneController=TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent,),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       backgroundColor: Colors.black,
       body: Center(
         child: Column(
@@ -52,12 +58,10 @@ class _MobileSignUpState extends State<MobileSignUp> {
                     ),
                     borderSide: BorderSide(color: Colors.green),
                   ),
-
                   fillColor: Colors.white,
                   focusColor: Colors.white,
                   filled: true,
                   hintText: 'Enter Mobile Number',
-
                 ),
                 // validator: (number) {
                 //   print(number);
@@ -84,7 +88,7 @@ class _MobileSignUpState extends State<MobileSignUp> {
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                     )),
-                onPressed: () async{
+                onPressed: () async {
                   print(_phoneController.text);
                   await _auth.loginUser("+91${_phoneController.text}", context);
                   // if (formGlobalKey.currentState.validate()) {
@@ -97,10 +101,8 @@ class _MobileSignUpState extends State<MobileSignUp> {
                   // );
                 },
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-
                     Text(
                       "Verify OTP",
                       style: TextStyle(
