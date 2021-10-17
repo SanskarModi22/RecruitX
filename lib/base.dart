@@ -28,6 +28,13 @@ class _BaseState extends State<Base> {
         child: SingleChildScrollView(
           child: Center(
             child: Container(
+              //decoration: BoxDecoration(
+              //image: DecorationImage(
+              // image: AssetImage(
+              // 'assets\images\base_background.jpg',
+              //),
+              //fit: BoxFit.fill,
+              //)),
               alignment: Alignment.center,
               child: Padding(
                 padding: const EdgeInsets.only(top: 100),

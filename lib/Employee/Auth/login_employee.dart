@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// ignore: unused_import
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Auth/signUp1.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
@@ -59,11 +60,11 @@ class _LoginEmpState extends State<LoginEmp> {
                                 // if (formGlobalKey.currentState.validate()) {
                                 //   formGlobalKey.currentState.save();
                                 // }
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MobileSignUp()),
-                                  );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MobileSignUp()),
+                                );
                               },
                               child: Row(
                                 mainAxisAlignment:
@@ -112,14 +113,14 @@ class _LoginEmpState extends State<LoginEmp> {
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                   )),
-                              onPressed: () async{
-                                final res=await _auth.signInWithGoogle();
-                                if(res!=null)
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => EmployeeHome()),
-                                );
+                              onPressed: () async {
+                                final res = await _auth.signInWithGoogle();
+                                if (res != null)
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EmployeeHome()),
+                                  );
                               },
                               child: Row(
                                 mainAxisAlignment:

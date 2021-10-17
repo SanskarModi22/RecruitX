@@ -428,7 +428,6 @@ class _InsideBodyState extends State<InsideBody> {
     @required this.workHours,
     this.specialRequests,
   });
-  @override
   var _expanded = false;
 
   Widget build(BuildContext context) {
