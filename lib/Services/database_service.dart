@@ -3,8 +3,6 @@ import 'package:helping_hand/Model/Profile/employee_profile.dart';
 import 'package:helping_hand/Model/Profile/employer_profile.dart';
 import 'package:helping_hand/Model/review.dart';
 import 'package:helping_hand/Model/shop.dart';
-import 'package:helping_hand/Model/user.dart';
-import 'package:provider/provider.dart';
 
 class DatabaseServices {
   final String uid;
@@ -14,6 +12,7 @@ class DatabaseServices {
   CollectionReference employerProfile =
       FirebaseFirestore.instance.collection('employerProfile');
 
+  // ignore: todo
   //TODO:EMPLOYEE
   //ADD and UPDATE Employee
   Future<void> updateEmployeeData(
@@ -90,10 +89,11 @@ class DatabaseServices {
     return employeeProfile.doc(uid).snapshots().map(_empFromSnap);
   }
 
+  // ignore: todo
   //TODO:EMPLOYER
   //ADDING and UPDATING Employer
   Future<void> updateEmployerData(
-      String aadhar,
+    String aadhar,
     String employerName,
     String employerAddress,
     String employerContactNumber,
@@ -136,22 +136,21 @@ class DatabaseServices {
 //READING Employer
   Employer _employerFromSnap(DocumentSnapshot snapshot) {
     return Employer(
-      uid: uid,
-      averageRating: snapshot['averageRating'],
-      employerAge: snapshot['age'],
-      employerAddress: snapshot['address'],
-      employerBio: snapshot['bio'],
-      employerDOB: snapshot['dob'],
-      employerContactNumber: snapshot['contact'],
-      employerName: snapshot['name'],
-      reviews: snapshot['reviews'],
-      aadhar: snapshot['aadhar'],
-      shops: snapshot['shops']
-    );
+        uid: uid,
+        averageRating: snapshot['averageRating'],
+        employerAge: snapshot['age'],
+        employerAddress: snapshot['address'],
+        employerBio: snapshot['bio'],
+        employerDOB: snapshot['dob'],
+        employerContactNumber: snapshot['contact'],
+        employerName: snapshot['name'],
+        reviews: snapshot['reviews'],
+        aadhar: snapshot['aadhar'],
+        shops: snapshot['shops']);
   }
 
   //FETCHING Employer
-  Stream <Employer> getemployerData() {
+  Stream<Employer> getemployerData() {
     return employerProfile.doc(uid).snapshots().map(_employerFromSnap);
   }
 }

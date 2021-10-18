@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Employer/Home/Home.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +20,7 @@ class Wrapper extends StatefulWidget {
 
 class _WrapperState extends State<Wrapper> {
   Future getValidationData() async {
+    // ignore: invalid_use_of_visible_for_testing_member
     SharedPreferences.setMockInitialValues({});
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     var obtainedOption = preferences.getString('option');

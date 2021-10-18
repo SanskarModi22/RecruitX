@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-import 'review.dart';
-import 'shop.dart';
-
 class MyUser {
   String uid;
 
