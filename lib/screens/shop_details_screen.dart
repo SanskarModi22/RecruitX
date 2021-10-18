@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Model/shop.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/job_details_screen.dart';
 import 'package:provider/provider.dart';

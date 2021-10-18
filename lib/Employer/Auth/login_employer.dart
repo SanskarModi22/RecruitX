@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:helping_hand/Employee/Auth/signUp1.dart';
+import 'package:helping_hand/Employer/Auth/SignUp2.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/mobile_signUp.dart';
 import 'package:helping_hand/wrapper.dart';
@@ -26,195 +27,197 @@ class _LoginEmployerState extends State<LoginEmployer> {
         child: Container(
           child: Center(
               child: Column(
-                children: [
-                  SizedBox(height: 20.h,),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      18.w,
-                      10.h,
-                      10.w,
-                      0,
-                    ),
-                    child: Container(
-                      width: 100.w,
-                      height: 10.h,
-                      child: AnimatedTextKit(
-                        animatedTexts: [
-                          WavyAnimatedText(
-                            'RecruitX Welcomes You !',
-                            textStyle: TextStyle(
-                              color: Colors.pink,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
+            children: [
+              SizedBox(
+                height: 20.h,
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                  18.w,
+                  10.h,
+                  10.w,
+                  0,
+                ),
+                child: Container(
+                  width: 100.w,
+                  height: 10.h,
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      WavyAnimatedText(
+                        'RecruitX Welcomes You !',
+                        textStyle: TextStyle(
+                          color: Colors.pink,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                    isRepeatingAnimation: true,
+                    onTap: () {
+                      print("Tap Event");
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    Card(
+                      color: Colors.black,
+                      elevation: 10,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            height: 55,
+                            width: 300,
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                    Colors.green,
+                                  ),
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                  )),
+                              onPressed: () {
+                                // if (formGlobalKey.currentState.validate()) {
+                                //   formGlobalKey.currentState.save();
+                                // }
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MobileSignUp()),
+                                );
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.mobile,
+                                    size: 35,
+                                  ),
+                                  Text(
+                                    "SignUp with Mobile",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ],
-                        isRepeatingAnimation: true,
-                        onTap: () {
-                          print("Tap Event");
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 180,
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Card(
-                          color: Colors.black,
-                          elevation: 10,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Container(
-                                height: 55,
-                                width: 300,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(
-                                        Colors.green,
-                                      ),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(30.0),
-                                        ),
-                                      )),
-                                  onPressed: () {
-                                    // if (formGlobalKey.currentState.validate()) {
-                                    //   formGlobalKey.currentState.save();
-                                    // }
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MobileSignUp()),
-                                    );
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Icon(
-                                        FontAwesomeIcons.mobile,
-                                        size: 35,
-                                      ),
-                                      Text(
-                                        "SignUp with Mobile",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Text(
-                                "or",
-                                style: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 30,
-                              ),
-                              Container(
-                                height: 55,
-                                width: 300,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all(
-                                        Colors.white,
-                                      ),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(30.0),
-                                        ),
-                                      )),
-                                  onPressed: () async{
-                                    final res=await _auth.signInWithGoogle();
-                                    if(res!=null)
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Wrapper()),
-                                      );
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Image.asset(
-                                        "assets/images/google-icon.png",
-                                        width: 50,
-                                        height: 40,
-                                      ),
-                                      Text(
-                                        "SignUp with Google",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Center(
-                                child: Container(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Dont Have an account?",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 17,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        TextButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          EmployeeSignUp()));
-                                            },
-                                            child: Text(
-                                              "Sign Up",
-                                              style: TextStyle(
-                                                color: Colors.green,
-                                                fontSize: 17,
-                                              ),
-                                            )),
-                                      ],
-                                    )),
-                              ),
-                            ],
+                          SizedBox(
+                            height: 30,
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              )),
+                          Text(
+                            "or",
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                            height: 55,
+                            width: 300,
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                    Colors.white,
+                                  ),
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                  )),
+                              onPressed: () async {
+                                final res = await _auth.signInWithGoogle();
+                                if (res != null)
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Wrapper()),
+                                  );
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Image.asset(
+                                    "assets/images/google-icon.png",
+                                    width: 50,
+                                    height: 40,
+                                  ),
+                                  Text(
+                                    "SignUp with Google",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Center(
+                            child: Container(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Dont Have an account?",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EmployerSignUp()));
+                                    },
+                                    child: Text(
+                                      "Sign Up",
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 17,
+                                      ),
+                                    )),
+                              ],
+                            )),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          )),
         ),
       ),
     );

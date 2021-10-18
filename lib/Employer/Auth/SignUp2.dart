@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -609,11 +610,10 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     fixedSize: Size(400, 45),
                   ),
                   onPressed: () {
-                    /*  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => EmployeeHome()),
-                                    );*/
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EmployeeHome()),
+                    );
                   },
                   child: Text(
                     'Sign up',
@@ -637,14 +637,13 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                         ),
                       ),
                       TextButton(
-                  onPressed: () {
+                          onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => LoginEmployer()));
                           },
                           child: Text("Login")),
-
                     ],
                   ),
                 )

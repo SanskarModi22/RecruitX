@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:helping_hand/helpcentre/appinfo.dart';
+import 'package:helping_hand/helpcentre/contactus.dart';
+import 'package:helping_hand/helpcentre/helpcentre.dart';
+import 'package:helping_hand/helpcentre/termsandprivacy.dart';
 
 void main() {
   runApp(help());
@@ -29,13 +33,17 @@ class _helpState extends State<help> {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Help_centre()));
+                  },
                   child: Container(
                       child: Row(
                     children: [
                       Icon(
                         Icons.help_outline,
-                        color: Colors.blue,
+                        color: Colors.green,
+                        size: 28,
                       ),
                       SizedBox(
                         width: 20,
@@ -43,7 +51,7 @@ class _helpState extends State<help> {
                       Text(
                         ("Help Centre"),
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                            fontSize: 22, fontWeight: FontWeight.bold),
                       ),
                     ],
                   )),
@@ -52,13 +60,17 @@ class _helpState extends State<help> {
                   height: 20,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Contact_us()));
+                  },
                   child: Container(
                       child: Row(
                     children: [
                       Icon(
                         Icons.people_alt_sharp,
-                        color: Colors.blue,
+                        color: Colors.green,
+                        size: 28,
                       ),
                       SizedBox(
                         width: 20,
@@ -66,7 +78,7 @@ class _helpState extends State<help> {
                       Text(
                         ("Contact us"),
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                            fontSize: 23, fontWeight: FontWeight.bold),
                       ),
                     ],
                   )),
@@ -75,13 +87,19 @@ class _helpState extends State<help> {
                   height: 20,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Terms_Privacy()));
+                  },
                   child: Container(
                       child: Row(
                     children: [
                       Icon(
                         Icons.feedback_outlined,
-                        color: Colors.blue,
+                        color: Colors.green,
+                        size: 28,
                       ),
                       SizedBox(
                         width: 20,
@@ -89,7 +107,7 @@ class _helpState extends State<help> {
                       Text(
                         ("Terms and Privacy Policy"),
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                            fontSize: 23, fontWeight: FontWeight.bold),
                       ),
                     ],
                   )),
@@ -98,18 +116,29 @@ class _helpState extends State<help> {
                   height: 20,
                 ),
                 InkWell(
-                  onTap: () {},
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.info_rounded,
-                      color: Colors.blue,
-                    ),
-                    title: Text(
-                      ("App info"),
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => App_Info()));
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.info_rounded,
+                          color: Colors.green,
+                          size: 28,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          ("App info"),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 23,
+                          ),
+                        ),
+                      ],
+                    )),
                 SizedBox(
                   height: 20,
                 ),
