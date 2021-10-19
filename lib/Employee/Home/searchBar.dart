@@ -3,17 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
-class searchBar extends StatefulWidget {
-  const searchBar({key}) : super(key: key);
+class SearchBar extends StatefulWidget {
+  const SearchBar({key}) : super(key: key);
 
   @override
-  _searchBarState createState() => _searchBarState();
+  _SearchBarState createState() => _SearchBarState();
 }
 
 int toggle = 0;
 
 // ignore: camel_case_types
-class _searchBarState extends State<searchBar>
+class _SearchBarState extends State<SearchBar>
     with SingleTickerProviderStateMixin {
   AnimationController _con;
   TextEditingController _textEditingController;
@@ -40,7 +40,7 @@ class _searchBarState extends State<searchBar>
           padding: const EdgeInsets.all(8.0),
           child: Container(
             height: height / 8,
-            width: width / 1.57,
+            width: (toggle == 0) ? width / 8.166 : width / 1.57,
             alignment: Alignment(-1.0, 0.0),
             child: AnimatedContainer(
               duration: Duration(milliseconds: 400),
@@ -78,7 +78,8 @@ class _searchBarState extends State<searchBar>
                         child: AnimatedBuilder(
                           child: Icon(
                             Icons.mic,
-                            size: 20.0,
+                            size: 22.0,
+                            color: Colors.blue[900],
                           ),
                           builder: (context, widget) {
                             return Transform.rotate(
@@ -130,7 +131,7 @@ class _searchBarState extends State<searchBar>
                     borderRadius: BorderRadius.circular(30.0),
                     child: IconButton(
                       splashRadius: 19.0,
-                      icon: Icon(Icons.search, size: 18.0),
+                      icon: Icon(Icons.search, size: 20.0,color: Colors.blue[900],),
                       onPressed: () {
                         setState(
                           () {

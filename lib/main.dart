@@ -2,6 +2,8 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
 
 // import 'package:helping_hand/Employee/Auth/login_employee.dart';
 // import 'package:helping_hand/Model/shop.dart';

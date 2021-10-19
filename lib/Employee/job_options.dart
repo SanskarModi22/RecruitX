@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
 import 'package:sizer/sizer.dart';
 
 class JobOptions extends StatefulWidget {
@@ -12,7 +13,7 @@ class _JobOptionsState extends State<JobOptions> {
   // ignore: non_constant_identifier_names
   List<String> Jobs = [
     "Grocery",
-    "Halwai",
+    "Watchmen",
     "Medical",
     "Restaurant",
     "Maid Service"
@@ -28,6 +29,13 @@ class _JobOptionsState extends State<JobOptions> {
             itemCount: Jobs.length,
             itemBuilder: (BuildContext context, index) {
               return InkWell(
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => JobList(text: Jobs[index],),
+                      ));
+                },
                 child: Padding(
                   padding: EdgeInsets.all(7.sp),
                   child: Card(
