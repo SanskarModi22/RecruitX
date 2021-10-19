@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employer/Auth/SignUp2.dart';
+
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
+import 'package:helping_hand/Employer/Auth/signup_page_1.dart';
 
 class EmployerBase extends StatefulWidget {
   const EmployerBase({key}) : super(key: key);
