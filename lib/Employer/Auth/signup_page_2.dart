@@ -1,18 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
 import 'package:image_picker/image_picker.dart';
 
-class EmployerSignUp extends StatefulWidget {
-  const EmployerSignUp({key}) : super(key: key);
+// ignore: camel_case_types
+class signup_page_1 extends StatefulWidget {
+  // const signup_page_1({ Key? key }) : super(key: key);
 
   @override
-  _EmployerSignUpState createState() => _EmployerSignUpState();
+  _signup_page_1State createState() => _signup_page_1State();
 }
 
-class _EmployerSignUpState extends State<EmployerSignUp> {
+// ignore: camel_case_types
+class _signup_page_1State extends State<signup_page_1> {
   final ImagePicker _picker = ImagePicker();
 
   File shopImage;
@@ -110,182 +111,6 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
                     ),
-                    labelText: 'Shop/Company name',
-                    focusColor: Colors.white,
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    // floatingLabelBehavior: FloatingLabelBehavior.always,
-
-                    floatingLabelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    //  hintText: 'Owner name',
-                    labelText: 'Owner name',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    labelText: 'Phone Number',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Shop Photo",
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 90,
-                    ),
-                    //imagepicker
-                    Stack(
-                      children: [
-                        Container(
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.grey[300],
-                          ),
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          height: 110,
-                          width: 110,
-                          child: shopImage != null
-                              ? Image.file(
-                                  shopImage,
-                                  fit: BoxFit.cover,
-                                )
-                              : Center(
-                                  child: Text(
-                                    'No Image Selected!',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                        ),
-                        Positioned(
-                          top: 70,
-                          left: 45,
-                          child: RawMaterialButton(
-                            shape: CircleBorder(),
-                            fillColor: Colors.white,
-                            child: Icon(Icons.add_a_photo),
-                            onPressed: () {
-                              _showPicker(context);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
                     fillColor: Colors.white,
                     filled: true,
                     labelText: 'Shop Address',
@@ -316,7 +141,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 20,
                 ),
                 Container(
                   child: Center(
@@ -609,14 +434,9 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     primary: Colors.green,
                     fixedSize: Size(400, 45),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EmployeeHome()),
-                    );
-                  },
+                  onPressed: () {},
                   child: Text(
-                    'Sign up',
+                    'Next',
                     style: TextStyle(
                       fontSize: 18,
                     ),
@@ -625,28 +445,6 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Already have an account?",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginEmployer()));
-                          },
-                          child: Text("Login")),
-                    ],
-                  ),
-                )
               ],
             ),
           ),

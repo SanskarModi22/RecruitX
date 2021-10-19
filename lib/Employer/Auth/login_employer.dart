@@ -1,8 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:helping_hand/Employee/Auth/signUp1.dart';
-import 'package:helping_hand/Employer/Auth/SignUp2.dart';
+import 'package:helping_hand/Employer/Auth/signup_page_1.dart';
+
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/mobile_signUp.dart';
 import 'package:helping_hand/wrapper.dart';
