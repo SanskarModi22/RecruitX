@@ -1,12 +1,13 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// ignore: unused_import
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Auth/signUp1.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/mobile_signUp.dart';
-import 'package:helping_hand/Shared/resetpassword.dart';
+
 import 'package:sizer/sizer.dart';
 
 // ignore: camel_case_types

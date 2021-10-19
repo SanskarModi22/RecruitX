@@ -1,9 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:helping_hand/Employee/Auth/login_employee.dart';
 // import 'package:helping_hand/Model/shop.dart';
+
 import 'package:helping_hand/Model/user.dart';
+import 'package:helping_hand/Services/database_service.dart';
 import 'package:helping_hand/Splash/splash_screen.dart';
 // import 'package:helping_hand/Shared/base.dart';
 // import 'package:helping_hand/base.dart';
@@ -16,7 +20,14 @@ import 'Services/Authentication.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    StreamProvider(
+        create: (_) => DatabaseServices().getemployerData(),
+        initialData: "Loading.."),
+    StreamProvider(
+        create: (_) => DatabaseServices().getempData(),
+        initialData: "Loading.."),
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Model/user.dart';
 
+
 import '../wrapper.dart';
+
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -13,10 +14,11 @@ class AuthServices {
   }
 
   Stream<MyUser> get user {
-    return _auth
-        .authStateChanges()
-        .map((User user) => userfromFirebase(user));
+    return _auth.authStateChanges().map((User user) => userfromFirebase(user));
   }
+
+
+
   Future signOut() async{
     try{
       return await _auth.signOut();
@@ -25,6 +27,7 @@ class AuthServices {
       return null;
     }
   }
+
   Future signInWithGoogle() async {
     // Trigger the authentication flow
     try {
@@ -32,7 +35,7 @@ class AuthServices {
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
-      await googleUser?.authentication;
+          await googleUser?.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
@@ -44,24 +47,25 @@ class AuthServices {
       UserCredential result = await _auth.signInWithCredential(credential);
       User user = result.user;
       userfromFirebase(user);
-return user;
+      return user;
     } catch (e) {
       print(e.toString());
       return null;
     }
   }
-  Future<bool> loginUser(String phone, BuildContext context) async{
+
+  // ignore: missing_return
+  Future<bool> loginUser(String phone, BuildContext context) async {
     FirebaseAuth _auth = FirebaseAuth.instance;
 
     _auth.verifyPhoneNumber(
         phoneNumber: phone,
         timeout: Duration(seconds: 60),
-        verificationCompleted: (phoneAuthCredential) async{
-        },
-        verificationFailed: (FirebaseAuthException  exception){
+        verificationCompleted: (phoneAuthCredential) async {},
+        verificationFailed: (FirebaseAuthException exception) {
           print(exception);
         },
-        codeSent: (String verificationId, [int forceResendingToken]){
+        codeSent: (String verificationId, [int forceResendingToken]) {
           final _codeController = TextEditingController();
           showDialog(
               context: context,
@@ -78,39 +82,46 @@ return user;
                     ],
                   ),
                   actions: <Widget>[
-                    FlatButton( child: Text("Cancel"),
+                    // ignore: deprecated_member_use
+                    FlatButton(
+                      child: Text("Cancel"),
                       textColor: Colors.white,
                       color: Colors.blue,
-                    onPressed: (){
-                      Navigator.pop(context);
-                    },),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    // ignore: deprecated_member_use
                     FlatButton(
                       child: Text("Confirm"),
                       textColor: Colors.white,
                       color: Colors.blue,
-                      onPressed: () async{
+                      onPressed: () async {
                         final code = _codeController.text.trim();
-                        PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: code);
+                        PhoneAuthCredential credential =
+                            PhoneAuthProvider.credential(
+                                verificationId: verificationId, smsCode: code);
 
-                        UserCredential result = await _auth.signInWithCredential(credential);
+                        UserCredential result =
+                            await _auth.signInWithCredential(credential);
 
                         User user = result.user;
                         userfromFirebase(user);
+
                         if(user != null){
                           Navigator.push(context, MaterialPageRoute(
                               builder: (context) => Wrapper()
                           ));
                         }else{
+
                           print("Error");
                         }
                       },
                     )
                   ],
                 );
-              }
-          );
+              });
         },
-        codeAutoRetrievalTimeout: null
-    );
+        codeAutoRetrievalTimeout: null);
   }
 }
