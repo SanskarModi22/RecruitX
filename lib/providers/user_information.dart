@@ -23,7 +23,30 @@ class GetUserInfo with ChangeNotifier {
     employeeExpectedJobs:
         "Waiter, Private Tutor, Dishwasher, Watchmen, Security Guard",
   );
-
+  final fetchAndSetReviewsForEmployee = Employee(
+    reviews: [
+      ReviewByEmployer(
+          shopImageUrl:
+              "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/bojnice-castle-1603142898.jpg",
+          reviewId: "review1",
+          reviewerId: "reviewer1",
+          rating: 3,
+          jobWorked: "Waiter",
+          reviewerShopName: "Mera Yasu Yasu",
+          reviewPara:
+              "He worked great, i can assure you that he can get the jov donw even if its something illegal"),
+      ReviewByEmployer(
+          shopImageUrl:
+              "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/bojnice-castle-1603142898.jpg",
+          reviewId: "review2",
+          reviewerId: "reviewer2",
+          rating: 4,
+          jobWorked: "Tester",
+          reviewerShopName: "Macho Underwears",
+          reviewPara:
+              "He worked great, i can assure you that he can get the jov done. He was very good tester and tested the quality perfectly."),
+    ],
+  );
   final fetchAndSetUserinfoForEmployer = Employer(
     employerName: "Mellow Employer",
     employerAge: "20",
@@ -35,9 +58,10 @@ class GetUserInfo with ChangeNotifier {
     employerAddress:
         "Behind your house, in front of the pole, your ward, your city, your district, India",
   );
-  final fetchAndSetReviews = Employer(
+  final fetchAndSetReviewsForEmployer = Employer(
     reviews: [
       ReviewByEmployee(
+        reviewId: "review1",
         reviewerId: "reviewer1",
         rating: 4,
         jobWorked: "IronMan",
@@ -50,6 +74,7 @@ class GetUserInfo with ChangeNotifier {
             "This is a very good place and the owner is very supportive and nice",
       ),
       ReviewByEmployee(
+        reviewId: "review2",
         reviewerId: "reviewer2",
         rating: 3,
         jobWorked: "Captain America",
