@@ -9,6 +9,8 @@ import 'package:helping_hand/Employee/job_options.dart';
 
 import 'package:sizer/sizer.dart';
 
+import 'Job-Details/job_list.dart';
+
 class EmployeeHome extends StatefulWidget {
   const EmployeeHome({key}) : super(key: key);
 
@@ -91,7 +93,13 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                       backgroundColor:
                                           MaterialStateProperty.all(
                                               Colors.white)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => JobList(),
+                                      ),
+                                    );
+                                  },
                                   child: Container(
                                     child: Image.asset(
                                       "assets/images/filter.png",

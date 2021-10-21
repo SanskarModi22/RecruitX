@@ -2,6 +2,8 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
 
 // import 'package:helping_hand/Employee/Auth/login_employee.dart';
 // import 'package:helping_hand/Model/shop.dart';
@@ -20,14 +22,31 @@ import 'Services/Authentication.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MultiProvider(providers: [
-    StreamProvider(
-        create: (_) => DatabaseServices().getemployerData(),
-        initialData: "Loading.."),
-    StreamProvider(
-        create: (_) => DatabaseServices().getempData(),
-        initialData: "Loading.."),
-  ], child: MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        StreamProvider(
+            create: (_) => DatabaseServices().getemployerData(),
+            initialData: "Loading.."),
+        StreamProvider(
+            create: (_) => DatabaseServices().getempData(),
+            initialData: "Loading.."),
+        StreamProvider<MyUser>.value(
+          value: AuthServices()
+              .user, //Getting the instance of the user through stream
+          initialData: null,
+          catchError: (User, MyUser) => null,
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => GetUserInfo(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => UserType(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -35,29 +54,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return MultiProvider(
-        providers: [
-          StreamProvider<MyUser>.value(
-            value: AuthServices()
-                .user, //Getting the instance of the user through stream
-            initialData: null,
-            catchError: (User, MyUser) => null,
-          ),
-          ChangeNotifierProvider(
-            create: (ctx) => GetUserInfo(),
-          ),
-          ChangeNotifierProvider(
-            create: (ctx) => UserType(),
-          ),
-        ],
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-              // primarySwatch: Colors.blue,
-              ),
-          debugShowCheckedModeBanner: false,
-          home: SplashScreen(),
-        ),
+      return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+            // primarySwatch: Colors.blue,
+            ),
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
       );
     });
   }

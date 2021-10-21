@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:helping_hand/helpcentre/appinfo.dart';
-import 'package:helping_hand/helpcentre/contactus.dart';
-import 'package:helping_hand/helpcentre/helpcentre.dart';
-import 'package:helping_hand/helpcentre/termsandprivacy.dart';
+import 'package:helping_hand/drawer/helpcentre/appinfo.dart';
+import 'package:helping_hand/drawer/helpcentre/contactus.dart';
+import 'package:helping_hand/drawer/helpcentre/helpcentre.dart';
+import 'package:helping_hand/drawer/helpcentre/termsandprivacy.dart';
 
 void main() {
   runApp(help());
