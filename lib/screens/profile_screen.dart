@@ -653,6 +653,12 @@ class _profileState extends State<profile> {
                                 showModalBottomSheet<void>(
                                   isScrollControlled: true,
                                   context: context,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
                                   builder: (BuildContext context) {
                                     return Padding(
                                       padding:
@@ -714,6 +720,12 @@ class _profileState extends State<profile> {
                                 showModalBottomSheet<void>(
                                   isScrollControlled: true,
                                   context: context,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20),
+                                    ),
+                                  ),
                                   builder: (BuildContext context) {
                                     return Padding(
                                       padding:

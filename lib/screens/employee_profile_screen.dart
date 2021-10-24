@@ -23,7 +23,8 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
   Widget build(BuildContext context) {
     final loadedUser =
         Provider.of<GetUserInfo>(context).fetchAndSetUserinfoForEmployee;
-
+    final reviews =
+        Provider.of<GetUserInfo>(context).fetchAndSetReviewsForEmployee.reviews;
     return Material(
       child: Center(
         child: Scaffold(
@@ -519,7 +520,6 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                   height: 8,
                 ),
                 // reviews
-
                 Card(
                   margin: EdgeInsets.symmetric(horizontal: 8),
                   child: Column(
@@ -546,31 +546,15 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                               );
                             }),
                       ),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            EmployeeReviewItem(
-                              givenrating: 3.5,
-                              shopname: 'Mera Yasu Fanclub',
-                              shopImgUrl:
-                                  'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/bojnice-castle-1603142898.jpg',
-                              workedas: 'Errand Boy',
-                              reviewdescription:
-                                  'He worked great, i can assure you that he can get the job done even if its not legal.',
-                            ),
-                            EmployeeReviewItem(
-                              givenrating: 4.5,
-                              shopname: 'Macho Underwears',
-                              shopImgUrl:
-                                  'https://assets1.progressivegrocer.com/files/styles/content_sm/s3/2020-01/Stop%20%26%20Shop%20MASS.jpg?itok=PzykErKN',
-                              workedas: 'Worker',
-                              reviewdescription:
-                                  'He worked great, i can assure you that he can get the job done even if its not legal. and so much more. asdas asdsad asda sdsad sd aas dasd sd asd asd asd asd as as da as  ',
-                            ),
-                          ],
+                      SizedBox(
+                        height: 420,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: reviews.length,
+                          itemBuilder: (ctx, i) => EmployeeReviewItem(
+                            reviewId: reviews[i].reviewId,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -635,19 +619,16 @@ class PreferenceItem extends StatelessWidget {
 }
 
 class EmployeeReviewItem extends StatelessWidget {
-  final String shopname;
-  final double givenrating;
-  final String reviewdescription;
-  final String shopImgUrl;
-  final String workedas;
-  EmployeeReviewItem(
-      {this.givenrating,
-      this.reviewdescription,
-      this.shopname,
-      this.shopImgUrl,
-      this.workedas});
+  final String reviewId;
+  EmployeeReviewItem({
+    this.reviewId,
+  });
   @override
   Widget build(BuildContext context) {
+    final fetchedReview = Provider.of<GetUserInfo>(context)
+        .fetchAndSetReviewsForEmployee
+        .reviews
+        .firstWhere((e) => e.reviewId == reviewId);
     return Container(
       height: 400,
       width: 300,
@@ -665,7 +646,7 @@ class EmployeeReviewItem extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Image(
-                  image: NetworkImage(shopImgUrl),
+                  image: NetworkImage(fetchedReview.shopImageUrl),
                   height: 200,
                   fit: BoxFit.fitWidth,
                 ),
@@ -690,7 +671,7 @@ class EmployeeReviewItem extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          shopname,
+                          fetchedReview.reviewerShopName,
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                       ],
@@ -709,7 +690,7 @@ class EmployeeReviewItem extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        workedas,
+                        fetchedReview.jobWorked,
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
@@ -729,7 +710,7 @@ class EmployeeReviewItem extends StatelessWidget {
                   child: RatingBar.builder(
                     ignoreGestures: true,
                     itemSize: 30,
-                    initialRating: givenrating,
+                    initialRating: fetchedReview.rating,
                     minRating: 0,
                     direction: Axis.horizontal,
                     allowHalfRating: false,
@@ -774,7 +755,7 @@ class EmployeeReviewItem extends StatelessWidget {
                           // height: 150,
                           padding: EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            reviewdescription,
+                            fetchedReview.reviewPara,
                             style: TextStyle(
                               fontSize: 15,
 

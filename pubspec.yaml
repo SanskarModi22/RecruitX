@@ -40,6 +40,7 @@ dependencies:
   animated_text_kit: ^4.2.1
   shared_preferences: ^2.0.8
   flutter_staggered_animations: ^1.0.0
+  random_color: ^1.0.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

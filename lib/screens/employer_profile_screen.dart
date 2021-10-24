@@ -33,7 +33,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
     final user =
         Provider.of<GetUserInfo>(context).fetchAndSetUserinfoForEmployer;
     final reviewers =
-        Provider.of<GetUserInfo>(context).fetchAndSetReviews.reviews;
+        Provider.of<GetUserInfo>(context).fetchAndSetReviewsForEmployer.reviews;
     return Material(
       child: Center(
         child: Scaffold(
@@ -578,7 +578,7 @@ class ReviewItemForEmployerByEmployee extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loadedreviewer = Provider.of<GetUserInfo>(context)
-        .fetchAndSetReviews
+        .fetchAndSetReviewsForEmployer
         .reviews
         .firstWhere((reviewerEx) => reviewerEx.reviewerId == reviewerId);
     return Container(

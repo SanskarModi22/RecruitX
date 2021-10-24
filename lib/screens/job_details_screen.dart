@@ -1,19 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:helping_hand/providers/user_information.dart';
+import 'package:provider/provider.dart';
+import 'package:random_color/random_color.dart';
 
-class JobDetailsScreen extends StatelessWidget {
+class JobDetailsScreen extends StatefulWidget {
   // const JobDetailsScreen({ Key? key }) : super(key: key);
+  final String jobId;
+  final String shopId;
+  JobDetailsScreen({this.jobId, this.shopId});
 
   @override
+  State<JobDetailsScreen> createState() => _JobDetailsScreenState(
+        jobId: jobId,
+        shopId: shopId,
+      );
+}
+
+class _JobDetailsScreenState extends State<JobDetailsScreen> {
+  final String jobId;
+  final String shopId;
+  _JobDetailsScreenState({this.jobId, this.shopId});
+  @override
   Widget build(BuildContext context) {
+    RandomColor _randomColor = RandomColor();
+    final loadedshop = Provider.of<GetUserInfo>(context)
+        .fetchAndSetEmployerShops
+        .shops
+        .firstWhere((shopEx) => shopEx.shopid == shopId);
+    final loadedJob = loadedshop.jobsAvailable
+        .firstWhere((element) => element.jobId == jobId);
+
+    // final owner = loadedJob.ownerId;
+    Color _color = _randomColor.randomColor(
+      colorBrightness: ColorBrightness.dark,
+      // colorSaturation: ColorSaturation.highSaturation,
+      colorHue: ColorHue.multiple(colorHues: [
+        ColorHue.red,
+        ColorHue.blue,
+        ColorHue.orange,
+        ColorHue.pink
+      ]),
+    );
+    final Color random_color = _color;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Job Details',
-          style: TextStyle(color: Colors.teal),
+          style: TextStyle(color: random_color),
         ),
         iconTheme: IconThemeData(
-          color: Colors.teal,
+          color: random_color,
         ),
         backgroundColor: Colors.white,
       ),
@@ -31,7 +68,7 @@ class JobDetailsScreen extends StatelessWidget {
                         width: MediaQuery.of(context).size.width,
                         child: Image(
                           image: NetworkImage(
-                            'https://ichef.bbci.co.uk/news/976/cpsprodpb/8A13/production/_116574353_gettyimages-1229868118.jpg',
+                            loadedshop.shopImageUrl,
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -46,7 +83,7 @@ class JobDetailsScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.85),
                         ),
-                        child: Text('Shop Type'),
+                        child: Text(loadedshop.shopType),
                       ),
                     ),
                     Positioned.fill(
@@ -67,7 +104,7 @@ class JobDetailsScreen extends StatelessWidget {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Text('Shop Name'),
+                                Text(loadedshop.shopName),
                               ],
                             ),
                           ),
@@ -90,7 +127,7 @@ class JobDetailsScreen extends StatelessWidget {
                     onPressed: () {},
                     icon: FaIcon(
                       FontAwesomeIcons.infoCircle,
-                      color: Colors.teal,
+                      color: random_color,
                       size: 30,
                     ),
                   ),
@@ -102,41 +139,41 @@ class JobDetailsScreen extends StatelessWidget {
                     ListTile(
                       leading: Icon(
                         Icons.work,
-                        color: Colors.blue[600],
+                        color: random_color,
                         size: 35,
                       ),
                       title: Text('Job'),
-                      subtitle: Text('Manager etc'),
+                      subtitle: Text(loadedJob.jobName),
                     ),
                     Divider(),
                     ListTile(
                       leading: Icon(
                         Icons.attach_money_rounded,
-                        color: Colors.blue[600],
+                        color: random_color,
                         size: 35,
                       ),
                       title: Text('Salary'),
-                      subtitle: Text('ex 15,000'),
+                      subtitle: Text(loadedJob.salary),
                     ),
                     Divider(),
                     ListTile(
                       leading: Icon(
                         Icons.timer,
                         size: 35,
-                        color: Colors.blue[600],
+                        color: random_color,
                       ),
                       title: Text('Work Hours'),
-                      subtitle: Text('Working hours'),
+                      subtitle: Text(loadedJob.workingHours),
                     ),
                     Divider(),
                     ListTile(
                       leading: Icon(
                         Icons.calendar_today,
                         size: 35,
-                        color: Colors.blue[600],
+                        color: random_color,
                       ),
                       title: Text('Work Days'),
-                      subtitle: Text('Working DAys'),
+                      subtitle: Text(loadedJob.workingDays),
                     ),
                   ],
                 ),
@@ -148,7 +185,7 @@ class JobDetailsScreen extends StatelessWidget {
                       leading: Icon(
                         Icons.place,
                         size: 35,
-                        color: Colors.blue[600],
+                        color: random_color,
                       ),
                       title: Text('Shop Address'),
                     ),
@@ -159,43 +196,42 @@ class JobDetailsScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                           border: Border.all(
                             width: 2,
-                            color: Colors.teal,
+                            color: random_color,
                           ),
                           borderRadius: BorderRadius.circular(8)),
-                      child: Text(
-                          'Pahado ke uppar, jungle ke par, dekho kon apne shahar aya yrr'),
+                      child: Text(loadedshop.shopAddress),
                     ),
                   ],
                 ),
               ),
-              Card(
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        Icons.request_page,
-                        size: 35,
-                        color: Colors.blue[600],
+              if (loadedJob.specialRequest != null)
+                Card(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: Icon(
+                          Icons.request_page,
+                          size: 35,
+                          color: random_color,
+                        ),
+                        title: Text('Special requests'),
                       ),
-                      title: Text('Special requests'),
-                    ),
-                    Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 2,
-                            color: Colors.teal,
-                          ),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Text(
-                          'Pahado ke uppar, jungle ke par, dekho kon apne shahar aya yrr'),
-                    ),
-                  ],
+                      Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 2,
+                              color: random_color,
+                            ),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Text(loadedJob.specialRequest),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
             ],
           ),
         ),
