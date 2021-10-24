@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/job_details_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:random_color/random_color.dart';
 
 import '../widgets/newjob.dart';
 
@@ -34,14 +35,32 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
         .firstWhere((shopEx) => shopEx.shopid == providedShopId);
     final jobs = loadedshop.jobsAvailable;
 
+    // final Color random_color =
+    //     Colors.primaries[Random().nextInt(Colors.primaries.length)];
+
+    RandomColor _randomColor = RandomColor();
+
+    Color _color = _randomColor.randomColor(
+      colorBrightness: ColorBrightness.dark,
+      // colorSaturation: ColorSaturation.highSaturation,
+      colorHue: ColorHue.multiple(colorHues: [
+        ColorHue.red,
+        ColorHue.blue,
+        ColorHue.orange,
+        ColorHue.pink
+      ]),
+    );
+    final Color random_color = _color;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           loadedshop.shopName,
-          style: TextStyle(color: Colors.teal),
+          style: TextStyle(
+            color: random_color,
+          ),
         ),
         iconTheme: IconThemeData(
-          color: Colors.teal,
+          color: random_color,
         ),
         backgroundColor: Colors.white,
       ),
@@ -75,7 +94,9 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                             horizontal: 12,
                           ),
                           decoration: BoxDecoration(
-                              color: Colors.teal,
+                              // color: Colors.redAccent,
+
+                              color: random_color,
                               borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(8),
                                   bottomRight: Radius.circular(8))),
@@ -108,7 +129,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                 child: ListTile(
                   leading: Icon(
                     Icons.account_circle,
-                    color: Colors.teal,
+                    color: random_color,
                     size: 30,
                   ),
                   title: Text('Owner'),
@@ -121,7 +142,8 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                 child: ListTile(
                   leading: Icon(
                     Icons.adjust_outlined,
-                    color: Colors.teal,
+                    // color: Colors.deepOrangeAccent,
+                    color: random_color,
                     size: 30,
                   ),
                   title: Text('Type of shop'),
@@ -137,7 +159,9 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                 child: ListTile(
                   leading: Icon(
                     Icons.work,
-                    color: Colors.teal,
+                    // color: Colors.deepOrangeAccent,
+                    color: random_color,
+
                     size: 30,
                   ),
                   title: Text('No of employees hired '),
@@ -155,7 +179,8 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                     ListTile(
                       leading: Icon(
                         Icons.place_rounded,
-                        color: Colors.teal,
+                        // color: Colors.deepOrangeAccent,
+                        color: random_color,
                         size: 30,
                       ),
 
@@ -167,7 +192,9 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
-                          color: Colors.teal,
+                          // color: random_color600],
+                          // color: Colors.deepOrangeAccent,
+                          color: random_color,
                           width: 2,
                         ),
                         borderRadius: BorderRadius.circular(5),
@@ -192,7 +219,9 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                     ListTile(
                       leading: Icon(
                         Icons.work_outline_rounded,
-                        color: Colors.teal,
+                        // color: Colors.deepOrangeAccent,
+                        color: random_color,
+                        // color: random_color
                         size: 30,
                       ),
                       title: Text('Jobs Available'),
@@ -230,12 +259,14 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                           // scrollDirection: Axis.horizontal,
                           itemCount: jobs.length,
                           itemBuilder: (ctx, i) => JobAvailable(
-                            id: jobs[i].jobId,
+                            providedShopId: providedShopId,
+                            jobId: jobs[i].jobId,
                             job: jobs[i].jobName,
                             salary: jobs[i].salary,
                             workDays: jobs[i].workingDays,
                             workHours: jobs[i].workingHours,
                             specialRequests: jobs[i].specialRequest,
+                            random_color: random_color,
                           ),
                         ),
                       ),
@@ -255,14 +286,19 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
 }
 
 class JobAvailable extends StatefulWidget {
-  final String id;
+  final Color random_color;
+  final String jobId;
+  final String providedShopId;
   final String job;
   final String salary;
   final String workHours;
   final String workDays;
   final String specialRequests;
+
   JobAvailable({
-    @required this.id,
+    this.providedShopId,
+    this.random_color,
+    @required this.jobId,
     @required this.job,
     @required this.salary,
     @required this.workDays,
@@ -272,19 +308,22 @@ class JobAvailable extends StatefulWidget {
 
   @override
   _JobAvailableState createState() => _JobAvailableState(
-        id: id,
+        jobId: jobId,
         job: job,
         salary: salary,
         workDays: workDays,
         workHours: workHours,
         specialRequests: specialRequests,
+        random_color: random_color,
+        providedShopId: providedShopId,
       );
 }
 
 class _JobAvailableState extends State<JobAvailable> {
+  final String providedShopId;
   final String job;
-  final String id;
-
+  final String jobId;
+  final Color random_color;
   final String salary;
   final String workHours;
   final String workDays;
@@ -296,7 +335,9 @@ class _JobAvailableState extends State<JobAvailable> {
     this.workDays,
     this.workHours,
     this.specialRequests,
-    this.id,
+    this.providedShopId,
+    this.jobId,
+    this.random_color,
   });
 
   var _owner = true;
@@ -304,9 +345,11 @@ class _JobAvailableState extends State<JobAvailable> {
   Widget build(BuildContext context) {
     return (_owner)
         ? Dismissible(
-            key: ValueKey(id),
+            key: ValueKey(jobId),
             background: Container(
-              color: Colors.teal[200],
+              // color: random_color200],
+              // color: Colors.deepOrangeAccent,
+              // color: random_color,
               child: Icon(
                 Icons.delete,
                 color: Colors.white,
@@ -343,35 +386,43 @@ class _JobAvailableState extends State<JobAvailable> {
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {},
             child: InsideBody(
-              id: id,
+              jobId: jobId,
+              providedShopId: providedShopId,
               job: job,
               salary: salary,
               workDays: workDays,
               workHours: workHours,
               specialRequests: specialRequests,
+              random_color: random_color,
             ),
           )
         : InsideBody(
-            id: id,
+            jobId: jobId,
             job: job,
+            providedShopId: providedShopId,
             salary: salary,
             workDays: workDays,
             workHours: workHours,
             specialRequests: specialRequests,
+            random_color: random_color,
           );
   }
 }
 
 class InsideBody extends StatefulWidget {
   // const InsideBody({ Key? key }) : super(key: key);
-  final String id;
+  final String jobId;
+  final Color random_color;
+  final String providedShopId;
   final String job;
   final String salary;
   final String workHours;
   final String workDays;
   final String specialRequests;
   InsideBody({
-    @required this.id,
+    this.providedShopId,
+    this.random_color,
+    @required this.jobId,
     @required this.job,
     @required this.salary,
     @required this.workDays,
@@ -380,29 +431,35 @@ class InsideBody extends StatefulWidget {
   });
   @override
   _InsideBodyState createState() => _InsideBodyState(
-        id: id,
+        jobId: jobId,
         job: job,
         salary: salary,
         workDays: workDays,
         workHours: workHours,
         specialRequests: specialRequests,
+        random_color: random_color,
+        providedShopId: providedShopId,
       );
 }
 
 class _InsideBodyState extends State<InsideBody> {
-  final String id;
+  final String jobId;
   final String job;
   final String salary;
   final String workHours;
   final String workDays;
+  final Color random_color;
+  final String providedShopId;
   String specialRequests;
   _InsideBodyState({
-    @required this.id,
+    @required this.jobId,
     @required this.job,
     @required this.salary,
     @required this.workDays,
     @required this.workHours,
     this.specialRequests,
+    this.random_color,
+    this.providedShopId,
   });
   var _expanded = false;
 
@@ -412,7 +469,10 @@ class _InsideBodyState extends State<InsideBody> {
       // padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(width: 3, color: Colors.teal),
+        border: Border.all(
+          width: 3,
+          color: random_color,
+        ),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -433,7 +493,7 @@ class _InsideBodyState extends State<InsideBody> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: Colors.teal,
+                              color: random_color,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             margin: EdgeInsets.symmetric(
@@ -454,7 +514,7 @@ class _InsideBodyState extends State<InsideBody> {
                           Container(
                             // margin: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-                              color: Colors.teal,
+                              color: random_color,
                               borderRadius: BorderRadius.circular(7),
                             ),
                             // width: 180,
@@ -479,7 +539,7 @@ class _InsideBodyState extends State<InsideBody> {
                                   ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
-                                    // color: Colors.teal[100],
+                                    // color: random_color100],
                                     color: Colors.white,
                                   ),
                                   child: Text(
@@ -504,7 +564,7 @@ class _InsideBodyState extends State<InsideBody> {
                           bottom: 10,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.teal,
+                          color: random_color,
                           borderRadius: BorderRadius.circular(7),
                         ),
                         // width: 180,
@@ -531,7 +591,7 @@ class _InsideBodyState extends State<InsideBody> {
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  // color: Colors.teal[100],
+                                  // color: random_color100],
                                   color: Colors.white,
                                 ),
                                 child: Text(
@@ -555,7 +615,7 @@ class _InsideBodyState extends State<InsideBody> {
                             bottom: 10,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.teal,
+                            color: random_color,
                             borderRadius: BorderRadius.circular(7),
                           ),
                           // width: 180,
@@ -582,7 +642,7 @@ class _InsideBodyState extends State<InsideBody> {
                                   ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
-                                    // color: Colors.teal[100],
+                                    // color: random_color100],
                                     color: Colors.white,
                                   ),
                                   child: Text(
@@ -606,12 +666,9 @@ class _InsideBodyState extends State<InsideBody> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
-                          // color: Colors.teal[100],
+                          // color: random_color100],
                           color: Colors.white,
-                          border: Border.all(
-                            width: 2,
-                            color: Colors.teal,
-                          ),
+                          border: Border.all(width: 2, color: random_color),
                           borderRadius: BorderRadius.circular(7),
                         ),
                         child: Text(specialRequests),
@@ -632,7 +689,10 @@ class _InsideBodyState extends State<InsideBody> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => JobDetailsScreen(),
+                        builder: (context) => JobDetailsScreen(
+                          jobId: jobId,
+                          shopId: providedShopId,
+                        ),
                       ),
                     );
                   },
@@ -649,17 +709,17 @@ class _InsideBodyState extends State<InsideBody> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: Colors.teal[700],
+                          color: random_color,
                           width: 2,
                         ),
-                        color: Colors.teal[50],
+                        color: random_color,
                       ),
                       padding:
                           EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Text(
                         'Apply Now !',
                         style: TextStyle(
-                          color: Colors.teal[800],
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -672,15 +732,14 @@ class _InsideBodyState extends State<InsideBody> {
                 child: IconButton(
                   icon: CircleAvatar(
                     radius: 18,
-                    backgroundColor: Colors.teal,
+                    backgroundColor: random_color,
                     child: CircleAvatar(
                       radius: 15,
-                      backgroundColor: Colors.teal[50],
+                      backgroundColor: random_color,
                       child: Icon(
-                        _expanded ? Icons.expand_less : Icons.expand_more,
-                        size: 22,
-                        color: Colors.teal,
-                      ),
+                          _expanded ? Icons.expand_less : Icons.expand_more,
+                          size: 22,
+                          color: Colors.white),
                     ),
                   ),
                   onPressed: () {

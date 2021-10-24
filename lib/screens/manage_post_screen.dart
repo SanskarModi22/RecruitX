@@ -1,52 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Model/user.dart';
 
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:provider/provider.dart';
+import 'package:random_color/random_color.dart';
 
 // ignore: must_be_immutable
 class ManagePost extends StatefulWidget {
   // const ManagePost({ Key? key }) : super(key: key);
-  var isemployee;
-  var isemployer;
-  ManagePost({this.isemployee, this.isemployer});
+
   @override
-  _ManagePostState createState() => _ManagePostState(
-        isemployee: isemployee,
-        isemployer: isemployer,
-      );
+  _ManagePostState createState() => _ManagePostState();
 }
 
 class _ManagePostState extends State<ManagePost> {
-  var isemployee;
-  var isemployer;
-  _ManagePostState({this.isemployee, this.isemployer});
   @override
   Widget build(BuildContext context) {
+    var isEmployee = Provider.of<UserType>(context).isEmployee;
+    var isEmployer = Provider.of<UserType>(context).isEmployer;
     final shops =
         Provider.of<GetUserInfo>(context).fetchAndSetEmployerShops.shops;
 
     return Scaffold(
-        appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.teal, //change your color here
-          ),
-          title: Text(
-            'Manage your posts',
-            style: TextStyle(color: Colors.teal),
-          ),
-          backgroundColor: Colors.white,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.teal, //change your color here
         ),
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          child: ListView.builder(
-              itemCount: shops.length,
-              itemBuilder: (ctx, i) => ShopPostItem(
-                    shopId: shops[i].shopid,
-                  )),
-        ));
+        title: Text(
+          'Manage your posts',
+          style: TextStyle(color: Colors.teal),
+        ),
+        backgroundColor: Colors.white,
+      ),
+      body: isEmployer
+          ? Container(
+              height: MediaQuery.of(context).size.height,
+              child: shops != null
+                  ? ListView.builder(
+                      itemCount: shops.length,
+                      itemBuilder: (ctx, i) => ShopPostItem(
+                        shopId: shops[i].shopid,
+                      ),
+                    )
+                  : Center(
+                      child: Text('NO Posts were Found.'),
+                    ),
+            )
+          : isEmployee
+              ? Container(
+                  child: Text('Employee'),
+                )
+              : Center(
+                  child: Text('Unexpected Error Found'),
+                ),
+    );
   }
 }
+// employee
 
+//employer
 class ShopPostItem extends StatefulWidget {
   // const ShopPostItem({ Key? key }) : super(key: key);
   final String shopId;
@@ -116,7 +128,7 @@ class _ShopPostItemState extends State<ShopPostItem> {
             if (_isexpanded)
               Container(
                   padding: EdgeInsets.symmetric(vertical: 15),
-                  height: jobsPosted.length.toDouble() * 160,
+                  height: jobsPosted.length.toDouble() * 170,
                   child: ListView.builder(
                     itemCount: jobsPosted.length,
                     itemBuilder: (ctx, i) => AvailableJobItem(
@@ -268,12 +280,25 @@ class _InsideBodyState extends State<InsideBody> {
   var _expanded = false;
 
   Widget build(BuildContext context) {
+    // RandomColor _randomColor = RandomColor();
+
+    // Color _color = _randomColor.randomColor(
+    //   colorBrightness: ColorBrightness.dark,
+    //   // colorSaturation: ColorSaturation.highSaturation,
+    //   colorHue: ColorHue.multiple(colorHues: [
+    //     ColorHue.red,
+    //     ColorHue.blue,
+    //     ColorHue.orange,
+    //     ColorHue.pink
+    //   ]),
+    // );
+    final Color random_color = Colors.orange[800];
     return Container(
       margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
       // padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         // color: Colors.teal[50],
-        border: Border.all(width: 3, color: Colors.teal),
+        border: Border.all(width: 3, color: random_color),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Stack(
@@ -292,7 +317,7 @@ class _InsideBodyState extends State<InsideBody> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.teal,
+                          color: random_color,
                           borderRadius: BorderRadius.circular(5),
                         ),
                         margin: EdgeInsets.symmetric(
@@ -313,7 +338,7 @@ class _InsideBodyState extends State<InsideBody> {
                       Container(
                         // margin: EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
-                          color: Colors.teal,
+                          color: random_color,
                           borderRadius: BorderRadius.circular(7),
                         ),
                         // width: 180,
@@ -362,7 +387,7 @@ class _InsideBodyState extends State<InsideBody> {
                       bottom: 10,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.teal,
+                      color: random_color,
                       borderRadius: BorderRadius.circular(7),
                     ),
                     // width: 180,
@@ -412,7 +437,7 @@ class _InsideBodyState extends State<InsideBody> {
                         bottom: 10,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.teal,
+                        color: random_color,
                         borderRadius: BorderRadius.circular(7),
                       ),
                       // width: 180,
@@ -464,7 +489,7 @@ class _InsideBodyState extends State<InsideBody> {
                       color: Colors.white,
                       border: Border.all(
                         width: 2,
-                        color: Colors.teal,
+                        color: random_color,
                       ),
                       borderRadius: BorderRadius.circular(7),
                     ),
@@ -492,7 +517,7 @@ class _InsideBodyState extends State<InsideBody> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: Colors.teal[700],
+                            color: random_color,
                             width: 2,
                           ),
                           color: Colors.white,
@@ -502,7 +527,7 @@ class _InsideBodyState extends State<InsideBody> {
                         child: Text(
                           'Edit',
                           style: TextStyle(
-                            color: Colors.teal[800],
+                            color: random_color,
                           ),
                         ),
                       ),
@@ -539,7 +564,7 @@ class _InsideBodyState extends State<InsideBody> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: Colors.teal[700],
+                            color: random_color,
                             width: 2,
                           ),
                           color: Colors.white,
@@ -549,7 +574,7 @@ class _InsideBodyState extends State<InsideBody> {
                         child: Text(
                           'Delete',
                           style: TextStyle(
-                            color: Colors.teal[800],
+                            color: random_color,
                           ),
                         ),
                       ),
@@ -565,14 +590,14 @@ class _InsideBodyState extends State<InsideBody> {
             child: IconButton(
               icon: CircleAvatar(
                 radius: 18,
-                backgroundColor: Colors.teal,
+                backgroundColor: random_color,
                 child: CircleAvatar(
                   radius: 15,
-                  backgroundColor: Colors.teal[50],
+                  backgroundColor: Colors.white,
                   child: Icon(
                     _expanded ? Icons.expand_less : Icons.expand_more,
                     size: 22,
-                    color: Colors.teal,
+                    color: random_color,
                   ),
                 ),
               ),

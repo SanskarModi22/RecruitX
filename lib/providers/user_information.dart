@@ -5,7 +5,6 @@ import 'package:helping_hand/Model/job.dart';
 import 'package:helping_hand/Model/review.dart';
 import 'package:helping_hand/Model/shop.dart';
 
-
 class GetUserInfo with ChangeNotifier {
   final fetchAndSetUserinfoForEmployee = Employee(
     employeeName: "Mellow Employee",
