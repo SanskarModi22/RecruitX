@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -434,7 +435,12 @@ class _signup_page_1State extends State<signup_page_1> {
                     primary: Colors.green,
                     fixedSize: Size(400, 45),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EmployeeHome()));
+                  },
                   child: Text(
                     'Next',
                     style: TextStyle(
