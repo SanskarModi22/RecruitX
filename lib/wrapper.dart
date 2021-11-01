@@ -7,6 +7,8 @@ import 'package:helping_hand/Services/database_service.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Model/Profile/employee_profile.dart';
+import 'Model/Profile/employer_profile.dart';
 import 'Model/user.dart';
 import 'Shared/base.dart';
 
@@ -43,25 +45,15 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
     if (user != null) {
-      print(user.uid);
+
       bool isEmployer;
       bool isEmployee;
-      @override
 
-      Future getData()
-      async {
-        await DatabaseServices(uid: user.uid).employerData.listen((event) {
-          isEmployer = event.isEmployer;
-          print(isEmployer);
-        });
-       await DatabaseServices(uid: user.uid).empData.listen((event) {
-          isEmployee = event.isEmployee;
-          print(isEmployer);
-        });
-      }
+isEmployer=Provider.of<Employer>(context).isEmployer;
+      // isEmployee=Provider.of<Employee>(context).isEmployee==null?false:true;
 
-print(isEmployer);
-print(isEmployee);
+
+
       if (isEmployer == true && (isEmployee == false || isEmployee == null)) {
         return EmployerHome();
       } else if ((isEmployer == false || isEmployer == null) &&

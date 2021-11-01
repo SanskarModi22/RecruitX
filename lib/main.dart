@@ -17,6 +17,8 @@ import 'package:helping_hand/providers/user_information.dart';
 import 'package:sizer/sizer.dart';
 import 'package:provider/provider.dart';
 
+import 'Model/Profile/employee_profile.dart';
+import 'Model/Profile/employer_profile.dart';
 import 'Services/Authentication.dart';
 
 void main() async {
@@ -48,15 +50,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser>(context);
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-            // primarySwatch: Colors.blue,
+      return
+        MultiProvider(
+          providers: [
+        StreamProvider<Employer>.value(
+        value: DatabaseServices(uid: user==null?"not Availaible":user.uid).employerData,initialData: null,
+        ),
+            StreamProvider<Employee>.value(
+              value: DatabaseServices(uid: user==null?"Not Availaible":user.uid).empData,initialData: null,
             ),
-        debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
-      );
+          ],
+          child: MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+                // primarySwatch: Colors.blue,
+                ),
+            debugShowCheckedModeBanner: false,
+            home: SplashScreen(),
+          ),
+        );
+
     });
   }
 }
