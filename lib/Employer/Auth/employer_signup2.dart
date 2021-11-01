@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
+import 'package:helping_hand/Employer/Home/Home.dart';
 import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/database_service.dart';
 import 'package:image_picker/image_picker.dart';
@@ -521,7 +522,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => EmployeeHome()));
+                            builder: (context) => EmployerHome()));
                   },
                   child: Text(
                     'Signup',

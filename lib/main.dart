@@ -50,26 +50,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<MyUser>(context);
+
     return Sizer(builder: (context, orientation, deviceType) {
       return
-        MultiProvider(
-          providers: [
-        StreamProvider<Employer>.value(
-        value: DatabaseServices(uid: user==null?"not Availaible":user.uid).employerData,initialData: null,
-        ),
-            StreamProvider<Employee>.value(
-              value: DatabaseServices(uid: user==null?"Not Availaible":user.uid).empData,initialData: null,
-            ),
-          ],
-          child: MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-                // primarySwatch: Colors.blue,
-                ),
-            debugShowCheckedModeBanner: false,
-            home: SplashScreen(),
-          ),
+        MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+              // primarySwatch: Colors.blue,
+              ),
+          debugShowCheckedModeBanner: false,
+          home: SplashScreen(),
         );
 
     });

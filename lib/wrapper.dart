@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Employer/Home/Home.dart';
@@ -44,19 +45,38 @@ class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
+    print(user.uid);
     if (user != null) {
 
       bool isEmployer;
       bool isEmployee;
+      FirebaseFirestore.instance
+          .collection('employerProfile')
+          .doc(user.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          isEmployer=documentSnapshot['isEmployer'];
 
-isEmployer=Provider.of<Employer>(context).isEmployer;
-      // isEmployee=Provider.of<Employee>(context).isEmployee==null?false:true;
+        }
+      });
+       FirebaseFirestore.instance
+          .collection('employeeProfile')
+          .doc(user.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists) {
+          isEmployee=documentSnapshot['isEmployee'];
 
 
-
+        }
+      });
       if (isEmployer == true && (isEmployee == false || isEmployee == null)) {
+
         return EmployerHome();
-      } else if ((isEmployer == false || isEmployer == null) &&
+
+      }
+      else if ((isEmployer == false || isEmployer == null) &&
           isEmployee == true) {
         return EmployeeHome();
       } else if (isEmployer == true && isEmployee == true) {
@@ -65,9 +85,11 @@ isEmployer=Provider.of<Employer>(context).isEmployer;
         } else
           return EmployeeHome();
       } else {
+
         return Base();
       }
     } else {
+
       return Base();
     }
     // if (user != null) {

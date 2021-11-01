@@ -149,7 +149,7 @@ class _LoginEmpState extends State<LoginEmp> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => EmployeeHome()),
+                                        builder: (context) => EmployeeSignUp()),
                                   );
                               },
                               child: Row(
