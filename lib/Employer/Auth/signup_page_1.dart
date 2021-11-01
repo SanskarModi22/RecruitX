@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
 import 'package:helping_hand/Employer/Auth/signup_page_2.dart';
+import 'package:helping_hand/Model/user.dart';
+import 'package:helping_hand/Services/database_service.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class EmployerSignUp extends StatefulWidget {
   const EmployerSignUp({key}) : super(key: key);
@@ -88,8 +91,33 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
         });
   }
 
+  final shopName = TextEditingController();
+  final OwnerName = TextEditingController();
+  final OwnerAge = TextEditingController();
+  final dob = TextEditingController();
+  final contact = TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    shopName.dispose();
+    OwnerName.dispose();
+    OwnerAge.dispose();
+    dob.dispose();
+    contact.dispose();
+    super.dispose();
+  }
+
+  clearText() {
+    shopName.clear();
+    OwnerName.clear();
+    OwnerAge.clear();
+    dob.clear();
+    contact.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("signup"),
@@ -106,6 +134,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
             child: Column(
               children: [
                 TextFormField(
+                  controller: shopName,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -145,6 +174,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: OwnerName,
                   decoration: InputDecoration(
                     // floatingLabelBehavior: FloatingLabelBehavior.always,
 
@@ -207,6 +237,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                         height: 50,
                         width: 50,
                         child: TextFormField(
+                          controller: OwnerAge,
                           decoration: InputDecoration(
                             floatingLabelStyle: TextStyle(
                               color: Colors.green,
@@ -249,6 +280,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: dob,
                   decoration: InputDecoration(
                     // floatingLabelBehavior: FloatingLabelBehavior.always,
 
@@ -291,6 +323,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: contact,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -398,7 +431,15 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => signup_page_1()),
+                      MaterialPageRoute(
+                        builder: (context) => EmployerSignUp2(
+                          shopName: shopName.text,
+                          employerName: OwnerName.text,
+                          employerAge: OwnerAge.text,
+                          employerDOB: dob.text,
+                          employerContactNumber: contact.text,
+                        ),
+                      ),
                     );
                   },
                   child: Text(

@@ -3,8 +3,11 @@ import 'package:helping_hand/Model/Profile/employee_profile.dart';
 import 'package:helping_hand/Model/Profile/employer_profile.dart';
 import 'package:helping_hand/Model/review.dart';
 import 'package:helping_hand/Model/shop.dart';
+import 'package:helping_hand/Model/user.dart';
+import 'package:provider/provider.dart';
 
 class DatabaseServices {
+
   final String uid;
   DatabaseServices({this.uid});
   CollectionReference employeeProfile =
@@ -31,6 +34,7 @@ class DatabaseServices {
     String employeePreferedShift,
     double averageRating,
     List<ReviewByEmployer> reviews,
+      bool isEmployee,
   ) async {
     return await employeeProfile.doc(uid).set(
       {
@@ -49,6 +53,7 @@ class DatabaseServices {
         'averageRating': averageRating,
         'reviews': reviews,
         'aadhar': aadhar,
+        'isEmployee':isEmployee,
       },
     );
   }
@@ -81,11 +86,12 @@ class DatabaseServices {
       employeePreferedShift: snapshot['preferredShift'],
       reviews: snapshot['reiews'],
       aadhar: snapshot['aadhar'],
+      isEmployee: snapshot['isEmployee']
     );
   }
 
   //FETCHING Employee
-  Stream<Employee> getempData() {
+  Stream<Employee> get empData {
     return employeeProfile.doc(uid).snapshots().map(_empFromSnap);
   }
 
@@ -93,7 +99,7 @@ class DatabaseServices {
   //TODO:EMPLOYER
   //ADDING and UPDATING Employer
   Future<void> updateEmployerData(
-    String aadhar,
+  { String aadhar,
     String employerName,
     String employerAddress,
     String employerContactNumber,
@@ -101,8 +107,15 @@ class DatabaseServices {
     String employerAge,
     String employerDOB,
     double averageRating,
+    String shopDesc,
     List<ReviewByEmployer> reviews,
     List<Shop> shops,
+      String shopName,
+    String city,
+    String state,
+    bool isEmployer,
+    bool isEmployee
+  }
   ) async {
     return await employerProfile.doc(uid).set(
       {
@@ -116,6 +129,12 @@ class DatabaseServices {
         'reviews': reviews,
         'shops': shops,
         'aadhar': aadhar,
+        'shopName':shopName,
+        'shopDesc':shopDesc,
+        'city':city,
+        'state':state,
+        'isEmployer':isEmployer,
+        'isEmployee':isEmployee
       },
     );
   }
@@ -137,20 +156,27 @@ class DatabaseServices {
   Employer _employerFromSnap(DocumentSnapshot snapshot) {
     return Employer(
         uid: uid,
-        averageRating: snapshot['averageRating'],
-        employerAge: snapshot['age'],
-        employerAddress: snapshot['address'],
-        employerBio: snapshot['bio'],
-        employerDOB: snapshot['dob'],
-        employerContactNumber: snapshot['contact'],
-        employerName: snapshot['name'],
-        reviews: snapshot['reviews'],
-        aadhar: snapshot['aadhar'],
-        shops: snapshot['shops']);
+        averageRating: snapshot.get('averageRating'),
+        employerAge: snapshot.get('age'),
+        employerAddress: snapshot.get('address'),
+        employerBio: snapshot.get('bio'),
+        employerDOB: snapshot.get('dob'),
+        employerContactNumber: snapshot.get('contact'),
+        employerName: snapshot.get('name'),
+        reviews: snapshot.get('reviews'),
+        aadhar: snapshot.get('aadhar'),
+        shops: snapshot.get('shops'),
+    shopName:snapshot.get('shopName'),
+      shopDesc: snapshot.get('shopDesc'),
+      city: snapshot.get('city'),
+      state: snapshot.get('state'),
+      isEmployer: snapshot.get('isEmployer'),
+      isEmployee: snapshot.get('isEmployee')
+    );
   }
 
   //FETCHING Employer
-  Stream<Employer> getemployerData() {
+  Stream<Employer> get employerData {
     return employerProfile.doc(uid).snapshots().map(_employerFromSnap);
   }
 }

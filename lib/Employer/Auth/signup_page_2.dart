@@ -3,18 +3,27 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
+import 'package:helping_hand/Model/user.dart';
+import 'package:helping_hand/Services/database_service.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 // ignore: camel_case_types
-class signup_page_1 extends StatefulWidget {
+class EmployerSignUp2 extends StatefulWidget {
   // const signup_page_1({ Key? key }) : super(key: key);
+  final String shopName;
+  final String employerName;
+  final String employerAge;
+  final String employerDOB;
+  final String employerContactNumber;
 
+  const EmployerSignUp2({Key key, this.shopName, this.employerName, this.employerAge, this.employerDOB, this.employerContactNumber}) : super(key: key);
   @override
-  _signup_page_1State createState() => _signup_page_1State();
+  _EmployerSignUp2State createState() => _EmployerSignUp2State();
 }
 
 // ignore: camel_case_types
-class _signup_page_1State extends State<signup_page_1> {
+class _EmployerSignUp2State extends State<EmployerSignUp2> {
   final ImagePicker _picker = ImagePicker();
 
   File shopImage;
@@ -89,8 +98,33 @@ class _signup_page_1State extends State<signup_page_1> {
         });
   }
 
+  final address = TextEditingController();
+  final city = TextEditingController();
+  final State = TextEditingController();
+  final AadharNum = TextEditingController();
+  final shopDescription = TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    address.dispose();
+    city.dispose();
+    State.dispose();
+    AadharNum.dispose();
+    shopDescription.dispose();
+    super.dispose();
+  }
+
+  clearText() {
+    address.clear();
+    city.clear();
+    State.clear();
+    AadharNum.clear();
+    shopDescription.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("signup"),
@@ -107,6 +141,7 @@ class _signup_page_1State extends State<signup_page_1> {
             child: Column(
               children: [
                 TextFormField(
+                  controller: address,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -152,6 +187,7 @@ class _signup_page_1State extends State<signup_page_1> {
                           height: 80,
                           width: 150,
                           child: TextFormField(
+                            controller: city,
                             decoration: InputDecoration(
                               floatingLabelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -194,6 +230,7 @@ class _signup_page_1State extends State<signup_page_1> {
                           height: 80,
                           width: 150,
                           child: TextFormField(
+                            controller: State,
                             decoration: InputDecoration(
                               floatingLabelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -252,6 +289,7 @@ class _signup_page_1State extends State<signup_page_1> {
                     SizedBox(
                       width: 160,
                       child: TextFormField(
+                        controller: AadharNum,
                         decoration: InputDecoration(
                           floatingLabelStyle: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -333,6 +371,7 @@ class _signup_page_1State extends State<signup_page_1> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: shopDescription,
                   minLines: 2,
                   maxLines: null,
                   decoration: InputDecoration(
@@ -436,6 +475,24 @@ class _signup_page_1State extends State<signup_page_1> {
                     fixedSize: Size(400, 45),
                   ),
                   onPressed: () {
+                    DatabaseServices(uid: user.uid).updateEmployerData(
+                      employerAddress: address.text,
+                      city: city.text,
+                      state: State.text,
+                      aadhar: AadharNum.text,
+                      shopDesc: shopDescription.text,
+                      shopName: widget.shopName,
+                      employerName: widget.employerName,
+                      employerAge: widget.employerAge,
+                      employerDOB: widget.employerDOB,
+                      employerContactNumber: widget.employerContactNumber,
+                      isEmployer:  Provider.of<UserType>(context, listen: false)
+                          .userAsEmployer,
+                      isEmployee: Provider.of<UserType>(context, listen: false)
+                          .userAsEmployee,
+
+                    );
+                    clearText();
                     Navigator.push(
                         context,
                         MaterialPageRoute(

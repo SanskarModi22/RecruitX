@@ -17,6 +17,7 @@ class Employee {
   String employeePreferedShift;
   double averageRating;
   String aadhar;
+  bool isEmployee=false;
 // non  values
   List<ReviewByEmployer> reviews = [];
 
@@ -38,5 +39,6 @@ class Employee {
     this.preferredJobType,
     // non  values
     this.reviews,
+    this.isEmployee,
   });
 }

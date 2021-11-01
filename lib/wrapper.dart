@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Employer/Home/Home.dart';
+import 'package:helping_hand/Services/database_service.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,16 +41,64 @@ class _WrapperState extends State<Wrapper> {
 
   @override
   Widget build(BuildContext context) {
-    print(option);
     final user = Provider.of<MyUser>(context);
+    if (user != null) {
+      print(user.uid);
+      bool isEmployer;
+      bool isEmployee;
+      @override
 
-    print(user);
-    if (user != null && option == '1') {
-      return EmployerHome();
-    } else if (user == null) {
-      return Base();
+      Future getData()
+      async {
+        await DatabaseServices(uid: user.uid).employerData.listen((event) {
+          isEmployer = event.isEmployer;
+          print(isEmployer);
+        });
+       await DatabaseServices(uid: user.uid).empData.listen((event) {
+          isEmployee = event.isEmployee;
+          print(isEmployer);
+        });
+      }
+
+print(isEmployer);
+print(isEmployee);
+      if (isEmployer == true && (isEmployee == false || isEmployee == null)) {
+        return EmployerHome();
+      } else if ((isEmployer == false || isEmployer == null) &&
+          isEmployee == true) {
+        return EmployeeHome();
+      } else if (isEmployer == true && isEmployee == true) {
+        if (Provider.of<UserType>(context, listen: false).userAsEmployer) {
+          return EmployerHome();
+        } else
+          return EmployeeHome();
+      } else {
+        return Base();
+      }
     } else {
-      return EmployeeHome();
+      return Base();
     }
+    // if (user != null) {
+    //   return StreamBuilder<Employer>(
+    //       stream: DatabaseServices(uid: user.uid).employerData,
+    //       builder: (context, snapshot) {
+    //         Employer employer = snapshot.data;
+    //         if ( snapshot.data!=null) {
+    //           return employer.isEmployer==true?EmployerHome():
+    //         } else {
+    //         return  StreamBuilder<Employee>(
+    //               stream: DatabaseServices(uid: user.uid).empData,
+    //               builder: (context, snap) {
+    //                 Employee emp = snap.data;
+    //                 if (snap.data!=null) {
+    //                   return emp.isEmployee==true?EmployeeHome():Base();
+    //                 } else
+    //                   return Base();
+    //               });
+    //         }
+    //       });
+    // } else {
+    //   return Base();
+    // }
   }
 }

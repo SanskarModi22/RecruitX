@@ -25,12 +25,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        StreamProvider(
-            create: (_) => DatabaseServices().getemployerData(),
-            initialData: "Loading.."),
-        StreamProvider(
-            create: (_) => DatabaseServices().getempData(),
-            initialData: "Loading.."),
+
         StreamProvider<MyUser>.value(
           value: AuthServices()
               .user, //Getting the instance of the user through stream
