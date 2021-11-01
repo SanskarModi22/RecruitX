@@ -17,6 +17,8 @@ import 'package:helping_hand/providers/user_information.dart';
 import 'package:sizer/sizer.dart';
 import 'package:provider/provider.dart';
 
+import 'Model/Profile/employee_profile.dart';
+import 'Model/Profile/employer_profile.dart';
 import 'Services/Authentication.dart';
 
 void main() async {
@@ -25,12 +27,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        StreamProvider(
-            create: (_) => DatabaseServices().getemployerData(),
-            initialData: "Loading.."),
-        StreamProvider(
-            create: (_) => DatabaseServices().getempData(),
-            initialData: "Loading.."),
+
         StreamProvider<MyUser>.value(
           value: AuthServices()
               .user, //Getting the instance of the user through stream
@@ -53,15 +50,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-            // primarySwatch: Colors.blue,
-            ),
-        debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
-      );
+      return
+        MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+              // primarySwatch: Colors.blue,
+              ),
+          debugShowCheckedModeBanner: false,
+          home: SplashScreen(),
+        );
+
     });
   }
 }

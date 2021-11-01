@@ -2,9 +2,14 @@ import 'package:flutter/cupertino.dart';
 
 class MyUser {
   String uid;
-
+bool isEmployer;
+bool isEmployee;
+String name;
   MyUser({
     this.uid,
+    this.isEmployer,
+    this.isEmployee,
+    this.name,
   });
 }
 

@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:helping_hand/Employee/Auth/employee_signup1.dart';
+import 'package:helping_hand/Employer/Auth/employer_signup1.dart';
 import 'package:helping_hand/Model/user.dart';
+import 'package:provider/provider.dart';
 
 
 import '../wrapper.dart';
@@ -109,9 +112,16 @@ class AuthServices {
                         userfromFirebase(user);
 
                         if(user != null){
+                          if(Provider.of<UserType>(context, listen: false)
+                              .userAsEmployer){
                           Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => Wrapper()
-                          ));
+                              builder: (context) => EmployerSignUp()
+                          ));}
+                          else {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => EmployeeSignUp()
+                            ));
+                          }
                         }else{
 
                           print("Error");

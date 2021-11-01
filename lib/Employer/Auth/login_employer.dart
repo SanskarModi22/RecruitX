@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:helping_hand/Employer/Auth/signup_page_1.dart';
+import 'package:helping_hand/Employer/Auth/employer_signup1.dart';
 
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/mobile_signUp.dart';
@@ -150,7 +150,7 @@ class _LoginEmployerState extends State<LoginEmployer> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Wrapper()),
+                                        builder: (context) => EmployerSignUp()),
                                   );
                               },
                               child: Row(

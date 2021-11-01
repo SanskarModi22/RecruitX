@@ -12,7 +12,12 @@ class Employer {
   String employerDOB;
   double averageRating;
   String aadhar;
-
+  String shopDesc;
+  String city;
+  String state;
+bool isEmployer=false;
+bool isEmployee;
+String shopName;
   List<ReviewByEmployee> reviews = [];
   List<Shop> shops = [];
   Employer({
@@ -27,6 +32,12 @@ class Employer {
     this.reviews,
     this.shops,
     this.averageRating,
+    this.shopName,
+    this.shopDesc,
+    this.city,
+    this.state,
+    this.isEmployer,
+    this.isEmployee,
   });
 }
 //TODO: Add and update user
