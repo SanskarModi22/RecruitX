@@ -1,19 +1,33 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Auth/login_employee.dart';
+import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employer/Auth/login_employer.dart';
+import 'package:helping_hand/Model/user.dart';
+import 'package:helping_hand/Services/database_service.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
-class EmployeeSignUp extends StatefulWidget {
-  const EmployeeSignUp({key}) : super(key: key);
+// ignore: camel_case_types
+class EmployerSignUp2 extends StatefulWidget {
+  // const signup_page_1({ Key? key }) : super(key: key);
+  final String shopName;
+  final String employerName;
+  final String employerAge;
+  final String employerDOB;
+  final String employerContactNumber;
 
+  const EmployerSignUp2({Key key, this.shopName, this.employerName, this.employerAge, this.employerDOB, this.employerContactNumber}) : super(key: key);
   @override
-  _EmployeeSignUpState createState() => _EmployeeSignUpState();
+  _EmployerSignUp2State createState() => _EmployerSignUp2State();
 }
 
-class _EmployeeSignUpState extends State<EmployeeSignUp> {
+// ignore: camel_case_types
+class _EmployerSignUp2State extends State<EmployerSignUp2> {
   final ImagePicker _picker = ImagePicker();
+
   File shopImage;
+
   //image from camera
   _imgFromCamera() async {
     XFile pickedImage = await _picker.pickImage(
@@ -84,285 +98,84 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
         });
   }
 
+  final address = TextEditingController();
+  final city = TextEditingController();
+  final State = TextEditingController();
+  final AadharNum = TextEditingController();
+  final shopDescription = TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    address.dispose();
+    city.dispose();
+    State.dispose();
+    AadharNum.dispose();
+    shopDescription.dispose();
+    super.dispose();
+  }
+
+  clearText() {
+    address.clear();
+    city.clear();
+    State.clear();
+    AadharNum.clear();
+    shopDescription.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser>(context);
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.white),
-        title: Text("signup"),
-        centerTitle: true,
-      ),
       body: Container(
         decoration: BoxDecoration(
           color: Colors.black,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  controller: address,
+                  decoration: InputDecoration(
+                    floatingLabelStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Shop Address',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                  ),
+                ),
+                SizedBox(
                   height: 20,
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.grey[300],
-                      ),
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      height: 110,
-                      width: 110,
-                      child: shopImage != null
-                          ? Image.file(
-                              shopImage,
-                              fit: BoxFit.cover,
-                            )
-                          : Center(
-                              child: Text(
-                                'No Image Selected!',
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                    ),
-                    Positioned(
-                      top: 70,
-                      left: 45,
-                      child: RawMaterialButton(
-                        shape: CircleBorder(),
-                        fillColor: Colors.white,
-                        child: Icon(Icons.add_a_photo),
-                        onPressed: () {
-                          _showPicker(context);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Username',
-                    labelText: 'Username',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Full Name',
-                    labelText: 'Full Name',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Phone Number',
-                    labelText: 'Phone Number',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Address',
-                    labelText: 'Address',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  child: Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.bottomCenter,
-                        height: 30,
-                        width: 50,
-                        child: Text(
-                          "Age",
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 90,
-                      ),
-                      Container(
-                        height: 50,
-                        width: 50,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            floatingLabelStyle: TextStyle(
-                              color: Colors.green,
-                            ),
-                            hintText: '',
-                            fillColor: Colors.white,
-                            filled: true,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(
-                                10,
-                              ),
-                              borderSide: BorderSide(color: Colors.green),
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(
-                                10,
-                              ),
-                              borderSide: BorderSide(color: Colors.green),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(
-                                10,
-                              ),
-                              borderSide: BorderSide(color: Colors.green),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(
-                                10,
-                              ),
-                              borderSide: BorderSide(color: Colors.green),
-                            ),
-                          ),
-                          keyboardType: TextInputType.number,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
                 ),
                 Container(
                   child: Center(
@@ -370,17 +183,17 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                       children: [
                         Container(
                           height: 80,
-                          width: 80,
+                          width: 150,
                           child: TextFormField(
+                            controller: city,
                             decoration: InputDecoration(
                               floatingLabelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
                                 color: Colors.green,
-                                fontSize: 20,
                               ),
-                              hintText: 'City',
-                              labelText: 'City',
                               fillColor: Colors.white,
                               filled: true,
+                              labelText: 'City',
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(
                                   10,
@@ -409,21 +222,21 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                           ),
                         ),
                         SizedBox(
-                          width: 100,
+                          width: 40,
                         ),
                         Container(
                           height: 80,
-                          width: 80,
+                          width: 150,
                           child: TextFormField(
+                            controller: State,
                             decoration: InputDecoration(
                               floatingLabelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
                                 color: Colors.green,
-                                fontSize: 20,
                               ),
-                              hintText: 'State',
-                              labelText: 'State',
                               fillColor: Colors.white,
                               filled: true,
+                              labelText: 'State',
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(
                                   10,
@@ -459,13 +272,100 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: AadharNum,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
                       color: Colors.green,
-                      fontSize: 20,
                     ),
-                    hintText: 'Salary Expectations',
-                    labelText: 'Salary Expectations',
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Aadhar number',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+
+
+
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  minLines: 2,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    floatingLabelStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Bio',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+                      ),
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  controller: shopDescription,
+                  minLines: 2,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    floatingLabelStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                    hintText: 'Shop Description',
                     fillColor: Colors.white,
                     filled: true,
                     enabledBorder: OutlineInputBorder(
@@ -497,59 +397,72 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                 SizedBox(
                   height: 30,
                 ),
-                TextFormField(
-                  minLines: 2,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: '  Description',
-                    labelText: ' Description',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Text(
+                        "License Photo",
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       ),
-                      borderSide: BorderSide(color: Colors.green),
                     ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
+                    SizedBox(
+                      width: 90,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
+                    Stack(
+                      children: [
+                        Container(
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.grey[300],
+                          ),
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          height: 110,
+                          width: 110,
+                          child: shopImage != null
+                              ? Image.file(
+                                  shopImage,
+                                  fit: BoxFit.cover,
+                                )
+                              : Center(
+                                  child: Text(
+                                    'No Image Selected!',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                        ),
+                        Positioned(
+                          top: 70,
+                          left: 45,
+                          child: RawMaterialButton(
+                            shape: CircleBorder(),
+                            fillColor: Colors.white,
+                            child: Icon(Icons.add_a_photo),
+                            onPressed: () {
+                              _showPicker(context);
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
+                  ],
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 TextFormField(
-                  minLines: 2,
-                  maxLines: null,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
                       color: Colors.green,
-                      fontSize: 20,
                     ),
-                    hintText: 'Experience',
-                    labelText: 'Experience',
                     fillColor: Colors.white,
                     filled: true,
+                    hintText: ' Shop Rating',
                     enabledBorder: OutlineInputBorder(
                       borderRadius: new BorderRadius.circular(
                         10,
@@ -575,6 +488,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                       borderSide: BorderSide(color: Colors.green),
                     ),
                   ),
+                  keyboardType: TextInputType.number,
                 ),
                 SizedBox(
                   height: 30,
@@ -586,47 +500,39 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                     fixedSize: Size(400, 45),
                   ),
                   onPressed: () {
-                    /*  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => EmployeeHome()),
-                                    );*/
+                    DatabaseServices(uid: user.uid).updateEmployerData(
+                      employerAddress: address.text,
+                      city: city.text,
+                      state: State.text,
+                      aadhar: AadharNum.text,
+                      shopDesc: shopDescription.text,
+                      shopName: widget.shopName,
+                      employerName: widget.employerName,
+                      employerAge: widget.employerAge,
+                      employerDOB: widget.employerDOB,
+                      employerContactNumber: widget.employerContactNumber,
+                      isEmployer:  Provider.of<UserType>(context, listen: false)
+                          .userAsEmployer,
+                      isEmployee: Provider.of<UserType>(context, listen: false)
+                          .userAsEmployee,
+
+                    );
+                    clearText();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EmployeeHome()));
                   },
                   child: Text(
-                    'Sign up',
+                    'Signup',
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
                 ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Already have an account?",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginEmp()));
-                          },
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 18,
-                            ),
-                          )),
-                    ],
-                  ),
-                )
+                SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ),
