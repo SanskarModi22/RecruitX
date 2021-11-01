@@ -18,8 +18,7 @@ class DatabaseServices {
   // ignore: todo
   //TODO:EMPLOYEE
   //ADD and UPDATE Employee
-  Future<void> updateEmployeeData(
-    String aadhar,
+  Future<void> updateEmployeeData({ String aadhar,
     String employeeName,
     String employeeAddress,
     String employeeContactNumber,
@@ -34,8 +33,8 @@ class DatabaseServices {
     String employeePreferedShift,
     double averageRating,
     List<ReviewByEmployer> reviews,
-      bool isEmployee,
-  ) async {
+    bool isEmployee,
+  }) async {
     return await employeeProfile.doc(uid).set(
       {
         'name': employeeName,

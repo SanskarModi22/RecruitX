@@ -4,7 +4,12 @@ import 'package:helping_hand/Employee/Auth/employee_signup3.dart';
 // ignore: camel_case_types
 class signup_page2 extends StatefulWidget {
   // const signup_page2({ Key? key }) : super(key: key);
+  final String address ;
+  final String EmployeeName ;
+  final String EmployeeAge ;
+  final String contact ;
 
+  const signup_page2({Key key, this.address, this.EmployeeName, this.EmployeeAge, this.contact}) : super(key: key);
   @override
   _signup_page2State createState() => _signup_page2State();
 }
@@ -12,6 +17,32 @@ class signup_page2 extends StatefulWidget {
 // ignore: camel_case_types
 class _signup_page2State extends State<signup_page2> {
   @override
+  final dob =TextEditingController();
+  final Bio =TextEditingController();
+  final Aadhar=TextEditingController();
+  final SalaryExpextation=TextEditingController();
+  final ExpectedJobs=TextEditingController();
+  final Experience = TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    dob.dispose();
+    Bio.dispose();
+    Aadhar.dispose();
+    SalaryExpextation.dispose();
+    ExpectedJobs.dispose();
+    Experience.dispose();
+    super.dispose();
+  }
+
+  clearText() {
+    dob.clear();
+    Bio.clear();
+    Aadhar.clear();
+    SalaryExpextation.clear();
+    ExpectedJobs.clear();
+    Experience.clear();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -27,6 +58,7 @@ class _signup_page2State extends State<signup_page2> {
                   height: 50,
                 ),
                 TextFormField(
+                  controller: dob,
                   decoration: InputDecoration(
                     // floatingLabelBehavior: FloatingLabelBehavior.always,
 
@@ -69,6 +101,7 @@ class _signup_page2State extends State<signup_page2> {
                   height: 20,
                 ),
                 TextFormField(
+                  controller: Bio,
                   minLines: 2,
                   maxLines: null,
                   decoration: InputDecoration(
@@ -110,6 +143,7 @@ class _signup_page2State extends State<signup_page2> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: Aadhar,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
                       color: Colors.green,
@@ -150,6 +184,7 @@ class _signup_page2State extends State<signup_page2> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: SalaryExpextation,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
                       color: Colors.green,
@@ -190,6 +225,7 @@ class _signup_page2State extends State<signup_page2> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: Experience,
                   minLines: 2,
                   maxLines: null,
                   decoration: InputDecoration(
@@ -231,6 +267,7 @@ class _signup_page2State extends State<signup_page2> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: ExpectedJobs,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
                       color: Colors.green,
@@ -278,7 +315,18 @@ class _signup_page2State extends State<signup_page2> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => signup_page3()),
+                      MaterialPageRoute(builder: (context) => signup_page3(
+                        EmployeeName: widget.EmployeeName,
+                        EmployeeAge: widget.EmployeeAge,
+                        address: widget.address,
+                        contact: widget.contact,
+                        Aadhar: Aadhar.text,
+                        Bio: Bio.text,
+                        dob: dob.text,
+                        Experience: Experience.text,
+                        SalaryExpextation: SalaryExpextation.text,
+                        ExpectedJobs: ExpectedJobs.text,
+                      )),
                     );
                   },
                   child: Text(

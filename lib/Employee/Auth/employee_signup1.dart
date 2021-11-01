@@ -86,6 +86,27 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
   }
 
   @override
+
+  final address = TextEditingController();
+  final EmployeeName = TextEditingController();
+  final EmployeeAge = TextEditingController();
+  final contact = TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    address.dispose();
+    EmployeeName.dispose();
+    EmployeeAge.dispose();
+    contact.dispose();
+    super.dispose();
+  }
+
+  clearText() {
+    address.clear();
+    EmployeeName.clear();
+    EmployeeAge.clear();
+    contact.clear();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -180,6 +201,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: EmployeeName,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
                       color: Colors.green,
@@ -219,6 +241,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: contact,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
                       color: Colors.green,
@@ -259,6 +282,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: address,
                   decoration: InputDecoration(
                     floatingLabelStyle: TextStyle(
                       color: Colors.green,
@@ -300,6 +324,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                 Container(
                   width: 60,
                   child: TextFormField(
+                    controller: EmployeeAge,
                     decoration: InputDecoration(
                       floatingLabelStyle: TextStyle(
                         color: Colors.green,
@@ -347,7 +372,12 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => signup_page2()),
+                      MaterialPageRoute(builder: (context) => signup_page2(
+                        contact: contact.text,
+                        address: address.text,
+                        EmployeeAge: EmployeeAge.text,
+                        EmployeeName: EmployeeName.text,
+                      )),
                     );
                   },
                   child: Text(
