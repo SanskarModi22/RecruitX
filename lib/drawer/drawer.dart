@@ -5,6 +5,7 @@ import 'package:helping_hand/drawer/rate_us.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/about_us_screen.dart';
 import 'package:helping_hand/screens/account_screen.dart';
+import 'package:helping_hand/screens/filters_Employee_screen.dart';
 import 'package:helping_hand/screens/manage_post_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Shared/base.dart';
@@ -153,6 +154,39 @@ class _drawerState extends State<drawer> {
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => aboutus()));
+            },
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.filter_alt_rounded,
+              color: Colors.black,
+            ),
+            title: Text(
+              'Filters',
+              textScaleFactor: 1.2,
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              userIsEmployee
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EmployeeFilterScreen(),
+                      ),
+                    )
+                  : userIsEmployer
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EmployerProfile(),
+                          ),
+                        )
+                      : Navigator.of(context).pop();
             },
           ),
           SizedBox(
