@@ -45,9 +45,8 @@ class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
-    print(user.uid);
+    // print(user.uid);
     if (user != null) {
-
       bool isEmployer;
       bool isEmployee;
       FirebaseFirestore.instance
@@ -56,27 +55,21 @@ class _WrapperState extends State<Wrapper> {
           .get()
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
-          isEmployer=documentSnapshot['isEmployer'];
-
+          isEmployer = documentSnapshot['isEmployer'];
         }
       });
-       FirebaseFirestore.instance
+      FirebaseFirestore.instance
           .collection('employeeProfile')
           .doc(user.uid)
           .get()
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
-          isEmployee=documentSnapshot['isEmployee'];
-
-
+          isEmployee = documentSnapshot['isEmployee'];
         }
       });
       if (isEmployer == true && (isEmployee == false || isEmployee == null)) {
-
         return EmployerHome();
-
-      }
-      else if ((isEmployer == false || isEmployer == null) &&
+      } else if ((isEmployer == false || isEmployer == null) &&
           isEmployee == true) {
         return EmployeeHome();
       } else if (isEmployer == true && isEmployee == true) {
@@ -85,11 +78,9 @@ class _WrapperState extends State<Wrapper> {
         } else
           return EmployeeHome();
       } else {
-
         return Base();
       }
     } else {
-
       return Base();
     }
     // if (user != null) {
