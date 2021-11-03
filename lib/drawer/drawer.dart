@@ -2,24 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/drawer/rate_us.dart';
-// import 'package:helping_hand/drawer_Employee/rate_us.dart';
+import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/about_us_screen.dart';
 import 'package:helping_hand/screens/account_screen.dart';
+import 'package:helping_hand/screens/filters_Employee_screen.dart';
 import 'package:helping_hand/screens/manage_post_screen.dart';
-// import 'package:helping_hand/screens/profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../Shared/base.dart';
 import 'help.dart';
-// import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Model/user.dart';
-// import 'package:helping_hand/screens/about_us_screen.dart';
-// import 'package:helping_hand/screens/account_screen.dart';
-// import 'package:helping_hand/drawer/help.dart';
 import 'package:helping_hand/screens/employer_profile_screen.dart';
-// import 'package:helping_hand/screens/manage_post_screen.dart';
 import 'package:helping_hand/screens/employee_profile_screen.dart';
-// import 'package:helping_hand/drawer/rate_us.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -39,6 +32,20 @@ class _drawerState extends State<drawer> {
   Widget build(BuildContext context) {
     bool userIsEmployee = Provider.of<UserType>(context).userAsEmployee;
     bool userIsEmployer = Provider.of<UserType>(context).userAsEmployer;
+
+    final String employeeName = Provider.of<GetUserInfo>(context)
+        .fetchAndSetUserinfoForEmployee
+        .employeeName;
+    final String employeeContactNo = Provider.of<GetUserInfo>(context)
+        .fetchAndSetUserinfoForEmployee
+        .employeeContactNumber;
+    final String employerName = Provider.of<GetUserInfo>(context)
+        .fetchAndSetUserinfoForEmployer
+        .employerName;
+    final String employerContactNo = Provider.of<GetUserInfo>(context)
+        .fetchAndSetUserinfoForEmployer
+        .employerContactNumber;
+
     return Drawer(
       child: ListView(
         children: [
@@ -53,12 +60,26 @@ class _drawerState extends State<drawer> {
                       fit: BoxFit.cover),
                 ),
                 margin: EdgeInsets.zero,
-                accountName: Text('Mellow'),
-                accountEmail: Text('+91 8888888888'),
+                accountName: userIsEmployer
+                    ? Text(employerName)
+                    : userIsEmployee
+                        ? Text(employeeName)
+                        : Text('Unknown Data'),
+                accountEmail: userIsEmployer
+                    ? Text(employerContactNo)
+                    : userIsEmployee
+                        ? Text(employeeContactNo)
+                        : Text('Unknown Data'),
                 currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.blueGrey,
-                  backgroundImage: NetworkImage(
-                      'https://i.pinimg.com/originals/9a/25/d8/9a25d86d090fc965a7f9c0ad25668b10.jpg'),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.white,
+                  radius: 35,
+                  child: CircleAvatar(
+                    radius: 33,
+                    backgroundColor: Colors.blueGrey,
+                    backgroundImage: NetworkImage(
+                        'https://i.pinimg.com/originals/9a/25/d8/9a25d86d090fc965a7f9c0ad25668b10.jpg'),
+                  ),
                 ),
               )),
           Divider(
@@ -133,6 +154,39 @@ class _drawerState extends State<drawer> {
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => aboutus()));
+            },
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.filter_alt_rounded,
+              color: Colors.black,
+            ),
+            title: Text(
+              'Filters',
+              textScaleFactor: 1.2,
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              userIsEmployee
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EmployeeFilterScreen(),
+                      ),
+                    )
+                  : userIsEmployer
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EmployerProfile(),
+                          ),
+                        )
+                      : Navigator.of(context).pop();
             },
           ),
           SizedBox(
