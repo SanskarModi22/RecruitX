@@ -1,6 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/wrapper.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,10 +13,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  // Future<void> setUserType() async {
+  //   try {
+  //     await Provider.of<UserType>(context).fetchAndSetUserType();
+  //   } catch (e) {
+  //     print('Fetching Data failed in wrapper');
+  //   }
+  // }
+
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 7), () {
+      // setUserType().onError((error, stackTrace) {
+      //   print('Failed to set user type');
+      // });
       // 5 seconds over, navigate to Page2.
       Navigator.push(
         context,
@@ -27,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
         child: Container(
