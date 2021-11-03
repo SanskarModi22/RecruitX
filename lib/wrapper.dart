@@ -54,6 +54,30 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
 
+    // print(user.uid);
+//     if (user != null) {
+//       bool isEmployer;
+//       bool isEmployee;
+//       FirebaseFirestore.instance
+//           .collection('employerProfile')
+//           .doc(user.uid)
+//           .get()
+//           .then((DocumentSnapshot documentSnapshot) {
+//         if (documentSnapshot.exists) {
+//           isEmployer = documentSnapshot['isEmployer'];
+//         }
+//       });
+//       FirebaseFirestore.instance
+//           .collection('employeeProfile')
+//           .doc(user.uid)
+//           .get()
+//           .then((DocumentSnapshot documentSnapshot) {
+//         if (documentSnapshot.exists) {
+//           isEmployee = documentSnapshot['isEmployee'];
+//         }
+//       });
+
+
     Future<void> _setUserType() async {
       try {
         // print('step-1 function called');
@@ -125,6 +149,7 @@ class _WrapperState extends State<Wrapper> {
       // getEmployeeInstance();
       // getEmployerInstance();
       // loading = loading + 1;
+
       if (isEmployer == true && (isEmployee == false || isEmployee == null)) {
         return EmployerHome();
       } else if ((isEmployer == false || isEmployer == null) &&
@@ -136,9 +161,13 @@ class _WrapperState extends State<Wrapper> {
         } else
           return EmployeeHome();
       } else {
+
+//         return Base();
+
         return Center(
           child: CircularProgressIndicator(),
         );
+
       }
     } else {
       return Base();

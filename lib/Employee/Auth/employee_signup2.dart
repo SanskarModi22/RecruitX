@@ -4,12 +4,18 @@ import 'package:helping_hand/Employee/Auth/employee_signup3.dart';
 // ignore: camel_case_types
 class signup_page2 extends StatefulWidget {
   // const signup_page2({ Key? key }) : super(key: key);
-  final String address ;
-  final String EmployeeName ;
-  final String EmployeeAge ;
-  final String contact ;
+  final String address;
+  final String EmployeeName;
+  final String EmployeeAge;
+  final String contact;
 
-  const signup_page2({Key key, this.address, this.EmployeeName, this.EmployeeAge, this.contact}) : super(key: key);
+  const signup_page2(
+      {Key key,
+      this.address,
+      this.EmployeeName,
+      this.EmployeeAge,
+      this.contact})
+      : super(key: key);
   @override
   _signup_page2State createState() => _signup_page2State();
 }
@@ -17,11 +23,11 @@ class signup_page2 extends StatefulWidget {
 // ignore: camel_case_types
 class _signup_page2State extends State<signup_page2> {
   @override
-  final dob =TextEditingController();
-  final Bio =TextEditingController();
-  final Aadhar=TextEditingController();
-  final SalaryExpextation=TextEditingController();
-  final ExpectedJobs=TextEditingController();
+  final dob = TextEditingController();
+  final Bio = TextEditingController();
+  final Aadhar = TextEditingController();
+  final SalaryExpextation = TextEditingController();
+  final ExpectedJobs = TextEditingController();
   final Experience = TextEditingController();
   @override
   void dispose() {
@@ -43,6 +49,7 @@ class _signup_page2State extends State<signup_page2> {
     ExpectedJobs.clear();
     Experience.clear();
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -183,43 +190,120 @@ class _signup_page2State extends State<signup_page2> {
                 SizedBox(
                   height: 30,
                 ),
-                TextFormField(
-                  controller: SalaryExpextation,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Salary Expectation:",
+                    style: TextStyle(
                       color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Salary Expectations',
-                    //  labelText: 'Salary Expectations',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
+                      fontSize: 17,
                     ),
                   ),
-                  keyboardType: TextInputType.number,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 90,
+                      child: TextFormField(
+                        // controller: Aadhar,
+                        decoration: InputDecoration(
+                          floatingLabelStyle: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                          hintText: 'Min',
+                          //  labelText: 'Salary Expectations',
+                          fillColor: Colors.white,
+                          filled: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(
+                              10,
+                            ),
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(
+                              10,
+                            ),
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(
+                              10,
+                            ),
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(
+                              10,
+                            ),
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "To",
+                      style: TextStyle(
+                        fontSize: 17,
+                        color: Colors.green,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      height: 50,
+                      width: 90,
+                      child: TextFormField(
+                        //  controller: Aadhar,
+                        decoration: InputDecoration(
+                          floatingLabelStyle: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                          hintText: 'Max',
+                          //  labelText: 'Salary Expectations',
+                          fillColor: Colors.white,
+                          filled: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(
+                              10,
+                            ),
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(
+                              10,
+                            ),
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(
+                              10,
+                            ),
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(
+                              10,
+                            ),
+                            borderSide: BorderSide(color: Colors.green),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                    )
+                  ],
                 ),
                 SizedBox(
                   height: 30,
@@ -315,18 +399,19 @@ class _signup_page2State extends State<signup_page2> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => signup_page3(
-                        EmployeeName: widget.EmployeeName,
-                        EmployeeAge: widget.EmployeeAge,
-                        address: widget.address,
-                        contact: widget.contact,
-                        Aadhar: Aadhar.text,
-                        Bio: Bio.text,
-                        dob: dob.text,
-                        Experience: Experience.text,
-                        SalaryExpextation: SalaryExpextation.text,
-                        ExpectedJobs: ExpectedJobs.text,
-                      )),
+                      MaterialPageRoute(
+                          builder: (context) => signup_page3(
+                                EmployeeName: widget.EmployeeName,
+                                EmployeeAge: widget.EmployeeAge,
+                                address: widget.address,
+                                contact: widget.contact,
+                                Aadhar: Aadhar.text,
+                                Bio: Bio.text,
+                                dob: dob.text,
+                                Experience: Experience.text,
+                                SalaryExpextation: SalaryExpextation.text,
+                                ExpectedJobs: ExpectedJobs.text,
+                              )),
                     );
                   },
                   child: Text(

@@ -17,7 +17,7 @@ class Employee {
   String employeePreferedShift;
   double averageRating;
   String aadhar;
-  bool isEmployee=false;
+  bool isEmployee = false;
 // non  values
   List<ReviewByEmployer> reviews = [];
 
