@@ -77,7 +77,6 @@ class _WrapperState extends State<Wrapper> {
 //         }
 //       });
 
-
     Future<void> _setUserType() async {
       try {
         // print('step-1 function called');
@@ -161,13 +160,13 @@ class _WrapperState extends State<Wrapper> {
         } else
           return EmployeeHome();
       } else {
-
 //         return Base();
 
-        return Center(
-          child: CircularProgressIndicator(),
+        return Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
         );
-
       }
     } else {
       return Base();
