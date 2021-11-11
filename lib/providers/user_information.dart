@@ -95,10 +95,11 @@ class GetUserInfo with ChangeNotifier {
         shopid: "shopnumber1",
         shopName: "TopShop",
         numOfEmployees: "25",
-        ownerName: "Mellow Employer",
+        ownerName: "Sanskar Modi",
         shopAddress:
             "Pahado ke uppar, Jungle ke paar, Apna shahar, Apna District,  India",
         shopType: "Sweets",
+        city:"Lucknow",
         shopImageUrl:
             'https://ichef.bbci.co.uk/news/976/cpsprodpb/8A13/production/_116574353_gettyimages-1229868118.jpg',
         jobsAvailable: [
@@ -107,7 +108,7 @@ class GetUserInfo with ChangeNotifier {
             shopId: "shopnumber1",
             specialRequest:
                 "Should be able to stay for late meetings occasionaly",
-            jobName: "Cashier",
+            jobName:"Grocery",
             salary: "30000",
             workingDays: "Full week excluding sunday",
             workingHours: "12:00am to 5:00pm",
@@ -128,7 +129,8 @@ class GetUserInfo with ChangeNotifier {
         shopid: "shopnumber2",
         shopName: "Outfitters",
         numOfEmployees: "15",
-        ownerName: "Mellow Employer",
+        ownerName: "Pranay Dhongade",
+        city:"Chennai",
         shopAddress:
             "Pahado ke uppar, Jungle ke paar, Apna shahar, Apna District,  India",
         shopType: "Clothes",
@@ -165,13 +167,22 @@ class GetUserInfo with ChangeNotifier {
         shopid: "shopnumber3",
         shopName: "Penneys",
         numOfEmployees: "45",
-        ownerName: "Mellow Employer",
+        ownerName: "Kartik Gupta",
+        city:"Mumbai",
         shopAddress:
             "Pahado ke uppar, Jungle ke paar, Apna shahar, Apna District,  India",
         shopType: "Dairy",
         shopImageUrl:
             'https://www.independent.ie/irish-news/cc37f/40429349.ece/AUTOCROP/w1240h700/penneys.jpg',
         jobsAvailable: [
+          Job(
+            jobId: "job6",
+            shopId: "shopnumber3",
+            jobName: "Delivery Boy",
+            salary: "12000",
+            workingDays: "Full week excluding sunday",
+            workingHours: "12:00am to 5:00pm",
+          ),
           Job(
             jobId: "job6",
             shopId: "shopnumber3",

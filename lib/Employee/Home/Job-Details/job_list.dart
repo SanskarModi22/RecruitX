@@ -127,7 +127,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
                                   padding: EdgeInsets.all(_w / 30),
                                   physics: BouncingScrollPhysics(
                                       parent: AlwaysScrollableScrollPhysics()),
-                                  itemCount: 5,
+                                  itemCount: 2,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return AnimationConfiguration.staggeredList(
@@ -138,7 +138,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
                                         curve: Curves.fastLinearToSlowEaseIn,
                                         horizontalOffset: -300,
                                         verticalOffset: -850,
-                                        child: ExpandedDetails(),
+                                        child: ExpandedDetails(index: index,),
                                       ),
                                     );
                                   },
@@ -201,6 +201,9 @@ class MyPainter extends CustomPainter {
 }
 
 class ExpandedDetails extends StatefulWidget {
+  final int index;
+
+  const ExpandedDetails({Key key, this.index}) : super(key: key);
   @override
   _ExpandedDetailsState createState() => _ExpandedDetailsState();
 }
@@ -211,6 +214,9 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
 
   @override
   Widget build(BuildContext context) {
+    var fetchAndSetEmployerShops2 = context
+                                  .watch<GetUserInfo>()
+                                  .fetchAndSetEmployerShops;
     return Column(
       children: [
         SizedBox(
@@ -230,20 +236,20 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
             });
           },
           child: Container(
-            height: isTapped ? 9.h : 32.h,
+            height: isTapped ? 11.h : 34.h,
             child: AnimatedContainer(
               duration: Duration(seconds: 1),
               curve: Curves.fastLinearToSlowEaseIn,
-              height: isTapped
-                  ? isExpanded
-                      ? 65
-                      : 70
-                  : isExpanded
-                      ? 225
-                      : 230,
-              width: isExpanded ? 385 : 390,
+              // height: isTapped
+              //     ? isExpanded
+              //         ? 65
+              //         : 70
+              //     : isExpanded
+              //         ? 225
+              //         : 230,
+              // width: isExpanded ? 385 : 390,
               decoration: BoxDecoration(
-                color: Color(0xff6F12E8),
+                color: Color.fromRGBO(255, 253, 208,1),
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 boxShadow: [
                   BoxShadow(
@@ -259,20 +265,34 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                           children: [
-                            Text(
-                              context
-                                  .watch<GetUserInfo>()
-                                  .fetchAndSetEmployerShops
-                                  .shops[0]
-                                  .shopName,
+                            CircleAvatar(
+                              radius: 21,
+                              backgroundImage: NetworkImage(
+                                fetchAndSetEmployerShops2.shops[widget.index].shopImageUrl
+                              ),
                             ),
+                            SizedBox(width: 25,),
+                            Text(
+                              fetchAndSetEmployerShops2
+                                  .shops[widget.index]
+                                  .shopName,
+                              style: TextStyle(fontSize: 21,fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(width: 25,),
+                            Column(children: [
+                              Text("City",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                              Text(fetchAndSetEmployerShops2
+                                  .shops[widget.index]
+                                  .city??"Null"),
+                            ],),
+                            SizedBox(width: 60,),
                             Icon(
                               isTapped
                                   ? Icons.keyboard_arrow_down
                                   : Icons.keyboard_arrow_up,
-                              color: Colors.white,
+                              color: Colors.black,
                               size: 27,
                             ),
                           ],
@@ -285,21 +305,19 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              context
-                                  .watch<GetUserInfo>()
-                                  .fetchAndSetEmployerShops
-                                  .shops[0]
+                              fetchAndSetEmployerShops2
+                                  .shops[widget.index]
                                   .shopName,
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.blue[900],
                                   fontSize: 22,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.bold),
                             ),
                             Icon(
                               isTapped
                                   ? Icons.keyboard_arrow_down
                                   : Icons.keyboard_arrow_up,
-                              color: Colors.white,
+                              color: Colors.black,
                               size: 27,
                             ),
                           ],
@@ -307,23 +325,67 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                         SizedBox(
                           height: 20,
                         ),
-                        Text(
-                          isTapped
-                              ? ''
-                              : 'Widgets that have global keys reparent '
-                                  'their subtrees when they are moved from one '
-                                  'location in the tree to another location in '
-                                  'the tree. In order to reparent its subtree, '
-                                  'a widget must arrive at its new location in '
-                                  'the tree in the same animation frame in '
-                                  'which it was removed from its old location '
-                                  'the tree.',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.9),
-                            fontSize: 17,
-                            fontWeight: FontWeight.w400,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              radius: 75,
+                              backgroundImage: NetworkImage(fetchAndSetEmployerShops2.shops[widget.index].shopImageUrl),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+
+                                Text("Shop Owner",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                                Text(fetchAndSetEmployerShops2.shops[widget.index].ownerName,),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("Working Hours",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                                Text(fetchAndSetEmployerShops2.shops[widget.index].jobsAvailable[widget.index].workingHours),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("Salary offered",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                                Text(fetchAndSetEmployerShops2.shops[widget.index].jobsAvailable[widget.index%2].salary),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(35.0,4,0,0),
+                                  child: ElevatedButton(
+style: ButtonStyle(
+  backgroundColor: MaterialStateProperty.all(Colors.white),
+  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)))
+),
+                                      child: Text("More details",style: TextStyle(color: Colors.green[900]),)),
+                                )
+
+                              ],
+                            ),
+                          ],
                         ),
+                        // Text(
+                        //   isTapped
+                        //       ? ''
+                        //       : 'Widgets that have global keys reparent '
+                        //           'their subtrees when they are moved from one '
+                        //           'location in the tree to another location in '
+                        //           'the tree. In order to reparent its subtree, '
+                        //           'a widget must arrive at its new location in '
+                        //           'the tree in the same animation frame in '
+                        //           'which it was removed from its old location '
+                        //           'the tree.',
+                        //   style: TextStyle(
+                        //     color: Colors.white.withOpacity(0.9),
+                        //     fontSize: 17,
+                        //     fontWeight: FontWeight.w400,
+                        //   ),
+                        // ),
                       ],
                     ),
             ),
