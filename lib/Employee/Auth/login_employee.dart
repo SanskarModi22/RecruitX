@@ -7,6 +7,7 @@ import 'package:helping_hand/Employee/Auth/employee_signup1.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/mobile_signUp.dart';
+import 'package:helping_hand/wrapper.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -149,7 +150,7 @@ class _LoginEmpState extends State<LoginEmp> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => EmployeeSignUp()),
+                                        builder: (context) => Wrapper(),),
                                   );
                               },
                               child: Row(
@@ -176,39 +177,39 @@ class _LoginEmpState extends State<LoginEmp> {
                           SizedBox(
                             height: 20,
                           ),
-                          Center(
-                            child: Container(
-                                child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Dont Have an account?",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EmployeeSignUp()));
-                                    },
-                                    child: Text(
-                                      "Sign Up",
-                                      style: TextStyle(
-                                        color: Colors.green,
-                                        fontSize: 17,
-                                      ),
-                                    )),
-                              ],
-                            )),
-                          ),
+                          // Center(
+                          //   child: Container(
+                          //       child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Text(
+                          //         "Dont Have an account?",
+                          //         style: TextStyle(
+                          //           color: Colors.white,
+                          //           fontSize: 17,
+                          //         ),
+                          //       ),
+                          //       SizedBox(
+                          //         width: 5,
+                          //       ),
+                          //       TextButton(
+                          //           onPressed: () {
+                          //             Navigator.push(
+                          //                 context,
+                          //                 MaterialPageRoute(
+                          //                     builder: (context) =>
+                          //                         EmployeeSignUp()));
+                          //           },
+                          //           child: Text(
+                          //             "Sign Up",
+                          //             style: TextStyle(
+                          //               color: Colors.green,
+                          //               fontSize: 17,
+                          //             ),
+                          //           )),
+                          //     ],
+                          //   )),
+                          // ),
                         ],
                       ),
                     )

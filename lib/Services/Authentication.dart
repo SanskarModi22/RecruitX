@@ -112,17 +112,20 @@ class AuthServices {
                         userfromFirebase(user);
 
                         if(user != null){
-                          if(Provider.of<UserType>(context, listen: false)
-                              .userAsEmployer){
+                          // if(Provider.of<UserType>(context, listen: false)
+                          //     .userAsEmployer){
+                          // Navigator.push(context, MaterialPageRoute(
+                          //     builder: (context) => EmployerSignUp()
+                          // ));}
+                          // else {
+                          //   Navigator.push(context, MaterialPageRoute(
+                          //       builder: (context) => EmployeeSignUp()
+                          //   ));
                           Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => EmployerSignUp()
-                          ));}
-                          else {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => EmployeeSignUp()
-                            ));
+                          builder: (context) => Wrapper()
+                ));
                           }
-                        }else{
+                        else{
 
                           print("Error");
                         }

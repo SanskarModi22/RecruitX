@@ -95,59 +95,11 @@ class _WrapperState extends State<Wrapper> {
       }
     }
 
-    // print(user.uid);
+
     if (user != null) {
       // print(user.uid);
       _setUserType();
-      // loading = false;
 
-      // FirebaseFirestore.instance
-      //     .collection('employerProfile')
-      //     .doc(user.uid)
-      //     .get()
-      //     .then((DocumentSnapshot documentSnapshot) {
-      //   if (documentSnapshot.exists) {
-      //     isEmployer = documentSnapshot['isEmployer'];
-      //   }
-      // });
-      // FirebaseFirestore.instance
-      //     .collection('employeeProfile')
-      //     .doc(user.uid)
-      //     .get()
-      //     .then((DocumentSnapshot documentSnapshot) {
-      //   if (documentSnapshot.exists) {
-      //     isEmployee = documentSnapshot['isEmployee'];
-      //   }
-      // });
-
-      //   Future<void> getEmployerInstance() async {
-      //   await FirebaseFirestore.instance
-      //       .collection('employerProfile')
-      //       .doc(user.uid)
-      //       .get()
-      //       .then((DocumentSnapshot documentSnapshot) {
-      //     if (documentSnapshot.exists) {
-      //       isEmployer = documentSnapshot['isEmployer'];
-      //       print(isEmployer);
-      //     }
-      //   });
-      // }
-
-      // Future<void> getEmployeeInstance() async {
-      //   await FirebaseFirestore.instance
-      //       .collection('employeeProfile')
-      //       .doc(user.uid)
-      //       .get()
-      //       .then((DocumentSnapshot documentSnapshot) {
-      //     if (documentSnapshot.exists) {
-      //       isEmployee = documentSnapshot['isEmployee'];
-      //     }
-      //   });
-      // }
-
-      // getEmployeeInstance();
-      // getEmployerInstance();
-      // loading = loading + 1;
 
       if (isEmployer == true && (isEmployee == false || isEmployee == null)) {
         return EmployerHome();
@@ -171,27 +123,5 @@ class _WrapperState extends State<Wrapper> {
     } else {
       return Base();
     }
-    // if (user != null) {
-    //   return StreamBuilder<Employer>(
-    //       stream: DatabaseServices(uid: user.uid).employerData,
-    //       builder: (context, snapshot) {
-    //         Employer employer = snapshot.data;
-    //         if ( snapshot.data!=null) {
-    //           return employer.isEmployer==true?EmployerHome():
-    //         } else {
-    //         return  StreamBuilder<Employee>(
-    //               stream: DatabaseServices(uid: user.uid).empData,
-    //               builder: (context, snap) {
-    //                 Employee emp = snap.data;
-    //                 if (snap.data!=null) {
-    //                   return emp.isEmployee==true?EmployeeHome():Base();
-    //                 } else
-    //                   return Base();
-    //               });
-    //         }
-    //       });
-    // } else {
-    //   return Base();
-    // }
   }
 }

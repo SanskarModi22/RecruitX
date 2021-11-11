@@ -150,7 +150,7 @@ class _LoginEmployerState extends State<LoginEmployer> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => EmployerSignUp()),
+                                        builder: (context) => Wrapper(),),
                                   );
                               },
                               child: Row(
@@ -177,39 +177,39 @@ class _LoginEmployerState extends State<LoginEmployer> {
                           SizedBox(
                             height: 20,
                           ),
-                          Center(
-                            child: Container(
-                                child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Dont Have an account?",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EmployerSignUp()));
-                                    },
-                                    child: Text(
-                                      "Sign Up",
-                                      style: TextStyle(
-                                        color: Colors.green,
-                                        fontSize: 17,
-                                      ),
-                                    )),
-                              ],
-                            )),
-                          ),
+                          // Center(
+                          //   child: Container(
+                          //       child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Text(
+                          //         "Dont Have an account?",
+                          //         style: TextStyle(
+                          //           color: Colors.white,
+                          //           fontSize: 17,
+                          //         ),
+                          //       ),
+                          //       SizedBox(
+                          //         width: 5,
+                          //       ),
+                          //       TextButton(
+                          //           onPressed: () {
+                          //             Navigator.push(
+                          //                 context,
+                          //                 MaterialPageRoute(
+                          //                     builder: (context) =>
+                          //                         EmployerSignUp()));
+                          //           },
+                          //           child: Text(
+                          //             "Sign Up",
+                          //             style: TextStyle(
+                          //               color: Colors.green,
+                          //               fontSize: 17,
+                          //             ),
+                          //           )),
+                          //     ],
+                          //   )),
+                          // ),
                         ],
                       ),
                     )

@@ -35,11 +35,6 @@ class DBHelper {
   static Future<void> update(String table, Map<String, Object> data) async {
     try {
       final db = await DBHelper.database();
-      // db.insert(
-      //   'usertype',
-      //   data,
-      //   conflictAlgorithm: ConflictAlgorithm.replace,
-      // );
       db.update(table, data, conflictAlgorithm: ConflictAlgorithm.replace);
       print('data inserted');
     } catch (e) {
