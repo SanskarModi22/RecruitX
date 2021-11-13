@@ -25,65 +25,67 @@ class UserType with ChangeNotifier {
     return isEmployer;
   }
 
-  Future<void> setUserAsEmployee() async {
+  void setUserAsEmployee() async {
     isEmployee = true;
     isEmployer = false;
-    double count = 0;
+    // double count = 0;
 
-    if (count == 0) {
-      try {
-        await DBHelper.insert('userType', {
-          'isEmployee': 0.toInt(),
-          'isEmployer': 1.toInt(),
-        });
+    // if (count == 0) {
+    //   try {
+    //     await DBHelper.insert('userType', {
+    //       'isEmployee': 0.toInt(),
+    //       'isEmployer': 1.toInt(),
+    //     });
 
-        print('user set as employee for first time');
-        count = count + 1;
-      } catch (e) {
-        print('error setting user as employee for first time');
-      }
-    } else {
-      try {
-        await DBHelper.update('userType', {
-          'isEmployee': 0.toInt(),
-          'isEmployer': 1.toInt(),
-        });
-        print('user set as employee');
-        count = count + 1;
-      } catch (e) {
-        print('error setting user as employee');
-      }
-    }
+    //     print('user set as employee for first time');
+    //     count = count + 1;
+    //   } catch (e) {
+    //     print('error setting user as employee for first time');
+    //   }
+    // } else {
+    //   try {
+    //     await DBHelper.update('userType', {
+    //       'isEmployee': 0.toInt(),
+    //       'isEmployer': 1.toInt(),
+    //     });
+    //     print('user set as employee');
+    //     count = count + 1;
+    //   } catch (e) {
+    //     print('error setting user as employee');
+    //   }
+    // }
+    print('set as employee');
     notifyListeners();
   }
 
-  Future<void> setUserAsEmployer() async {
+  void setUserAsEmployer() async {
     isEmployer = true;
     isEmployee = false;
-    double count = 0;
-    if (count == 0) {
-      try {
-        await DBHelper.insert('userType', {
-          'isEmployee': 1.toInt(),
-          'isEmployer': 0.toInt(),
-        });
-        print('user set as employer for first time');
-        count = count + 1;
-      } catch (e) {
-        print('error setting user as employer for first time');
-      }
-    } else {
-      try {
-        await DBHelper.update('userType', {
-          'isEmployee': 1.toInt(),
-          'isEmployer': 0.toInt(),
-        });
-        print('user set as employer ');
-        count = count + 1;
-      } catch (e) {
-        print('error setting user as employer');
-      }
-    }
+    // double count = 0;
+    // if (count == 0) {
+    //   try {
+    //     await DBHelper.insert('userType', {
+    //       'isEmployee': 1.toInt(),
+    //       'isEmployer': 0.toInt(),
+    //     });
+    //     print('user set as employer for first time');
+    //     count = count + 1;
+    //   } catch (e) {
+    //     print('error setting user as employer for first time');
+    //   }
+    // } else {
+    //   try {
+    //     await DBHelper.update('userType', {
+    //       'isEmployee': 1.toInt(),
+    //       'isEmployer': 0.toInt(),
+    //     });
+    //     print('user set as employer ');
+    //     count = count + 1;
+    //   } catch (e) {
+    //     print('error setting user as employer');
+    //   }
+    // }
+    print('set as employer');
     notifyListeners();
   }
 

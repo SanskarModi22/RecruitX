@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Auth/employee_signup1.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employer/Auth/employer_signup1.dart';
 import 'package:helping_hand/Employer/Home/Home.dart';
 import 'package:helping_hand/Services/database_service.dart';
 import 'package:helping_hand/providers/user_information.dart';
@@ -39,43 +42,61 @@ class _WrapperState extends State<Wrapper> {
     });
   }
 
-  @override
-  void initState() {
-    getValidationData().whenComplete(() async {
-      Timer(Duration(seconds: 2), () {});
-      super.initState();
-    });
-  }
+  // @override
+  // void initState() {
+  //   getValidationData().whenComplete(() async {
+  //     Timer(Duration(seconds: 2), () {});
+  //     super.initState();
+  //   });
+  // }
+  // final cUser = FirebaseAuth.instance.currentUser.uid;
 
-  bool isEmployee = null;
-  bool isEmployer = null;
+  bool isEmployee = false;
+  bool isEmployer = false;
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
 
     // print(user.uid);
-//     if (user != null) {
-//       bool isEmployer;
-//       bool isEmployee;
-//       FirebaseFirestore.instance
-//           .collection('employerProfile')
-//           .doc(user.uid)
-//           .get()
-//           .then((DocumentSnapshot documentSnapshot) {
-//         if (documentSnapshot.exists) {
-//           isEmployer = documentSnapshot['isEmployer'];
-//         }
-//       });
-//       FirebaseFirestore.instance
-//           .collection('employeeProfile')
-//           .doc(user.uid)
-//           .get()
-//           .then((DocumentSnapshot documentSnapshot) {
-//         if (documentSnapshot.exists) {
-//           isEmployee = documentSnapshot['isEmployee'];
-//         }
-//       });
+    Future<void> _setUser() async {
+      try {
+        await FirebaseFirestore.instance
+            .collection('employerProfile')
+            .doc(user.uid)
+            .get()
+            .then((DocumentSnapshot documentSnapshot) {
+          if (documentSnapshot.exists) {
+            isEmployer = documentSnapshot['isEmployer'];
+          }
+          if (!documentSnapshot.exists) {
+            isEmployer = false;
+          }
+        });
+        await FirebaseFirestore.instance
+            .collection('employeeProfile')
+            .doc(user.uid)
+            .get()
+            .then((DocumentSnapshot documentSnapshot) {
+          if (documentSnapshot.exists) {
+            isEmployee = documentSnapshot['isEmployee'];
+          }
+          if (!documentSnapshot.exists) {
+            isEmployee = false;
+          }
+        });
+        print('success!');
+        // print(isEmployee);
+        // print(isEmployer);
+      } catch (e) {
+        print('failed to set them');
+      }
+    }
+
+    if (user != null) {
+      bool isEmployer;
+      bool isEmployee;
+    }
 
     Future<void> _setUserType() async {
       try {
@@ -95,33 +116,82 @@ class _WrapperState extends State<Wrapper> {
       }
     }
 
+    return FutureBuilder(
+        future:
+            // Future.delayed(Duration(seconds: 3), () {
+            _setUser(),
+        // }),
+        // ignore: missing_return
+        builder: (ctx, s) {
+          print(isEmployee);
+          print(isEmployer);
+          if (s.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (user != null) {
+            print(user.uid);
+            if (isEmployer == true &&
+                (isEmployee == false || isEmployee == null)) {
+              print('emplloyer');
+              Provider.of<UserType>(context).setUserAsEmployer;
+              return EmployerHome();
+            }
+            if (isEmployee == true &&
+                (isEmployer == false || isEmployer == null)) {
+              Provider.of<UserType>(context).setUserAsEmployee;
 
-    if (user != null) {
-      // print(user.uid);
-      _setUserType();
+              return EmployeeHome();
+            }
+            if (isEmployee == true && isEmployer == true) {
+              if (Provider.of<UserType>(context, listen: false)
+                      .userAsEmployer ==
+                  true) {
+                Provider.of<UserType>(context).setUserAsEmployer;
 
-
-      if (isEmployer == true && (isEmployee == false || isEmployee == null)) {
-        return EmployerHome();
-      } else if ((isEmployer == false || isEmployer == null) &&
-          isEmployee == true) {
-        return EmployeeHome();
-      } else if (isEmployer == true && isEmployee == true) {
-        if (Provider.of<UserType>(context, listen: false).userAsEmployer) {
-          return EmployerHome();
-        } else
-          return EmployeeHome();
-      } else {
-//         return Base();
-
-        return Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
-      }
-    } else {
-      return Base();
-    }
+                return EmployerHome();
+              } else {
+                return EmployeeHome();
+              }
+            }
+          }
+          return Provider.of<UserType>(context).isEmployee
+              ? EmployeeSignUp()
+              : Provider.of<UserType>(context).isEmployer
+                  ? EmployerSignUp()
+                  : Base();
+        });
   }
 }
+
+
+// user!= null ? {
+        
+//          // _setUserType();
+//          // _setUser();
+//          // print(isEmployee);
+//          // print(isEmployer);
+//          // screen();
+//          if (isEmployer == true &&
+//              (isEmployee == false || isEmployee == null)) {
+//            // print('check1');
+
+//            return EmployerHome();
+//          } else if ((isEmployer == false || isEmployer == null) &&
+//              isEmployee == true) {
+//            return EmployeeHome();
+//          } else if (isEmployer == true && isEmployee == true) {
+//            if (Provider.of<UserType>(context, listen: false).userAsEmployer) {
+//              return EmployerHome();
+//            } else
+//              return EmployeeHome();
+//          } else {
+// //         return Base();
+
+//            return Scaffold(
+//              body: Center(
+//                child: CircularProgressIndicator(),
+//              ),
+//            );
+//          }
+//        } ,
+//       } 
+       
