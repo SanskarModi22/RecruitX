@@ -172,7 +172,7 @@ class _LoginEmployerState extends State<LoginEmployer> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => EmployerSignUp(),),
+                                        builder: (context) => Wrapper(),),
                                   );
                               },
                               child: Row(

@@ -93,28 +93,28 @@ class _WrapperState extends State<Wrapper> {
       }
     }
 
-    if (user != null) {
-      bool isEmployer;
-      bool isEmployee;
-    }
+    // if (user != null) {
+    //   bool isEmployer;
+    //   bool isEmployee;
+    // }
 
-    Future<void> _setUserType() async {
-      try {
-        // print('step-1 function called');
-        final user = await Provider.of<UserType>(context).fetchAndSetUserType();
-        setState(() {
-          // print('step-2 in the set state');
-          isEmployee = user['isEmployee'];
-          isEmployer = user['isEmployer'];
-        });
-        // print('step 3 fetched and set');
-        // print(isEmployee);
-        // print(isEmployer);
-        // loading = false;
-      } catch (e) {
-        print('error failed to set user type ');
-      }
-    }
+    // Future<void> _setUserType() async {
+    //   try {
+    //     // print('step-1 function called');
+    //     final user = await Provider.of<UserType>(context).fetchAndSetUserType();
+    //     setState(() {
+    //       // print('step-2 in the set state');
+    //       isEmployee = user['isEmployee'];
+    //       isEmployer = user['isEmployer'];
+    //     });
+    //     // print('step 3 fetched and set');
+    //     // print(isEmployee);
+    //     // print(isEmployer);
+    //     // loading = false;
+    //   } catch (e) {
+    //     print('error failed to set user type ');
+    //   }
+    // }
 
     return FutureBuilder(
         future:
@@ -123,36 +123,42 @@ class _WrapperState extends State<Wrapper> {
         // }),
         // ignore: missing_return
         builder: (ctx, s) {
-          print(isEmployee);
-          print(isEmployer);
+          print("isEmployee $isEmployee");
+          print("isEmployer $isEmployer");
+          print("local employee ${Provider.of<UserType>(context).userAsEmployee}");
+          print("local employer ${Provider.of<UserType>(context).userAsEmployer}");
           if (s.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (user != null) {
             print(user.uid);
-            if (isEmployer == true &&
-                (isEmployee == false || isEmployee == null)) {
+            if ((isEmployer == true &&
+                Provider.of<UserType>(context).userAsEmployer==true)||(isEmployer==true&&isEmployee==false&&Provider.of<UserType>(context).userAsEmployee==false)) {
               print('emplloyer');
               Provider.of<UserType>(context).setUserAsEmployer;
+              print("ullapullla");
               return EmployerHome();
             }
-            if (isEmployee == true &&
-                (isEmployer == false || isEmployer == null)) {
+           else if ((isEmployee == true &&
+                Provider.of<UserType>(context).userAsEmployee==true)||(isEmployee==true&&isEmployer==false&&Provider.of<UserType>(context).userAsEmployer==false)) {
               Provider.of<UserType>(context).setUserAsEmployee;
 
               return EmployeeHome();
             }
-            if (isEmployee == true && isEmployer == true) {
+            else if (isEmployee == true && isEmployer == true) {
               if (Provider.of<UserType>(context, listen: false)
                       .userAsEmployer ==
                   true) {
                 Provider.of<UserType>(context).setUserAsEmployer;
 
                 return EmployerHome();
-              } else {
+              } else if(Provider.of<UserType>(context, listen: false)
+                  .userAsEmployee ==
+                  true) {
                 return EmployeeHome();
               }
             }
           }
+
           return Provider.of<UserType>(context).isEmployee
               ? EmployeeSignUp()
               : Provider.of<UserType>(context).isEmployer
