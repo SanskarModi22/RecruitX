@@ -112,6 +112,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "30000",
             workingDays: "Full week excluding sunday",
             workingHours: "12:00am to 5:00pm",
+            vacancy: "5"
           ),
           Job(
             jobId: "job2",
@@ -122,6 +123,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "20000",
             workingDays: "Full week ",
             workingHours: "6:00am to 8:00pm",
+            vacancy: "5"
           )
         ],
       ),
@@ -144,6 +146,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "8000",
             workingDays: "Full week excluding sunday",
             workingHours: "12:00am to 5:00pm",
+            vacancy: "5"
           ),
           Job(
             jobId: "job4",
@@ -152,6 +155,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "10000",
             workingDays: "Full week",
             workingHours: "6:00am to 8:00pm",
+              vacancy: "5"
           ),
           Job(
             jobId: "job5",
@@ -160,6 +164,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "40000",
             workingDays: "Everyday",
             workingHours: "11:00am to 5:00pm",
+            vacancy: "5"
           )
         ],
       ),
@@ -182,6 +187,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "12000",
             workingDays: "Full week excluding sunday",
             workingHours: "12:00am to 5:00pm",
+            vacancy: "5"
           ),
           Job(
             jobId: "job6",
@@ -190,6 +196,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "12000",
             workingDays: "Full week excluding sunday",
             workingHours: "12:00am to 5:00pm",
+            vacancy: "5"
           ),
         ],
       ),
