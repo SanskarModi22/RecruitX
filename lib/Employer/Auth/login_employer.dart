@@ -1,11 +1,15 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:helping_hand/Employer/Auth/employer_signup1.dart';
+import 'package:helping_hand/Model/user.dart';
 
 
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/mobile_signUp.dart';
 import 'package:helping_hand/wrapper.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 // ignore: camel_case_types
@@ -16,10 +20,16 @@ class LoginEmployer extends StatefulWidget {
 
 // ignore: camel_case_types
 class _LoginEmployerState extends State<LoginEmployer> {
+        bool isEmployer;
+      bool isEmployee;
+
   final AuthServices _auth = AuthServices();
   final formGlobalKey = GlobalKey<FormState>();
   @override
+
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser>(context);
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Form(
@@ -146,11 +156,23 @@ class _LoginEmployerState extends State<LoginEmployer> {
                                   )),
                               onPressed: () async {
                                 final res = await _auth.signInWithGoogle();
+                                // FirebaseFirestore.instance
+                                //     .collection('employerProfile')
+                                //     .doc(user.uid??"null")
+                                //     .get()
+                                //     .then((DocumentSnapshot documentSnapshot) {
+                                //   if (documentSnapshot.exists) {
+                                //     isEmployer = documentSnapshot['isEmployer'];
+                                //     print(isEmployer);
+                                //     print(user.uid);
+                                //   }
+                                // });
+
                                 if (res != null)
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Wrapper(),),
+                                        builder: (context) => EmployerSignUp(),),
                                   );
                               },
                               child: Row(
@@ -177,39 +199,39 @@ class _LoginEmployerState extends State<LoginEmployer> {
                           SizedBox(
                             height: 20,
                           ),
-                          // Center(
-                          //   child: Container(
-                          //       child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       Text(
-                          //         "Dont Have an account?",
-                          //         style: TextStyle(
-                          //           color: Colors.white,
-                          //           fontSize: 17,
-                          //         ),
-                          //       ),
-                          //       SizedBox(
-                          //         width: 5,
-                          //       ),
-                          //       TextButton(
-                          //           onPressed: () {
-                          //             Navigator.push(
-                          //                 context,
-                          //                 MaterialPageRoute(
-                          //                     builder: (context) =>
-                          //                         EmployerSignUp()));
-                          //           },
-                          //           child: Text(
-                          //             "Sign Up",
-                          //             style: TextStyle(
-                          //               color: Colors.green,
-                          //               fontSize: 17,
-                          //             ),
-                          //           )),
-                          //     ],
-                          //   )),
-                          // ),
+                          Center(
+                            child: Container(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Dont Have an account?",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EmployerSignUp()));
+                                    },
+                                    child: Text(
+                                      "Sign Up",
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 17,
+                                      ),
+                                    )),
+                              ],
+                            )),
+                          ),
                         ],
                       ),
                     )

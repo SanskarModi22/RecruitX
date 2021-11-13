@@ -17,8 +17,17 @@ class EmployerSignUp2 extends StatefulWidget {
   final String employerAge;
   final String employerDOB;
   final String employerContactNumber;
+  final File shopImg;
 
-  const EmployerSignUp2({Key key, this.shopName, this.employerName, this.employerAge, this.employerDOB, this.employerContactNumber}) : super(key: key);
+  const EmployerSignUp2(
+      {Key key,
+      this.shopName,
+      this.employerName,
+      this.employerAge,
+      this.employerDOB,
+      this.employerContactNumber,
+      this.shopImg})
+      : super(key: key);
   @override
   _EmployerSignUp2State createState() => _EmployerSignUp2State();
 }
@@ -294,13 +303,9 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       ),
                       borderSide: BorderSide(color: Colors.green),
                     ),
-
-
-
                     focusedBorder: OutlineInputBorder(
                       borderRadius: new BorderRadius.circular(
                         10,
-
                       ),
                       borderSide: BorderSide(color: Colors.green),
                     ),
@@ -512,11 +517,19 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       employerAge: widget.employerAge,
                       employerDOB: widget.employerDOB,
                       employerContactNumber: widget.employerContactNumber,
-                      isEmployer:  Provider.of<UserType>(context, listen: false)
+                      isEmployer: Provider.of<UserType>(context, listen: false)
                           .userAsEmployer,
                       isEmployee: Provider.of<UserType>(context, listen: false)
                           .userAsEmployee,
-
+                    );
+                    DatabaseServices(uid: user.uid).updateShop(
+                      city: city.text,
+                      state: State.text,
+                      employerName: widget.employerName,
+                      shopName: widget.shopName,
+                      shopDesc: shopDescription.text,
+                      shopAddress: address.text,
+                      shopImage: widget.shopImg,
                     );
                     clearText();
                     Navigator.push(

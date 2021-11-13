@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:helping_hand/Model/Profile/employee_profile.dart';
 import 'package:helping_hand/Model/Profile/employer_profile.dart';
@@ -14,6 +16,9 @@ class DatabaseServices {
       FirebaseFirestore.instance.collection('employeeProfile');
   CollectionReference employerProfile =
       FirebaseFirestore.instance.collection('employerProfile');
+  CollectionReference shops =
+  FirebaseFirestore.instance.collection('shops');
+
 
   // ignore: todo
   //TODO:EMPLOYEE
@@ -137,6 +142,35 @@ class DatabaseServices {
       },
     );
   }
+  Future<void> updateShop(
+      {
+        String employerName,
+        String shopAddress,
+        String employerContactNumber,
+
+        String shopDesc,
+        String shopType,
+        String shopName,
+        String city,
+        String state,
+        File shopImage,
+
+      }
+      ) async {
+    return await shops.doc(uid).set(
+      {
+        'name': employerName,
+        'address': shopAddress,
+        'shopName':shopName,
+        'shopDesc':shopDesc,
+        'city':city,
+        'state':state,
+        'shopType':shopType,
+        'shopImage':shopImage,
+        'shopId':uid
+      },
+    );
+  }
 
 //DELETING Employer
   Future<void> deleteEmployer() {
@@ -149,6 +183,18 @@ class DatabaseServices {
             "Failed to delete user: $error",
           ),
         );
+  }
+  //DELETING Shop
+  Future<void> deleteShop(uid) {
+    return shops
+        .doc(uid)
+        .delete()
+        .then((value) => print("$uid Deleted"))
+        .catchError(
+          (error) => print(
+        "Failed to delete user: $error",
+      ),
+    );
   }
 
 //READING Employer
