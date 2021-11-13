@@ -1,8 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Home/Home.dart';
-import 'package:helping_hand/Employer/Auth/login_employer.dart';
 import 'package:helping_hand/Employer/Home/Home.dart';
 import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/database_service.dart';
@@ -36,7 +33,7 @@ class EmployerSignUp2 extends StatefulWidget {
 class _EmployerSignUp2State extends State<EmployerSignUp2> {
   final ImagePicker _picker = ImagePicker();
 
-  File shopImage;
+  File LicenseImage;
 
   //image from camera
   _imgFromCamera() async {
@@ -45,7 +42,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     );
     if (pickedImage != null) {
       setState(() {
-        shopImage = File(pickedImage.path);
+        LicenseImage = File(pickedImage.path);
       });
     } else {
       return;
@@ -59,7 +56,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     );
     if (pickedImage != null) {
       setState(() {
-        shopImage = File(pickedImage.path);
+        LicenseImage = File(pickedImage.path);
       });
     } else {
       return;
@@ -113,6 +110,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
   final State = TextEditingController();
   final AadharNum = TextEditingController();
   final shopDescription = TextEditingController();
+  final bio=TextEditingController();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -121,6 +119,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     State.dispose();
     AadharNum.dispose();
     shopDescription.dispose();
+    bio.dispose();
     super.dispose();
   }
 
@@ -130,6 +129,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     State.clear();
     AadharNum.clear();
     shopDescription.clear();
+    bio.clear();
   }
 
   @override
@@ -322,6 +322,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                   height: 30,
                 ),
                 TextFormField(
+                  controller: bio,
                   minLines: 2,
                   maxLines: null,
                   decoration: InputDecoration(
@@ -429,9 +430,9 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                           margin: EdgeInsets.symmetric(vertical: 10),
                           height: 110,
                           width: 110,
-                          child: shopImage != null
+                          child: LicenseImage != null
                               ? Image.file(
-                                  shopImage,
+                                  LicenseImage,
                                   fit: BoxFit.cover,
                                 )
                               : Center(
@@ -510,6 +511,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       employerAddress: address.text,
                       city: city.text,
                       state: State.text,
+                      employerBio: bio.text,
                       aadhar: AadharNum.text,
                       shopDesc: shopDescription.text,
                       shopName: widget.shopName,
@@ -521,6 +523,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                           .userAsEmployer,
                       isEmployee: Provider.of<UserType>(context, listen: false)
                           .userAsEmployee,
+                      licenseImg: LicenseImage,
                     );
                     DatabaseServices(uid: user.uid).updateShop(
                       city: city.text,

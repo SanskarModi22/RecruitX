@@ -377,6 +377,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                         address: address.text,
                         EmployeeAge: EmployeeAge.text,
                         EmployeeName: EmployeeName.text,
+                        imgUrl: shopImage,
                       )),
                     );
                   },

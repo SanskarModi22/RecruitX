@@ -37,6 +37,7 @@ class DatabaseServices {
     String preferredJobType,
     String employeePreferedShift,
     double averageRating,
+    File imgUrl,
     List<ReviewByEmployer> reviews,
     bool isEmployee,
   }) async {
@@ -58,6 +59,7 @@ class DatabaseServices {
         'reviews': reviews,
         'aadhar': aadhar,
         'isEmployee':isEmployee,
+        'img_url':imgUrl
       },
     );
   }
@@ -75,6 +77,7 @@ class DatabaseServices {
   Employee _empFromSnap(DocumentSnapshot snapshot) {
     return Employee(
       uid: uid,
+      employeeImage: snapshot['img_url'],
       averageRating: snapshot['averageRating'],
       currentlyWorkingAt: snapshot['currentWork'],
       employeeAge: snapshot['age'],
@@ -90,7 +93,9 @@ class DatabaseServices {
       employeePreferedShift: snapshot['preferredShift'],
       reviews: snapshot['reiews'],
       aadhar: snapshot['aadhar'],
-      isEmployee: snapshot['isEmployee']
+      isEmployee: snapshot['isEmployee'],
+
+
     );
   }
 
@@ -118,7 +123,8 @@ class DatabaseServices {
     String city,
     String state,
     bool isEmployer,
-    bool isEmployee
+    bool isEmployee,
+    File licenseImg,
   }
   ) async {
     return await employerProfile.doc(uid).set(
@@ -138,7 +144,8 @@ class DatabaseServices {
         'city':city,
         'state':state,
         'isEmployer':isEmployer,
-        'isEmployee':isEmployee
+        'isEmployee':isEmployee,
+        'licenseImg':licenseImg,
       },
     );
   }
@@ -216,7 +223,8 @@ class DatabaseServices {
       city: snapshot.get('city'),
       state: snapshot.get('state'),
       isEmployer: snapshot.get('isEmployer'),
-      isEmployee: snapshot.get('isEmployee')
+      isEmployee: snapshot.get('isEmployee'),
+      lienseImg: snapshot.get('licenseImg')
     );
   }
 
