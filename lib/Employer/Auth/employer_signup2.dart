@@ -23,12 +23,9 @@ class EmployerSignUp2 extends StatefulWidget {
       this.employerName,
       this.employerAge,
       this.employerDOB,
-<<<<<<< HEAD
-      this.employerContactNumber})
-=======
-      this.employerContactNumber,
-      this.shopImg})
->>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
+
+      this.employerContactNumber, this.shopImg})
+
       : super(key: key);
   @override
   _EmployerSignUp2State createState() => _EmployerSignUp2State();
@@ -323,19 +320,13 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         ),
                         borderSide: BorderSide(color: Colors.green),
                       ),
-<<<<<<< HEAD
+
                       border: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(
                           10,
                         ),
                         borderSide: BorderSide(color: Colors.green),
-=======
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
->>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
+
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(
@@ -360,7 +351,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       return null;
                     },
                   ),
-<<<<<<< HEAD
+
                   SizedBox(
                     height: 30,
                   ),
@@ -371,28 +362,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       floatingLabelStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
-=======
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: bio,
-                  minLines: 2,
-                  maxLines: null,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: 'Bio',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
->>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
+
                       ),
                       fillColor: Colors.white,
                       filled: true,
@@ -492,7 +462,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-<<<<<<< HEAD
+
                       SizedBox(
                         width: 90,
                       ),
@@ -507,9 +477,9 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                             margin: EdgeInsets.symmetric(vertical: 10),
                             height: 110,
                             width: 110,
-                            child: shopImage != null
+                            child: widget.shopImg != null
                                 ? Image.file(
-                                    shopImage,
+                                    widget.shopImg,
                                     fit: BoxFit.cover,
                                   )
                                 : Center(
@@ -517,32 +487,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                                       'No Image Selected!',
                                       textAlign: TextAlign.center,
                                     ),
-=======
-                    ),
-                    SizedBox(
-                      width: 90,
-                    ),
-                    Stack(
-                      children: [
-                        Container(
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.grey[300],
-                          ),
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          height: 110,
-                          width: 110,
-                          child: LicenseImage != null
-                              ? Image.file(
-                                  LicenseImage,
-                                  fit: BoxFit.cover,
-                                )
-                              : Center(
-                                  child: Text(
-                                    'No Image Selected!',
-                                    textAlign: TextAlign.center,
->>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
+
                                   ),
                           ),
                           Positioned(
@@ -609,61 +554,22 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                   SizedBox(
                     height: 30,
                   ),
-<<<<<<< HEAD
+
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       side: BorderSide(width: 150),
                       primary: Colors.green,
                       fixedSize: Size(400, 45),
-=======
-                  onPressed: () {
-                    DatabaseServices(uid: user.uid).updateEmployerData(
-                      employerAddress: address.text,
-                      city: city.text,
-                      state: State.text,
-                      employerBio: bio.text,
-                      aadhar: AadharNum.text,
-                      shopDesc: shopDescription.text,
-                      shopName: widget.shopName,
-                      employerName: widget.employerName,
-                      employerAge: widget.employerAge,
-                      employerDOB: widget.employerDOB,
-                      employerContactNumber: widget.employerContactNumber,
-                      isEmployer: Provider.of<UserType>(context, listen: false)
-                          .userAsEmployer,
-                      isEmployee: Provider.of<UserType>(context, listen: false)
-                          .userAsEmployee,
 
-                    );
-                    DatabaseServices(uid: user.uid).updateShop(
-                      city: city.text,
-                      state: State.text,
-                      employerName: widget.employerName,
-                      shopName: widget.shopName,
-                      shopDesc: shopDescription.text,
-                      shopAddress: address.text,
-
-                    );
-                    clearText();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EmployerHome()));
-                  },
-                  child: Text(
-                    'Signup',
-                    style: TextStyle(
-                      fontSize: 18,
->>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
                     ),
                     onPressed: () {
-                      if (shopImage == null) {
+                      if (widget.shopImg == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Please enter image!')),
                         );
                       }
                       if (_formkey2.currentState.validate() &&
-                          shopImage != null) {
+                          widget.shopImg != null) {
                         DatabaseServices(uid: user.uid).updateEmployerData(
                           employerAddress: address.text,
                           city: city.text,

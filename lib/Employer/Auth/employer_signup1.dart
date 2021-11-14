@@ -516,31 +516,10 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                       ),
                     ),
                   ),
-<<<<<<< HEAD
+
                   SizedBox(
                     height: 100,
-=======
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EmployerSignUp2(
-                          shopName: shopName.text,
-                          employerName: OwnerName.text,
-                          employerAge: OwnerAge.text,
-                          employerDOB: dob.text,
-                          employerContactNumber: contact.text,
-                          shopImg: shopImage,
-                        ),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    'Next',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
->>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
+
                   ),
                 ],
               ),
