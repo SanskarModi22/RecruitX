@@ -8,18 +8,30 @@ import 'package:provider/provider.dart';
 // ignore: camel_case_types
 class signup_page3 extends StatefulWidget {
   // const signup_page2({ Key? key }) : super(key: key);
-  final String address ;
-  final String EmployeeName ;
-  final String EmployeeAge ;
-  final String contact ;
-  final String dob ;
-  final String Bio ;
+  final String address;
+  final String EmployeeName;
+  final String EmployeeAge;
+  final String contact;
+  final String dob;
+  final String Bio;
   final String Aadhar;
   final String SalaryExpextation;
   final String ExpectedJobs;
-  final String Experience ;
+  final String Experience;
 
-  const signup_page3({Key key, this.address, this.EmployeeName, this.EmployeeAge, this.contact, this.dob, this.Bio, this.Aadhar, this.SalaryExpextation, this.ExpectedJobs, this.Experience}) : super(key: key);
+  const signup_page3(
+      {Key key,
+      this.address,
+      this.EmployeeName,
+      this.EmployeeAge,
+      this.contact,
+      this.dob,
+      this.Bio,
+      this.Aadhar,
+      this.SalaryExpextation,
+      this.ExpectedJobs,
+      this.Experience})
+      : super(key: key);
   @override
   _signup_page3State createState() => _signup_page3State();
 }
@@ -27,10 +39,11 @@ class signup_page3 extends StatefulWidget {
 // ignore: camel_case_types
 class _signup_page3State extends State<signup_page3> {
   @override
-  final currentlyWorking =TextEditingController();
-  final PrefereedJob =TextEditingController();
-  final PreferredWork=TextEditingController();
-  final Rating=TextEditingController();
+  final _formkey3 = GlobalKey<FormState>();
+  final currentlyWorking = TextEditingController();
+  final PrefereedJob = TextEditingController();
+  final PreferredWork = TextEditingController();
+  final Rating = TextEditingController();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -48,224 +61,255 @@ class _signup_page3State extends State<signup_page3> {
     PreferredWork.clear();
     Rating.clear();
   }
+
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
-    return Scaffold(
-      body: Container(
-        constraints: BoxConstraints(
-          maxHeight: double.infinity,
-          maxWidth: double.infinity,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.black,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                TextFormField(
-                  controller: currentlyWorking,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Currently working at:',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
+    return Form(
+      key: _formkey3,
+      child: Scaffold(
+        body: Container(
+          constraints: BoxConstraints(
+            maxHeight: double.infinity,
+            maxWidth: double.infinity,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.black,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 50,
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: PrefereedJob,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Preferred job type',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
+                  TextFormField(
+                    controller: currentlyWorking,
+                    decoration: InputDecoration(
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20,
                       ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
+                      hintText: 'Currently working at:',
+                      fillColor: Colors.white,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
-                      borderSide: BorderSide(color: Colors.green),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '*required';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: PreferredWork,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Preferred work shift',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
+                  SizedBox(
+                    height: 30,
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: Rating,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Rating',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
+                  TextFormField(
+                    controller: PrefereedJob,
+                    decoration: InputDecoration(
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20,
                       ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
+                      hintText: 'Preferred job type',
+                      fillColor: Colors.white,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
                       ),
-                      borderSide: BorderSide(color: Colors.green),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '*required';
+                      }
+                      return null;
+                    },
                   ),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    side: BorderSide(width: 150),
-                    primary: Colors.green,
-                    fixedSize: Size(400, 45),
+                  SizedBox(
+                    height: 30,
                   ),
-                  onPressed: ()  {
-                      DatabaseServices(uid:user.uid ).updateEmployeeData(
-                        aadhar: widget.Aadhar,
-                        isEmployee: Provider.of<UserType>(context, listen: false)
-                            .userAsEmployee,
-                        employeeDOB: widget.dob,
-                        employeeName: widget.EmployeeName,
-                        employeeBio: widget.Bio,
-                        employeeAge: widget.EmployeeAge,
-                        employeeContactNumber: widget.contact,
-                        preferredJobType: PrefereedJob.text,
-                        employeeAddress: widget.address,
-                        employeeExperience: widget.Experience,
-                        employeeExpectedSalary: widget.SalaryExpextation,
-                        currentlyWorkingAt: currentlyWorking.text,
-                        employeeExpectedJobs: PrefereedJob.text
-                  );
-                      clearText();
+                  TextFormField(
+                    controller: PreferredWork,
+                    decoration: InputDecoration(
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20,
+                      ),
+                      hintText: 'Preferred work shift',
+                      fillColor: Colors.white,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '*required';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    controller: Rating,
+                    decoration: InputDecoration(
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20,
+                      ),
+                      hintText: 'Rating',
+                      fillColor: Colors.white,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '*required';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      side: BorderSide(width: 150),
+                      primary: Colors.green,
+                      fixedSize: Size(400, 45),
+                    ),
+                    onPressed: () {
+                      if (_formkey3.currentState.validate()) {
+                        DatabaseServices(uid: user.uid).updateEmployeeData(
+                            aadhar: widget.Aadhar,
+                            isEmployee:
+                                Provider.of<UserType>(context, listen: false)
+                                    .userAsEmployee,
+                            employeeDOB: widget.dob,
+                            employeeName: widget.EmployeeName,
+                            employeeBio: widget.Bio,
+                            employeeAge: widget.EmployeeAge,
+                            employeeContactNumber: widget.contact,
+                            preferredJobType: PrefereedJob.text,
+                            employeeAddress: widget.address,
+                            employeeExperience: widget.Experience,
+                            employeeExpectedSalary: widget.SalaryExpextation,
+                            currentlyWorkingAt: currentlyWorking.text,
+                            employeeExpectedJobs: PrefereedJob.text);
+                        clearText();
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => EmployeeHome()),
-                    );
-                  },
-                  child: Text(
-                    'Signup',
-                    style: TextStyle(
-                      fontSize: 18,
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EmployeeHome()),
+                        );
+                      }
+                    },
+                    child: Text(
+                      'Signup',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 500,
-                )
-              ],
+                  SizedBox(
+                    height: 500,
+                  )
+                ],
+              ),
             ),
           ),
         ),
