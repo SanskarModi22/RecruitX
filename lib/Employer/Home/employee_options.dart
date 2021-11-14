@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
+import 'package:helping_hand/Employer/Home/Employee-Details/employee_list.dart';
 import 'package:sizer/sizer.dart';
 
 class EmployeeOptions extends StatefulWidget {
@@ -11,7 +12,7 @@ class EmployeeOptions extends StatefulWidget {
 
 class _EmployeeOptionsState extends State<EmployeeOptions> {
   // ignore: non_constant_identifier_names
-  List<String> Jobs = [
+  List<String> employeeFields = [
     "Grocery",
     "Watchmen",
     "Medical",
@@ -26,14 +27,14 @@ class _EmployeeOptionsState extends State<EmployeeOptions> {
         context: context,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: Jobs.length,
+            itemCount: employeeFields.length,
             itemBuilder: (BuildContext context, index) {
               return InkWell(
                 onTap: (){
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => JobList(text: Jobs[index],),
+                        builder: (context) => EmployeeList(text: employeeFields[index],),
                       ));
                 },
                 child: Padding(
@@ -51,7 +52,7 @@ class _EmployeeOptionsState extends State<EmployeeOptions> {
                       ),
                       child: Center(
                         child: Text(
-                          Jobs[index],
+                          employeeFields[index],
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 13.sp,

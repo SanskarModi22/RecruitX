@@ -523,7 +523,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                           .userAsEmployer,
                       isEmployee: Provider.of<UserType>(context, listen: false)
                           .userAsEmployee,
-                      licenseImg: LicenseImage,
+
                     );
                     DatabaseServices(uid: user.uid).updateShop(
                       city: city.text,
@@ -532,7 +532,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       shopName: widget.shopName,
                       shopDesc: shopDescription.text,
                       shopAddress: address.text,
-                      shopImage: widget.shopImg,
+
                     );
                     clearText();
                     Navigator.push(

@@ -7,22 +7,24 @@ import 'package:helping_hand/Model/shop.dart';
 
 class GetUserInfo with ChangeNotifier {
   final fetchAndSetUserinfoForEmployee = Employee(
-    employeeName: "Mellow Employee",
-    employeeAge: "20",
-    employeeContactNumber: "+91 9876543210",
-    employeeDOB: "01/01/0001",
-    employeeExpectedSalary: "20,000",
-    averageRating: 4.3,
+
+    employeeImage: "https://i2-prod.walesonline.co.uk/incoming/article21810884.ece/ALTERNATES/s1200c/0_Cillian-Murphy-will-star-in-Oppenheimer.jpg",
+    employeeName: "Mellow Employee",//top detail
+    employeeAge: "20",//details page
+    employeeContactNumber: "+91 9876543210",//details page
+    employeeDOB: "01/01/0001",//details page
+    employeeExpectedSalary: "20,000",//expanded detail
+    averageRating: 4.3,//expanded detail
     employeeBio:
-        "I am a student, looking for a part-time job. Not available on weekends.",
+        "I am a student, looking for a part-time job. Not available on weekends.",//details page
     employeeAddress:
-        "Behind your house, in front of the pole, your ward, your city, your district, India",
+        "Behind your house, in front of the pole, your ward, your city, your district, India",//detail page
     currentlyWorkingAt: "Raju Guest House",
-    employeePreferedShift: "Night Shift",
-    employeeExperience: "5 years",
-    preferredJobType: 'Part-Time',
+    employeePreferedShift: "Night Shift",//expanded detail
+    employeeExperience: "5 years",//top detail
+    preferredJobType: 'Part-Time',//expanded detail
     employeeExpectedJobs:
-        "Waiter, Private Tutor, Dishwasher, Watchmen, Security Guard",
+        "Waiter, Private Tutor,Dishwasher,Watchmen,Security Guard",
   );
   final fetchAndSetReviewsForEmployee = Employee(
     reviews: [

@@ -237,7 +237,8 @@ class _signup_page3State extends State<signup_page3> {
                     fixedSize: Size(400, 45),
                   ),
                   onPressed: ()  {
-                      DatabaseServices(uid:user.uid ).updateEmployeeData(
+                      DatabaseServices(uid:user.uid).updateEmployeeData(
+                        uid: user.uid,
                         aadhar: widget.Aadhar,
                         isEmployee: Provider.of<UserType>(context, listen: false)
                             .userAsEmployee,
@@ -252,7 +253,7 @@ class _signup_page3State extends State<signup_page3> {
                         employeeExpectedSalary: widget.SalaryExpextation,
                         currentlyWorkingAt: currentlyWorking.text,
                         employeeExpectedJobs: PrefereedJob.text,
-                        imgUrl: widget.imgUrl,
+                        // imgUrl: widget.imgUrl,
 
                   );
                       clearText();
