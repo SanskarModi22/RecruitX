@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:helping_hand/providers/user_information.dart';
-import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
+
 // class JobDetail extends StatefulWidget {
 //   const JobDetail({Key key, this.jobId, this.shopId}) : super(key: key);
 //   final String jobId;
@@ -243,34 +243,25 @@ class ClipPathClass extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-
-class JobDetailsScreen extends StatefulWidget {
+class EmployeeDetailScreen extends StatefulWidget {
   // const JobDetailsScreen({ Key? key }) : super(key: key);
-  final String jobId;
-  final String shopId;
-  JobDetailsScreen({this.jobId, this.shopId});
+
+  final String empId;
+  EmployeeDetailScreen({
+    this.empId,
+  });
 
   @override
-  State<JobDetailsScreen> createState() => _JobDetailsScreenState(
-    jobId: jobId,
-    shopId: shopId,
-  );
+  State<EmployeeDetailScreen> createState() => _EmployeeDetailScreenState();
 }
 
-class _JobDetailsScreenState extends State<JobDetailsScreen> {
-  final String jobId;
-  final String shopId;
-  _JobDetailsScreenState({this.jobId, this.shopId});
+class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   @override
   Widget build(BuildContext context) {
     RandomColor _randomColor = RandomColor();
-    final loadedshop = Provider.of<GetUserInfo>(context)
-        .fetchAndSetEmployerShops
-        .shops
-        .firstWhere((shopEx) => shopEx.shopid == shopId);
-    final loadedJob = loadedshop.jobsAvailable
-        .firstWhere((element) => element.jobId == jobId);
 
+    var fetchAndSetUserinfoforEmployee =
+        context.watch<GetUserInfo>().fetchAndSetUserinfoForEmployee;
     // final owner = loadedJob.ownerId;
     Color _color = _randomColor.randomColor(
       colorBrightness: ColorBrightness.dark,
@@ -308,7 +299,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               ),
             ),
           ),
-          child: Text("Apply Now!",style: TextStyle(color: random_color,fontSize: 23),),
+          child: Text("Contact Now",style: TextStyle(color: random_color,fontSize: 23),),
           onPressed: (){},
         ),
       ),
@@ -318,60 +309,22 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           child: Column(
             children: <Widget>[
               Card(
-                child: Stack(
-                  children: <Widget>[
-                    Hero(
-                      tag: loadedshop.shopImageUrl,
-                      child: ClipPath(
-                        clipper: ClipPathClass(),
-                        child: Container(
-                          height: 45.h,
-                          width: 100.w,
-                          child: Image(
-                            image: NetworkImage(
-                              loadedshop.shopImageUrl,
-                            ),
-                            fit: BoxFit.cover,
-                          ),
+                elevation: 0,
+                child: Hero(
+                  tag: fetchAndSetUserinfoforEmployee.employeeImage,
+                  child: ClipPath(
+                    clipper: ClipPathClass(),
+                    child: Container(
+                      height: 45.h,
+                      width: 100.w,
+                      child: Image(
+                        image: NetworkImage(
+                          fetchAndSetUserinfoforEmployee.employeeImage,
                         ),
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    Positioned(
-                      top: 10,
-                      right: 10,
-                      child: Container(
-                        padding:
-                        EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.85),
-                        ),
-                        child: Text(loadedshop.shopType),
-                      ),
-                    ),
-                    Positioned.fill(
-                        bottom: 10,
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            // margin: EdgeInsets.symmetric(horizontal: 10),
-                            padding: EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 15),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.85),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(Icons.home),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(loadedshop.shopName),
-                              ],
-                            ),
-                          ),
-                        ))
-                  ],
+                  ),
                 ),
               ),
               Card(
@@ -383,8 +336,25 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       ),
                     ),
                   ),
-                  title: Text('Owner Name'),
-                  subtitle: Text('Contact Number'),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(fetchAndSetUserinfoforEmployee.employeeName),
+                      Row(
+                        children: [
+                          Text(
+                            "Age - ",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(fetchAndSetUserinfoforEmployee.employeeAge)
+                        ],
+                      )
+                    ],
+                  ),
+                  subtitle: Text(
+                      fetchAndSetUserinfoforEmployee.employeeContactNumber),
                   trailing: IconButton(
                     onPressed: () {},
                     icon: FaIcon(
@@ -404,8 +374,33 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         color: random_color,
                         size: 35,
                       ),
-                      title: Text('Job'),
-                      subtitle: Text(loadedJob.jobName),
+                      title: Text('Rating'),
+                      subtitle: Text(fetchAndSetUserinfoforEmployee
+                          .averageRating
+                          .toString()),
+                      trailing: Column(
+                        children: [
+                          Text(
+                            "Experience",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                              fetchAndSetUserinfoforEmployee.employeeExperience)
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: Icon(
+                        Icons.home_work_outlined,
+                        color: random_color,
+                        size: 35,
+                      ),
+                      title: Text('Currently Working At'),
+                      subtitle: Text(
+                          fetchAndSetUserinfoforEmployee.currentlyWorkingAt),
                     ),
                     Divider(),
                     ListTile(
@@ -414,8 +409,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         color: random_color,
                         size: 35,
                       ),
-                      title: Text('Salary'),
-                      subtitle: Text(loadedJob.salary),
+                      title: Text('Expected Salary'),
+                      subtitle: Text(fetchAndSetUserinfoforEmployee
+                          .employeeExpectedSalary),
                     ),
                     Divider(),
                     ListTile(
@@ -424,8 +420,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         size: 35,
                         color: random_color,
                       ),
-                      title: Text('Work Hours'),
-                      subtitle: Text(loadedJob.workingHours),
+                      title: Text('Preferred Shift'),
+                      subtitle: Text(
+                          fetchAndSetUserinfoforEmployee.employeePreferedShift),
                     ),
                     Divider(),
                     ListTile(
@@ -434,8 +431,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         size: 35,
                         color: random_color,
                       ),
-                      title: Text('Work Days'),
-                      subtitle: Text(loadedJob.workingDays),
+                      title: Text('Preferred Job-Type'),
+                      subtitle:
+                          Text(fetchAndSetUserinfoforEmployee.preferredJobType),
                     ),
                   ],
                 ),
@@ -449,24 +447,25 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         size: 35,
                         color: random_color,
                       ),
-                      title: Text('Shop Address'),
+                      title: Text('Employee Address'),
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                       padding:
-                      EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       decoration: BoxDecoration(
                           border: Border.all(
                             width: 2,
                             color: random_color,
                           ),
                           borderRadius: BorderRadius.circular(8)),
-                      child: Text(loadedshop.shopAddress),
+                      child:
+                          Text(fetchAndSetUserinfoforEmployee.employeeAddress),
                     ),
                   ],
                 ),
               ),
-              if (loadedJob.specialRequest != null)
+              if (fetchAndSetUserinfoforEmployee.employeeBio != null)
                 Card(
                   child: Column(
                     children: [
@@ -476,20 +475,20 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           size: 35,
                           color: random_color,
                         ),
-                        title: Text('Special requests'),
+                        title: Text('Bio'),
                       ),
                       Container(
                         margin:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         padding:
-                        EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                         decoration: BoxDecoration(
                             border: Border.all(
                               width: 2,
                               color: random_color,
                             ),
                             borderRadius: BorderRadius.circular(8)),
-                        child: Text(loadedJob.specialRequest),
+                        child: Text(fetchAndSetUserinfoforEmployee.employeeBio),
                       ),
                     ],
                   ),

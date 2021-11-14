@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employer/Home/Home.dart';
+import 'package:helping_hand/Employer/Home/employer_home.dart';
 import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/database_service.dart';
 import 'package:helping_hand/widgets/shop_refs.dart';
@@ -633,7 +633,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                           .userAsEmployer,
                       isEmployee: Provider.of<UserType>(context, listen: false)
                           .userAsEmployee,
-                      licenseImg: LicenseImage,
+
                     );
                     DatabaseServices(uid: user.uid).updateShop(
                       city: city.text,
@@ -642,7 +642,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       shopName: widget.shopName,
                       shopDesc: shopDescription.text,
                       shopAddress: address.text,
-                      shopImage: widget.shopImg,
+
                     );
                     clearText();
                     Navigator.push(

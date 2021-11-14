@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class JobCards extends StatefulWidget {
-  const JobCards({key}) : super(key: key);
+class EmployeeCards extends StatefulWidget {
+  const EmployeeCards({key}) : super(key: key);
 
   @override
-  _JobCardsState createState() => _JobCardsState();
+  _EmployeeCardsState createState() => _EmployeeCardsState();
 }
 
-class _JobCardsState extends State<JobCards> {
+class _EmployeeCardsState extends State<EmployeeCards> {
   // ignore: non_constant_identifier_names
   List<String> PopularJobs = [
     "Driver",
-    "Lundary",
+    "Laundary",
     "Waiter",
     "Maid",
     "Compounder",
@@ -30,12 +30,13 @@ class _JobCardsState extends State<JobCards> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Card(
+                elevation: 0,
                 shadowColor: Colors.transparent,
                 child: Container(
                   width: 40.w,
                   decoration: BoxDecoration(
                       color:
-                          (index % 2) == 0 ? Colors.purple[300] : Colors.orange,
+                      (index % 2) == 0 ? Colors.purple[300] : Colors.orange,
                       borderRadius: BorderRadius.circular(20.sp)),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -53,7 +54,7 @@ class _JobCardsState extends State<JobCards> {
                         Container(
                           width: 90.w,
                           child: Text(
-                            "${JobAvailable[index]} jobs are availaible",
+                            "${JobAvailable[index]} employees are availaible",
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             maxLines: 2,
