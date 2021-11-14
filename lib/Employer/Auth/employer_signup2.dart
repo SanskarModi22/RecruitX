@@ -23,9 +23,8 @@ class EmployerSignUp2 extends StatefulWidget {
       this.employerName,
       this.employerAge,
       this.employerDOB,
-
-      this.employerContactNumber, this.shopImg})
-
+      this.employerContactNumber,
+      this.shopImg})
       : super(key: key);
   @override
   _EmployerSignUp2State createState() => _EmployerSignUp2State();
@@ -112,7 +111,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
   final State = TextEditingController();
   final AadharNum = TextEditingController();
   final shopDescription = TextEditingController();
-  final bio=TextEditingController();
+  final bio = TextEditingController();
   @override
   final _formkey2 = GlobalKey<FormState>();
   void dispose() {
@@ -134,6 +133,8 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     shopDescription.clear();
     bio.clear();
   }
+
+  String dropdownValue = 'Mumbai';
 
   @override
   Widget build(BuildContext context) {
@@ -198,108 +199,50 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    child: Center(
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 80,
-                            width: 150,
-                            child: TextFormField(
-                              controller: city,
-                              decoration: InputDecoration(
-                                floatingLabelStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,
-                                ),
-                                fillColor: Colors.white,
-                                filled: true,
-                                labelText: 'City',
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(
-                                    10,
-                                  ),
-                                  borderSide: BorderSide(color: Colors.green),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(
-                                    10,
-                                  ),
-                                  borderSide: BorderSide(color: Colors.green),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(
-                                    10,
-                                  ),
-                                  borderSide: BorderSide(color: Colors.green),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(
-                                    10,
-                                  ),
-                                  borderSide: BorderSide(color: Colors.green),
-                                ),
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return '*required';
-                                }
-                                return null;
-                              },
-                            ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        color: Colors.white,
+                        height: 50,
+                        width: 80,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'City',
+                            style: TextStyle(fontSize: 20),
                           ),
-                          SizedBox(
-                            width: 40,
-                          ),
-                          Container(
-                            height: 80,
-                            width: 150,
-                            child: TextFormField(
-                              controller: State,
-                              decoration: InputDecoration(
-                                floatingLabelStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,
-                                ),
-                                fillColor: Colors.white,
-                                filled: true,
-                                labelText: 'State',
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(
-                                    10,
-                                  ),
-                                  borderSide: BorderSide(color: Colors.green),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(
-                                    10,
-                                  ),
-                                  borderSide: BorderSide(color: Colors.green),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(
-                                    10,
-                                  ),
-                                  borderSide: BorderSide(color: Colors.green),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: new BorderRadius.circular(
-                                    10,
-                                  ),
-                                  borderSide: BorderSide(color: Colors.green),
-                                ),
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return '*required';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      DropdownButton<String>(
+                        value: dropdownValue,
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.green),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'Mumbai',
+                          'Kolkata',
+                          'Chennai',
+                          'Delhi',
+                          'Lucknow'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 30,
@@ -320,13 +263,11 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         ),
                         borderSide: BorderSide(color: Colors.green),
                       ),
-
                       border: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(
                           10,
                         ),
                         borderSide: BorderSide(color: Colors.green),
-
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(
@@ -351,7 +292,6 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       return null;
                     },
                   ),
-
                   SizedBox(
                     height: 30,
                   ),
@@ -362,7 +302,6 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       floatingLabelStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
-
                       ),
                       fillColor: Colors.white,
                       filled: true,
@@ -455,14 +394,13 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     children: [
                       Container(
                         child: Text(
-                          "License Photo",
+                          "Shop Photo",
                           style: TextStyle(
                               color: Colors.green,
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-
                       SizedBox(
                         width: 90,
                       ),
@@ -487,7 +425,6 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                                       'No Image Selected!',
                                       textAlign: TextAlign.center,
                                     ),
-
                                   ),
                           ),
                           Positioned(
@@ -554,13 +491,11 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                   SizedBox(
                     height: 30,
                   ),
-
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       side: BorderSide(width: 150),
                       primary: Colors.green,
                       fixedSize: Size(400, 45),
-
                     ),
                     onPressed: () {
                       if (widget.shopImg == null) {

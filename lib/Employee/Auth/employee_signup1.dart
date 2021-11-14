@@ -108,10 +108,12 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
     contact.clear();
   }
 
+  bool isChecked = false;
   Widget build(BuildContext context) {
     return Form(
       key: _formkey,
       child: Scaffold(
+        backgroundColor: Colors.black,
         body: Container(
           decoration: BoxDecoration(
             color: Colors.black,
@@ -163,51 +165,6 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                   ),
                   SizedBox(
                     height: 20,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
-                        color: Colors.green,
-                        fontSize: 20,
-                      ),
-                      hintText: 'UID',
-                      //   labelText: '',
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return '*required';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 30,
                   ),
                   TextFormField(
                     controller: EmployeeName,
@@ -350,7 +307,6 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                   SizedBox(
                     height: 30,
                   ),
-
                   Container(
                     width: 180,
                     child: TextFormField(
@@ -397,23 +353,22 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                         return null;
                       },
 
-                  // onPressed: () {
-                  //   Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(builder: (context) => signup_page2(
-                  //       contact: contact.text,
-                  //       address: address.text,
-                  //       EmployeeAge: EmployeeAge.text,
-                  //       EmployeeName: EmployeeName.text,
-                  //       imgUrl: shopImage,
-                  //     )),
-                  //   );
-                  // },
-                  // child: Text(
-                  //   'Next',
-                  //   style: TextStyle(
-                  //     fontSize: 18,
-
+                      // onPressed: () {
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(builder: (context) => signup_page2(
+                      //       contact: contact.text,
+                      //       address: address.text,
+                      //       EmployeeAge: EmployeeAge.text,
+                      //       EmployeeName: EmployeeName.text,
+                      //       imgUrl: shopImage,
+                      //     )),
+                      //   );
+                      // },
+                      // child: Text(
+                      //   'Next',
+                      //   style: TextStyle(
+                      //     fontSize: 18,
                     ),
                   ),
                   SizedBox(
@@ -437,12 +392,10 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => signup_page2(
-
                                     contact: contact.text,
                                     address: address.text,
                                     EmployeeAge: EmployeeAge.text,
                                     EmployeeName: EmployeeName.text,
-
                                   )),
                         );
                       }
@@ -453,7 +406,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                         fontSize: 18,
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
