@@ -1,3 +1,7 @@
+
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup2.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
@@ -17,6 +21,7 @@ class signup_page3 extends StatefulWidget {
   final String Aadhar;
   final String SalaryExpextation;
   final String ExpectedJobs;
+<<<<<<< HEAD
   final String Experience;
 
   const signup_page3(
@@ -32,6 +37,12 @@ class signup_page3 extends StatefulWidget {
       this.ExpectedJobs,
       this.Experience})
       : super(key: key);
+=======
+  final String Experience ;
+  final File imgUrl;
+
+  const signup_page3({Key key, this.address, this.EmployeeName, this.EmployeeAge, this.contact, this.dob, this.Bio, this.Aadhar, this.SalaryExpextation, this.ExpectedJobs, this.Experience, this.imgUrl}) : super(key: key);
+>>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
   @override
   _signup_page3State createState() => _signup_page3State();
 }
@@ -265,6 +276,7 @@ class _signup_page3State extends State<signup_page3> {
                   SizedBox(
                     height: 30,
                   ),
+<<<<<<< HEAD
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       side: BorderSide(width: 150),
@@ -290,6 +302,28 @@ class _signup_page3State extends State<signup_page3> {
                             currentlyWorkingAt: currentlyWorking.text,
                             employeeExpectedJobs: PrefereedJob.text);
                         clearText();
+=======
+                  onPressed: ()  {
+                      DatabaseServices(uid:user.uid ).updateEmployeeData(
+                        aadhar: widget.Aadhar,
+                        isEmployee: Provider.of<UserType>(context, listen: false)
+                            .userAsEmployee,
+                        employeeDOB: widget.dob,
+                        employeeName: widget.EmployeeName,
+                        employeeBio: widget.Bio,
+                        employeeAge: widget.EmployeeAge,
+                        employeeContactNumber: widget.contact,
+                        preferredJobType: PrefereedJob.text,
+                        employeeAddress: widget.address,
+                        employeeExperience: widget.Experience,
+                        employeeExpectedSalary: widget.SalaryExpextation,
+                        currentlyWorkingAt: currentlyWorking.text,
+                        employeeExpectedJobs: PrefereedJob.text,
+                        imgUrl: widget.imgUrl,
+
+                  );
+                      clearText();
+>>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
 
                         Navigator.push(
                           context,

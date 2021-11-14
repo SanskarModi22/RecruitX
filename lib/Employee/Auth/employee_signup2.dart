@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup3.dart';
 
@@ -8,13 +10,14 @@ class signup_page2 extends StatefulWidget {
   final String EmployeeName;
   final String EmployeeAge;
   final String contact;
+  final File imgUrl;
 
   const signup_page2(
       {Key key,
       this.address,
       this.EmployeeName,
       this.EmployeeAge,
-      this.contact})
+      this.contact, this.imgUrl})
       : super(key: key);
   @override
   _signup_page2State createState() => _signup_page2State();
@@ -437,6 +440,7 @@ class _signup_page2State extends State<signup_page2> {
                   SizedBox(
                     height: 30,
                   ),
+<<<<<<< HEAD
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       side: BorderSide(width: 150),
@@ -468,6 +472,32 @@ class _signup_page2State extends State<signup_page2> {
                       style: TextStyle(
                         fontSize: 18,
                       ),
+=======
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => signup_page3(
+                            imgUrl: widget.imgUrl,
+                                EmployeeName: widget.EmployeeName,
+                                EmployeeAge: widget.EmployeeAge,
+                                address: widget.address,
+                                contact: widget.contact,
+                                Aadhar: Aadhar.text,
+                                Bio: Bio.text,
+                                dob: dob.text,
+                                Experience: Experience.text,
+                                SalaryExpextation: SalaryExpextation.text,
+                                ExpectedJobs: ExpectedJobs.text
+
+                              )),
+                    );
+                  },
+                  child: Text(
+                    'Next',
+                    style: TextStyle(
+                      fontSize: 18,
+>>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
                     ),
                   ),
                 ],

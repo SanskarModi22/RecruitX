@@ -95,10 +95,11 @@ class GetUserInfo with ChangeNotifier {
         shopid: "shopnumber1",
         shopName: "TopShop",
         numOfEmployees: "25",
-        ownerName: "Mellow Employer",
+        ownerName: "Sanskar Modi",
         shopAddress:
             "Pahado ke uppar, Jungle ke paar, Apna shahar, Apna District,  India",
         shopType: "Sweets",
+        city:"Lucknow",
         shopImageUrl:
             'https://ichef.bbci.co.uk/news/976/cpsprodpb/8A13/production/_116574353_gettyimages-1229868118.jpg',
         jobsAvailable: [
@@ -107,10 +108,11 @@ class GetUserInfo with ChangeNotifier {
             shopId: "shopnumber1",
             specialRequest:
                 "Should be able to stay for late meetings occasionaly",
-            jobName: "Cashier",
+            jobName:"Grocery",
             salary: "30000",
             workingDays: "Full week excluding sunday",
             workingHours: "12:00am to 5:00pm",
+            vacancy: "5"
           ),
           Job(
             jobId: "job2",
@@ -121,6 +123,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "20000",
             workingDays: "Full week ",
             workingHours: "6:00am to 8:00pm",
+            vacancy: "5"
           )
         ],
       ),
@@ -128,7 +131,8 @@ class GetUserInfo with ChangeNotifier {
         shopid: "shopnumber2",
         shopName: "Outfitters",
         numOfEmployees: "15",
-        ownerName: "Mellow Employer",
+        ownerName: "Pranay Dhongade",
+        city:"Chennai",
         shopAddress:
             "Pahado ke uppar, Jungle ke paar, Apna shahar, Apna District,  India",
         shopType: "Clothes",
@@ -142,6 +146,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "8000",
             workingDays: "Full week excluding sunday",
             workingHours: "12:00am to 5:00pm",
+            vacancy: "5"
           ),
           Job(
             jobId: "job4",
@@ -150,6 +155,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "10000",
             workingDays: "Full week",
             workingHours: "6:00am to 8:00pm",
+              vacancy: "5"
           ),
           Job(
             jobId: "job5",
@@ -158,6 +164,7 @@ class GetUserInfo with ChangeNotifier {
             salary: "40000",
             workingDays: "Everyday",
             workingHours: "11:00am to 5:00pm",
+            vacancy: "5"
           )
         ],
       ),
@@ -165,7 +172,8 @@ class GetUserInfo with ChangeNotifier {
         shopid: "shopnumber3",
         shopName: "Penneys",
         numOfEmployees: "45",
-        ownerName: "Mellow Employer",
+        ownerName: "Kartik Gupta",
+        city:"Mumbai",
         shopAddress:
             "Pahado ke uppar, Jungle ke paar, Apna shahar, Apna District,  India",
         shopType: "Dairy",
@@ -179,6 +187,16 @@ class GetUserInfo with ChangeNotifier {
             salary: "12000",
             workingDays: "Full week excluding sunday",
             workingHours: "12:00am to 5:00pm",
+            vacancy: "5"
+          ),
+          Job(
+            jobId: "job6",
+            shopId: "shopnumber3",
+            jobName: "Delivery Boy",
+            salary: "12000",
+            workingDays: "Full week excluding sunday",
+            workingHours: "12:00am to 5:00pm",
+            vacancy: "5"
           ),
         ],
       ),

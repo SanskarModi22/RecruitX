@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:helping_hand/Model/job.dart';
 
 class Shop {
+  String city;
   String shopid;
   String userid;
   String shopName;
@@ -11,7 +12,6 @@ class Shop {
   String shopAddress;
   String shopImageUrl;
   List<Job> jobsAvailable = [];
-
   Shop({
     this.userid,
     @required this.shopid,
@@ -22,5 +22,6 @@ class Shop {
     @required this.shopType,
     this.jobsAvailable,
     this.shopImageUrl,
+   this.city,
   });
 }

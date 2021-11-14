@@ -350,6 +350,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                   SizedBox(
                     height: 30,
                   ),
+<<<<<<< HEAD
                   Container(
                     width: 180,
                     child: TextFormField(
@@ -395,6 +396,24 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                         }
                         return null;
                       },
+=======
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => signup_page2(
+                        contact: contact.text,
+                        address: address.text,
+                        EmployeeAge: EmployeeAge.text,
+                        EmployeeName: EmployeeName.text,
+                        imgUrl: shopImage,
+                      )),
+                    );
+                  },
+                  child: Text(
+                    'Next',
+                    style: TextStyle(
+                      fontSize: 18,
+>>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
                     ),
                   ),
                   SizedBox(

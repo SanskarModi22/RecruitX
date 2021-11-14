@@ -1,8 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Home/Home.dart';
-import 'package:helping_hand/Employer/Auth/login_employer.dart';
 import 'package:helping_hand/Employer/Home/Home.dart';
 import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/database_service.dart';
@@ -18,6 +15,7 @@ class EmployerSignUp2 extends StatefulWidget {
   final String employerAge;
   final String employerDOB;
   final String employerContactNumber;
+  final File shopImg;
 
   const EmployerSignUp2(
       {Key key,
@@ -25,7 +23,12 @@ class EmployerSignUp2 extends StatefulWidget {
       this.employerName,
       this.employerAge,
       this.employerDOB,
+<<<<<<< HEAD
       this.employerContactNumber})
+=======
+      this.employerContactNumber,
+      this.shopImg})
+>>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
       : super(key: key);
   @override
   _EmployerSignUp2State createState() => _EmployerSignUp2State();
@@ -35,7 +38,7 @@ class EmployerSignUp2 extends StatefulWidget {
 class _EmployerSignUp2State extends State<EmployerSignUp2> {
   final ImagePicker _picker = ImagePicker();
 
-  File shopImage;
+  File LicenseImage;
 
   //image from camera
   _imgFromCamera() async {
@@ -44,7 +47,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     );
     if (pickedImage != null) {
       setState(() {
-        shopImage = File(pickedImage.path);
+        LicenseImage = File(pickedImage.path);
       });
     } else {
       return;
@@ -58,7 +61,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     );
     if (pickedImage != null) {
       setState(() {
-        shopImage = File(pickedImage.path);
+        LicenseImage = File(pickedImage.path);
       });
     } else {
       return;
@@ -112,6 +115,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
   final State = TextEditingController();
   final AadharNum = TextEditingController();
   final shopDescription = TextEditingController();
+  final bio=TextEditingController();
   @override
   final _formkey2 = GlobalKey<FormState>();
   void dispose() {
@@ -121,6 +125,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     State.dispose();
     AadharNum.dispose();
     shopDescription.dispose();
+    bio.dispose();
     super.dispose();
   }
 
@@ -130,6 +135,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     State.clear();
     AadharNum.clear();
     shopDescription.clear();
+    bio.clear();
   }
 
   @override
@@ -317,11 +323,19 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         ),
                         borderSide: BorderSide(color: Colors.green),
                       ),
+<<<<<<< HEAD
                       border: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(
                           10,
                         ),
                         borderSide: BorderSide(color: Colors.green),
+=======
+                      borderSide: BorderSide(color: Colors.green),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+>>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(
@@ -346,6 +360,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       return null;
                     },
                   ),
+<<<<<<< HEAD
                   SizedBox(
                     height: 30,
                   ),
@@ -356,6 +371,28 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       floatingLabelStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
+=======
+                  keyboardType: TextInputType.number,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  controller: bio,
+                  minLines: 2,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    floatingLabelStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    hintText: 'Bio',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: new BorderRadius.circular(
+                        10,
+>>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
                       ),
                       fillColor: Colors.white,
                       filled: true,
@@ -455,6 +492,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
+<<<<<<< HEAD
                       SizedBox(
                         width: 90,
                       ),
@@ -479,6 +517,32 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                                       'No Image Selected!',
                                       textAlign: TextAlign.center,
                                     ),
+=======
+                    ),
+                    SizedBox(
+                      width: 90,
+                    ),
+                    Stack(
+                      children: [
+                        Container(
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.grey[300],
+                          ),
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          height: 110,
+                          width: 110,
+                          child: LicenseImage != null
+                              ? Image.file(
+                                  LicenseImage,
+                                  fit: BoxFit.cover,
+                                )
+                              : Center(
+                                  child: Text(
+                                    'No Image Selected!',
+                                    textAlign: TextAlign.center,
+>>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
                                   ),
                           ),
                           Positioned(
@@ -545,11 +609,52 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                   SizedBox(
                     height: 30,
                   ),
+<<<<<<< HEAD
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       side: BorderSide(width: 150),
                       primary: Colors.green,
                       fixedSize: Size(400, 45),
+=======
+                  onPressed: () {
+                    DatabaseServices(uid: user.uid).updateEmployerData(
+                      employerAddress: address.text,
+                      city: city.text,
+                      state: State.text,
+                      employerBio: bio.text,
+                      aadhar: AadharNum.text,
+                      shopDesc: shopDescription.text,
+                      shopName: widget.shopName,
+                      employerName: widget.employerName,
+                      employerAge: widget.employerAge,
+                      employerDOB: widget.employerDOB,
+                      employerContactNumber: widget.employerContactNumber,
+                      isEmployer: Provider.of<UserType>(context, listen: false)
+                          .userAsEmployer,
+                      isEmployee: Provider.of<UserType>(context, listen: false)
+                          .userAsEmployee,
+                      licenseImg: LicenseImage,
+                    );
+                    DatabaseServices(uid: user.uid).updateShop(
+                      city: city.text,
+                      state: State.text,
+                      employerName: widget.employerName,
+                      shopName: widget.shopName,
+                      shopDesc: shopDescription.text,
+                      shopAddress: address.text,
+                      shopImage: widget.shopImg,
+                    );
+                    clearText();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EmployerHome()));
+                  },
+                  child: Text(
+                    'Signup',
+                    style: TextStyle(
+                      fontSize: 18,
+>>>>>>> 5a7fd007ee67810bf161cc7ca0e8c0c0372bb11e
                     ),
                     onPressed: () {
                       if (shopImage == null) {

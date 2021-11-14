@@ -1,22 +1,17 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Auth/employee_signup1.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employer/Auth/employer_signup1.dart';
 import 'package:helping_hand/Employer/Home/Home.dart';
-import 'package:helping_hand/Services/database_service.dart';
-import 'package:helping_hand/providers/user_information.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'Model/Profile/employee_profile.dart';
-import 'Model/Profile/employer_profile.dart';
 import 'Model/user.dart';
 import 'Shared/base.dart';
-
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart' as syspaths;
 
 var option = "";
 
@@ -39,160 +34,105 @@ class _WrapperState extends State<Wrapper> {
     });
   }
 
-  @override
-  void initState() {
-    getValidationData().whenComplete(() async {
-      Timer(Duration(seconds: 2), () {});
-      super.initState();
-    });
-  }
 
-  bool isEmployee = null;
-  bool isEmployer = null;
+  bool isEmployee = false;
+  bool isEmployer = false;
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
 
     // print(user.uid);
-//     if (user != null) {
-//       bool isEmployer;
-//       bool isEmployee;
-//       FirebaseFirestore.instance
-//           .collection('employerProfile')
-//           .doc(user.uid)
-//           .get()
-//           .then((DocumentSnapshot documentSnapshot) {
-//         if (documentSnapshot.exists) {
-//           isEmployer = documentSnapshot['isEmployer'];
-//         }
-//       });
-//       FirebaseFirestore.instance
-//           .collection('employeeProfile')
-//           .doc(user.uid)
-//           .get()
-//           .then((DocumentSnapshot documentSnapshot) {
-//         if (documentSnapshot.exists) {
-//           isEmployee = documentSnapshot['isEmployee'];
-//         }
-//       });
-
-
-    Future<void> _setUserType() async {
+    Future<void> _setUser() async {
       try {
-        // print('step-1 function called');
-        final user = await Provider.of<UserType>(context).fetchAndSetUserType();
-        setState(() {
-          // print('step-2 in the set state');
-          isEmployee = user['isEmployee'];
-          isEmployer = user['isEmployer'];
+        await FirebaseFirestore.instance
+            .collection('employerProfile')
+            .doc(user.uid)
+            .get()
+            .then((DocumentSnapshot documentSnapshot) {
+          if (documentSnapshot.exists) {
+            isEmployer = documentSnapshot['isEmployer'];
+          }
+          if (!documentSnapshot.exists) {
+            isEmployer = false;
+          }
         });
-        // print('step 3 fetched and set');
-        // print(isEmployee);
-        // print(isEmployer);
-        // loading = false;
+        await FirebaseFirestore.instance
+            .collection('employeeProfile')
+            .doc(user.uid)
+            .get()
+            .then((DocumentSnapshot documentSnapshot) {
+          if (documentSnapshot.exists) {
+            isEmployee = documentSnapshot['isEmployee'];
+          }
+          if (!documentSnapshot.exists) {
+            isEmployee = false;
+          }
+        });
+
+
       } catch (e) {
-        print('error failed to set user type ');
+        print('failed to set them');
       }
     }
 
-    // print(user.uid);
-    if (user != null) {
-      // print(user.uid);
-      _setUserType();
-      // loading = false;
 
-      // FirebaseFirestore.instance
-      //     .collection('employerProfile')
-      //     .doc(user.uid)
-      //     .get()
-      //     .then((DocumentSnapshot documentSnapshot) {
-      //   if (documentSnapshot.exists) {
-      //     isEmployer = documentSnapshot['isEmployer'];
-      //   }
-      // });
-      // FirebaseFirestore.instance
-      //     .collection('employeeProfile')
-      //     .doc(user.uid)
-      //     .get()
-      //     .then((DocumentSnapshot documentSnapshot) {
-      //   if (documentSnapshot.exists) {
-      //     isEmployee = documentSnapshot['isEmployee'];
-      //   }
-      // });
+    return FutureBuilder(
+        future:
+            // Future.delayed(Duration(seconds: 3), () {
+            _setUser(),
+        // }),
+        // ignore: missing_return
+        builder: (ctx, s) {
+          print("isEmployee $isEmployee");
+          print("isEmployer $isEmployer");
+          print(
+              "local employee ${Provider.of<UserType>(context).userAsEmployee}");
+          print(
+              "local employer ${Provider.of<UserType>(context).userAsEmployer}");
+          if (s.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (user != null) {
+            print(user.uid);
+            if ((isEmployer == true &&
+                    Provider.of<UserType>(context).userAsEmployer == true) ||
+                (isEmployer == true &&
+                    isEmployee == false &&
+                    Provider.of<UserType>(context).userAsEmployee == false)) {
+              print('emplloyer');
+              Provider.of<UserType>(context).setUserAsEmployer;
+              print("ullapullla");
+              return EmployerHome();
+            } else if ((isEmployee == true &&
+                    Provider.of<UserType>(context).userAsEmployee == true) ||
+                (isEmployee == true &&
+                    isEmployer == false &&
+                    Provider.of<UserType>(context).userAsEmployer == false)) {
+              Provider.of<UserType>(context).setUserAsEmployee;
 
-      //   Future<void> getEmployerInstance() async {
-      //   await FirebaseFirestore.instance
-      //       .collection('employerProfile')
-      //       .doc(user.uid)
-      //       .get()
-      //       .then((DocumentSnapshot documentSnapshot) {
-      //     if (documentSnapshot.exists) {
-      //       isEmployer = documentSnapshot['isEmployer'];
-      //       print(isEmployer);
-      //     }
-      //   });
-      // }
+              return EmployeeHome();
+            } else if (isEmployee == true && isEmployer == true) {
+              if (Provider.of<UserType>(context, listen: false)
+                      .userAsEmployer ==
+                  true) {
+                Provider.of<UserType>(context).setUserAsEmployer;
 
-      // Future<void> getEmployeeInstance() async {
-      //   await FirebaseFirestore.instance
-      //       .collection('employeeProfile')
-      //       .doc(user.uid)
-      //       .get()
-      //       .then((DocumentSnapshot documentSnapshot) {
-      //     if (documentSnapshot.exists) {
-      //       isEmployee = documentSnapshot['isEmployee'];
-      //     }
-      //   });
-      // }
+                return EmployerHome();
+              } else if (Provider.of<UserType>(context, listen: false)
+                      .userAsEmployee ==
+                  true) {
+                return EmployeeHome();
+              }
+            }
+          }
 
-      // getEmployeeInstance();
-      // getEmployerInstance();
-      // loading = loading + 1;
-
-      if (isEmployer == true && (isEmployee == false || isEmployee == null)) {
-        return EmployerHome();
-      } else if ((isEmployer == false || isEmployer == null) &&
-          isEmployee == true) {
-        return EmployeeHome();
-      } else if (isEmployer == true && isEmployee == true) {
-        if (Provider.of<UserType>(context, listen: false).userAsEmployer) {
-          return EmployerHome();
-        } else
-          return EmployeeHome();
-      } else {
-
-//         return Base();
-
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-
-      }
-    } else {
-      return Base();
-    }
-    // if (user != null) {
-    //   return StreamBuilder<Employer>(
-    //       stream: DatabaseServices(uid: user.uid).employerData,
-    //       builder: (context, snapshot) {
-    //         Employer employer = snapshot.data;
-    //         if ( snapshot.data!=null) {
-    //           return employer.isEmployer==true?EmployerHome():
-    //         } else {
-    //         return  StreamBuilder<Employee>(
-    //               stream: DatabaseServices(uid: user.uid).empData,
-    //               builder: (context, snap) {
-    //                 Employee emp = snap.data;
-    //                 if (snap.data!=null) {
-    //                   return emp.isEmployee==true?EmployeeHome():Base();
-    //                 } else
-    //                   return Base();
-    //               });
-    //         }
-    //       });
-    // } else {
-    //   return Base();
-    // }
+          return Provider.of<UserType>(context).isEmployee
+              ? EmployeeSignUp()
+              : Provider.of<UserType>(context).isEmployer
+                  ? EmployerSignUp()
+                  : Base();
+        });
   }
 }
+
+
