@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
 import 'package:sizer/sizer.dart';
 
-class JobOptions extends StatefulWidget {
-  const JobOptions({key}) : super(key: key);
+class EmployeeOptions extends StatefulWidget {
+  const EmployeeOptions({key}) : super(key: key);
 
   @override
-  _JobOptionsState createState() => _JobOptionsState();
+  _EmployeeOptionsState createState() => _EmployeeOptionsState();
 }
 
-class _JobOptionsState extends State<JobOptions> {
+class _EmployeeOptionsState extends State<EmployeeOptions> {
   // ignore: non_constant_identifier_names
   List<String> Jobs = [
     "Grocery",
@@ -39,7 +39,7 @@ class _JobOptionsState extends State<JobOptions> {
                 child: Padding(
                   padding: EdgeInsets.all(7.sp),
                   child: Card(
-                    // elevation: 1.sp,
+                   elevation: 0,
                     shadowColor: Colors.transparent,
                     color: Colors.transparent,
                     child: Container(

@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 // ignore: must_be_immutable
-class EmployeeJobPreferences extends StatelessWidget {
-  EmployeeJobPreferences({Key key}) : super(key: key);
+class EmployerEmployeePreference extends StatelessWidget {
+  EmployerEmployeePreference({Key key}) : super(key: key);
 
   // ignore: non_constant_identifier_names
   List<String> Pref = ["Driving", "Washing", "Maid"];
@@ -36,7 +36,7 @@ class EmployeeJobPreferences extends StatelessWidget {
                   title: Text(
                     Pref[index],
                     style:
-                        TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Padding(
                     padding: EdgeInsets.all(5.sp),

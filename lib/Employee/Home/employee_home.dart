@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Custom_Search.dart';
+import 'package:helping_hand/Employee/Home/employee_Custom_Search.dart';
 import 'package:helping_hand/Employee/Home/employee_pref.dart';
 
-import 'package:helping_hand/Shared/cards.dart';
+import 'package:helping_hand/Employee/Home/employee_cards.dart';
 import 'package:helping_hand/drawer/drawer.dart';
 
-import 'package:helping_hand/Employee/job_options.dart';
+import 'package:helping_hand/Employee/Home/job_options.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -77,7 +77,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             ),
                             Row(
                               children: [
-                                CustomSearch(),
+                                EmployeeCustomSearch(),
                                 SizedBox(
                                   width: 6.w,
                                 ),
@@ -149,7 +149,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                     SizedBox(
                       height: 1.h,
                     ),
-                    EmpPref()
+                    EmployeeJobPreferences()
                   ],
                 ),
               ),

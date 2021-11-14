@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup2.dart';
-import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/database_service.dart';
 import 'package:provider/provider.dart';

@@ -3,17 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
-class SearchBar extends StatefulWidget {
-  const SearchBar({key}) : super(key: key);
+class EmployeeSearchBar extends StatefulWidget {
+  const EmployeeSearchBar({key}) : super(key: key);
 
   @override
-  _SearchBarState createState() => _SearchBarState();
+  _EmployeeSearchBarState createState() => _EmployeeSearchBarState();
 }
 
 int toggle = 0;
 
 // ignore: camel_case_types
-class _SearchBarState extends State<SearchBar>
+class _EmployeeSearchBarState extends State<EmployeeSearchBar>
     with SingleTickerProviderStateMixin {
   AnimationController _con;
   TextEditingController _textEditingController;
