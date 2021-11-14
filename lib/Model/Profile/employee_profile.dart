@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../review.dart';
 
 class Employee {
@@ -9,7 +11,7 @@ class Employee {
   String employeeAge;
   String employeeDOB;
   String employeeExperience;
-
+File employeeImage;
   String employeeExpectedSalary;
   String employeeExpectedJobs;
   String currentlyWorkingAt;
@@ -40,5 +42,6 @@ class Employee {
     // non  values
     this.reviews,
     this.isEmployee,
+    this.employeeImage,
   });
 }

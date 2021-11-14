@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../review.dart';
 import '../shop.dart';
 
@@ -15,6 +17,7 @@ class Employer {
   String shopDesc;
   String city;
   String state;
+  File lienseImg;
 bool isEmployer=false;
 bool isEmployee;
 String shopName;
@@ -38,6 +41,7 @@ String shopName;
     this.state,
     this.isEmployer,
     this.isEmployee,
+    this.lienseImg,
   });
 }
 //TODO: Add and update user

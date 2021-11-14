@@ -1,3 +1,7 @@
+
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup2.dart';
 import 'package:helping_hand/Employee/Home/Home.dart';
@@ -18,8 +22,9 @@ class signup_page3 extends StatefulWidget {
   final String SalaryExpextation;
   final String ExpectedJobs;
   final String Experience ;
+  final File imgUrl;
 
-  const signup_page3({Key key, this.address, this.EmployeeName, this.EmployeeAge, this.contact, this.dob, this.Bio, this.Aadhar, this.SalaryExpextation, this.ExpectedJobs, this.Experience}) : super(key: key);
+  const signup_page3({Key key, this.address, this.EmployeeName, this.EmployeeAge, this.contact, this.dob, this.Bio, this.Aadhar, this.SalaryExpextation, this.ExpectedJobs, this.Experience, this.imgUrl}) : super(key: key);
   @override
   _signup_page3State createState() => _signup_page3State();
 }
@@ -246,7 +251,9 @@ class _signup_page3State extends State<signup_page3> {
                         employeeExperience: widget.Experience,
                         employeeExpectedSalary: widget.SalaryExpextation,
                         currentlyWorkingAt: currentlyWorking.text,
-                        employeeExpectedJobs: PrefereedJob.text
+                        employeeExpectedJobs: PrefereedJob.text,
+                        imgUrl: widget.imgUrl,
+
                   );
                       clearText();
 

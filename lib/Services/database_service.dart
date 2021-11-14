@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:helping_hand/Model/Profile/employee_profile.dart';
 import 'package:helping_hand/Model/Profile/employer_profile.dart';
@@ -14,6 +16,9 @@ class DatabaseServices {
       FirebaseFirestore.instance.collection('employeeProfile');
   CollectionReference employerProfile =
       FirebaseFirestore.instance.collection('employerProfile');
+  CollectionReference shops =
+  FirebaseFirestore.instance.collection('shops');
+
 
   // ignore: todo
   //TODO:EMPLOYEE
@@ -32,6 +37,7 @@ class DatabaseServices {
     String preferredJobType,
     String employeePreferedShift,
     double averageRating,
+    File imgUrl,
     List<ReviewByEmployer> reviews,
     bool isEmployee,
   }) async {
@@ -53,6 +59,7 @@ class DatabaseServices {
         'reviews': reviews,
         'aadhar': aadhar,
         'isEmployee':isEmployee,
+        'img_url':imgUrl
       },
     );
   }
@@ -70,6 +77,7 @@ class DatabaseServices {
   Employee _empFromSnap(DocumentSnapshot snapshot) {
     return Employee(
       uid: uid,
+      employeeImage: snapshot['img_url'],
       averageRating: snapshot['averageRating'],
       currentlyWorkingAt: snapshot['currentWork'],
       employeeAge: snapshot['age'],
@@ -85,7 +93,9 @@ class DatabaseServices {
       employeePreferedShift: snapshot['preferredShift'],
       reviews: snapshot['reiews'],
       aadhar: snapshot['aadhar'],
-      isEmployee: snapshot['isEmployee']
+      isEmployee: snapshot['isEmployee'],
+
+
     );
   }
 
@@ -113,7 +123,8 @@ class DatabaseServices {
     String city,
     String state,
     bool isEmployer,
-    bool isEmployee
+    bool isEmployee,
+    File licenseImg,
   }
   ) async {
     return await employerProfile.doc(uid).set(
@@ -133,7 +144,37 @@ class DatabaseServices {
         'city':city,
         'state':state,
         'isEmployer':isEmployer,
-        'isEmployee':isEmployee
+        'isEmployee':isEmployee,
+        'licenseImg':licenseImg,
+      },
+    );
+  }
+  Future<void> updateShop(
+      {
+        String employerName,
+        String shopAddress,
+        String employerContactNumber,
+
+        String shopDesc,
+        String shopType,
+        String shopName,
+        String city,
+        String state,
+        File shopImage,
+
+      }
+      ) async {
+    return await shops.doc(uid).set(
+      {
+        'name': employerName,
+        'address': shopAddress,
+        'shopName':shopName,
+        'shopDesc':shopDesc,
+        'city':city,
+        'state':state,
+        'shopType':shopType,
+        'shopImage':shopImage,
+        'shopId':uid
       },
     );
   }
@@ -149,6 +190,18 @@ class DatabaseServices {
             "Failed to delete user: $error",
           ),
         );
+  }
+  //DELETING Shop
+  Future<void> deleteShop(uid) {
+    return shops
+        .doc(uid)
+        .delete()
+        .then((value) => print("$uid Deleted"))
+        .catchError(
+          (error) => print(
+        "Failed to delete user: $error",
+      ),
+    );
   }
 
 //READING Employer
@@ -170,7 +223,8 @@ class DatabaseServices {
       city: snapshot.get('city'),
       state: snapshot.get('state'),
       isEmployer: snapshot.get('isEmployer'),
-      isEmployee: snapshot.get('isEmployee')
+      isEmployee: snapshot.get('isEmployee'),
+      lienseImg: snapshot.get('licenseImg')
     );
   }
 

@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Model/user.dart';
+import 'package:provider/provider.dart';
 
 class NewJob extends StatefulWidget {
   // const NewJob({ Key? key }) : super(key: key);
@@ -8,10 +11,29 @@ class NewJob extends StatefulWidget {
 }
 
 class _NewJobState extends State<NewJob> {
-  String _jobTitle;
-  String _shopname;
+  TextEditingController _jobTitle=TextEditingController();
+  TextEditingController _shopname=TextEditingController();
+  TextEditingController _salary=TextEditingController();
+  TextEditingController _vacancy=TextEditingController();
+  TextEditingController _specialReq=TextEditingController();
+  TextEditingController _workingHours=TextEditingController();
+  TextEditingController _jobID=TextEditingController();
+  TextEditingController _workingDays=TextEditingController();
+  void clear(){
+    _jobTitle.clear();
+    _shopname.clear();
+    _salary.clear();
+    _workingDays.clear();
+    _vacancy.clear();
+    _specialReq.clear();
+    _workingHours.clear();
+  }
+  var id;
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser>(context);
+    CollectionReference jobs =
+    FirebaseFirestore.instance.collection('shops').doc(user.uid).collection('jobs');
     return Container(
       padding: EdgeInsets.all(20),
       // margin: EdgeInsets.all(8),
@@ -28,55 +50,36 @@ class _NewJobState extends State<NewJob> {
                 ),
               ),
               // Shop
-              DropdownButtonFormField(
+              TextFormField(
+
+                controller: _shopname,
+                maxLength: 20,
                 decoration: InputDecoration(
-                  labelText: 'In Shop',
+                  // contentPadding: EdgeInsets.all(8),
                   icon: Icon(Icons.store_sharp),
+                  hintText: 'e.g  Rs 15,000',
+                  labelText: 'In Shop',
                 ),
-                value: _shopname,
-                items: <String>[
-                  'Shop 1 name',
-                  'Shop 2 name',
-                  'Shop 3 name',
-                  'Shop 4 name',
-                ].map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (String newValue) {
-                  setState(() {
-                    _shopname = newValue;
-                  });
-                },
+                keyboardType: TextInputType.text,
+              ),
+              TextFormField(
+
+                controller: _jobTitle,
+                maxLength: 20,
+                decoration: InputDecoration(
+                  // contentPadding: EdgeInsets.all(8),
+                  icon: Icon(Icons.store_sharp),
+                  hintText: 'Driver , Waiter,etc',
+                  labelText: 'Looking For',
+                ),
+                keyboardType: TextInputType.text,
               ),
               // Job title
-              DropdownButtonFormField(
-                decoration: InputDecoration(
-                  labelText: 'Looking for',
-                  icon: Icon(Icons.work_outline),
-                ),
-                value: _jobTitle,
-                items: <String>[
-                  'Waiter',
-                  'Private Tutor',
-                  'Car Driver',
-                  'Delivery Boy',
-                ].map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (String newValue) {
-                  setState(() {
-                    _jobTitle = newValue;
-                  });
-                },
-              ),
+
               // Monthly Salary
               TextFormField(
+
+                controller: _salary,
                 maxLength: 20,
                 decoration: InputDecoration(
                   // contentPadding: EdgeInsets.all(8),
@@ -88,6 +91,8 @@ class _NewJobState extends State<NewJob> {
               ),
               // Working Hours
               TextFormField(
+
+                controller: _workingHours,
                 maxLength: 50,
                 decoration: InputDecoration(
                   // contentPadding: EdgeInsets.all(8),
@@ -97,6 +102,8 @@ class _NewJobState extends State<NewJob> {
                 ),
               ),
               TextFormField(
+
+               controller: _workingDays,
                 maxLength: 50,
                 decoration: InputDecoration(
                   // contentPadding: EdgeInsets.all(8),
@@ -106,8 +113,21 @@ class _NewJobState extends State<NewJob> {
                 ),
               ),
               TextFormField(
+                controller: _vacancy,
+
+                maxLength: 50,
+                decoration: InputDecoration(
+                  // contentPadding: EdgeInsets.all(8),
+                  icon: Icon(Icons.people),
+                  hintText: 'Eg:3',
+                  labelText: 'No of Openings',
+                ),
+              ),
+              TextFormField(
+                controller: _specialReq??null,
+
                 maxLines: 3,
-                initialValue: '',
+
                 maxLength: 150,
                 decoration: InputDecoration(
                     icon: Icon(Icons.info_outline),
@@ -117,8 +137,22 @@ class _NewJobState extends State<NewJob> {
                     ),
                     hintText: 'This Section is Optional'),
               ),
+
               TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await jobs.add({
+                    "jobTitle":_jobTitle.text,
+                    "shopName":_shopname.text,
+                    "salary":_salary.text,
+                    "vacancy":_vacancy.text,
+                    "Details":_specialReq.text,
+                    "workingHours":_workingHours.text,
+                    "jobId":jobs.parent.id,
+                    "woringDays":_workingDays.text,
+                  });
+                  clear();
+                },
+
                 child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),

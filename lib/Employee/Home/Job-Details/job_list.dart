@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
 import 'package:helping_hand/Employee/Home/filter.dart';
 import 'package:helping_hand/Employee/Home/searchBar.dart';
 import 'package:helping_hand/providers/user_information.dart';
@@ -138,7 +139,9 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
                                         curve: Curves.fastLinearToSlowEaseIn,
                                         horizontalOffset: -300,
                                         verticalOffset: -850,
-                                        child: ExpandedDetails(index: index,),
+                                        child: ExpandedDetails(
+                                          index: index,
+                                        ),
                                       ),
                                     );
                                   },
@@ -214,9 +217,8 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
 
   @override
   Widget build(BuildContext context) {
-    var fetchAndSetEmployerShops2 = context
-                                  .watch<GetUserInfo>()
-                                  .fetchAndSetEmployerShops;
+    var fetchAndSetEmployerShops2 =
+        context.watch<GetUserInfo>().fetchAndSetEmployerShops;
     return Column(
       children: [
         SizedBox(
@@ -249,7 +251,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
               //         : 230,
               // width: isExpanded ? 385 : 390,
               decoration: BoxDecoration(
-                color: Color.fromRGBO(255, 253, 208,1),
+                color: Color.fromRGBO(255, 253, 208, 1),
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 boxShadow: [
                   BoxShadow(
@@ -265,29 +267,41 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
-
                           children: [
                             CircleAvatar(
                               radius: 21,
                               backgroundImage: NetworkImage(
-                                fetchAndSetEmployerShops2.shops[widget.index].shopImageUrl
-                              ),
+                                  fetchAndSetEmployerShops2
+                                      .shops[widget.index].shopImageUrl),
                             ),
-                            SizedBox(width: 25,),
+                            SizedBox(
+                              width: 25,
+                            ),
                             Text(
                               fetchAndSetEmployerShops2
-                                  .shops[widget.index]
-                                  .shopName,
-                              style: TextStyle(fontSize: 21,fontWeight: FontWeight.bold),
+                                  .shops[widget.index].shopName,
+                              style: TextStyle(
+                                  fontSize: 21, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(width: 25,),
-                            Column(children: [
-                              Text("City",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                              Text(fetchAndSetEmployerShops2
-                                  .shops[widget.index]
-                                  .city??"Null"),
-                            ],),
-                            SizedBox(width: 60,),
+                            SizedBox(
+                              width: 25,
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  "City",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(fetchAndSetEmployerShops2
+                                        .shops[widget.index].city ??
+                                    "Null"),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 60,
+                            ),
                             Icon(
                               isTapped
                                   ? Icons.keyboard_arrow_down
@@ -306,12 +320,30 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                           children: [
                             Text(
                               fetchAndSetEmployerShops2
-                                  .shops[widget.index]
-                                  .shopName,
+                                  .shops[widget.index].shopName,
                               style: TextStyle(
                                   color: Colors.blue[900],
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Text(
+                              "City - ",
+                              style: TextStyle(
+                                  color: Colors.blue[900],
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              fetchAndSetEmployerShops2
+                                      .shops[widget.index].city ??
+                                  "Null",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 22),
                             ),
                             Icon(
                               isTapped
@@ -328,9 +360,15 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            CircleAvatar(
-                              radius: 75,
-                              backgroundImage: NetworkImage(fetchAndSetEmployerShops2.shops[widget.index].shopImageUrl),
+                            Hero(
+                              tag: fetchAndSetEmployerShops2
+                                  .shops[widget.index].shopImageUrl,
+                              child: CircleAvatar(
+                                radius: 75,
+                                backgroundImage: NetworkImage(
+                                    fetchAndSetEmployerShops2
+                                        .shops[widget.index].shopImageUrl),
+                              ),
                             ),
                             SizedBox(
                               width: 30,
@@ -339,32 +377,84 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-
-                                Text("Shop Owner",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                                Text(fetchAndSetEmployerShops2.shops[widget.index].ownerName,),
+                                Text(
+                                  "Shop Owner",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  fetchAndSetEmployerShops2
+                                      .shops[widget.index].ownerName,
+                                ),
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text("Working Hours",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                                Text(fetchAndSetEmployerShops2.shops[widget.index].jobsAvailable[widget.index].workingHours),
+                                Text(
+                                  "Working Hours",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(fetchAndSetEmployerShops2
+                                    .shops[widget.index]
+                                    .jobsAvailable[widget.index]
+                                    .workingHours),
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Text("Salary offered",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                                Text(fetchAndSetEmployerShops2.shops[widget.index].jobsAvailable[widget.index%2].salary),
+                                Text(
+                                  "Salary offered",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(fetchAndSetEmployerShops2
+                                    .shops[widget.index]
+                                    .jobsAvailable[widget.index % 2]
+                                    .salary),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(35.0,4,0,0),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(35.0, 4, 0, 0),
                                   child: ElevatedButton(
-style: ButtonStyle(
-  backgroundColor: MaterialStateProperty.all(Colors.white),
-  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)))
-),
-                                      child: Text("More details",style: TextStyle(color: Colors.green[900]),)),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => JobDetailsScreen(
+                                                      jobId:
+                                                          fetchAndSetEmployerShops2
+                                                              .shops[
+                                                                  widget.index]
+                                                              .jobsAvailable[
+                                                                  widget.index %
+                                                                      2]
+                                                              .jobId,
+                                                      shopId:
+                                                          fetchAndSetEmployerShops2
+                                                              .shops[
+                                                                  widget.index]
+                                                              .shopid,
+                                                    ),),);
+                                      },
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white),
+                                          shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)))),
+                                      child: Text(
+                                        "More details",
+                                        style:
+                                            TextStyle(color: Colors.green[900]),
+                                      )),
                                 )
-
                               ],
                             ),
                           ],

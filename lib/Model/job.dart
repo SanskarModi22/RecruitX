@@ -9,7 +9,7 @@ class Job {
   String workingHours;
   String workingDays;
   String specialRequest;
-
+String vacancy;
   Job({
     @required this.jobId,
     @required this.jobName,
@@ -19,5 +19,6 @@ class Job {
     this.specialRequest,
     this.ownerId,
     this.shopId,
+    this.vacancy,
   });
 }

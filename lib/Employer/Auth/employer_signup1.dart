@@ -460,6 +460,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                           employerAge: OwnerAge.text,
                           employerDOB: dob.text,
                           employerContactNumber: contact.text,
+                          shopImg: shopImage,
                         ),
                       ),
                     );
