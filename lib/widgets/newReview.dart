@@ -1,7 +1,39 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class NewReview extends StatelessWidget {
+class NewReview extends StatefulWidget {
+  @override
+  State<NewReview> createState() => _NewReviewState();
+}
+
+class _NewReviewState extends State<NewReview> {
+  double _rating = 0.0;
+  String _reviewPara = '';
+
+  Future<void> addReview(String cuid, String ruid) async {
+    // ruid = user id of employer who is being reviewed
+    // cuid = user id of current user i.e who is reviewing
+    final cUser = await FirebaseFirestore.instance
+        .collection('employeeProfile')
+        .doc(cuid)
+        .get();
+    await FirebaseFirestore.instance
+        .collection('employerProfile')
+        .doc(ruid)
+        .collection('reviews')
+        .add(
+      {
+        'jobWorked': 'xyz',
+        'reviewerName': cUser['name'],
+        'userProfileImgUrl': 'user profile image url',
+        'backgroundImgUrl': 'background image url',
+        'rating': _rating,
+        'reviewPara': _reviewPara,
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,7 +77,11 @@ class NewReview extends StatelessWidget {
                         Icons.star,
                         color: Colors.amber,
                       ),
-                      onRatingUpdate: (ctx) {},
+                      onRatingUpdate: (value) {
+                        setState(() {
+                          _rating = value;
+                        });
+                      },
                     ),
                   ),
                   Container(

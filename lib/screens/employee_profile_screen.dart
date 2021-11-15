@@ -10,6 +10,8 @@ import '../widgets/newReview.dart';
 
 // ignore: camel_case_types
 class EmployeeProfile extends StatefulWidget {
+  final String uid;
+  EmployeeProfile(this.uid);
   @override
   _EmployeeProfileState createState() => _EmployeeProfileState();
 }
