@@ -78,12 +78,12 @@ class _WrapperState extends State<Wrapper> {
 
         // ignore: missing_return
         builder: (ctx, s) {
-          print("isEmployee $isEmployee");
-          print("isEmployer $isEmployer");
-          print(
-              "local employee ${Provider.of<UserType>(context).userAsEmployee}");
-          print(
-              "local employer ${Provider.of<UserType>(context).userAsEmployer}");
+          // print("isEmployee $isEmployee");
+          // print("isEmployer $isEmployer");
+          // print(
+          //     "local employee ${Provider.of<UserType>(context).userAsEmployee}");
+          // print(
+          //     "local employer ${Provider.of<UserType>(context).userAsEmployer}");
           if (s.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (user != null) {

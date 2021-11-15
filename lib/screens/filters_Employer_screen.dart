@@ -10,6 +10,11 @@ class EmployerFilterScreen extends StatefulWidget {
 class _EmployerFilterScreenState extends State<EmployerFilterScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Filters'),
+      ),
+      body: SingleChildScrollView(),
+    );
   }
 }

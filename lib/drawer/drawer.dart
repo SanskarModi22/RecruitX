@@ -8,6 +8,7 @@ import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/about_us_screen.dart';
 import 'package:helping_hand/screens/account_screen.dart';
 import 'package:helping_hand/screens/filters_Employee_screen.dart';
+import 'package:helping_hand/screens/filters_Employer_screen.dart';
 import 'package:helping_hand/screens/manage_post_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Shared/base.dart';
@@ -186,9 +187,7 @@ class _drawerState extends State<drawer> {
                       ? Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => EmployerProfile(
-                              FirebaseAuth.instance.currentUser.uid,
-                            ),
+                            builder: (context) => EmployerFilterScreen(),
                           ),
                         )
                       : Navigator.of(context).pop();
