@@ -1,9 +1,8 @@
-
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup2.dart';
+import 'package:helping_hand/Employee/Auth/employee_signup4.dart';
 import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/database_service.dart';
@@ -271,7 +270,6 @@ class _signup_page3State extends State<signup_page3> {
                   SizedBox(
                     height: 30,
                   ),
-
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       side: BorderSide(width: 150),
@@ -301,12 +299,12 @@ class _signup_page3State extends State<signup_page3> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EmployeeHome()),
+                              builder: (context) => signup_page4()),
                         );
                       }
                     },
                     child: Text(
-                      'Signup',
+                      'Next',
                       style: TextStyle(
                         fontSize: 18,
                       ),
