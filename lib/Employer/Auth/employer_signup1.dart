@@ -119,6 +119,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
     contact.clear();
   }
 
+  DateTime _dateTime2;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
@@ -134,49 +135,59 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
-                        color: Colors.green,
-                      ),
-                      hintText: 'UID',
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Owner Photo",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
-                        borderSide: BorderSide(color: Colors.green),
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
+                      SizedBox(
+                        width: 90,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
+                      //imagepicker
+                      Stack(
+                        children: [
+                          Container(
+                            clipBehavior: Clip.hardEdge,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.grey[300],
+                            ),
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            height: 110,
+                            width: 110,
+                            child: shopImage != null
+                                ? Image.file(
+                                    shopImage,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Center(
+                                    child: Text(
+                                      'No Image Selected!',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                          ),
+                          Positioned(
+                            top: 70,
+                            left: 45,
+                            child: RawMaterialButton(
+                              shape: CircleBorder(),
+                              fillColor: Colors.white,
+                              child: Icon(Icons.add_a_photo),
+                              onPressed: () {
+                                _showPicker(context);
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return '*required';
-                      }
-                      return null;
-                    },
+                    ],
                   ),
                   SizedBox(
                     height: 30,
@@ -324,52 +335,39 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                   SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: dob,
-                    decoration: InputDecoration(
-                      // floatingLabelBehavior: FloatingLabelBehavior.always,
-
-                      floatingLabelStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: 'DOB(DD/MM/YYYY',
-                      // labelText: 'DOB(DD/MM/YYYY)',
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
+                  Container(
+                    height: 50,
+                    width: 200,
+                    color: Colors.white,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        _dateTime2 == null
+                            ? 'Enter your DOB'
+                            : _dateTime2.toString(),
+                        style: TextStyle(
+                          fontSize: 20,
                         ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
                       ),
                     ),
-                    keyboardType: TextInputType.datetime,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return '*required';
-                      }
-                      return null;
-                    },
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1960),
+                                lastDate: DateTime(2024))
+                            .then((value) {
+                          setState(() {
+                            _dateTime2 = value;
+                          });
+                        });
+                      },
+                      child: Text('pick a date')),
                   SizedBox(
                     height: 20,
                   ),
@@ -421,66 +419,6 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                   SizedBox(
                     height: 30,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Shop Photo",
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 90,
-                      ),
-                      //imagepicker
-                      Stack(
-                        children: [
-                          Container(
-                            clipBehavior: Clip.hardEdge,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.grey[300],
-                            ),
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            height: 110,
-                            width: 110,
-                            child: shopImage != null
-                                ? Image.file(
-                                    shopImage,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Center(
-                                    child: Text(
-                                      'No Image Selected!',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                          ),
-                          Positioned(
-                            top: 70,
-                            left: 45,
-                            child: RawMaterialButton(
-                              shape: CircleBorder(),
-                              fillColor: Colors.white,
-                              child: Icon(Icons.add_a_photo),
-                              onPressed: () {
-                                _showPicker(context);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       side: BorderSide(width: 150),
@@ -516,10 +454,8 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                       ),
                     ),
                   ),
-
                   SizedBox(
                     height: 100,
-
                   ),
                 ],
               ),
