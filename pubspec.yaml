@@ -41,7 +41,7 @@ dependencies:
   shared_preferences: ^2.0.8
   flutter_staggered_animations: ^1.0.0
   random_color: ^1.0.5
-  sqflite: ^2.0.0+4
+  # sqflite: ^2.0.0+4
   path_provider: ^2.0.6
   path: ^1.8.0
 dev_dependencies:
