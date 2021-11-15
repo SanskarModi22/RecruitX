@@ -8,7 +8,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/manage_shops_screen.dart';
 import 'package:helping_hand/widgets/newshop.dart';
-import 'package:helping_hand/widgets/revies_forEmployer.dart';
+import 'package:helping_hand/widgets/reviews_forEmployer.dart';
 import 'package:provider/provider.dart';
 import '../widgets/newReview.dart';
 import '../widgets/shop_refs.dart';
