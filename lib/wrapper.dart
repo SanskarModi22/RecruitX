@@ -34,7 +34,6 @@ class _WrapperState extends State<Wrapper> {
     });
   }
 
-
   bool isEmployee = false;
   bool isEmployer = false;
 
@@ -69,27 +68,22 @@ class _WrapperState extends State<Wrapper> {
             isEmployee = false;
           }
         });
-
-
       } catch (e) {
         print('failed to set them');
       }
     }
 
-
     return FutureBuilder(
-        future:
-            // Future.delayed(Duration(seconds: 3), () {
-            _setUser(),
-        // }),
+        future: _setUser(),
+
         // ignore: missing_return
         builder: (ctx, s) {
-          print("isEmployee $isEmployee");
-          print("isEmployer $isEmployer");
-          print(
-              "local employee ${Provider.of<UserType>(context).userAsEmployee}");
-          print(
-              "local employer ${Provider.of<UserType>(context).userAsEmployer}");
+          // print("isEmployee $isEmployee");
+          // print("isEmployer $isEmployer");
+          // print(
+          //     "local employee ${Provider.of<UserType>(context).userAsEmployee}");
+          // print(
+          //     "local employer ${Provider.of<UserType>(context).userAsEmployer}");
           if (s.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (user != null) {
@@ -100,22 +94,22 @@ class _WrapperState extends State<Wrapper> {
                     isEmployee == false &&
                     Provider.of<UserType>(context).userAsEmployee == false)) {
               print('emplloyer');
-              Provider.of<UserType>(context).setUserAsEmployer;
-              print("ullapullla");
+              Provider.of<UserType>(context).setUserAsEmployer();
+
               return EmployerHome();
             } else if ((isEmployee == true &&
                     Provider.of<UserType>(context).userAsEmployee == true) ||
                 (isEmployee == true &&
                     isEmployer == false &&
                     Provider.of<UserType>(context).userAsEmployer == false)) {
-              Provider.of<UserType>(context).setUserAsEmployee;
+              Provider.of<UserType>(context).setUserAsEmployee();
 
               return EmployeeHome();
             } else if (isEmployee == true && isEmployer == true) {
               if (Provider.of<UserType>(context, listen: false)
                       .userAsEmployer ==
                   true) {
-                Provider.of<UserType>(context).setUserAsEmployer;
+                Provider.of<UserType>(context).setUserAsEmployer();
 
                 return EmployerHome();
               } else if (Provider.of<UserType>(context, listen: false)
@@ -134,5 +128,3 @@ class _WrapperState extends State<Wrapper> {
         });
   }
 }
-
-

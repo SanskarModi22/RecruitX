@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Services/Authentication.dart';
@@ -6,6 +8,7 @@ import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/about_us_screen.dart';
 import 'package:helping_hand/screens/account_screen.dart';
 import 'package:helping_hand/screens/filters_Employee_screen.dart';
+import 'package:helping_hand/screens/filters_Employer_screen.dart';
 import 'package:helping_hand/screens/manage_post_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Shared/base.dart';
@@ -14,10 +17,6 @@ import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/screens/employer_profile_screen.dart';
 import 'package:helping_hand/screens/employee_profile_screen.dart';
 import 'package:provider/provider.dart';
-
-void main() {
-  runApp(drawer());
-}
 
 // ignore: camel_case_types
 class drawer extends StatefulWidget {
@@ -32,6 +31,7 @@ class _drawerState extends State<drawer> {
   Widget build(BuildContext context) {
     bool userIsEmployee = Provider.of<UserType>(context).userAsEmployee;
     bool userIsEmployer = Provider.of<UserType>(context).userAsEmployer;
+    final user = Provider.of<MyUser>(context);
 
     final String employeeName = Provider.of<GetUserInfo>(context)
         .fetchAndSetUserinfoForEmployee
@@ -103,14 +103,18 @@ class _drawerState extends State<drawer> {
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EmployeeProfile(),
+                        builder: (context) => EmployeeProfile(
+                          FirebaseAuth.instance.currentUser.uid,
+                        ),
                       ),
                     )
                   : userIsEmployer
                       ? Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => EmployerProfile(),
+                            builder: (context) => EmployerProfile(
+                              FirebaseAuth.instance.currentUser.uid,
+                            ),
                           ),
                         )
                       : Navigator.of(context).pop();
@@ -183,7 +187,7 @@ class _drawerState extends State<drawer> {
                       ? Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => EmployerProfile(),
+                            builder: (context) => EmployerFilterScreen(),
                           ),
                         )
                       : Navigator.of(context).pop();
