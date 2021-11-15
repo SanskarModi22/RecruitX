@@ -4,9 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup1.dart';
-import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Employer/Auth/employer_signup1.dart';
-import 'package:helping_hand/Employer/Home/Home.dart';
+import 'package:helping_hand/Employer/Home/employer_home.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

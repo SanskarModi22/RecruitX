@@ -37,9 +37,10 @@ class DatabaseServices {
     String preferredJobType,
     String employeePreferedShift,
     double averageRating,
-    File imgUrl,
+    String imgUrl,
     List<ReviewByEmployer> reviews,
     bool isEmployee,
+    String uid
   }) async {
     return await employeeProfile.doc(uid).set(
       {
@@ -59,7 +60,8 @@ class DatabaseServices {
         'reviews': reviews,
         'aadhar': aadhar,
         'isEmployee':isEmployee,
-        'img_url':imgUrl
+        'img_url':imgUrl,
+        'uid':uid
       },
     );
   }
@@ -76,7 +78,7 @@ class DatabaseServices {
   //READ Employee
   Employee _empFromSnap(DocumentSnapshot snapshot) {
     return Employee(
-      uid: uid,
+      uid: snapshot['uid'],
       employeeImage: snapshot['img_url'],
       averageRating: snapshot['averageRating'],
       currentlyWorkingAt: snapshot['currentWork'],
@@ -124,7 +126,7 @@ class DatabaseServices {
     String state,
     bool isEmployer,
     bool isEmployee,
-    File licenseImg,
+    String licenseImg,
   }
   ) async {
     return await employerProfile.doc(uid).set(
@@ -160,7 +162,7 @@ class DatabaseServices {
         String shopName,
         String city,
         String state,
-        File shopImage,
+        String shopImage,
 
       }
       ) async {

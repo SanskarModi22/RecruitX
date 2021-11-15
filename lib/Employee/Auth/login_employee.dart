@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // ignore: unused_import
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup1.dart';
-import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/mobile_signUp.dart';
 import 'package:helping_hand/wrapper.dart';

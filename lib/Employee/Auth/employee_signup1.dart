@@ -86,12 +86,12 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
   }
 
   @override
-
   final address = TextEditingController();
   final EmployeeName = TextEditingController();
   final EmployeeAge = TextEditingController();
   final contact = TextEditingController();
   @override
+  final _formkey = GlobalKey<FormState>();
   void dispose() {
     // Clean up the controller when the widget is disposed.
     address.dispose();
@@ -107,229 +107,163 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
     EmployeeAge.clear();
     contact.clear();
   }
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.black,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.grey[300],
-                      ),
-                      margin: EdgeInsets.symmetric(vertical: 10),
-                      height: 110,
-                      width: 110,
-                      child: shopImage != null
-                          ? Image.file(
-                              shopImage,
-                              fit: BoxFit.cover,
-                            )
-                          : Center(
-                              child: Text(
-                                'No Image Selected!',
-                                textAlign: TextAlign.center,
+    return Form(
+      key: _formkey,
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Stack(
+                    children: [
+                      Container(
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.grey[300],
+                        ),
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        height: 110,
+                        width: 110,
+                        child: shopImage != null
+                            ? Image.file(
+                                shopImage,
+                                fit: BoxFit.cover,
+                              )
+                            : Center(
+                                child: Text(
+                                  'No Image Selected!',
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                    ),
-                    Positioned(
-                      top: 70,
-                      left: 45,
-                      child: RawMaterialButton(
-                        shape: CircleBorder(),
-                        fillColor: Colors.white,
-                        child: Icon(Icons.add_a_photo),
-                        onPressed: () {
-                          _showPicker(context);
-                        },
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'UID',
-                    //   labelText: '',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
+                      Positioned(
+                        top: 70,
+                        left: 45,
+                        child: RawMaterialButton(
+                          shape: CircleBorder(),
+                          fillColor: Colors.white,
+                          child: Icon(Icons.add_a_photo),
+                          onPressed: () {
+                            _showPicker(context);
+                          },
+                        ),
                       ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: EmployeeName,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Full Name',
-                    // labelText: 'Full Name',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: contact,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Phone Number',
-                    //  labelText: 'Phone Number',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: address,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                      fontSize: 20,
-                    ),
-                    hintText: 'Address',
-                    // labelText: 'Address',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  width: 60,
-                  child: TextFormField(
-                    controller: EmployeeAge,
+                  TextFormField(
                     decoration: InputDecoration(
                       floatingLabelStyle: TextStyle(
                         color: Colors.green,
+                        fontSize: 20,
                       ),
-                      hintText: 'Age',
+                      hintText: 'UID',
+                      //   labelText: '',
+                      fillColor: Colors.white,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '*required';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    controller: EmployeeName,
+                    decoration: InputDecoration(
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20,
+                      ),
+                      hintText: 'Full Name',
+                      // labelText: 'Full Name',
+                      fillColor: Colors.white,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your name';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    controller: contact,
+                    decoration: InputDecoration(
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20,
+                      ),
+                      hintText: 'Phone Number',
+                      //  labelText: 'Phone Number',
                       fillColor: Colors.white,
                       filled: true,
                       enabledBorder: OutlineInputBorder(
@@ -358,37 +292,170 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                       ),
                     ),
                     keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          value.length != 10) {
+                        return 'Please enter valid phone number';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    side: BorderSide(width: 150),
-                    primary: Colors.green,
-                    fixedSize: Size(400, 45),
+                  SizedBox(
+                    height: 30,
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => signup_page2(
-                        contact: contact.text,
-                        address: address.text,
-                        EmployeeAge: EmployeeAge.text,
-                        EmployeeName: EmployeeName.text,
-                        imgUrl: shopImage,
-                      )),
-                    );
-                  },
-                  child: Text(
-                    'Next',
-                    style: TextStyle(
-                      fontSize: 18,
+                  TextFormField(
+                    controller: address,
+                    decoration: InputDecoration(
+                      floatingLabelStyle: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20,
+                      ),
+                      hintText: 'Address',
+                      // labelText: 'Address',
+                      fillColor: Colors.white,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter valid address';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+
+                  Container(
+                    width: 180,
+                    child: TextFormField(
+                      controller: EmployeeAge,
+                      decoration: InputDecoration(
+                        floatingLabelStyle: TextStyle(
+                          color: Colors.green,
+                        ),
+                        hintText: 'Age',
+                        fillColor: Colors.white,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(
+                            10,
+                          ),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(
+                            10,
+                          ),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(
+                            10,
+                          ),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(
+                            10,
+                          ),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            value.length >= 3) {
+                          return '*required';
+                        }
+                        return null;
+                      },
+
+                  // onPressed: () {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => signup_page2(
+                  //       contact: contact.text,
+                  //       address: address.text,
+                  //       EmployeeAge: EmployeeAge.text,
+                  //       EmployeeName: EmployeeName.text,
+                  //       imgUrl: shopImage,
+                  //     )),
+                  //   );
+                  // },
+                  // child: Text(
+                  //   'Next',
+                  //   style: TextStyle(
+                  //     fontSize: 18,
+
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      side: BorderSide(width: 150),
+                      primary: Colors.green,
+                      fixedSize: Size(400, 45),
+                    ),
+                    onPressed: () {
+                      if (shopImage == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Please enter image!')),
+                        );
+                      }
+                      if (_formkey.currentState.validate() &&
+                          shopImage != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => signup_page2(
+
+                                    contact: contact.text,
+                                    address: address.text,
+                                    EmployeeAge: EmployeeAge.text,
+                                    EmployeeName: EmployeeName.text,
+
+                                  )),
+                        );
+                      }
+                    },
+                    child: Text(
+                      'Next',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

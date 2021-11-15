@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Home/Home.dart';
+import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
-
 
 import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/database_service.dart';
@@ -101,6 +100,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
   final dob = TextEditingController();
   final contact = TextEditingController();
   @override
+  final _formkey = GlobalKey<FormState>();
   void dispose() {
     // Clean up the controller when the widget is disposed.
     shopName.dispose();
@@ -122,149 +122,27 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.black,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.green,
-                    ),
-                    hintText: 'UID',
-                    fillColor: Colors.white,
-                    filled: true,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
+    return Form(
+      key: _formkey,
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 30,
                   ),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: shopName,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                    hintText: 'Shop/Company name',
-                    // labelText: 'Shop/Company name',
-                    focusColor: Colors.white,
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
-                  controller: OwnerName,
-                  decoration: InputDecoration(
-                    // floatingLabelBehavior: FloatingLabelBehavior.always,
-
-                    floatingLabelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: 'Owner name',
-                    //  labelText: 'Owner name',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  width: 70,
-                  child: TextFormField(
-                    controller: OwnerAge,
+                  TextFormField(
                     decoration: InputDecoration(
                       floatingLabelStyle: TextStyle(
                         color: Colors.green,
                       ),
-                      hintText: 'Age',
+                      hintText: 'UID',
                       fillColor: Colors.white,
                       filled: true,
                       enabledBorder: OutlineInputBorder(
@@ -285,9 +163,6 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                         ),
                         borderSide: BorderSide(color: Colors.green),
                       ),
-
-
-
                       errorBorder: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(
                           10,
@@ -296,186 +171,358 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                       ),
                     ),
                     keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '*required';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: dob,
-                  decoration: InputDecoration(
-                    // floatingLabelBehavior: FloatingLabelBehavior.always,
-
-                    floatingLabelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    hintText: 'DOB(DD/MM/YYYY',
-                    // labelText: 'DOB(DD/MM/YYYY)',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
+                  SizedBox(
+                    height: 30,
                   ),
-                  keyboardType: TextInputType.datetime,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: contact,
-                  decoration: InputDecoration(
-                    floatingLabelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    labelText: 'Phone Number',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(
-                        10,
-                      ),
-                      borderSide: BorderSide(color: Colors.green),
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Shop Photo",
-                      style: TextStyle(
-                        color: Colors.green,
+                  TextFormField(
+                    controller: shopName,
+                    decoration: InputDecoration(
+                      floatingLabelStyle: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
+                      hintText: 'Shop/Company name',
+                      // labelText: 'Shop/Company name',
+                      focusColor: Colors.white,
+                      filled: true,
+                      fillColor: Colors.white,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter valid shop name';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormField(
+                    controller: OwnerName,
+                    decoration: InputDecoration(
+                      // floatingLabelBehavior: FloatingLabelBehavior.always,
+
+                      floatingLabelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: 'Owner name',
+                      //  labelText: 'Owner name',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a valid name';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    width: 180,
+                    child: TextFormField(
+                      controller: OwnerAge,
+                      decoration: InputDecoration(
+                        floatingLabelStyle: TextStyle(
+                          color: Colors.green,
+                        ),
+                        hintText: 'Age',
+                        fillColor: Colors.white,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(
+                            10,
+                          ),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(
+                            10,
+                          ),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(
+                            10,
+                          ),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(
+                            10,
+                          ),
+                          borderSide: BorderSide(color: Colors.green),
+                        ),
+                      ),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return '*required';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: dob,
+                    decoration: InputDecoration(
+                      // floatingLabelBehavior: FloatingLabelBehavior.always,
+
+                      floatingLabelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: 'DOB(DD/MM/YYYY',
+                      // labelText: 'DOB(DD/MM/YYYY)',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    keyboardType: TextInputType.datetime,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '*required';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: contact,
+                    decoration: InputDecoration(
+                      floatingLabelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
+                      fillColor: Colors.white,
+                      filled: true,
+                      labelText: 'Phone Number',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: new BorderRadius.circular(
+                          10,
+                        ),
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          value.length != 10) {
+                        return 'Enter valid phone number';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Shop Photo",
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 90,
+                      ),
+                      //imagepicker
+                      Stack(
+                        children: [
+                          Container(
+                            clipBehavior: Clip.hardEdge,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.grey[300],
+                            ),
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            height: 110,
+                            width: 110,
+                            child: shopImage != null
+                                ? Image.file(
+                                    shopImage,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Center(
+                                    child: Text(
+                                      'No Image Selected!',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                          ),
+                          Positioned(
+                            top: 70,
+                            left: 45,
+                            child: RawMaterialButton(
+                              shape: CircleBorder(),
+                              fillColor: Colors.white,
+                              child: Icon(Icons.add_a_photo),
+                              onPressed: () {
+                                _showPicker(context);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      side: BorderSide(width: 150),
+                      primary: Colors.green,
+                      fixedSize: Size(400, 45),
+                    ),
+                    onPressed: () {
+                      if (shopImage == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Please enter image!')),
+                        );
+                      }
+                      if (_formkey.currentState.validate() &&
+                          shopImage != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EmployerSignUp2(
+                              shopName: shopName.text,
+                              employerName: OwnerName.text,
+                              employerAge: OwnerAge.text,
+                              employerDOB: dob.text,
+                              employerContactNumber: contact.text,
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    child: Text(
+                      'Next',
+                      style: TextStyle(
                         fontSize: 18,
                       ),
                     ),
-                    SizedBox(
-                      width: 90,
-                    ),
-                    //imagepicker
-                    Stack(
-                      children: [
-                        Container(
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.grey[300],
-                          ),
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          height: 110,
-                          width: 110,
-                          child: shopImage != null
-                              ? Image.file(
-                                  shopImage,
-                                  fit: BoxFit.cover,
-                                )
-                              : Center(
-                                  child: Text(
-                                    'No Image Selected!',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                        ),
-                        Positioned(
-                          top: 70,
-                          left: 45,
-                          child: RawMaterialButton(
-                            shape: CircleBorder(),
-                            fillColor: Colors.white,
-                            child: Icon(Icons.add_a_photo),
-                            onPressed: () {
-                              _showPicker(context);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    side: BorderSide(width: 150),
-                    primary: Colors.green,
-                    fixedSize: Size(400, 45),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EmployerSignUp2(
-                          shopName: shopName.text,
-                          employerName: OwnerName.text,
-                          employerAge: OwnerAge.text,
-                          employerDOB: dob.text,
-                          employerContactNumber: contact.text,
-                          shopImg: shopImage,
-                        ),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    'Next',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
+
+                  SizedBox(
+                    height: 100,
+
                   ),
-                ),
-                SizedBox(
-                  height: 100,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

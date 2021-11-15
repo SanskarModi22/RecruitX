@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
-import 'package:helping_hand/Employee/Home/filter.dart';
-import 'package:helping_hand/Employee/Home/searchBar.dart';
+import 'package:helping_hand/Employee/Home/employee_filter_button.dart';
+import 'package:helping_hand/Employee/Home/employee_searchBar.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
@@ -77,8 +77,8 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
         ),
         centerTitle: true,
         actions: [
-          SearchBar(),
-          Filter(
+          EmployeeSearchBar(),
+          EmployeeFilterButton(
             height: 3.h,
             margin: 8.5,
           )

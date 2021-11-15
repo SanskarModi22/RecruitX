@@ -1,11 +1,8 @@
 import 'dart:io';
-
 import '../review.dart';
 import '../shop.dart';
-
 class Employer {
   String uid;
-
   String employerName;
   String employerAddress;
   String employerContactNumber;
@@ -17,7 +14,7 @@ class Employer {
   String shopDesc;
   String city;
   String state;
-  File lienseImg;
+  String lienseImg;
 bool isEmployer=false;
 bool isEmployee;
 String shopName;

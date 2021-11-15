@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 
-class CustomSearch extends StatelessWidget {
-  const CustomSearch({Key key}) : super(key: key);
+class EmployeeCustomSearch extends StatelessWidget {
+  const EmployeeCustomSearch({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

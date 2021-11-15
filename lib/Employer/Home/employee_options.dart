@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
+import 'package:helping_hand/Employer/Home/Employee-Details/employee_list.dart';
 import 'package:sizer/sizer.dart';
 
-class JobOptions extends StatefulWidget {
-  const JobOptions({key}) : super(key: key);
+class EmployeeOptions extends StatefulWidget {
+  const EmployeeOptions({key}) : super(key: key);
 
   @override
-  _JobOptionsState createState() => _JobOptionsState();
+  _EmployeeOptionsState createState() => _EmployeeOptionsState();
 }
 
-class _JobOptionsState extends State<JobOptions> {
+class _EmployeeOptionsState extends State<EmployeeOptions> {
   // ignore: non_constant_identifier_names
-  List<String> Jobs = [
+  List<String> employeeFields = [
     "Grocery",
     "Watchmen",
     "Medical",
@@ -26,20 +27,20 @@ class _JobOptionsState extends State<JobOptions> {
         context: context,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: Jobs.length,
+            itemCount: employeeFields.length,
             itemBuilder: (BuildContext context, index) {
               return InkWell(
                 onTap: (){
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => JobList(text: Jobs[index],),
+                        builder: (context) => EmployeeList(text: employeeFields[index],),
                       ));
                 },
                 child: Padding(
                   padding: EdgeInsets.all(7.sp),
                   child: Card(
-                    // elevation: 1.sp,
+                   elevation: 0,
                     shadowColor: Colors.transparent,
                     color: Colors.transparent,
                     child: Container(
@@ -51,7 +52,7 @@ class _JobOptionsState extends State<JobOptions> {
                       ),
                       child: Center(
                         child: Text(
-                          Jobs[index],
+                          employeeFields[index],
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 13.sp,

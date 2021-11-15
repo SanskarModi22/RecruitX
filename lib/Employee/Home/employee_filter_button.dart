@@ -3,14 +3,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
 import 'package:sizer/sizer.dart';
 
-class Filter extends StatefulWidget {
-  const Filter({key,this.height,this .margin}) : super(key: key);
+class EmployeeFilterButton extends StatefulWidget {
+  const EmployeeFilterButton({key,this.height,this .margin}) : super(key: key);
 final double height;final double margin;
   @override
-  _FilterState createState() => _FilterState();
+  _EmployeeFilterButtonState createState() => _EmployeeFilterButtonState();
 }
 
-class _FilterState extends State<Filter> {
+class _EmployeeFilterButtonState extends State<EmployeeFilterButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
