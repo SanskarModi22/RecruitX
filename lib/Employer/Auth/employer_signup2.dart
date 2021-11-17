@@ -415,9 +415,9 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                             margin: EdgeInsets.symmetric(vertical: 10),
                             height: 110,
                             width: 110,
-                            child: widget.shopImg != null
+                            child: LicenseImage != null
                                 ? Image.file(
-                                    widget.shopImg,
+                                    LicenseImage,
                                     fit: BoxFit.cover,
                                   )
                                 : Center(
@@ -498,13 +498,13 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       fixedSize: Size(400, 45),
                     ),
                     onPressed: () {
-                      if (widget.shopImg == null) {
+                      if (LicenseImage == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Please enter image!')),
                         );
                       }
                       if (_formkey2.currentState.validate() &&
-                          widget.shopImg != null) {
+                          LicenseImage != null) {
                         DatabaseServices(uid: user.uid).updateEmployerData(
                           employerAddress: address.text,
                           city: city.text,
