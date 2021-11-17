@@ -10,7 +10,6 @@ import 'package:helping_hand/screens/manage_shops_screen.dart';
 import 'package:helping_hand/widgets/newshop.dart';
 import 'package:helping_hand/widgets/reviews_forEmployer.dart';
 import 'package:provider/provider.dart';
-import '../widgets/newReview.dart';
 import '../widgets/shop_refs.dart';
 
 import '../widgets/newjob.dart';

@@ -42,7 +42,7 @@ class DatabaseServices {
     bool isEmployee,
     String uid
   }) async {
-    return await employeeProfile.doc(uid).set(
+    return await employeeProfile.doc(this.uid).set(
       {
         'name': employeeName,
         'address': employeeAddress,

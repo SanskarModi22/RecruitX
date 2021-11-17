@@ -17,7 +17,8 @@ class signup_page2 extends StatefulWidget {
       this.address,
       this.EmployeeName,
       this.EmployeeAge,
-      this.contact, this.imgUrl})
+      this.contact,
+      this.imgUrl})
       : super(key: key);
   @override
   _signup_page2State createState() => _signup_page2State();
@@ -54,6 +55,7 @@ class _signup_page2State extends State<signup_page2> {
     Experience.clear();
   }
 
+  DateTime _dateTime;
   Widget build(BuildContext context) {
     return Form(
       key: _formkey2,
@@ -70,52 +72,39 @@ class _signup_page2State extends State<signup_page2> {
                   SizedBox(
                     height: 50,
                   ),
-                  TextFormField(
-                    controller: dob,
-                    decoration: InputDecoration(
-                      // floatingLabelBehavior: FloatingLabelBehavior.always,
-
-                      floatingLabelStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
-                      fillColor: Colors.white,
-                      filled: true,
-                      //  hintText: 'Owner name',
-                      labelText: 'DOB(DD/MM/YYYY)',
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
+                  Container(
+                    height: 50,
+                    width: 200,
+                    color: Colors.white,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        _dateTime == null
+                            ? 'Enter your DOB'
+                            : _dateTime.toString(),
+                        style: TextStyle(
+                          fontSize: 20,
                         ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
                       ),
                     ),
-                    keyboardType: TextInputType.datetime,
-                    validator: (value) {
-                      if (value == null || value.isEmpty || value.length <= 6) {
-                        return 'Please enter valid DOB';
-                      }
-                      return null;
-                    },
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1960),
+                                lastDate: DateTime(2024))
+                            .then((value) {
+                          setState(() {
+                            _dateTime = value;
+                          });
+                        });
+                      },
+                      child: Text('pick a date')),
                   SizedBox(
                     height: 20,
                   ),
@@ -440,7 +429,6 @@ class _signup_page2State extends State<signup_page2> {
                   SizedBox(
                     height: 30,
                   ),
-
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       side: BorderSide(width: 150),
@@ -473,31 +461,30 @@ class _signup_page2State extends State<signup_page2> {
                         fontSize: 18,
                       ),
 
-                  // onPressed: () {
-                  //   Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => signup_page3(
-                  //           imgUrl: widget.imgUrl,
-                  //               EmployeeName: widget.EmployeeName,
-                  //               EmployeeAge: widget.EmployeeAge,
-                  //               address: widget.address,
-                  //               contact: widget.contact,
-                  //               Aadhar: Aadhar.text,
-                  //               Bio: Bio.text,
-                  //               dob: dob.text,
-                  //               Experience: Experience.text,
-                  //               SalaryExpextation: SalaryExpextation.text,
-                  //               ExpectedJobs: ExpectedJobs.text
-                  //
-                  //             )),
-                  //   );
-                  // },
-                  // child: Text(
-                  //   'Next',
-                  //   style: TextStyle(
-                  //     fontSize: 18,
-
+                      // onPressed: () {
+                      //   Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => signup_page3(
+                      //           imgUrl: widget.imgUrl,
+                      //               EmployeeName: widget.EmployeeName,
+                      //               EmployeeAge: widget.EmployeeAge,
+                      //               address: widget.address,
+                      //               contact: widget.contact,
+                      //               Aadhar: Aadhar.text,
+                      //               Bio: Bio.text,
+                      //               dob: dob.text,
+                      //               Experience: Experience.text,
+                      //               SalaryExpextation: SalaryExpextation.text,
+                      //               ExpectedJobs: ExpectedJobs.text
+                      //
+                      //             )),
+                      //   );
+                      // },
+                      // child: Text(
+                      //   'Next',
+                      //   style: TextStyle(
+                      //     fontSize: 18,
                     ),
                   ),
                 ],
