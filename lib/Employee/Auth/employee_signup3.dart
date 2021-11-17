@@ -44,6 +44,8 @@ class signup_page3 extends StatefulWidget {
 // ignore: camel_case_types
 class _signup_page3State extends State<signup_page3> {
   @override
+  String dropdownValue = 'Part Time';
+  String dropdownValue2 = 'Morning Shift';
   final _formkey3 = GlobalKey<FormState>();
   final currentlyWorking = TextEditingController();
   final PrefereedJob = TextEditingController();
@@ -134,138 +136,79 @@ class _signup_page3State extends State<signup_page3> {
                   SizedBox(
                     height: 30,
                   ),
-                  TextFormField(
-                    controller: PrefereedJob,
-                    decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
-                        color: Colors.green,
-                        fontSize: 20,
+                  Row(
+                    children: [
+                      Text(
+                        'Preferred Job Type',
+                        style: TextStyle(color: Colors.green, fontSize: 16),
                       ),
-                      hintText: 'Preferred job type',
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
+                      SizedBox(
+                        width: 20,
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
+                      DropdownButton<String>(
+                        value: dropdownValue,
+                        elevation: 16,
+                        dropdownColor: Colors.black,
+                        style: const TextStyle(color: Colors.black),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'Part Time',
+                          'Full Time',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                          );
+                        }).toList(),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return '*required';
-                      }
-                      return null;
-                    },
+                    ],
                   ),
                   SizedBox(
                     height: 30,
                   ),
-                  TextFormField(
-                    controller: PreferredWork,
-                    decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
-                        color: Colors.green,
-                        fontSize: 20,
+                  Row(
+                    children: [
+                      Text(
+                        'Preferred Work Shift',
+                        style: TextStyle(color: Colors.green, fontSize: 16),
                       ),
-                      hintText: 'Preferred work shift',
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
+                      SizedBox(
+                        width: 20,
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
+                      DropdownButton<String>(
+                        value: dropdownValue2,
+                        elevation: 16,
+                        dropdownColor: Colors.black,
+                        style: const TextStyle(color: Colors.black),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue2 = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'Morning Shift',
+                          'Evening Shift',
+                          'Night Shift',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                          );
+                        }).toList(),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return '*required';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    controller: Rating,
-                    decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
-                        color: Colors.green,
-                        fontSize: 20,
-                      ),
-                      hintText: 'Rating',
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return '*required';
-                      }
-                      return null;
-                    },
+                    ],
                   ),
                   SizedBox(
                     height: 30,

@@ -56,6 +56,7 @@ class _signup_page2State extends State<signup_page2> {
   }
 
   DateTime _dateTime;
+
   Widget build(BuildContext context) {
     return Form(
       key: _formkey2,
@@ -95,6 +96,7 @@ class _signup_page2State extends State<signup_page2> {
                   ElevatedButton(
                       onPressed: () {
                         showDatePicker(
+                                initialDatePickerMode: DatePickerMode.day,
                                 context: context,
                                 initialDate: DateTime.now(),
                                 firstDate: DateTime(1960),
@@ -346,7 +348,7 @@ class _signup_page2State extends State<signup_page2> {
                         fontSize: 20,
                       ),
                       hintText: 'Experience',
-                      labelText: 'Experience',
+                      // labelText: 'Experience',
                       fillColor: Colors.white,
                       filled: true,
                       enabledBorder: OutlineInputBorder(

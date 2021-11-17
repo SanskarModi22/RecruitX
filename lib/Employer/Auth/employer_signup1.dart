@@ -380,7 +380,8 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                       ),
                       fillColor: Colors.white,
                       filled: true,
-                      labelText: 'Phone Number',
+                      hintText: 'Phone Number',
+                      // labelText: 'Phone Number',
                       enabledBorder: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(
                           10,
