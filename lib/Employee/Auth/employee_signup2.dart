@@ -60,6 +60,7 @@ class _signup_page2State extends State<signup_page2> {
     return Form(
       key: _formkey2,
       child: Scaffold(
+        backgroundColor: Colors.black,
         body: Container(
           decoration: BoxDecoration(
             color: Colors.black,
@@ -376,52 +377,6 @@ class _signup_page2State extends State<signup_page2> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your experience';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    controller: ExpectedJobs,
-                    decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
-                        color: Colors.green,
-                        fontSize: 20,
-                      ),
-                      hintText: 'Expected Jobs',
-                      // labelText: 'Salary Expectations',
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter valid data';
                       }
                       return null;
                     },
