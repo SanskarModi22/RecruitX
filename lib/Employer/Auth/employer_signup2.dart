@@ -135,6 +135,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
   }
 
   String dropdownValue = 'Mumbai';
+  String dropdownValue2 = 'Maharashtra';
 
   @override
   Widget build(BuildContext context) {
@@ -202,16 +203,11 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Container(
-                        color: Colors.white,
-                        height: 50,
-                        width: 80,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            'City',
-                            style: TextStyle(fontSize: 20),
-                          ),
+                      Text(
+                        'City',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 22,
                         ),
                       ),
                       SizedBox(
@@ -220,7 +216,8 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       DropdownButton<String>(
                         value: dropdownValue,
                         elevation: 16,
-                        style: const TextStyle(color: Colors.green),
+                        dropdownColor: Colors.black,
+                        style: const TextStyle(color: Colors.white),
                         onChanged: (String newValue) {
                           setState(() {
                             dropdownValue = newValue;
@@ -232,6 +229,50 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                           'Chennai',
                           'Delhi',
                           'Lucknow'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'State',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 22,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      DropdownButton<String>(
+                        value: dropdownValue2,
+                        elevation: 16,
+                        dropdownColor: Colors.black,
+                        style: const TextStyle(color: Colors.white),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropdownValue2 = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'Maharashtra',
+                          'West Bengal',
+                          'Tamil Nadu',
+                          'Delhi',
+                          'Uttar Pradesh',
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -442,51 +483,6 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         ],
                       ),
                     ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      floatingLabelStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
-                      ),
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintText: ' Shop Rating',
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: new BorderRadius.circular(
-                          10,
-                        ),
-                        borderSide: BorderSide(color: Colors.green),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return '*required';
-                      }
-                      return null;
-                    },
                   ),
                   SizedBox(
                     height: 30,

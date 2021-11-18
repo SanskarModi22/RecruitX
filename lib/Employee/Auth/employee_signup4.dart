@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/screens/filters_Employee_screen.dart';
@@ -24,10 +26,10 @@ class _signup_page4State extends State<signup_page4> {
   int count = 0;
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.green,
+      backgroundColor: Colors.black,
       body: Container(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 40,
@@ -39,145 +41,339 @@ class _signup_page4State extends State<signup_page4> {
                 fontSize: 25,
               ),
             ),
-            CustomCheckBox(
-              jobText: "Peon",
-              checkbox: Checkbox(
-                value: peon,
-                onChanged: (val) {
-                  setState(() {
-                    peon = val;
-                    if (peon == true)
-                      count++;
-                    else if (peon == false) count--;
-                  });
-                },
-              ),
+            SizedBox(
+              height: 30,
             ),
-            CustomCheckBox(
-              jobText: "driver",
-              checkbox: Checkbox(
-                value: driver,
-                onChanged: (val) {
-                  setState(() {
-                    driver = val;
-                    if (driver == true)
-                      count++;
-                    else if (driver == false) count--;
-                  });
-                },
-              ),
-            ),
-            CustomCheckBox(
-              jobText: "Private Tutor",
-              checkbox: Checkbox(
-                value: tutor,
-                onChanged: (val) {
-                  setState(() {
-                    tutor = val;
-                    if (tutor == true)
-                      count++;
-                    else if (tutor == false) count--;
-                  });
-                },
-              ),
-            ),
-            CustomCheckBox(
-              jobText: "Security Gaurd",
-              checkbox: Checkbox(
-                value: securityguard,
-                onChanged: (val) {
-                  setState(() {
-                    securityguard = val;
-                    if (securityguard == true)
-                      count++;
-                    else if (securityguard == false) count--;
-                  });
-                },
-              ),
-            ),
-            CustomCheckBox(
-              jobText: "Labour",
-              checkbox: Checkbox(
-                value: labour,
-                onChanged: (val) {
-                  setState(() {
-                    labour = val;
-                    if (labour == true)
-                      count++;
-                    else if (labour == false) count--;
-                  });
-                },
-              ),
-            ),
-            CustomCheckBox(
-              jobText: "Halwai",
-              checkbox: Checkbox(
-                value: halwai,
-                onChanged: (val) {
-                  setState(() {
-                    halwai = val;
-                    if (halwai == true)
-                      count++;
-                    else if (halwai == false) count--;
-                  });
-                },
-              ),
-            ),
-            CustomCheckBox(
-              jobText: "Watchman",
-              checkbox: Checkbox(
-                value: watchman,
-                onChanged: (val) {
-                  setState(() {
-                    watchman = val;
-                    if (watchman == true)
-                      count++;
-                    else if (watchman == false) count--;
-                  });
-                },
-              ),
-            ),
-            CustomCheckBox(
-              jobText: "HouseMaid",
-              checkbox: Checkbox(
-                value: maid,
-                onChanged: (val) {
-                  setState(() {
-                    maid = val;
-                    if (maid == true)
-                      count++;
-                    else if (maid == false) count--;
-                  });
-                },
-              ),
-            ),
-            CustomCheckBox(
-              jobText: "Waiter",
-              checkbox: Checkbox(
-                value: waiter,
-                onChanged: (val) {
-                  setState(() {
-                    waiter = val;
-                    if (waiter == true)
-                      count++;
-                    else if (waiter == false) count--;
-                  });
-                },
-              ),
-            ),
-            CustomCheckBox(
-              jobText: "Sweeper",
-              checkbox: Checkbox(
-                value: sweeper,
-                onChanged: (val) {
-                  setState(() {
-                    sweeper = val;
-                    if (sweeper == true)
-                      count++;
-                    else if (sweeper == false) count--;
-                  });
-                },
-              ),
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.all(Colors.green),
+                            value: peon,
+                            onChanged: (val) {
+                              setState(() {
+                                peon = val;
+                                if (peon == true)
+                                  count++;
+                                else if (peon == false) count--;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Peon',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.all(Colors.green),
+                            value: driver,
+                            onChanged: (val) {
+                              setState(() {
+                                driver = val;
+                                if (driver == true)
+                                  count++;
+                                else if (driver == false) count--;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Driver',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.all(Colors.green),
+                            value: tutor,
+                            onChanged: (val) {
+                              setState(() {
+                                tutor = val;
+                                if (tutor == true)
+                                  count++;
+                                else if (tutor == false) count--;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Private Tutor',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.all(Colors.green),
+                            value: securityguard,
+                            onChanged: (val) {
+                              setState(() {
+                                securityguard = val;
+                                if (securityguard == true)
+                                  count++;
+                                else if (securityguard == false) count--;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Security Guard',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.all(Colors.green),
+                            value: labour,
+                            onChanged: (val) {
+                              setState(() {
+                                labour = val;
+                                if (labour == true)
+                                  count++;
+                                else if (labour == false) count--;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Labour',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.all(Colors.green),
+                            value: watchman,
+                            onChanged: (val) {
+                              setState(() {
+                                watchman = val;
+                                if (watchman == true)
+                                  count++;
+                                else if (watchman == false) count--;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Watchman',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.all(Colors.green),
+                            value: maid,
+                            onChanged: (val) {
+                              setState(() {
+                                maid = val;
+                                if (maid == true)
+                                  count++;
+                                else if (maid == false) count--;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Maid',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.all(Colors.green),
+                            value: waiter,
+                            onChanged: (val) {
+                              setState(() {
+                                waiter = val;
+                                if (driver == true)
+                                  count++;
+                                else if (waiter == false) count--;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Waiter',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.all(Colors.green),
+                            value: sweeper,
+                            onChanged: (val) {
+                              setState(() {
+                                driver = val;
+                                if (sweeper == true)
+                                  count++;
+                                else if (sweeper == false) count--;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Sweeper',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.1,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.all(Colors.green),
+                            value: halwai,
+                            onChanged: (val) {
+                              setState(() {
+                                halwai = val;
+                                if (halwai == true)
+                                  count++;
+                                else if (halwai == false) count--;
+                              });
+                            },
+                          ),
+                        ),
+                        Text(
+                          'Halwai',
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
             SizedBox(
               height: 30,
