@@ -542,7 +542,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                                 builder: (BuildContext context) {
                                   return Padding(
                                     padding: MediaQuery.of(context).viewInsets,
-                                    child: NewReview(),
+                                    child: NewReview(widget.uid),
                                   );
                                 },
                               );

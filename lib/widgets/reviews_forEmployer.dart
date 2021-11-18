@@ -8,7 +8,8 @@ import 'package:provider/provider.dart';
 
 class ReviewsForEmployer extends StatefulWidget {
   // const ReviewsForEmployer({ Key? key }) : super(key: key);
-
+  final String ruid;
+  ReviewsForEmployer(this.ruid);
   @override
   _ReviewsForEmployerState createState() => _ReviewsForEmployerState();
 }
@@ -16,66 +17,113 @@ class ReviewsForEmployer extends StatefulWidget {
 class _ReviewsForEmployerState extends State<ReviewsForEmployer> {
   @override
   Widget build(BuildContext context) {
-    final reviewers =
-        Provider.of<GetUserInfo>(context).fetchAndSetReviewsForEmployer.reviews;
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        children: [
-          ListTile(
-            leading: FaIcon(
-              FontAwesomeIcons.chartLine,
-              size: 28,
-              color: Colors.teal,
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('employerReviews')
+            .where('reviewedId', isEqualTo: widget.ruid)
+            .snapshots(),
+        builder:
+            (ctx, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+
+          final reviews = snapshot.data.docs;
+
+          return Card(
+            margin: EdgeInsets.symmetric(horizontal: 8),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: FaIcon(
+                    FontAwesomeIcons.chartLine,
+                    size: 28,
+                    color: Colors.teal,
+                  ),
+                  title: Text('Reviews'),
+                  trailing: IconButton(
+                      icon: Icon(Icons.add_comment),
+                      onPressed: () {
+                        showModalBottomSheet<void>(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Padding(
+                              padding: MediaQuery.of(context).viewInsets,
+                              child: NewReview(
+                                widget.ruid,
+                                isEmployer: true,
+                                isEmployee: false,
+                              ),
+                            );
+                          },
+                        );
+                      }),
+                ),
+                snapshot.data != null
+                    ? reviews == null
+                        ? SizedBox(
+                            height: 100,
+                            child: Center(
+                              child: Text('No Reviews Yet'),
+                            ),
+                          )
+                        : SizedBox(
+                            height: 420,
+                            width: MediaQuery.of(context).size.width,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: reviews.length,
+                              itemBuilder: (ctx, i) =>
+                                  ReviewItemForEmployerByEmployee(
+                                reviewerId: reviews[i]['reviewerId'],
+                                rating: reviews[i]['rating'],
+                                name: reviews[i]['reviewerName'],
+                                profileImageUrl: reviews[i]
+                                    ['userProfileImgUrl'],
+                                backgroundImgUrl: reviews[i]
+                                    ['backgroundImgUrl'],
+                                workedAs: reviews[i]['jobWorked'],
+                                reviewPara: reviews[i]['reviewPara'],
+                              ),
+                            ),
+                          )
+                    : SizedBox(
+                        height: 100,
+                        child: Center(
+                          child: Text('No Reviews Yet'),
+                        ),
+                      ),
+                SizedBox(
+                  height: 20,
+                )
+              ],
             ),
-            title: Text('Reviews'),
-            trailing: IconButton(
-                icon: Icon(Icons.add_comment),
-                onPressed: () {
-                  showModalBottomSheet<void>(
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Padding(
-                        padding: MediaQuery.of(context).viewInsets,
-                        child: NewReview(),
-                      );
-                    },
-                  );
-                }),
-          ),
-          SizedBox(
-            height: 420,
-            width: MediaQuery.of(context).size.width,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 2,
-              itemBuilder: (ctx, i) => ReviewItemForEmployerByEmployee(
-                reviewerId: reviewers[i].reviewerId,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          )
-        ],
-      ),
-    );
+          );
+        });
   }
 }
 
 class ReviewItemForEmployerByEmployee extends StatelessWidget {
   final String reviewerId;
+  final String profileImageUrl;
+  final String backgroundImgUrl;
+  final String name;
+  final String workedAs;
+  final double rating;
+  final String reviewPara;
 
   ReviewItemForEmployerByEmployee({
     @required this.reviewerId,
+    @required this.backgroundImgUrl,
+    @required this.name,
+    @required this.profileImageUrl,
+    @required this.rating,
+    @required this.reviewPara,
+    @required this.workedAs,
   });
   @override
   Widget build(BuildContext context) {
-    final loadedreviewer = Provider.of<GetUserInfo>(context)
-        .fetchAndSetReviewsForEmployer
-        .reviews
-        .firstWhere((reviewerEx) => reviewerEx.reviewerId == reviewerId);
     return Container(
       height: 400,
       width: 300,
@@ -93,7 +141,7 @@ class ReviewItemForEmployerByEmployee extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Image(
-                  image: NetworkImage(loadedreviewer.backgroundImageURL),
+                  image: NetworkImage(backgroundImgUrl),
                   height: 200,
                   width: 300,
                   fit: BoxFit.cover,
@@ -106,8 +154,7 @@ class ReviewItemForEmployerByEmployee extends StatelessWidget {
                     backgroundColor: Colors.white,
                     child: CircleAvatar(
                       radius: 50,
-                      backgroundImage:
-                          NetworkImage(loadedreviewer.profileImageURL),
+                      backgroundImage: NetworkImage(profileImageUrl),
                     ),
                   ),
                 ),
@@ -134,7 +181,7 @@ class ReviewItemForEmployerByEmployee extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          loadedreviewer.reviewerName,
+                          name,
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
                       ],
@@ -154,7 +201,7 @@ class ReviewItemForEmployerByEmployee extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        loadedreviewer.jobWorked,
+                        workedAs,
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
@@ -174,7 +221,7 @@ class ReviewItemForEmployerByEmployee extends StatelessWidget {
                   child: RatingBar.builder(
                     ignoreGestures: true,
                     itemSize: 30,
-                    initialRating: loadedreviewer.rating,
+                    initialRating: rating,
                     minRating: 0,
                     direction: Axis.horizontal,
                     allowHalfRating: true,
@@ -191,6 +238,7 @@ class ReviewItemForEmployerByEmployee extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 15),
                   height: 150,
+                  width: double.maxFinite,
                   // color: Color.fromRGBO(248, 239, 206, 1),
                   decoration: BoxDecoration(
                       // color: Colors.teal[100],
@@ -219,7 +267,7 @@ class ReviewItemForEmployerByEmployee extends StatelessWidget {
                           // height: 150,
                           padding: EdgeInsets.symmetric(horizontal: 30),
                           child: Text(
-                            loadedreviewer.reviewPara,
+                            reviewPara,
                             style: TextStyle(
                               fontSize: 15,
 

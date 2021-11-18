@@ -1,8 +1,12 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
 import 'package:helping_hand/providers/user_information.dart';
-import 'package:helping_hand/screens/job_details_screen.dart';
+import 'package:helping_hand/screens/employee_profile_screen.dart';
+import 'package:helping_hand/screens/employer_profile_screen.dart';
+// import 'package:helping_hand/screens/job_details_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
 
@@ -29,15 +33,6 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
   });
   @override
   Widget build(BuildContext context) {
-    final loadedshop = Provider.of<GetUserInfo>(context)
-        .fetchAndSetEmployerShops
-        .shops
-        .firstWhere((shopEx) => shopEx.shopid == providedShopId);
-    final jobs = loadedshop.jobsAvailable;
-
-    // final Color random_color =
-    //     Colors.primaries[Random().nextInt(Colors.primaries.length)];
-
     RandomColor _randomColor = RandomColor();
 
     Color _color = _randomColor.randomColor(
@@ -50,243 +45,317 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
         ColorHue.pink
       ]),
     );
-    final Color random_color = _color;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          loadedshop.shopName,
-          style: TextStyle(
-            color: random_color,
-          ),
-        ),
-        iconTheme: IconThemeData(
-          color: random_color,
-        ),
-        backgroundColor: Colors.white,
-      ),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Card(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                margin: EdgeInsets.all(8),
-                child: Container(
-                  height: 220,
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: 220,
-                        width: MediaQuery.of(context).size.width * 0.95,
-                        child: Image(
-                          image: NetworkImage(loadedshop.shopImageUrl),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 20,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 12,
-                          ),
-                          decoration: BoxDecoration(
-                              // color: Colors.redAccent,
 
-                              color: random_color,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(8),
-                                  bottomRight: Radius.circular(8))),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.flag,
-                                color: Colors.white,
+    final Color randomColor = _color;
+
+    return FutureBuilder(
+        future: FirebaseFirestore.instance
+            .collection('shops')
+            .doc(widget.providedShopId)
+            .get(),
+        builder: (ctx,
+            AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
+                shopSnapshot) {
+          if (shopSnapshot.connectionState == ConnectionState.waiting) {
+            return SizedBox(
+                height: 140, child: Center(child: CircularProgressIndicator()));
+          }
+          final shopData = shopSnapshot.data;
+          if (shopData == null) {
+            return Container();
+          }
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                shopData['shopName'],
+                style: TextStyle(
+                  color: randomColor,
+                ),
+              ),
+              iconTheme: IconThemeData(
+                color: randomColor,
+              ),
+              backgroundColor: Colors.white,
+            ),
+            body: Container(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      margin: EdgeInsets.all(8),
+                      child: Container(
+                        height: 220,
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: 220,
+                              width: MediaQuery.of(context).size.width * 0.95,
+                              child: Image(
+                                image: NetworkImage(shopData['shopImgUrl']),
+                                fit: BoxFit.cover,
                               ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                loadedshop.shopType + ' Shop',
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  color: Colors.white,
+                            ),
+                            Positioned(
+                              bottom: 20,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 12,
+                                ),
+                                decoration: BoxDecoration(
+                                    // color: Colors.redAccent,
+
+                                    color: randomColor,
+                                    borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(8),
+                                        bottomRight: Radius.circular(8))),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.flag,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      shopData['shopType'] + ' Shop',
+                                      style: TextStyle(
+                                        fontSize: 28,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
+                            )
+                          ],
                         ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.account_circle,
-                    color: random_color,
-                    size: 30,
-                  ),
-                  title: Text('Owner'),
-                  subtitle: Text('Mellow Works'),
-                  // trailing: Icon(Icons.edit),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.adjust_outlined,
-                    // color: Colors.deepOrangeAccent,
-                    color: random_color,
-                    size: 30,
-                  ),
-                  title: Text('Type of shop'),
-                  subtitle: Text(loadedshop.shopType),
-                  trailing: Icon(Icons.edit),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.work,
-                    // color: Colors.deepOrangeAccent,
-                    color: random_color,
-
-                    size: 30,
-                  ),
-                  title: Text('No of employees hired '),
-                  subtitle: Text(loadedshop.numOfEmployees),
-                  trailing: Icon(Icons.edit),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        Icons.place_rounded,
-                        // color: Colors.deepOrangeAccent,
-                        color: random_color,
-                        size: 30,
                       ),
-
-                      title: Text('Shop Address'),
-                      // subtitle: Text('30'),
-                      trailing: Icon(Icons.edit),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          // color: random_color600],
+                    Card(
+                      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.account_circle,
+                          color: randomColor,
+                          size: 30,
+                        ),
+                        title: Text('Owner'),
+                        subtitle: Text(shopData['ownerName']),
+                        trailing: IconButton(
+                          icon: Icon(
+                            Icons.open_in_new_rounded,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) =>
+                                    EmployerProfile(shopData['ownerId']),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Card(
+                      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.adjust_outlined,
                           // color: Colors.deepOrangeAccent,
-                          color: random_color,
-                          width: 2,
+                          color: randomColor,
+                          size: 30,
                         ),
-                        borderRadius: BorderRadius.circular(5),
+                        title: Text('Type of shop'),
+                        subtitle: Text(shopData['shopType']),
+                        trailing: Icon(Icons.edit),
                       ),
-                      margin: EdgeInsets.only(
-                          left: 10, right: 10, top: 0, bottom: 10),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Text(
-                          'Behind your house, in front of the pole, your ward, your city, your district, India'),
-                    )
-                  ],
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 4,
-                ),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        Icons.work_outline_rounded,
-                        // color: Colors.deepOrangeAccent,
-                        color: random_color,
-                        // color: random_color
-                        size: 30,
+                    ),
+                    Card(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
                       ),
-                      title: Text('Jobs Available'),
-                      trailing: IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () {
-                          showModalBottomSheet<void>(
-                            isScrollControlled: true,
-                            context: context,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20)),
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.work,
+                          // color: Colors.deepOrangeAccent,
+                          color: randomColor,
+
+                          size: 30,
+                        ),
+                        title: Text('No of employees hired '),
+                        subtitle: Text(shopData['numOfEmployees'].toString()),
+                        trailing: Icon(Icons.edit),
+                      ),
+                    ),
+                    Card(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: Icon(
+                              Icons.place_rounded,
+                              // color: Colors.deepOrangeAccent,
+                              color: randomColor,
+                              size: 30,
                             ),
-                            builder: (BuildContext context) {
-                              return Padding(
-                                padding: MediaQuery.of(context).viewInsets,
-                                child: NewJob(),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    SingleChildScrollView(
-                      child: Container(
-                        height: min(jobs.length.toDouble() * 160, 500),
-                        padding: EdgeInsets.only(
-                          top: 0,
-                          bottom: 10,
-                          right: 5,
-                          left: 5,
-                        ),
-                        child: ListView.builder(
-                          // scrollDirection: Axis.horizontal,
-                          itemCount: jobs.length,
-                          itemBuilder: (ctx, i) => JobAvailable(
-                            providedShopId: providedShopId,
-                            jobId: jobs[i].jobId,
-                            job: jobs[i].jobName,
-                            salary: jobs[i].salary,
-                            workDays: jobs[i].workingDays,
-                            workHours: jobs[i].workingHours,
-                            specialRequests: jobs[i].specialRequest,
-                            random_color: random_color,
+
+                            title: Text('Shop Address'),
+                            // subtitle: Text('30'),
+                            trailing: Icon(Icons.edit),
                           ),
-                        ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                // color: random_color600],
+                                // color: Colors.deepOrangeAccent,
+                                color: randomColor,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            margin: EdgeInsets.only(
+                                left: 10, right: 10, top: 0, bottom: 10),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Text(shopData['shopAddress']),
+                          )
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 30,
-                    )
+                    Card(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: Icon(
+                              Icons.work_outline_rounded,
+                              // color: Colors.deepOrangeAccent,
+                              color: randomColor,
+                              // color: random_color
+                              size: 30,
+                            ),
+                            title: Text('Jobs Available'),
+                            trailing: IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: () {
+                                showModalBottomSheet<void>(
+                                  isScrollControlled: true,
+                                  context: context,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20)),
+                                  ),
+                                  builder: (BuildContext context) {
+                                    return Padding(
+                                      padding:
+                                          MediaQuery.of(context).viewInsets,
+                                      child: NewJob(),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                          Jobs(widget.providedShopId, randomColor),
+                          SizedBox(
+                            height: 30,
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
+        });
+  }
+}
+
+class Jobs extends StatefulWidget {
+  // const Jobs({ Key? key }) : super(key: key);
+  final String shopId;
+  Color random_color;
+  Jobs(this.shopId, this.random_color);
+  @override
+  _JobsState createState() => _JobsState();
+}
+
+class _JobsState extends State<Jobs> {
+  @override
+  Widget build(BuildContext context) {
+    // print(widget.shopId);
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('jobs')
+            .where('shopId', isEqualTo: widget.shopId)
+            .snapshots(),
+        builder: (context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SizedBox(
+              height: 100,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          if (snapshot.data.docs == null) {
+            return Container(
+              child: Center(
+                child: Text('NO Jobs Posted'),
+              ),
+            );
+          }
+          print(widget.shopId);
+          final jobs = snapshot.data.docs;
+
+          return SingleChildScrollView(
+            child: Container(
+              height: min(jobs.length.toDouble() * 160, 500),
+              padding: EdgeInsets.only(
+                top: 0,
+                bottom: 10,
+                right: 5,
+                left: 5,
+              ),
+              child: ListView.builder(
+                // scrollDirection: Axis.horizontal,
+                itemCount: jobs.length,
+                itemBuilder: (ctx, i) => JobAvailable(
+                  providedShopId: widget.shopId,
+                  jobId: jobs[i].id,
+                  job: jobs[i]['jobName'],
+                  salary: jobs[i]['salary'].toString(),
+                  workDays: jobs[i]['workingDays'],
+                  workHours: jobs[i]['workingHours'],
+                  specialRequests: jobs[i]['specialRequest'],
+                  randomColor: widget.random_color,
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
 
 class JobAvailable extends StatefulWidget {
-  final Color random_color;
+  final Color randomColor;
   final String jobId;
   final String providedShopId;
   final String job;
@@ -297,7 +366,7 @@ class JobAvailable extends StatefulWidget {
 
   JobAvailable({
     this.providedShopId,
-    this.random_color,
+    this.randomColor,
     @required this.jobId,
     @required this.job,
     @required this.salary,
@@ -307,163 +376,18 @@ class JobAvailable extends StatefulWidget {
   });
 
   @override
-  _JobAvailableState createState() => _JobAvailableState(
-        jobId: jobId,
-        job: job,
-        salary: salary,
-        workDays: workDays,
-        workHours: workHours,
-        specialRequests: specialRequests,
-        random_color: random_color,
-        providedShopId: providedShopId,
-      );
+  _JobAvailableState createState() => _JobAvailableState();
 }
 
 class _JobAvailableState extends State<JobAvailable> {
-  final String providedShopId;
-  final String job;
-  final String jobId;
-  final Color random_color;
-  final String salary;
-  final String workHours;
-  final String workDays;
-  final String specialRequests;
+  _JobAvailableState();
 
-  _JobAvailableState({
-    this.job,
-    this.salary,
-    this.workDays,
-    this.workHours,
-    this.specialRequests,
-    this.providedShopId,
-    this.jobId,
-    this.random_color,
-  });
-
-  var _owner = true;
+  // var _owner = true;
   @override
   Widget build(BuildContext context) {
-    return (_owner)
-        ? Dismissible(
-            key: ValueKey(jobId),
-            background: Container(
-              // color: random_color200],
-              // color: Colors.deepOrangeAccent,
-              // color: random_color,
-              child: Icon(
-                Icons.delete,
-                color: Colors.white,
-                size: 40,
-              ),
-              alignment: Alignment.centerRight,
-              padding: EdgeInsets.only(right: 20),
-              margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-            ),
-            confirmDismiss: (direction) {
-              // return Future.value(true);
-              return showDialog(
-                  context: context,
-                  builder: (ctx) => AlertDialog(
-                        title: Text('Are you sure? '),
-                        content:
-                            Text('Do you want to delete this job posting?'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop(true);
-                            },
-                            child: Text('YES!'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop(false);
-                            },
-                            child: Text('NO!'),
-                          ),
-                        ],
-                      ));
-            },
-            direction: DismissDirection.endToStart,
-            onDismissed: (direction) {},
-            child: InsideBody(
-              jobId: jobId,
-              providedShopId: providedShopId,
-              job: job,
-              salary: salary,
-              workDays: workDays,
-              workHours: workHours,
-              specialRequests: specialRequests,
-              random_color: random_color,
-            ),
-          )
-        : InsideBody(
-            jobId: jobId,
-            job: job,
-            providedShopId: providedShopId,
-            salary: salary,
-            workDays: workDays,
-            workHours: workHours,
-            specialRequests: specialRequests,
-            random_color: random_color,
-          );
-  }
-}
+    var _expanded = false;
+    Color randomColor = widget.randomColor;
 
-class InsideBody extends StatefulWidget {
-  // const InsideBody({ Key? key }) : super(key: key);
-  final String jobId;
-  final Color random_color;
-  final String providedShopId;
-  final String job;
-  final String salary;
-  final String workHours;
-  final String workDays;
-  final String specialRequests;
-  InsideBody({
-    this.providedShopId,
-    this.random_color,
-    @required this.jobId,
-    @required this.job,
-    @required this.salary,
-    @required this.workDays,
-    @required this.workHours,
-    this.specialRequests,
-  });
-  @override
-  _InsideBodyState createState() => _InsideBodyState(
-        jobId: jobId,
-        job: job,
-        salary: salary,
-        workDays: workDays,
-        workHours: workHours,
-        specialRequests: specialRequests,
-        random_color: random_color,
-        providedShopId: providedShopId,
-      );
-}
-
-class _InsideBodyState extends State<InsideBody> {
-  final String jobId;
-  final String job;
-  final String salary;
-  final String workHours;
-  final String workDays;
-  final Color random_color;
-  final String providedShopId;
-  String specialRequests;
-  _InsideBodyState({
-    @required this.jobId,
-    @required this.job,
-    @required this.salary,
-    @required this.workDays,
-    @required this.workHours,
-    this.specialRequests,
-    this.random_color,
-    this.providedShopId,
-  });
-  var _expanded = false;
-
-  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
       // padding: EdgeInsets.symmetric(horizontal: 20),
@@ -471,7 +395,7 @@ class _InsideBodyState extends State<InsideBody> {
         color: Colors.white,
         border: Border.all(
           width: 3,
-          color: random_color,
+          color: randomColor,
         ),
         borderRadius: BorderRadius.circular(10),
       ),
@@ -493,7 +417,7 @@ class _InsideBodyState extends State<InsideBody> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color: random_color,
+                              color: randomColor,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             margin: EdgeInsets.symmetric(
@@ -505,7 +429,7 @@ class _InsideBodyState extends State<InsideBody> {
                               horizontal: 10,
                             ),
                             child: Text(
-                              job,
+                              widget.job,
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -514,7 +438,7 @@ class _InsideBodyState extends State<InsideBody> {
                           Container(
                             // margin: EdgeInsets.symmetric(horizontal: 10),
                             decoration: BoxDecoration(
-                              color: random_color,
+                              color: randomColor,
                               borderRadius: BorderRadius.circular(7),
                             ),
                             // width: 180,
@@ -543,7 +467,7 @@ class _InsideBodyState extends State<InsideBody> {
                                     color: Colors.white,
                                   ),
                                   child: Text(
-                                    'Rs ' + salary,
+                                    'Rs ' + widget.salary,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -564,7 +488,7 @@ class _InsideBodyState extends State<InsideBody> {
                           bottom: 10,
                         ),
                         decoration: BoxDecoration(
-                          color: random_color,
+                          color: randomColor,
                           borderRadius: BorderRadius.circular(7),
                         ),
                         // width: 180,
@@ -595,7 +519,7 @@ class _InsideBodyState extends State<InsideBody> {
                                   color: Colors.white,
                                 ),
                                 child: Text(
-                                  workHours,
+                                  widget.workHours,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
@@ -615,7 +539,7 @@ class _InsideBodyState extends State<InsideBody> {
                             bottom: 10,
                           ),
                           decoration: BoxDecoration(
-                            color: random_color,
+                            color: randomColor,
                             borderRadius: BorderRadius.circular(7),
                           ),
                           // width: 180,
@@ -646,7 +570,7 @@ class _InsideBodyState extends State<InsideBody> {
                                     color: Colors.white,
                                   ),
                                   child: Text(
-                                    workDays,
+                                    widget.workDays,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -655,7 +579,7 @@ class _InsideBodyState extends State<InsideBody> {
                           ),
                         ),
                       ),
-                    if (specialRequests != null && _expanded)
+                    if (widget.specialRequests != null && _expanded)
                       Container(
                         margin: EdgeInsets.only(
                           left: 10,
@@ -668,10 +592,10 @@ class _InsideBodyState extends State<InsideBody> {
                         decoration: BoxDecoration(
                           // color: random_color100],
                           color: Colors.white,
-                          border: Border.all(width: 2, color: random_color),
+                          border: Border.all(width: 2, color: randomColor),
                           borderRadius: BorderRadius.circular(7),
                         ),
-                        child: Text(specialRequests),
+                        child: Text(widget.specialRequests),
                       ),
 
                     SizedBox(
@@ -690,8 +614,8 @@ class _InsideBodyState extends State<InsideBody> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => JobDetailsScreen(
-                          jobId: jobId,
-                          shopId: providedShopId,
+                          jobId: widget.jobId,
+                          shopId: widget.providedShopId,
                         ),
                       ),
                     );
@@ -709,10 +633,10 @@ class _InsideBodyState extends State<InsideBody> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: random_color,
+                          color: randomColor,
                           width: 2,
                         ),
-                        color: random_color,
+                        color: randomColor,
                       ),
                       padding:
                           EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -732,10 +656,10 @@ class _InsideBodyState extends State<InsideBody> {
                 child: IconButton(
                   icon: CircleAvatar(
                     radius: 18,
-                    backgroundColor: random_color,
+                    backgroundColor: randomColor,
                     child: CircleAvatar(
                       radius: 15,
-                      backgroundColor: random_color,
+                      backgroundColor: randomColor,
                       child: Icon(
                           _expanded ? Icons.expand_less : Icons.expand_more,
                           size: 22,

@@ -63,7 +63,7 @@ class _NewJobState extends State<NewJob> {
                   decoration: InputDecoration(
                     // contentPadding: EdgeInsets.all(8),
                     icon: Icon(Icons.store_sharp),
-                    hintText: 'e.g  Rs 15,000',
+                    hintText: 'e.g shop',
                     labelText: 'In Shop',
                   ),
                   keyboardType: TextInputType.text,
@@ -74,6 +74,10 @@ class _NewJobState extends State<NewJob> {
                 ),
                 Row(
                   children: [
+                    Icon(Icons.work),
+                    SizedBox(
+                      width: 15,
+                    ),
                     Text(
                       'Looking For:',
                       style: TextStyle(
@@ -82,7 +86,7 @@ class _NewJobState extends State<NewJob> {
                       ),
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 15,
                     ),
                     DropdownButton<String>(
                       value: dropdownValue,

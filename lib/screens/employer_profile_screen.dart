@@ -104,7 +104,9 @@ class _EmployerProfileState extends State<EmployerProfile> {
                     dob: userData['dob'],
                     address: userData['address'],
                     contact: userData['contact'],
-                    rating: userData['averageRating'],
+                    rating: userData['averageRating'] == null
+                        ? 4.0
+                        : userData['averageRating'],
                   ),
                   // shops
                   Card(
@@ -157,7 +159,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
                             ),
                           ),
                         ),
-                        ShopRefs(),
+                        ShopRefs(widget.uid),
                       ],
                     ),
                   ),
@@ -166,7 +168,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
                   ),
 
                   // reviews
-                  ReviewsForEmployer(),
+                  ReviewsForEmployer(widget.uid),
                 ],
               ),
             ),
