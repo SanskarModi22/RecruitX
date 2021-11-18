@@ -85,6 +85,7 @@ class _NewShopState extends State<NewShop> {
         });
   }
 
+  String dropdownValue = 'Peon';
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -168,6 +169,55 @@ class _NewShopState extends State<NewShop> {
                       labelText: 'Type of shop',
                     ),
                   ),
+
+                  Container(
+                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Type of Profession:',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        DropdownButton<String>(
+                          value: dropdownValue,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.black),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropdownValue = newValue;
+                            });
+                          },
+                          items: <String>[
+                            'Peon',
+                            'Driver',
+                            'Private Tutor',
+                            'Security Gaurd',
+                            'Halwai',
+                            'Labour',
+                            'Watchman',
+                            'Sweeper',
+                            'Waiter',
+                            'Maid',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   TextFormField(
                     autofocus: true,
                     maxLines: 2,
