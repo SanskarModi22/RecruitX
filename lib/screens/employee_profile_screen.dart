@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -43,6 +45,16 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
           );
         }
         final user = snapshot.data;
+        // final List<String> expectedJobs = user['expectedJobs'];
+        String expectedJobs() {
+          String _list = '';
+          List<dynamic> jobs = user['expectedJobs'];
+          jobs.forEach((element) {
+            _list += element.toString() + ',  ';
+          });
+          return _list;
+        }
+
         return Scaffold(
           appBar: AppBar(
             iconTheme: IconThemeData(
@@ -167,7 +179,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                               'Expected Salary',
                               'Rs ' +
                                   user['minExpSalary'].toString() +
-                                  ' to ' +
+                                  ' - ' +
                                   'Rs ' +
                                   user['maxExpSalary'].toString(),
                             ),
@@ -177,7 +189,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                           ),
                           FractionallySizedBox(
                             widthFactor: 0.85,
-                            child: PreferenceItem('Job', user['expectedJobs']),
+                            child: PreferenceItem('Job', expectedJobs()),
                           ),
                           SizedBox(
                             height: 10,
