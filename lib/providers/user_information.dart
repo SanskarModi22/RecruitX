@@ -7,22 +7,22 @@ import 'package:helping_hand/Model/shop.dart';
 
 class GetUserInfo with ChangeNotifier {
   final fetchAndSetUserinfoForEmployee = Employee(
-
-    employeeImage: "https://i2-prod.walesonline.co.uk/incoming/article21810884.ece/ALTERNATES/s1200c/0_Cillian-Murphy-will-star-in-Oppenheimer.jpg",
-    employeeName: "Mellow Employee",//top detail
-    employeeAge: "20",//details page
-    employeeContactNumber: "+91 9876543210",//details page
-    employeeDOB: "01/01/0001",//details page
-    employeeExpectedSalary: "20,000",//expanded detail
-    averageRating: 4.3,//expanded detail
+    employeeImage:
+        "https://i2-prod.walesonline.co.uk/incoming/article21810884.ece/ALTERNATES/s1200c/0_Cillian-Murphy-will-star-in-Oppenheimer.jpg",
+    employeeName: "Mellow Employee", //top detail
+    employeeAge: "20", //details page
+    employeeContactNumber: "+91 9876543210", //details page
+    employeeDOB: "01/01/0001", //details page
+    employeeExpectedSalary: "20,000", //expanded detail
+    averageRating: 4.3, //expanded detail
     employeeBio:
-        "I am a student, looking for a part-time job. Not available on weekends.",//details page
+        "I am a student, looking for a part-time job. Not available on weekends.", //details page
     employeeAddress:
-        "Behind your house, in front of the pole, your ward, your city, your district, India",//detail page
+        "Behind your house, in front of the pole, your ward, your city, your district, India", //detail page
     currentlyWorkingAt: "Raju Guest House",
-    employeePreferedShift: "Night Shift",//expanded detail
-    employeeExperience: "5 years",//top detail
-    preferredJobType: 'Part-Time',//expanded detail
+    employeePreferedShift: "Night Shift", //expanded detail
+    employeeExperience: "5 years", //top detail
+    preferredJobType: 'Part-Time', //expanded detail
     employeeExpectedJobs:
         "Waiter, Private Tutor,Dishwasher,Watchmen,Security Guard",
   );
@@ -101,32 +101,30 @@ class GetUserInfo with ChangeNotifier {
         shopAddress:
             "Pahado ke uppar, Jungle ke paar, Apna shahar, Apna District,  India",
         shopType: "Sweets",
-        city:"Lucknow",
+        city: "Lucknow",
         shopImageUrl:
             'https://ichef.bbci.co.uk/news/976/cpsprodpb/8A13/production/_116574353_gettyimages-1229868118.jpg',
         jobsAvailable: [
           Job(
-            jobId: "job1",
-            shopId: "shopnumber1",
-            specialRequest:
-                "Should be able to stay for late meetings occasionaly",
-            jobName:"Grocery",
-            salary: "30000",
-            workingDays: "Full week excluding sunday",
-            workingHours: "12:00am to 5:00pm",
-            vacancy: "5"
-          ),
+              jobId: "job1",
+              shopId: "shopnumber1",
+              specialRequest:
+                  "Should be able to stay for late meetings occasionaly",
+              jobName: "Grocery",
+              salary: "30000",
+              workingDays: "Full week excluding sunday",
+              workingHours: "12:00am to 5:00pm",
+              vacancy: "5"),
           Job(
-            jobId: "job2",
-            shopId: "shopnumber1",
-            specialRequest:
-                "Should be able to stay for late meetings occasionaly",
-            jobName: "Security Guard",
-            salary: "20000",
-            workingDays: "Full week ",
-            workingHours: "6:00am to 8:00pm",
-            vacancy: "5"
-          )
+              jobId: "job2",
+              shopId: "shopnumber1",
+              specialRequest:
+                  "Should be able to stay for late meetings occasionaly",
+              jobName: "Security Guard",
+              salary: "20000",
+              workingDays: "Full week ",
+              workingHours: "6:00am to 8:00pm",
+              vacancy: "5")
         ],
       ),
       Shop(
@@ -134,7 +132,7 @@ class GetUserInfo with ChangeNotifier {
         shopName: "Outfitters",
         numOfEmployees: "15",
         ownerName: "Pranay Dhongade",
-        city:"Chennai",
+        city: "Chennai",
         shopAddress:
             "Pahado ke uppar, Jungle ke paar, Apna shahar, Apna District,  India",
         shopType: "Clothes",
@@ -142,32 +140,29 @@ class GetUserInfo with ChangeNotifier {
             'https://imganuncios.mitula.net/shop_from_12_lacs_showroom_warehouse_rent_store_main_gate_shops_office_2750077626957635821.jpg',
         jobsAvailable: [
           Job(
-            jobId: "job3",
-            shopId: "shopnumber2",
-            jobName: "Dish Washer",
-            salary: "8000",
-            workingDays: "Full week excluding sunday",
-            workingHours: "12:00am to 5:00pm",
-            vacancy: "5"
-          ),
+              jobId: "job3",
+              shopId: "shopnumber2",
+              jobName: "Dish Washer",
+              salary: "8000",
+              workingDays: "Full week excluding sunday",
+              workingHours: "12:00am to 5:00pm",
+              vacancy: "5"),
           Job(
-            jobId: "job4",
-            shopId: "shopnumber2",
-            jobName: "Security Guard",
-            salary: "10000",
-            workingDays: "Full week",
-            workingHours: "6:00am to 8:00pm",
-              vacancy: "5"
-          ),
+              jobId: "job4",
+              shopId: "shopnumber2",
+              jobName: "Security Guard",
+              salary: "10000",
+              workingDays: "Full week",
+              workingHours: "6:00am to 8:00pm",
+              vacancy: "5"),
           Job(
-            jobId: "job5",
-            shopId: "shopnumber2",
-            jobName: "Painter",
-            salary: "40000",
-            workingDays: "Everyday",
-            workingHours: "11:00am to 5:00pm",
-            vacancy: "5"
-          )
+              jobId: "job5",
+              shopId: "shopnumber2",
+              jobName: "Painter",
+              salary: "40000",
+              workingDays: "Everyday",
+              workingHours: "11:00am to 5:00pm",
+              vacancy: "5")
         ],
       ),
       Shop(
@@ -175,7 +170,7 @@ class GetUserInfo with ChangeNotifier {
         shopName: "Penneys",
         numOfEmployees: "45",
         ownerName: "Kartik Gupta",
-        city:"Mumbai",
+        city: "Mumbai",
         shopAddress:
             "Pahado ke uppar, Jungle ke paar, Apna shahar, Apna District,  India",
         shopType: "Dairy",
@@ -183,23 +178,21 @@ class GetUserInfo with ChangeNotifier {
             'https://www.independent.ie/irish-news/cc37f/40429349.ece/AUTOCROP/w1240h700/penneys.jpg',
         jobsAvailable: [
           Job(
-            jobId: "job6",
-            shopId: "shopnumber3",
-            jobName: "Delivery Boy",
-            salary: "12000",
-            workingDays: "Full week excluding sunday",
-            workingHours: "12:00am to 5:00pm",
-            vacancy: "5"
-          ),
+              jobId: "job6",
+              shopId: "shopnumber3",
+              jobName: "Delivery Boy",
+              salary: "12000",
+              workingDays: "Full week excluding sunday",
+              workingHours: "12:00am to 5:00pm",
+              vacancy: "5"),
           Job(
-            jobId: "job6",
-            shopId: "shopnumber3",
-            jobName: "Delivery Boy",
-            salary: "12000",
-            workingDays: "Full week excluding sunday",
-            workingHours: "12:00am to 5:00pm",
-            vacancy: "5"
-          ),
+              jobId: "job6",
+              shopId: "shopnumber3",
+              jobName: "Delivery Boy",
+              salary: "12000",
+              workingDays: "Full week excluding sunday",
+              workingHours: "12:00am to 5:00pm",
+              vacancy: "5"),
         ],
       ),
     ],

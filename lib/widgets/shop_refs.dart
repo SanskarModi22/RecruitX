@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:helping_hand/providers/user_information.dart';
@@ -5,8 +6,8 @@ import 'package:provider/provider.dart';
 import '../screens/shop_details_screen.dart';
 
 class ShopRefs extends StatefulWidget {
-  const ShopRefs({key}) : super(key: key);
-
+  const ShopRefs(this.ownerId);
+  final String ownerId;
   @override
   _ShopRefsState createState() => _ShopRefsState();
 }
@@ -14,24 +15,37 @@ class ShopRefs extends StatefulWidget {
 class _ShopRefsState extends State<ShopRefs> {
   @override
   Widget build(BuildContext context) {
-    final shops =
-        Provider.of<GetUserInfo>(context).fetchAndSetEmployerShops.shops;
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 0,
-      ),
-      width: MediaQuery.of(context).size.width * 0.95,
-      height: 140,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: shops.length,
-        itemBuilder: (ctx, i) => Shopitem(
-            shopId: shops[i].shopid,
-            imageurl: shops[i].shopImageUrl,
-            shopName: shops[i].shopName,
-            shopType: shops[i].shopType),
-      ),
-    );
+    // final shops =
+    //     Provider.of<GetUserInfo>(context).fetchAndSetEmployerShops.shops;
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('shops')
+            .where('ownerId', isEqualTo: widget.ownerId)
+            .snapshots(),
+        builder:
+            (ctx, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SizedBox(
+                height: 140, child: Center(child: CircularProgressIndicator()));
+          }
+          final shops = snapshot.data.docs;
+          return Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 0,
+            ),
+            width: MediaQuery.of(context).size.width * 0.95,
+            height: 140,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: shops.length,
+              itemBuilder: (ctx, i) => Shopitem(
+                  shopId: shops[i].id,
+                  imageurl: shops[i]['shopImgUrl'],
+                  shopName: shops[i]['shopName'],
+                  shopType: shops[i]['shopType']),
+            ),
+          );
+        });
   }
 }
 

@@ -51,6 +51,73 @@ class _NewJobState extends State<NewJob> {
             child: Column(
               //  crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+// <<<<<<< main
+//                 Text(
+//                   'Post a new Job',
+//                   style: TextStyle(
+//                     fontSize: 18,
+//                     color: Colors.teal,
+//                   ),
+//                 ),
+//                 // Shop
+//                 TextFormField(
+//                   controller: _shopname,
+//                   maxLength: 20,
+//                   decoration: InputDecoration(
+//                     // contentPadding: EdgeInsets.all(8),
+//                     icon: Icon(Icons.store_sharp),
+//                     hintText: 'e.g shop',
+//                     labelText: 'In Shop',
+//                   ),
+//                   keyboardType: TextInputType.text,
+//                   validator: (value) {
+//                     if (value == null || value.isEmpty) return '*required';
+//                     return null;
+//                   },
+//                 ),
+//                 Row(
+//                   children: [
+//                     Icon(Icons.work),
+//                     SizedBox(
+//                       width: 15,
+//                     ),
+//                     Text(
+//                       'Looking For:',
+//                       style: TextStyle(
+//                         fontSize: 16,
+//                         color: Colors.grey,
+//                       ),
+//                     ),
+//                     SizedBox(
+//                       width: 15,
+//                     ),
+//                     DropdownButton<String>(
+//                       value: dropdownValue,
+//                       elevation: 16,
+//                       style: const TextStyle(color: Colors.black),
+//                       onChanged: (String newValue) {
+//                         setState(() {
+//                           dropdownValue = newValue;
+//                         });
+//                       },
+//                       items: <String>[
+//                         'Peon',
+//                         'Driver',
+//                         'Private Tutor',
+//                         'Security Gaurd',
+//                         'Halwai',
+//                         'Labour',
+//                         'Watchman',
+//                         'Sweeper',
+//                         'Waiter',
+//                         'Maid',
+//                       ].map<DropdownMenuItem<String>>((String value) {
+//                         return DropdownMenuItem<String>(
+//                           value: value,
+//                           child: Text(
+//                             value,
+//                             style: TextStyle(fontSize: 16),
+// =======
                 Container(
                   padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                   child: Column(
@@ -107,6 +174,7 @@ class _NewJobState extends State<NewJob> {
                           ),
                           SizedBox(
                             width: 15,
+
                           ),
                           DropdownButton<String>(
                             value: dropdownValue,

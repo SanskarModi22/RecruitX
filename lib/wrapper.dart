@@ -115,6 +115,8 @@ class _WrapperState extends State<Wrapper> {
               } else if (Provider.of<UserType>(context, listen: false)
                       .userAsEmployee ==
                   true) {
+                Provider.of<UserType>(context).setUserAsEmployee();
+
                 return EmployeeHome();
               }
             }

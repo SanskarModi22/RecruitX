@@ -1,45 +1,72 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class NewReview extends StatefulWidget {
+  final String rUid;
+  final bool isEmployee;
+  final bool isEmployer;
+  NewReview(this.rUid, {this.isEmployee, this.isEmployer});
   @override
   State<NewReview> createState() => _NewReviewState();
 }
 
 class _NewReviewState extends State<NewReview> {
-  double _rating = 0.0;
-  String _reviewPara = '';
+  double _rating = 3.0;
+  var _reviewPara = '';
+  final textctrl = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
-  Future<void> addReview(String cuid, String ruid) async {
+  Future<void> addReviewForEmployer(String cuid, String ruid) async {
     // ruid = user id of employer who is being reviewed
     // cuid = user id of current user i.e who is reviewing
+    final isValid = _formKey.currentState.validate();
+    FocusScope.of(context).unfocus();
+    _formKey.currentState.save();
+
     final cUser = await FirebaseFirestore.instance
         .collection('employeeProfile')
         .doc(cuid)
         .get();
-    await FirebaseFirestore.instance
-        .collection('employerProfile')
-        .doc(ruid)
-        .collection('reviews')
-        .add(
-      {
-        'jobWorked': 'xyz',
-        'reviewerName': cUser['name'],
-        'userProfileImgUrl': 'user profile image url',
-        'backgroundImgUrl': 'background image url',
-        'rating': _rating,
-        'reviewPara': _reviewPara,
-      },
-    );
+    try {
+      await FirebaseFirestore.instance.collection('employerReviews').add(
+        {
+          // change fields
+          'reviewedId': ruid,
+          'reviewerId': cuid,
+          'jobWorked': 'clark',
+          'reviewerName': 'random person',
+          'userProfileImgUrl':
+              'https://i1.sndcdn.com/avatars-000655118672-xb0aun-t500x500.jpg',
+          'backgroundImgUrl':
+              'https://media.proprofs.com/images/QM/user_images/2503852/New%20Project%20(81)(127).jpg',
+          'rating': _rating,
+          'reviewPara': _reviewPara,
+        },
+      ).then((value) => () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('You rated successfully.')),
+            );
+            Navigator.of(context).pop();
+          });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    final cUid = FirebaseAuth.instance.currentUser.uid;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
         child: Form(
+          key: _formKey,
           child: Container(
             // height: 400,
             color: Colors.white,
@@ -66,8 +93,8 @@ class _NewReviewState extends State<NewReview> {
                     padding: EdgeInsets.all(20),
                     child: RatingBar.builder(
                       itemSize: 40,
-                      initialRating: 0,
-                      minRating: 0,
+                      initialRating: _rating,
+                      minRating: 1,
                       direction: Axis.horizontal,
                       allowHalfRating: false,
                       itemCount: 5,
@@ -98,6 +125,18 @@ class _NewReviewState extends State<NewReview> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 30.0, vertical: 10),
                     child: TextFormField(
+                      controller: textctrl,
+                      onSaved: (val) {
+                        setState(() {
+                          _reviewPara = val;
+                        });
+                      },
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some review';
+                        }
+                        return null;
+                      },
                       maxLines: 5,
                       maxLength: 150,
                       decoration: InputDecoration(
@@ -107,7 +146,14 @@ class _NewReviewState extends State<NewReview> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (widget.isEmployer == true) {
+                        addReviewForEmployer(cUid, widget.rUid);
+                      }
+                      if (widget.isEmployee == true) {
+                        //
+                      }
+                    },
                     child: Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
@@ -116,7 +162,7 @@ class _NewReviewState extends State<NewReview> {
                               color: Colors.teal,
                               // width:
                             )),
-                        margin: EdgeInsets.only(top: 20, bottom: 0),
+                        // margin: EdgeInsets.only(top: 20, bottom: 0),
                         padding:
                             EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                         child: Text(

@@ -9,7 +9,6 @@ import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/manage_shops_screen.dart';
 import 'package:helping_hand/widgets/newshop.dart';
 import 'package:helping_hand/widgets/reviews_forEmployer.dart';
-
 import 'package:provider/provider.dart';
 import '../widgets/shop_refs.dart';
 
@@ -105,7 +104,9 @@ class _EmployerProfileState extends State<EmployerProfile> {
                     dob: userData['dob'],
                     address: userData['address'],
                     contact: userData['contact'],
-                    rating: userData['averageRating'],
+                    rating: userData['averageRating'] == null
+                        ? 4.0
+                        : userData['averageRating'],
                   ),
                   // shops
                   Card(
@@ -158,7 +159,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
                             ),
                           ),
                         ),
-                        ShopRefs(),
+                        ShopRefs(widget.uid),
                       ],
                     ),
                   ),
@@ -167,7 +168,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
                   ),
 
                   // reviews
-                  ReviewsForEmployer(),
+                  ReviewsForEmployer(widget.uid),
                 ],
               ),
             ),
