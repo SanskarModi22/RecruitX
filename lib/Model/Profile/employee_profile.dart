@@ -11,7 +11,7 @@ class Employee {
   String employeeAge;
   String employeeDOB;
   String employeeExperience;
-String employeeImage;
+  String employeeImage;
   String employeeExpectedSalary;
   String employeeExpectedJobs;
   String currentlyWorkingAt;

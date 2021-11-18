@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _drawerState extends State<drawer> {
   Widget build(BuildContext context) {
     bool userIsEmployee = Provider.of<UserType>(context).userAsEmployee;
     bool userIsEmployer = Provider.of<UserType>(context).userAsEmployer;
-    final user = Provider.of<MyUser>(context);
+    // final user = Provider.of<MyUser>(context);
 
     final String employeeName = Provider.of<GetUserInfo>(context)
         .fetchAndSetUserinfoForEmployee
