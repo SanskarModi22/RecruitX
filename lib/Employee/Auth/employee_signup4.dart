@@ -1,12 +1,27 @@
 import 'dart:ffi';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Auth/employee_signup3.dart';
 import 'package:helping_hand/Employee/Home/employee_home.dart';
+import 'package:helping_hand/Services/database_service.dart';
 import 'package:helping_hand/screens/filters_Employee_screen.dart';
 
 class signup_page4 extends StatefulWidget {
   // const signup_page4({ Key? key }) : super(key: key);
+  final String address;
+  final String EmployeeName;
+  final String EmployeeAge;
+  final String contact;
+  final String dob;
+  final String Bio;
+  final String Aadhar;
+  final String SalaryExpextation;
 
+  final String ImgUrl;
+  final String Experience;
+
+  const signup_page4({Key key, this.address, this.EmployeeName, this.EmployeeAge, this.contact, this.dob, this.Bio, this.Aadhar, this.SalaryExpextation, this.ImgUrl, this.Experience}) : super(key: key);
   @override
   _signup_page4State createState() => _signup_page4State();
 }
@@ -24,6 +39,9 @@ class _signup_page4State extends State<signup_page4> {
   bool waiter = false;
   bool sweeper = false;
   int count = 0;
+  var result ;
+  List<String> temp =[];
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -384,21 +402,66 @@ class _signup_page4State extends State<signup_page4> {
                 primary: Colors.green,
                 fixedSize: Size(400, 45),
               ),
-              onPressed: () {
+              onPressed: () async {
+                // bool peon = false;
+                // bool driver = false;
+                // bool tutor = false;
+                // bool securityguard = false;
+                // bool labour = false;
+                // bool halwai = false;
+                // bool watchman = false;
+                // bool maid = false;
+                // bool waiter = false;
+                // bool sweeper = false;
                 if (count == 0) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                         content: Text('Please choose atleast one job')),
                   );
                 } else {
+                  final user = await FirebaseAuth.instance.currentUser;
+                  if(driver==true)
+                    temp.add("Driver");
+                  if(halwai==true)
+                    temp.add("Halwai");
+                  if(peon==true)
+                    temp.add("Peon");
+                  if(tutor==true)
+                    temp.add("Tutor");
+                  if(securityguard==true)
+                    temp.add("Security Guard");
+                  if(labour==true)
+                    temp.add("Labour");
+                  if(waiter==true)
+                    temp.add("Waiter");
+                  if(maid==true)
+                    temp.add("Maid");
+                  if(watchman==true)
+                    temp.add("Wachman");
+                  result=temp.toList();
+                  DatabaseServices(uid: user.uid).updateEmployeeData(
+                    employeeExpectedJobs: result,
+                  );
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => EmployeeHome()),
+                    MaterialPageRoute(builder: (context) => signup_page3(
+                      Aadhar: widget.Aadhar,
+                      dob: widget.dob,
+                      EmployeeName: widget.EmployeeName,
+                      Bio: widget.Bio,
+                      EmployeeAge: widget.EmployeeAge,
+                      contact: widget.contact,
+                      address: widget.address,
+                      Experience: widget.Experience,
+                      SalaryExpextation: widget.SalaryExpextation,
+                      ImgUrl: widget.ImgUrl,
+                      ExpectedJobs: result,
+                    )),
                   );
                 }
               },
               child: Text(
-                'Signup',
+                'Next',
                 style: TextStyle(
                   fontSize: 18,
                 ),

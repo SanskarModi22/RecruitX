@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 // import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup2.dart';
@@ -84,7 +86,18 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
           );
         });
   }
-
+   String imgUrl;
+void _storeEmployeeImages() async{
+  final user = await FirebaseAuth.instance.currentUser;
+  final ref = FirebaseStorage.instance
+      .ref()
+      .child('Employee Photo')
+      .child(user.uid +'.png');
+  // putting file
+  await ref.putFile(shopImage).whenComplete(() => null);
+  // gettting url
+   imgUrl = await ref.getDownloadURL();
+}
   @override
   final address = TextEditingController();
   final EmployeeName = TextEditingController();
@@ -110,6 +123,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
 
   bool isChecked = false;
   Widget build(BuildContext context) {
+    _storeEmployeeImages();
     return Form(
       key: _formkey,
       child: Scaffold(
@@ -396,6 +410,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
                                     address: address.text,
                                     EmployeeAge: EmployeeAge.text,
                                     EmployeeName: EmployeeName.text,
+                                imgUrl: imgUrl,
                                   )),
                         );
                       }

@@ -19,9 +19,10 @@ class signup_page3 extends StatefulWidget {
   final String Bio;
   final String Aadhar;
   final String SalaryExpextation;
-  final String ExpectedJobs;
-
+  final  ExpectedJobs;
+final String ImgUrl;
   final String Experience;
+
 
   const signup_page3(
       {Key key,
@@ -34,7 +35,7 @@ class signup_page3 extends StatefulWidget {
       this.Aadhar,
       this.SalaryExpextation,
       this.ExpectedJobs,
-      this.Experience})
+      this.Experience, this.ImgUrl})
       : super(key: key);
 
   @override
@@ -231,23 +232,25 @@ class _signup_page3State extends State<signup_page3> {
                             employeeBio: widget.Bio,
                             employeeAge: widget.EmployeeAge,
                             employeeContactNumber: widget.contact,
-                            preferredJobType: PrefereedJob.text,
+                            preferredJobType: dropdownValue,
                             employeeAddress: widget.address,
                             employeeExperience: widget.Experience,
                             employeeExpectedSalary: widget.SalaryExpextation,
                             currentlyWorkingAt: currentlyWorking.text,
-                            employeeExpectedJobs: PrefereedJob.text);
+                           imgUrl: widget.ImgUrl,
+                          employeeExpectedJobs: widget.ExpectedJobs,
+                          employeePreferedShift: dropdownValue2,
+                        );
                         clearText();
-
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => signup_page4()),
+                              builder: (context) => EmployeeHome()),
                         );
                       }
                     },
                     child: Text(
-                      'Next',
+                      'SignUp',
                       style: TextStyle(
                         fontSize: 18,
                       ),

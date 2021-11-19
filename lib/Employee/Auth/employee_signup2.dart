@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup3.dart';
 
+import 'employee_signup4.dart';
+
 // ignore: camel_case_types
 class signup_page2 extends StatefulWidget {
   // const signup_page2({ Key? key }) : super(key: key);
@@ -10,7 +12,7 @@ class signup_page2 extends StatefulWidget {
   final String EmployeeName;
   final String EmployeeAge;
   final String contact;
-  final File imgUrl;
+  final String imgUrl;
 
   const signup_page2(
       {Key key,
@@ -397,7 +399,7 @@ class _signup_page2State extends State<signup_page2> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => signup_page3(
+                              builder: (context) => signup_page4(
                                     EmployeeName: widget.EmployeeName,
                                     EmployeeAge: widget.EmployeeAge,
                                     address: widget.address,
@@ -407,8 +409,8 @@ class _signup_page2State extends State<signup_page2> {
                                     dob: dob.text,
                                     Experience: Experience.text,
                                     SalaryExpextation: SalaryExpextation.text,
-                                    ExpectedJobs: ExpectedJobs.text,
-                                  )),
+                                ImgUrl: widget.imgUrl,
+                                  ),),
                         );
                       }
                     },
