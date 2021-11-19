@@ -273,15 +273,15 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
         ColorHue.pink
       ]),
     );
-    final Color random_color = _color;
+    final Color randomColor = _color;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Job Details',
-          style: TextStyle(color: random_color),
+          style: TextStyle(color: randomColor),
         ),
         iconTheme: IconThemeData(
-          color: random_color,
+          color: randomColor,
         ),
         backgroundColor: Colors.white,
       ),
@@ -299,8 +299,11 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
               ),
             ),
           ),
-          child: Text("Contact Now",style: TextStyle(color: random_color,fontSize: 23),),
-          onPressed: (){},
+          child: Text(
+            "Contact Now",
+            style: TextStyle(color: randomColor, fontSize: 23),
+          ),
+          onPressed: () {},
         ),
       ),
       body: SingleChildScrollView(
@@ -359,7 +362,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     onPressed: () {},
                     icon: FaIcon(
                       FontAwesomeIcons.infoCircle,
-                      color: random_color,
+                      color: randomColor,
                       size: 30,
                     ),
                   ),
@@ -371,7 +374,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     ListTile(
                       leading: Icon(
                         Icons.work,
-                        color: random_color,
+                        color: randomColor,
                         size: 35,
                       ),
                       title: Text('Rating'),
@@ -395,7 +398,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     ListTile(
                       leading: Icon(
                         Icons.home_work_outlined,
-                        color: random_color,
+                        color: randomColor,
                         size: 35,
                       ),
                       title: Text('Currently Working At'),
@@ -406,7 +409,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     ListTile(
                       leading: Icon(
                         Icons.attach_money_rounded,
-                        color: random_color,
+                        color: randomColor,
                         size: 35,
                       ),
                       title: Text('Expected Salary'),
@@ -418,7 +421,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       leading: Icon(
                         Icons.timer,
                         size: 35,
-                        color: random_color,
+                        color: randomColor,
                       ),
                       title: Text('Preferred Shift'),
                       subtitle: Text(
@@ -429,7 +432,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       leading: Icon(
                         Icons.calendar_today,
                         size: 35,
-                        color: random_color,
+                        color: randomColor,
                       ),
                       title: Text('Preferred Job-Type'),
                       subtitle:
@@ -445,7 +448,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       leading: Icon(
                         Icons.place,
                         size: 35,
-                        color: random_color,
+                        color: randomColor,
                       ),
                       title: Text('Employee Address'),
                     ),
@@ -456,7 +459,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       decoration: BoxDecoration(
                           border: Border.all(
                             width: 2,
-                            color: random_color,
+                            color: randomColor,
                           ),
                           borderRadius: BorderRadius.circular(8)),
                       child:
@@ -473,7 +476,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         leading: Icon(
                           Icons.request_page,
                           size: 35,
-                          color: random_color,
+                          color: randomColor,
                         ),
                         title: Text('Bio'),
                       ),
@@ -485,7 +488,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         decoration: BoxDecoration(
                             border: Border.all(
                               width: 2,
-                              color: random_color,
+                              color: randomColor,
                             ),
                             borderRadius: BorderRadius.circular(8)),
                         child: Text(fetchAndSetUserinfoforEmployee.employeeBio),

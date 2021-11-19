@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Auth/login_employee.dart';
+// import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup2.dart';
 import 'package:image_picker/image_picker.dart';
 

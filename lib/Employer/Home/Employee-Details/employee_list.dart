@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
+// import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
 import 'package:helping_hand/Employee/Home/employee_filter_button.dart';
 import 'package:helping_hand/Employee/Home/employee_searchBar.dart';
 import 'package:helping_hand/providers/user_information.dart';
@@ -18,7 +17,8 @@ class EmployeeList extends StatefulWidget {
   final String text;
 }
 
-class _EmployeeListState extends State<EmployeeList> with SingleTickerProviderStateMixin {
+class _EmployeeListState extends State<EmployeeList>
+    with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _animation;
   Animation<double> _animation2;
@@ -64,12 +64,12 @@ class _EmployeeListState extends State<EmployeeList> with SingleTickerProviderSt
           children: [
             toggle == 0
                 ? Text(
-              '${widget.text}',
-              style: TextStyle(
-                  fontSize: 19.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-            )
+                    '${widget.text}',
+                    style: TextStyle(
+                        fontSize: 19.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  )
                 : Container(),
             SizedBox(
               width: 3.w,
@@ -89,7 +89,7 @@ class _EmployeeListState extends State<EmployeeList> with SingleTickerProviderSt
         children: [
           ListView(
             physics:
-            BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
             children: [
               Container(
                 height: 100.h,
@@ -209,7 +209,8 @@ class EmployeeExpandedDetails extends StatefulWidget {
 
   const EmployeeExpandedDetails({Key key, this.index}) : super(key: key);
   @override
-  _EmployeeExpandedDetailsState createState() => _EmployeeExpandedDetailsState();
+  _EmployeeExpandedDetailsState createState() =>
+      _EmployeeExpandedDetailsState();
 }
 
 class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
@@ -269,186 +270,183 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
               padding: EdgeInsets.all(20),
               child: isTapped
                   ? Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 21,
-                        backgroundImage: NetworkImage(
-                            fetchAndSetUserinfoforEmployee
-                                .employeeImage),
-                      ),
-                      SizedBox(
-                        width: 25,
-                      ),
-                      Text(
-                        fetchAndSetUserinfoforEmployee
-                            .employeeName,
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        width: 23,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Experience",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(fetchAndSetUserinfoforEmployee
-                              .employeeExperience),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Icon(
-                        isTapped
-                            ? Icons.keyboard_arrow_down
-                            : Icons.keyboard_arrow_up,
-                        color: Colors.black,
-                        size: 27,
-                      ),
-                    ],
-                  ),
-                ],
-              )
-                  : Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        fetchAndSetUserinfoforEmployee
-                            .employeeName,
-                        style: TextStyle(
-                            color: Colors.blue[900],
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold),
-                      ),
-
-                      Icon(
-                        isTapped
-                            ? Icons.keyboard_arrow_down
-                            : Icons.keyboard_arrow_up,
-                        color: Colors.black,
-                        size: 27,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Hero(
-                        tag: fetchAndSetUserinfoforEmployee
-                            .employeeImage,
-                        child: CircleAvatar(
-                          radius: 75,
-                          backgroundImage: NetworkImage(
-                              fetchAndSetUserinfoforEmployee
-                                  .employeeImage),
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 21,
+                              backgroundImage: NetworkImage(
+                                  fetchAndSetUserinfoforEmployee.employeeImage),
+                            ),
+                            SizedBox(
+                              width: 25,
+                            ),
+                            Text(
+                              fetchAndSetUserinfoforEmployee.employeeName,
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 23,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Experience",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(fetchAndSetUserinfoforEmployee
+                                    .employeeExperience),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Icon(
+                              isTapped
+                                  ? Icons.keyboard_arrow_down
+                                  : Icons.keyboard_arrow_up,
+                              color: Colors.black,
+                              size: 27,
+                            ),
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Average Rating",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            fetchAndSetUserinfoforEmployee
-                                .averageRating.toString(),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "Preferred Shift",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(fetchAndSetUserinfoforEmployee
-                              .employeePreferedShift),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "Salary Expected",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(fetchAndSetUserinfoforEmployee
-                              .employeeExpectedSalary),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding:
-                            const EdgeInsets.fromLTRB(35.0, 4, 0, 0),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EmployeeDetailScreen(
-                                        empId:"123"
-                                      ),),);
-                                },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                    MaterialStateProperty.all(
-                                        Colors.white),
-                                    shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(
-                                                20)))),
-                                child: Text(
-                                  "More details",
-                                  style:
-                                  TextStyle(color: Colors.green[900]),
-                                )),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  // Text(
-                  //   isTapped
-                  //       ? ''
-                  //       : 'Widgets that have global keys reparent '
-                  //           'their subtrees when they are moved from one '
-                  //           'location in the tree to another location in '
-                  //           'the tree. In order to reparent its subtree, '
-                  //           'a widget must arrive at its new location in '
-                  //           'the tree in the same animation frame in '
-                  //           'which it was removed from its old location '
-                  //           'the tree.',
-                  //   style: TextStyle(
-                  //     color: Colors.white.withOpacity(0.9),
-                  //     fontSize: 17,
-                  //     fontWeight: FontWeight.w400,
-                  //   ),
-                  // ),
-                ],
-              ),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              fetchAndSetUserinfoforEmployee.employeeName,
+                              style: TextStyle(
+                                  color: Colors.blue[900],
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Icon(
+                              isTapped
+                                  ? Icons.keyboard_arrow_down
+                                  : Icons.keyboard_arrow_up,
+                              color: Colors.black,
+                              size: 27,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Hero(
+                              tag: fetchAndSetUserinfoforEmployee.employeeImage,
+                              child: CircleAvatar(
+                                radius: 75,
+                                backgroundImage: NetworkImage(
+                                    fetchAndSetUserinfoforEmployee
+                                        .employeeImage),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Average Rating",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  fetchAndSetUserinfoforEmployee.averageRating
+                                      .toString(),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "Preferred Shift",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(fetchAndSetUserinfoforEmployee
+                                    .employeePreferedShift),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "Salary Expected",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(fetchAndSetUserinfoforEmployee
+                                    .employeeExpectedSalary),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(35.0, 4, 0, 0),
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                EmployeeDetailScreen(
+                                                    empId: "123"),
+                                          ),
+                                        );
+                                      },
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white),
+                                          shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)))),
+                                      child: Text(
+                                        "More details",
+                                        style:
+                                            TextStyle(color: Colors.green[900]),
+                                      )),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                        // Text(
+                        //   isTapped
+                        //       ? ''
+                        //       : 'Widgets that have global keys reparent '
+                        //           'their subtrees when they are moved from one '
+                        //           'location in the tree to another location in '
+                        //           'the tree. In order to reparent its subtree, '
+                        //           'a widget must arrive at its new location in '
+                        //           'the tree in the same animation frame in '
+                        //           'which it was removed from its old location '
+                        //           'the tree.',
+                        //   style: TextStyle(
+                        //     color: Colors.white.withOpacity(0.9),
+                        //     fontSize: 17,
+                        //     fontWeight: FontWeight.w400,
+                        //   ),
+                        // ),
+                      ],
+                    ),
             ),
           ),
         ),

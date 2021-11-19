@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:helping_hand/providers/user_information.dart';
+// import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/employer_profile_screen.dart';
 import 'package:helping_hand/screens/shop_details_screen.dart';
-import 'package:provider/src/provider.dart';
+// import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
 
 // class JobDetail extends StatefulWidget {
@@ -278,7 +278,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         ColorHue.pink
       ]),
     );
-    final Color random_color = _color;
+    final Color randomColor = _color;
     return FutureBuilder(
       future:
           FirebaseFirestore.instance.collection('jobs').doc(widget.jobId).get(),
@@ -310,10 +310,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           appBar: AppBar(
             title: Text(
               'Job Details',
-              style: TextStyle(color: random_color),
+              style: TextStyle(color: randomColor),
             ),
             iconTheme: IconThemeData(
-              color: random_color,
+              color: randomColor,
             ),
             backgroundColor: Colors.white,
           ),
@@ -326,8 +326,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   // padding: EdgeInsets.symmetric(horizontal: 5),
-                  shadowColor: random_color,
-                  primary: random_color,
+                  shadowColor: randomColor,
+                  primary: randomColor,
 
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
@@ -400,7 +400,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     child: ListTile(
                       leading: Icon(
                         Icons.maps_home_work,
-                        color: random_color,
+                        color: randomColor,
                         size: 35,
                       ),
                       title: Text(job['shopName']),
@@ -416,7 +416,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         },
                         icon: FaIcon(
                           FontAwesomeIcons.infoCircle,
-                          color: random_color,
+                          color: randomColor,
                           size: 30,
                         ),
                       ),
@@ -443,7 +443,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         },
                         icon: FaIcon(
                           FontAwesomeIcons.infoCircle,
-                          color: random_color,
+                          color: randomColor,
                           size: 30,
                         ),
                       ),
@@ -455,7 +455,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         ListTile(
                           leading: Icon(
                             Icons.work,
-                            color: random_color,
+                            color: randomColor,
                             size: 35,
                           ),
                           title: Text('Job'),
@@ -465,7 +465,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         ListTile(
                           leading: Icon(
                             Icons.attach_money_rounded,
-                            color: random_color,
+                            color: randomColor,
                             size: 35,
                           ),
                           title: Text('Salary'),
@@ -476,7 +476,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           leading: Icon(
                             Icons.timer,
                             size: 35,
-                            color: random_color,
+                            color: randomColor,
                           ),
                           title: Text('Work Hours'),
                           subtitle: Text(job['workingHours']),
@@ -486,7 +486,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           leading: Icon(
                             Icons.calendar_today,
                             size: 35,
-                            color: random_color,
+                            color: randomColor,
                           ),
                           title: Text('Work Days'),
                           subtitle: Text(job['workingDays']),
@@ -501,7 +501,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           leading: Icon(
                             Icons.place,
                             size: 35,
-                            color: random_color,
+                            color: randomColor,
                           ),
                           title: Text('Shop Address'),
                         ),
@@ -514,7 +514,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           decoration: BoxDecoration(
                               border: Border.all(
                                 width: 2,
-                                color: random_color,
+                                color: randomColor,
                               ),
                               borderRadius: BorderRadius.circular(8)),
                           child: Text(job['shopAddress']),
@@ -530,7 +530,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             leading: Icon(
                               Icons.request_page,
                               size: 35,
-                              color: random_color,
+                              color: randomColor,
                             ),
                             title: Text('Special requests'),
                           ),
@@ -543,7 +543,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             decoration: BoxDecoration(
                                 border: Border.all(
                                   width: 2,
-                                  color: random_color,
+                                  color: randomColor,
                                 ),
                                 borderRadius: BorderRadius.circular(8)),
                             child: Text(job['specialRequest']),
