@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
 import 'package:helping_hand/providers/user_information.dart';
@@ -64,6 +65,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
           if (shopData == null) {
             return Container();
           }
+          final cUser = FirebaseAuth.instance.currentUser.uid;
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -249,27 +251,17 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                               size: 30,
                             ),
                             title: Text('Jobs Available'),
-                            trailing: IconButton(
-                              icon: Icon(Icons.add),
-                              onPressed: () {
-                                showModalBottomSheet<void>(
-                                  isScrollControlled: true,
-                                  context: context,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20)),
-                                  ),
-                                  builder: (BuildContext context) {
-                                    return Padding(
-                                      padding:
-                                          MediaQuery.of(context).viewInsets,
-                                      child: NewJob(),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
+                            trailing: shopData['ownerId'] == cUser
+                                ? IconButton(
+                                    icon: Icon(Icons.add),
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (ctx) => NewJob()),
+                                      );
+                                    },
+                                  )
+                                : null,
                           ),
                           Jobs(widget.providedShopId, randomColor),
                           SizedBox(
@@ -383,9 +375,9 @@ class _JobAvailableState extends State<JobAvailable> {
   _JobAvailableState();
 
   // var _owner = true;
+  var _expanded = false;
   @override
   Widget build(BuildContext context) {
-    var _expanded = false;
     Color randomColor = widget.randomColor;
 
     return Container(
@@ -581,6 +573,7 @@ class _JobAvailableState extends State<JobAvailable> {
                       ),
                     if (widget.specialRequests != null && _expanded)
                       Container(
+                        width: double.maxFinite,
                         margin: EdgeInsets.only(
                           left: 10,
                           right: 10,

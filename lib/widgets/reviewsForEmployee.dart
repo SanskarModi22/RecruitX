@@ -29,6 +29,8 @@ class _ReviewsForEmployeeState extends State<ReviewsForEmployee> {
 
           final reviews = snapshot.data.docs;
           final cUid = FirebaseAuth.instance.currentUser.uid;
+          print(snapshot.data);
+          print(reviews.isEmpty);
           return Card(
             margin: EdgeInsets.symmetric(horizontal: 8),
             child: Column(
@@ -62,8 +64,14 @@ class _ReviewsForEmployeeState extends State<ReviewsForEmployee> {
                       : null,
                 ),
                 snapshot.data != null
-                    ? reviews != null
+                    ? reviews.isEmpty
                         ? SizedBox(
+                            height: 100,
+                            child: Center(
+                              child: Text('No Reviews Yet'),
+                            ),
+                          )
+                        : SizedBox(
                             height: 420,
                             width: MediaQuery.of(context).size.width,
                             child: ListView.builder(
@@ -77,12 +85,6 @@ class _ReviewsForEmployeeState extends State<ReviewsForEmployee> {
                                 workedAs: reviews[i]['workedAs'],
                                 shopName: reviews[i]['shopName'],
                               ),
-                            ),
-                          )
-                        : SizedBox(
-                            height: 100,
-                            child: Center(
-                              child: Text('No Reviews Yet'),
                             ),
                           )
                     : SizedBox(

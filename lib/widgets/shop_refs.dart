@@ -29,6 +29,14 @@ class _ShopRefsState extends State<ShopRefs> {
                 height: 140, child: Center(child: CircularProgressIndicator()));
           }
           final shops = snapshot.data.docs;
+          if (shops.isEmpty) {
+            return SizedBox(
+              height: 50,
+              child: Center(
+                child: Text('No Shops Found'),
+              ),
+            );
+          }
           return Container(
             padding: EdgeInsets.symmetric(
               horizontal: 0,
