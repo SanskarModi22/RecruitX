@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
@@ -22,7 +24,7 @@ class EmployerSignUp extends StatefulWidget {
 class _EmployerSignUpState extends State<EmployerSignUp> {
   final ImagePicker _picker = ImagePicker();
 
-  File shopImage;
+  File OwnerImage;
 
   //image from camera
   _imgFromCamera() async {
@@ -31,7 +33,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
     );
     if (pickedImage != null) {
       setState(() {
-        shopImage = File(pickedImage.path);
+        OwnerImage = File(pickedImage.path);
       });
     } else {
       return;
@@ -45,7 +47,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
     );
     if (pickedImage != null) {
       setState(() {
-        shopImage = File(pickedImage.path);
+        OwnerImage = File(pickedImage.path);
       });
     } else {
       return;
@@ -93,7 +95,18 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
           );
         });
   }
-
+  String imgUrl;
+  void _storeEmployerImages() async{
+    final user = await FirebaseAuth.instance.currentUser;
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('Employer Photo')
+        .child(user.uid +'.png');
+    // putting file
+    await ref.putFile(OwnerImage).whenComplete(() => null);
+    // gettting url
+    imgUrl = await ref.getDownloadURL();
+  }
   final shopName = TextEditingController();
   final OwnerName = TextEditingController();
   final OwnerAge = TextEditingController();
@@ -123,6 +136,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
+    _storeEmployerImages();
     return Form(
       key: _formkey,
       child: Scaffold(
@@ -161,9 +175,9 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                             margin: EdgeInsets.symmetric(vertical: 10),
                             height: 110,
                             width: 110,
-                            child: shopImage != null
+                            child: OwnerImage != null
                                 ? Image.file(
-                                    shopImage,
+                                    OwnerImage,
                                     fit: BoxFit.cover,
                                   )
                                 : Center(
@@ -427,13 +441,13 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                       fixedSize: Size(400, 45),
                     ),
                     onPressed: () {
-                      if (shopImage == null) {
+                      if (OwnerImage == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Please enter image!')),
                         );
                       }
                       if (_formkey.currentState.validate() &&
-                          shopImage != null) {
+                          OwnerImage != null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -441,8 +455,9 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                               shopName: shopName.text,
                               employerName: OwnerName.text,
                               employerAge: OwnerAge.text,
-                              employerDOB: dob.text,
+                              employerDOB: _dateTime2.toString(),
                               employerContactNumber: contact.text,
+                              OwnerImage: imgUrl,
                             ),
                           ),
                         );

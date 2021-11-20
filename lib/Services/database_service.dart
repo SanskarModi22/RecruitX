@@ -126,7 +126,8 @@ class DatabaseServices {
     String state,
     bool isEmployer,
     bool isEmployee,
-    String licenseImg,
+    String shopImg,
+    String employerImg
   }
   ) async {
     return await employerProfile.doc(uid).set(
@@ -147,7 +148,8 @@ class DatabaseServices {
         'state':state,
         'isEmployer':isEmployer,
         'isEmployee':isEmployee,
-        'licenseImg':licenseImg,
+        'shopImg':shopImg,
+        'employerImg':employerImg,
       },
     );
   }
@@ -168,15 +170,14 @@ class DatabaseServices {
       ) async {
     return await shops.doc(uid).set(
       {
-        'name': employerName,
-        'address': shopAddress,
+        'ownerName': employerName,
+        'shopAddress': shopAddress,
         'shopName':shopName,
         'shopDesc':shopDesc,
         'city':city,
-        'state':state,
         'shopType':shopType,
-        'shopImage':shopImage,
-        'shopId':uid
+        'shopImgUrl':shopImage,
+        'ownerId':uid
       },
     );
   }
@@ -226,7 +227,8 @@ class DatabaseServices {
       state: snapshot.get('state'),
       isEmployer: snapshot.get('isEmployer'),
       isEmployee: snapshot.get('isEmployee'),
-      lienseImg: snapshot.get('licenseImg')
+      shopImg: snapshot.get('shopImg'),
+      EmployerImg: snapshot.get('employerImg')
     );
   }
 

@@ -406,7 +406,7 @@ class _signup_page2State extends State<signup_page2> {
                                     contact: widget.contact,
                                     Aadhar: Aadhar.text,
                                     Bio: Bio.text,
-                                    dob: dob.text,
+                                    dob: _dateTime.toString(),
                                     Experience: Experience.text,
                                     SalaryExpextation: SalaryExpextation.text,
                                 ImgUrl: widget.imgUrl,

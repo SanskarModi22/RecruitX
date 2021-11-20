@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employer/Home/employer_home.dart';
 import 'package:helping_hand/Model/user.dart';
@@ -15,7 +17,7 @@ class EmployerSignUp2 extends StatefulWidget {
   final String employerAge;
   final String employerDOB;
   final String employerContactNumber;
-  final File shopImg;
+  final String OwnerImage;
 
   const EmployerSignUp2(
       {Key key,
@@ -24,7 +26,7 @@ class EmployerSignUp2 extends StatefulWidget {
       this.employerAge,
       this.employerDOB,
       this.employerContactNumber,
-      this.shopImg})
+      this.OwnerImage})
       : super(key: key);
   @override
   _EmployerSignUp2State createState() => _EmployerSignUp2State();
@@ -34,7 +36,7 @@ class EmployerSignUp2 extends StatefulWidget {
 class _EmployerSignUp2State extends State<EmployerSignUp2> {
   final ImagePicker _picker = ImagePicker();
 
-  File LicenseImage;
+  File ShopImage;
 
   //image from camera
   _imgFromCamera() async {
@@ -43,7 +45,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     );
     if (pickedImage != null) {
       setState(() {
-        LicenseImage = File(pickedImage.path);
+        ShopImage = File(pickedImage.path);
       });
     } else {
       return;
@@ -57,7 +59,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     );
     if (pickedImage != null) {
       setState(() {
-        LicenseImage = File(pickedImage.path);
+        ShopImage = File(pickedImage.path);
       });
     } else {
       return;
@@ -105,7 +107,18 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
           );
         });
   }
-
+  String imgUrl;
+  void _storeShopImages() async{
+    final user = await FirebaseAuth.instance.currentUser;
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('Shop Photo')
+        .child(user.uid+DateTime.now().toString()+'.png');
+    // putting file
+    await ref.putFile(ShopImage).whenComplete(() => null);
+    // gettting url
+    imgUrl = await ref.getDownloadURL();
+  }
   final address = TextEditingController();
   final city = TextEditingController();
   final State = TextEditingController();
@@ -133,13 +146,13 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     shopDescription.clear();
     bio.clear();
   }
-
   String dropdownValue = 'Mumbai';
   String dropdownValue2 = 'Maharashtra';
 
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
+    _storeShopImages();
     return Form(
       key: _formkey2,
       child: Scaffold(
@@ -214,7 +227,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         width: 20,
                       ),
                       DropdownButton<String>(
-                        value: dropdownValue,
+
                         elevation: 16,
                         dropdownColor: Colors.black,
                         style: const TextStyle(color: Colors.white),
@@ -234,7 +247,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                             value: value,
                             child: Text(
                               value,
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(fontSize: 20,color: Colors.white),
                             ),
                           );
                         }).toList(),
@@ -258,7 +271,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         width: 20,
                       ),
                       DropdownButton<String>(
-                        value: dropdownValue2,
+
                         elevation: 16,
                         dropdownColor: Colors.black,
                         style: const TextStyle(color: Colors.white),
@@ -278,7 +291,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                             value: value,
                             child: Text(
                               value,
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(fontSize: 20,color: Colors.white),
                             ),
                           );
                         }).toList(),
@@ -337,6 +350,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     height: 30,
                   ),
                   TextFormField(
+                    controller: bio,
                     minLines: 2,
                     maxLines: null,
                     decoration: InputDecoration(
@@ -456,9 +470,9 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                             margin: EdgeInsets.symmetric(vertical: 10),
                             height: 110,
                             width: 110,
-                            child: LicenseImage != null
+                            child: ShopImage != null
                                 ? Image.file(
-                                    LicenseImage,
+                                    ShopImage,
                                     fit: BoxFit.cover,
                                   )
                                 : Center(
@@ -494,20 +508,18 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       fixedSize: Size(400, 45),
                     ),
                     onPressed: () {
-                      if (LicenseImage == null) {
+                      if (ShopImage == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Please enter image!')),
                         );
                       }
                       if (_formkey2.currentState.validate() &&
-                          LicenseImage != null) {
+                          ShopImage != null) {
                         DatabaseServices(uid: user.uid).updateEmployerData(
                           employerAddress: address.text,
-                          city: city.text,
-                          state: State.text,
+                          city: dropdownValue,
+                          state: dropdownValue2,
                           aadhar: AadharNum.text,
-                          shopDesc: shopDescription.text,
-                          shopName: widget.shopName,
                           employerName: widget.employerName,
                           employerAge: widget.employerAge,
                           employerDOB: widget.employerDOB,
@@ -518,6 +530,18 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                           isEmployee:
                               Provider.of<UserType>(context, listen: false)
                                   .userAsEmployee,
+                          shopImg: imgUrl,
+                          employerImg: widget.OwnerImage,
+                           employerBio: bio.text,
+                        );
+                        DatabaseServices(uid: user.uid).updateShop(
+                          shopImage: imgUrl,
+                          shopAddress: address.text,
+                          shopDesc: shopDescription.text,
+                          shopName: widget.shopName,
+                          employerName: widget.employerName,
+                          state: dropdownValue2,
+                          city: dropdownValue,
                         );
                         clearText();
                         Navigator.push(

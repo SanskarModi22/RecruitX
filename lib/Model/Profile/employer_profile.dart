@@ -14,7 +14,8 @@ class Employer {
   String shopDesc;
   String city;
   String state;
-  String lienseImg;
+  String shopImg;
+  String EmployerImg;
 bool isEmployer=false;
 bool isEmployee;
 String shopName;
@@ -38,7 +39,8 @@ String shopName;
     this.state,
     this.isEmployer,
     this.isEmployee,
-    this.lienseImg,
+    this.shopImg,
+    this.EmployerImg,
   });
 }
 //TODO: Add and update user
