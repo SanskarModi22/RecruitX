@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -28,8 +29,8 @@ class _EmployerProfileState extends State<EmployerProfile> {
 
   @override
   Widget build(BuildContext context) {
-    final user =
-        Provider.of<GetUserInfo>(context).fetchAndSetUserinfoForEmployer;
+    // final user =
+    //     Provider.of<GetUserInfo>(context).fetchAndSetUserinfoForEmployer;
 
     return FutureBuilder(
         future: FirebaseFirestore.instance
@@ -47,8 +48,10 @@ class _EmployerProfileState extends State<EmployerProfile> {
             );
           }
           final userData = userSnapShot.data;
+          final uId = FirebaseAuth.instance.currentUser.uid;
 
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               iconTheme: IconThemeData(
                 color: Colors.teal, //change your color here
@@ -98,6 +101,8 @@ class _EmployerProfileState extends State<EmployerProfile> {
               child: Column(
                 children: [
                   _UpperBody(
+                    isMe: widget.uid == uId ? true : false,
+                    // isMe: false,
                     name: userData['name'],
                     age: userData['age'],
                     bio: userData['name'],
@@ -178,6 +183,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
 }
 
 class _UpperBody extends StatefulWidget {
+  final bool isMe;
   final String name;
   final String dob;
   final String age;
@@ -186,6 +192,7 @@ class _UpperBody extends StatefulWidget {
   final String bio;
   final String address;
   const _UpperBody({
+    @required this.isMe,
     @required this.dob,
     @required this.name,
     @required this.age,
@@ -316,46 +323,37 @@ class __UpperBodyState extends State<_UpperBody> {
                           ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: widget.isMe
+                              ? MainAxisAlignment.spaceBetween
+                              : MainAxisAlignment.end,
                           children: [
                             //  Post Job button
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: TextButton(
-                                onPressed: () {
-                                  showModalBottomSheet<void>(
-                                    isScrollControlled: true,
-                                    context: context,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20)),
-                                    ),
-                                    builder: (BuildContext context) {
-                                      return Padding(
-                                        padding:
-                                            MediaQuery.of(context).viewInsets,
-                                        child: NewJob(),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Row(
-                                  children: [
-                                    FaIcon(
-                                      FontAwesomeIcons.plus,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Text('Post Job!'),
-                                    )
-                                  ],
+                            if (widget.isMe)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (ctx) => NewJob()),
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      FaIcon(
+                                        FontAwesomeIcons.plus,
+                                        size: 20,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Text('Post Job!'),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
 
                             // more details
                             Row(

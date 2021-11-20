@@ -335,16 +335,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     ),
                   ),
                 ),
-                // style: ButtonStyle(
-                //   backgroundColor: MaterialStateProperty.all(Colors.yellowAccent),
-                //   shape: MaterialStateProperty.all(
-                //     RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(
-                //         20,
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
@@ -425,11 +415,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   Card(
                     child: ListTile(
                       leading: CircleAvatar(
-                        child: Image(
-                          image: NetworkImage(
-                            job['ownerImgUrl'],
-                          ),
-                        ),
+                        backgroundImage: NetworkImage(job['ownerImgUrl']),
                       ),
                       title: Text(job['ownerName']),
                       subtitle: Text(job['contact']),
