@@ -1,10 +1,11 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/drawer/rate_us.dart';
-import 'package:helping_hand/providers/user_information.dart';
+// import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/about_us_screen.dart';
 import 'package:helping_hand/screens/account_screen.dart';
 import 'package:helping_hand/screens/filters_Employee_screen.dart';
@@ -31,57 +32,16 @@ class _drawerState extends State<drawer> {
   Widget build(BuildContext context) {
     bool userIsEmployee = Provider.of<UserType>(context).userAsEmployee;
     bool userIsEmployer = Provider.of<UserType>(context).userAsEmployer;
-    // final user = Provider.of<MyUser>(context);
-
-    final String employeeName = Provider.of<GetUserInfo>(context)
-        .fetchAndSetUserinfoForEmployee
-        .employeeName;
-    final String employeeContactNo = Provider.of<GetUserInfo>(context)
-        .fetchAndSetUserinfoForEmployee
-        .employeeContactNumber;
-    final String employerName = Provider.of<GetUserInfo>(context)
-        .fetchAndSetUserinfoForEmployer
-        .employerName;
-    final String employerContactNo = Provider.of<GetUserInfo>(context)
-        .fetchAndSetUserinfoForEmployer
-        .employerContactNumber;
+    final userId = Provider.of<MyUser>(context).uid;
 
     return Drawer(
       child: ListView(
         children: [
-          DrawerHeader(
-              padding: EdgeInsets.zero,
-              child: UserAccountsDrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  image: new DecorationImage(
-                      image: NetworkImage(
-                          "https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg"),
-                      fit: BoxFit.cover),
-                ),
-                margin: EdgeInsets.zero,
-                accountName: userIsEmployer
-                    ? Text(employerName)
-                    : userIsEmployee
-                        ? Text(employeeName)
-                        : Text('Unknown Data'),
-                accountEmail: userIsEmployer
-                    ? Text(employerContactNo)
-                    : userIsEmployee
-                        ? Text(employeeContactNo)
-                        : Text('Unknown Data'),
-                currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.white,
-                  radius: 35,
-                  child: CircleAvatar(
-                    radius: 33,
-                    backgroundColor: Colors.blueGrey,
-                    backgroundImage: NetworkImage(
-                        'https://i.pinimg.com/originals/9a/25/d8/9a25d86d090fc965a7f9c0ad25668b10.jpg'),
-                  ),
-                ),
-              )),
+          _DrawerHead(
+            isEmployee: userIsEmployee,
+            isEmployer: userIsEmployer,
+            uId: userId,
+          ),
           Divider(
             height: 1,
             thickness: 1,
@@ -292,6 +252,81 @@ class _drawerState extends State<drawer> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _DrawerHead extends StatelessWidget {
+  // const _DrawerHead({ Key? key }) : super(key: key);
+  bool isEmployee;
+  bool isEmployer;
+  String uId;
+  _DrawerHead({this.isEmployee, this.isEmployer, this.uId});
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> _getUserData() {
+    if (isEmployee == true) {
+      return FirebaseFirestore.instance
+          .collection('employeeProfile')
+          .doc(uId)
+          .get();
+    }
+    if (isEmployer == true) {
+      return FirebaseFirestore.instance
+          .collection('employerProfile')
+          .doc(uId)
+          .get();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: _getUserData(),
+      builder: (context,
+          AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              image: new DecorationImage(
+                  image: NetworkImage(
+                      "https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg"),
+                  fit: BoxFit.cover),
+            ),
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+        final userData = snapshot.data;
+        return DrawerHeader(
+          curve: Curves.linear,
+          duration: Duration(milliseconds: 0),
+          padding: EdgeInsets.zero,
+          child: UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              image: new DecorationImage(
+                  image: NetworkImage(
+                      "https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg"),
+                  fit: BoxFit.cover),
+            ),
+            margin: EdgeInsets.zero,
+            accountName: Text(userData['name']),
+            accountEmail: Text('+91 ' + userData['contact']),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.white,
+              radius: 35,
+              child: CircleAvatar(
+                radius: 33,
+                backgroundColor: Colors.blueGrey,
+                backgroundImage: NetworkImage(userData['img_url']),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

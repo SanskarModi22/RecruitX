@@ -35,6 +35,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
     return FutureBuilder(
         future: FirebaseFirestore.instance
             .collection('employerProfile')
+            // .doc(widget.uid)
             .doc(widget.uid)
             .get(),
         builder: (context,
@@ -103,9 +104,10 @@ class _EmployerProfileState extends State<EmployerProfile> {
                   _UpperBody(
                     isMe: widget.uid == uId ? true : false,
                     // isMe: false,
+                    profileImg: userData['img_url'],
                     name: userData['name'],
                     age: userData['age'],
-                    bio: userData['name'],
+                    bio: userData['bio'],
                     dob: userData['dob'],
                     address: userData['address'],
                     contact: userData['contact'],
@@ -191,7 +193,9 @@ class _UpperBody extends StatefulWidget {
   final double rating;
   final String bio;
   final String address;
+  final String profileImg;
   const _UpperBody({
+    @required this.profileImg,
     @required this.isMe,
     @required this.dob,
     @required this.name,
@@ -247,7 +251,7 @@ class __UpperBodyState extends State<_UpperBody> {
                         child: CircleAvatar(
                           radius: 48,
                           backgroundImage: NetworkImage(
-                            'https://i.pinimg.com/originals/9a/25/d8/9a25d86d090fc965a7f9c0ad25668b10.jpg',
+                            widget.profileImg,
                           ),
                         ),
                       ),

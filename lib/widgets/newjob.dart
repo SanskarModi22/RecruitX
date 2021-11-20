@@ -52,6 +52,7 @@ class _NewJobState extends State<NewJob> {
         print(_items);
         if (shops == null || shops.isEmpty) {
           return Scaffold(
+            appBar: AppBar(),
             body: Center(
               child: Text('Please Add a Shop First'),
             ),

@@ -64,7 +64,7 @@ class _ReviewsForEmployerState extends State<ReviewsForEmployer> {
                       : null,
                 ),
                 snapshot.data != null
-                    ? reviews == null
+                    ? reviews.isEmpty
                         ? SizedBox(
                             height: 100,
                             child: Center(
