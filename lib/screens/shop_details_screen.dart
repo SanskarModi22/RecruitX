@@ -140,6 +140,46 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                       ),
                     ),
                     Card(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: Icon(
+                              Icons.insert_drive_file_rounded,
+                              // color: Colors.deepOrangeAccent,
+                              color: randomColor,
+                              size: 30,
+                            ),
+
+                            title: Text('Shop Description'),
+                            // subtitle: Text('30'),
+                            trailing: Icon(Icons.edit),
+                          ),
+                          Container(
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(
+                                // color: random_color600],
+                                // color: Colors.deepOrangeAccent,
+                                color: randomColor,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            margin: EdgeInsets.only(
+                                left: 10, right: 10, top: 0, bottom: 10),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Text(shopData['shopDesc']),
+                          )
+                        ],
+                      ),
+                    ),
+                    Card(
                       margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       child: ListTile(
                         leading: Icon(
@@ -175,24 +215,6 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                         ),
                         title: Text('Type of shop'),
                         subtitle: Text(shopData['shopType']),
-                        trailing: Icon(Icons.edit),
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.work,
-                          // color: Colors.deepOrangeAccent,
-                          color: randomColor,
-
-                          size: 30,
-                        ),
-                        title: Text('No of employees hired '),
-                        subtitle: Text(shopData['numOfEmployees'].toString()),
                         trailing: Icon(Icons.edit),
                       ),
                     ),
