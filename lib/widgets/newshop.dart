@@ -85,7 +85,9 @@ class _NewShopState extends State<NewShop> {
         });
   }
 
+  final formkey = GlobalKey<FormState>();
   String dropdownValue = 'Peon';
+
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -95,6 +97,7 @@ class _NewShopState extends State<NewShop> {
           // height: 500,
           child: SingleChildScrollView(
             child: Form(
+              key: formkey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -129,6 +132,7 @@ class _NewShopState extends State<NewShop> {
                             ),
                           ),
                   ),
+
                   TextButton(
                     onPressed: () {
                       _showPicker(context);
@@ -157,6 +161,11 @@ class _NewShopState extends State<NewShop> {
                       labelText: 'Shop Name',
                     ),
                     keyboardType: TextInputType.name,
+                    validator: (value) {
+                      if (value.length == 0 || value == null)
+                        return '*required';
+                      return null;
+                    },
                   ),
                   // Working Hours
                   TextFormField(
@@ -168,6 +177,11 @@ class _NewShopState extends State<NewShop> {
                       hintText: 'e.g. Bakery',
                       labelText: 'Type of shop',
                     ),
+                    validator: (value) {
+                      if (value.length == 0 || value == null)
+                        return '*required';
+                      return null;
+                    },
                   ),
 
                   Container(
@@ -228,6 +242,11 @@ class _NewShopState extends State<NewShop> {
                       hintText: '',
                       labelText: 'Shop Address',
                     ),
+                    validator: (value) {
+                      if (value.length == 0 || value == null)
+                        return '*required';
+                      return null;
+                    },
                   ),
                   TextFormField(
                     autofocus: true,
@@ -250,7 +269,9 @@ class _NewShopState extends State<NewShop> {
             bottom: 40,
             child: FloatingActionButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                if (formkey.currentState.validate() && shopImage != null) {
+                  Navigator.of(context).pop();
+                }
               },
               child: Icon(Icons.save),
             ))
