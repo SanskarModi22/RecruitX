@@ -481,6 +481,20 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     ),
                   ),
                   Card(
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.people,
+                        size: 35,
+                        color: randomColor,
+                      ),
+                      title: Text('Vacancies'),
+                      trailing: CircleAvatar(
+                        backgroundColor: randomColor,
+                        child: Text(job['vacancy']),
+                      ),
+                    ),
+                  ),
+                  Card(
                     child: Column(
                       children: [
                         ListTile(
