@@ -32,7 +32,7 @@ class DatabaseServices {
     String employeeDOB,
     String employeeExperience,
     String employeeExpectedSalary,
-    String employeeExpectedJobs,
+    dynamic employeeExpectedJobs,
     String currentlyWorkingAt,
     String preferredJobType,
     String employeePreferedShift,

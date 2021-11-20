@@ -13,7 +13,7 @@ class Employee {
   String employeeExperience;
   String employeeImage;
   String employeeExpectedSalary;
-  String employeeExpectedJobs;
+  dynamic employeeExpectedJobs;
   String currentlyWorkingAt;
   String preferredJobType;
   String employeePreferedShift;
