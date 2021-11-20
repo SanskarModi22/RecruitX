@@ -307,13 +307,21 @@ class _DrawerHead extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue,
               image: new DecorationImage(
-                  image: NetworkImage(
-                      "https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg"),
+                  image: isEmployer
+                      ? NetworkImage(userData['shopImg'])
+                      : NetworkImage(
+                          "https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg"),
                   fit: BoxFit.cover),
             ),
             margin: EdgeInsets.zero,
-            accountName: Text(userData['name']),
-            accountEmail: Text('+91 ' + userData['contact']),
+            accountName: Text(
+              userData['name'],
+              style: TextStyle(backgroundColor: Colors.black54),
+            ),
+            accountEmail: Text(
+              '+91 ' + userData['contact'],
+              style: TextStyle(backgroundColor: Colors.black87),
+            ),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               foregroundColor: Colors.white,
@@ -321,7 +329,9 @@ class _DrawerHead extends StatelessWidget {
               child: CircleAvatar(
                 radius: 33,
                 backgroundColor: Colors.blueGrey,
-                backgroundImage: NetworkImage(userData['img_url']),
+                backgroundImage: isEmployer
+                    ? NetworkImage(userData['employerImg'])
+                    : NetworkImage(userData['img_url']),
               ),
             ),
           ),
