@@ -6,11 +6,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import 'package:helping_hand/providers/user_information.dart';
+// import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/manage_shops_screen.dart';
 import 'package:helping_hand/widgets/newshop.dart';
 import 'package:helping_hand/widgets/reviews_forEmployer.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import '../widgets/shop_refs.dart';
 
 import '../widgets/newjob.dart';
@@ -104,16 +104,15 @@ class _EmployerProfileState extends State<EmployerProfile> {
                   _UpperBody(
                     isMe: widget.uid == uId ? true : false,
                     // isMe: false,
-                    profileImg: userData['img_url'],
+                    profileImg: userData['employerImg'],
                     name: userData['name'],
                     age: userData['age'],
                     bio: userData['bio'],
                     dob: userData['dob'],
                     address: userData['address'],
                     contact: userData['contact'],
-                    rating: userData['averageRating'] == null
-                        ? 4.0
-                        : userData['averageRating'],
+
+                    shopImg: userData['shopImg'],
                   ),
                   // shops
                   Card(
@@ -190,18 +189,19 @@ class _UpperBody extends StatefulWidget {
   final String dob;
   final String age;
   final String contact;
-  final double rating;
+
   final String bio;
   final String address;
   final String profileImg;
+  final String shopImg;
   const _UpperBody({
+    @required this.shopImg,
     @required this.profileImg,
     @required this.isMe,
     @required this.dob,
     @required this.name,
     @required this.age,
     @required this.contact,
-    @required this.rating,
     @required this.bio,
     @required this.address,
   });
@@ -237,7 +237,7 @@ class __UpperBodyState extends State<_UpperBody> {
                           image: DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(
-                              'https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg',
+                              widget.shopImg,
                             ),
                           )),
                     ),
@@ -308,7 +308,7 @@ class __UpperBodyState extends State<_UpperBody> {
                                   RatingBar.builder(
                                     ignoreGestures: true,
                                     itemSize: 20,
-                                    initialRating: widget.rating,
+                                    initialRating: 4,
                                     minRating: 0,
                                     direction: Axis.horizontal,
                                     allowHalfRating: true,
