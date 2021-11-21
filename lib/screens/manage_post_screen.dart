@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:helping_hand/Model/user.dart';
+import 'dart:math';
 
-import 'package:helping_hand/providers/user_information.dart';
-import 'package:provider/provider.dart';
-import 'package:random_color/random_color.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ManagePost extends StatefulWidget {
@@ -16,43 +15,46 @@ class ManagePost extends StatefulWidget {
 class _ManagePostState extends State<ManagePost> {
   @override
   Widget build(BuildContext context) {
-    var isEmployee = Provider.of<UserType>(context).isEmployee;
-    var isEmployer = Provider.of<UserType>(context).isEmployer;
-    final shops =
-        Provider.of<GetUserInfo>(context).fetchAndSetEmployerShops.shops;
-
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.teal, //change your color here
-        ),
-        title: Text(
-          'Manage your posts',
-          style: TextStyle(color: Colors.teal),
-        ),
-        backgroundColor: Colors.white,
-      ),
-      body: isEmployer
-          ? Container(
-              height: MediaQuery.of(context).size.height,
-              child: shops != null
-                  ? ListView.builder(
-                      itemCount: shops.length,
-                      itemBuilder: (ctx, i) => ShopPostItem(
-                        shopId: shops[i].shopid,
-                      ),
-                    )
-                  : Center(
-                      child: Text('NO Posts were Found.'),
-                    ),
-            )
-          : isEmployee
-              ? Container(
-                  child: Text('Employee'),
-                )
-              : Center(
-                  child: Text('Unexpected Error Found'),
-                ),
+    final cUser = FirebaseAuth.instance.currentUser.uid;
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('shops')
+          .where('ownerId', isEqualTo: cUser)
+          .snapshots(),
+      builder: (context,
+          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+              body: Center(
+            child: CircularProgressIndicator(),
+          ));
+        }
+        final shops = snapshot.data.docs;
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.teal, //change your color here
+            ),
+            title: Text(
+              'Manage your posts',
+              style: TextStyle(color: Colors.teal),
+            ),
+            backgroundColor: Colors.white,
+          ),
+          body: Container(
+            height: MediaQuery.of(context).size.height,
+            child: ListView.builder(
+              itemCount: shops.length,
+              itemBuilder: (ctx, i) => ShopPostItem(
+                shopId: shops[i].id,
+                shopImgUrl: shops[i]['shopImgUrl'],
+                shopName: shops[i]['shopName'],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -62,124 +64,158 @@ class _ManagePostState extends State<ManagePost> {
 class ShopPostItem extends StatefulWidget {
   // const ShopPostItem({ Key? key }) : super(key: key);
   final String shopId;
-
-  ShopPostItem({this.shopId});
+  final String shopImgUrl;
+  final String shopName;
+  ShopPostItem(
+      {@required this.shopId,
+      @required this.shopImgUrl,
+      @required this.shopName});
   @override
-  _ShopPostItemState createState() => _ShopPostItemState(shopId: shopId);
+  _ShopPostItemState createState() => _ShopPostItemState();
 }
 
 class _ShopPostItemState extends State<ShopPostItem> {
-  final String shopId;
-  _ShopPostItemState({this.shopId});
   var _isexpanded = false;
   @override
   Widget build(BuildContext context) {
-    final loadedShop = Provider.of<GetUserInfo>(context)
-        .fetchAndSetEmployerShops
-        .shops
-        .firstWhere((e) => e.shopid == shopId);
-    final jobsPosted = loadedShop.jobsAvailable;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      child: Card(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                topRight: Radius.circular(10),
-              )),
-              height: 100,
-              width: MediaQuery.of(context).size.width,
-              child: Image(
-                image: NetworkImage(loadedShop.shopImageUrl),
-                fit: BoxFit.cover,
-              ),
-            ),
-            ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.orange,
-                child: Text(
-                  loadedShop.jobsAvailable.length.toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              title: Text(loadedShop.shopName),
-              subtitle: Text('Jobs posted for this Shop.'),
-              trailing: IconButton(
-                iconSize: 35,
-                color: Colors.teal,
-                icon: Icon(
-                  _isexpanded ? Icons.expand_less : Icons.expand_more,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _isexpanded = !_isexpanded;
-                  });
-                },
-              ),
-            ),
-            if (_isexpanded)
-              Container(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  height: jobsPosted.length.toDouble() * 170,
-                  child: ListView.builder(
-                    itemCount: jobsPosted.length,
-                    itemBuilder: (ctx, i) => AvailableJobItem(
-                      shopId: shopId,
-                      jobId: jobsPosted[i].jobId,
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('jobs')
+            .where('shopId', isEqualTo: widget.shopId)
+            .snapshots(),
+        builder: (context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          final jobs = snapshot.data.docs;
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            child: Card(
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    )),
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    child: Image(
+                      image: NetworkImage(widget.shopImgUrl),
+                      fit: BoxFit.cover,
                     ),
-                  ))
-          ],
-        ),
-      ),
-    );
+                  ),
+                  ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.orange,
+                      child: Text(
+                        jobs.length.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    title: Text(widget.shopName),
+                    subtitle: Text('Jobs posted for this Shop.'),
+                    trailing: IconButton(
+                      iconSize: 35,
+                      color: Colors.teal,
+                      icon: Icon(
+                        _isexpanded ? Icons.expand_less : Icons.expand_more,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isexpanded = !_isexpanded;
+                        });
+                      },
+                    ),
+                  ),
+                  if (_isexpanded)
+                    Container(
+                      padding: EdgeInsets.only(bottom: 20),
+                      height: jobs.length == 1
+                          ? 210
+                          : min(jobs.length.toDouble() * 170, 400),
+                      child: jobs.length != 0
+                          ? ListView.builder(
+                              itemCount: jobs.length,
+                              itemBuilder: (ctx, i) => AvailableJobItem(
+                                shopId: widget.shopId,
+                                jobId: jobs[i].id,
+                                jobName: jobs[i]['jobName'],
+                                salary: jobs[i]['salary'].toString(),
+                                workingDays: jobs[i]['workingDays'],
+                                specialRequest: jobs[i]['specialRequest'],
+                                workingHours: jobs[i]['workingHours'],
+                              ),
+                            )
+                          : Container(
+                              height: 100,
+                              child: Text('No Job Posted'),
+                            ),
+                    )
+                ],
+              ),
+            ),
+          );
+        });
   }
 }
 
 class AvailableJobItem extends StatefulWidget {
   final String jobId;
   final String shopId;
+  final String jobName;
+  final String salary;
+  final String workingDays;
+  final String workingHours;
+  final String specialRequest;
   AvailableJobItem({
     @required this.shopId,
     @required this.jobId,
+    @required this.jobName,
+    @required this.salary,
+    @required this.specialRequest,
+    @required this.workingDays,
+    @required this.workingHours,
   });
 
   @override
-  _AvailableJobItemState createState() => _AvailableJobItemState(
-        shopId: shopId,
-        jobId: jobId,
-      );
+  _AvailableJobItemState createState() => _AvailableJobItemState();
 }
 
 class _AvailableJobItemState extends State<AvailableJobItem> {
-  final String jobId;
-  final String shopId;
-  _AvailableJobItemState({
-    @required this.shopId,
-    @required this.jobId,
-  });
+  _AvailableJobItemState();
 
   var _owner = true;
   @override
   Widget build(BuildContext context) {
-    final fetchedJob = Provider.of<GetUserInfo>(context)
-        .fetchAndSetEmployerShops
-        .shops
-        .firstWhere((e) => e.shopid == shopId)
-        .jobsAvailable
-        .firstWhere((element) => element.jobId == jobId);
+    void deleteJob() {
+      FirebaseFirestore.instance
+          .collection('jobs')
+          .doc(widget.jobId)
+          .delete()
+          .then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Job Deleted'),
+          ),
+        );
+      });
+    }
+
     return (_owner)
         ? Dismissible(
-            key: ValueKey(jobId),
+            key: ValueKey(widget.jobId),
             background: Container(
-              color: Colors.teal[200],
+              color: Colors.orange,
               child: Icon(
                 Icons.delete,
                 color: Colors.white,
@@ -200,13 +236,14 @@ class _AvailableJobItemState extends State<AvailableJobItem> {
                         actions: [
                           TextButton(
                             onPressed: () {
-                              Navigator.of(ctx).pop(true);
+                              deleteJob();
+                              Navigator.of(ctx).pop();
                             },
                             child: Text('YES!'),
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.of(ctx).pop(false);
+                              Navigator.of(ctx).pop();
                             },
                             child: Text('NO!'),
                           ),
@@ -216,21 +253,21 @@ class _AvailableJobItemState extends State<AvailableJobItem> {
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {},
             child: InsideBody(
-              id: fetchedJob.jobId,
-              job: fetchedJob.jobName,
-              salary: fetchedJob.salary,
-              workDays: fetchedJob.workingDays,
-              workHours: fetchedJob.workingHours,
-              specialRequests: fetchedJob.specialRequest,
+              id: widget.jobId,
+              job: widget.jobName,
+              salary: widget.salary,
+              workDays: widget.workingDays,
+              workHours: widget.workingHours,
+              specialRequests: widget.specialRequest,
             ),
           )
         : InsideBody(
-            id: fetchedJob.jobId,
-            job: fetchedJob.jobName,
-            salary: fetchedJob.salary,
-            workDays: fetchedJob.workingDays,
-            workHours: fetchedJob.workingHours,
-            specialRequests: fetchedJob.specialRequest,
+            id: widget.jobId,
+            job: widget.jobName,
+            salary: widget.salary,
+            workDays: widget.workingDays,
+            workHours: widget.workingHours,
+            specialRequests: widget.specialRequest,
           );
   }
 }
@@ -280,18 +317,20 @@ class _InsideBodyState extends State<InsideBody> {
   var _expanded = false;
 
   Widget build(BuildContext context) {
-    // RandomColor _randomColor = RandomColor();
+    void deleteJob() {
+      FirebaseFirestore.instance
+          .collection('jobs')
+          .doc(widget.id)
+          .delete()
+          .then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Job Deleted'),
+          ),
+        );
+      });
+    }
 
-    // Color _color = _randomColor.randomColor(
-    //   colorBrightness: ColorBrightness.dark,
-    //   // colorSaturation: ColorSaturation.highSaturation,
-    //   colorHue: ColorHue.multiple(colorHues: [
-    //     ColorHue.red,
-    //     ColorHue.blue,
-    //     ColorHue.orange,
-    //     ColorHue.pink
-    //   ]),
-    // );
     final Color random_color = Colors.orange[800];
     return Container(
       margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
@@ -476,8 +515,9 @@ class _InsideBodyState extends State<InsideBody> {
                       ),
                     ),
                   ),
-                if (specialRequests != null && _expanded)
+                if (specialRequests != '' && _expanded)
                   Container(
+                    width: double.maxFinite,
                     margin: EdgeInsets.only(
                       left: 10,
                       right: 10,
@@ -493,7 +533,10 @@ class _InsideBodyState extends State<InsideBody> {
                       ),
                       borderRadius: BorderRadius.circular(7),
                     ),
-                    child: Text(specialRequests),
+                    child: Text(
+                      specialRequests,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
 
                 SizedBox(
@@ -508,78 +551,50 @@ class _InsideBodyState extends State<InsideBody> {
               alignment: Alignment.bottomCenter,
               child: SizedBox(
                 width: 200,
-                child: Row(
-                  children: [
-                    TextButton(
-                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                      onPressed: () {},
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: random_color,
-                            width: 2,
+                child: TextButton(
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: Text('Are you sure? '),
+                        content:
+                            Text('Do you want to delete this job posting?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              deleteJob();
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Text('YES!'),
                           ),
-                          color: Colors.white,
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: Text(
-                          'Edit',
-                          style: TextStyle(
-                            color: random_color,
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Text('NO!'),
                           ),
-                        ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: random_color,
+                        width: 2,
+                      ),
+                      color: Colors.white,
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Text(
+                      'Delete',
+                      style: TextStyle(
+                        color: random_color,
                       ),
                     ),
-                    SizedBox(
-                      width: 30,
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (ctx) => AlertDialog(
-                                  title: Text('Are you sure? '),
-                                  content: Text(
-                                      'Do you want to delete this job posting?'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(ctx).pop(true);
-                                      },
-                                      child: Text('YES!'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(ctx).pop(false);
-                                      },
-                                      child: Text('NO!'),
-                                    ),
-                                  ],
-                                ));
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: random_color,
-                            width: 2,
-                          ),
-                          color: Colors.white,
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        child: Text(
-                          'Delete',
-                          style: TextStyle(
-                            color: random_color,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),

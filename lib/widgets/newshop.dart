@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:path/path.dart' as path;
@@ -8,6 +11,8 @@ import 'package:image_picker/image_picker.dart';
 class NewShop extends StatefulWidget {
   // const NewShop({ Key? key }) : super(key: key);
 //
+  final String myName;
+  NewShop(this.myName);
   @override
   _NewShopState createState() => _NewShopState();
 }
@@ -86,9 +91,59 @@ class _NewShopState extends State<NewShop> {
   }
 
   final formkey = GlobalKey<FormState>();
-  String dropdownValue = 'Peon';
+  String dropdownValue = 'Mumbai';
+  TextEditingController _shopName = TextEditingController();
+  TextEditingController _shopType = TextEditingController();
+  TextEditingController _shopDesc = TextEditingController();
+  TextEditingController _shopAddress = TextEditingController();
+  // TextEditingController shopName = TextEditingController();
+
+  String shopImgUrl = '';
+
+  Future<void> setImgUrl() async {
+    final uId = FirebaseAuth.instance.currentUser.uid;
+
+    try {
+      final ref = FirebaseStorage.instance
+          .ref()
+          .child('Shop Photo')
+          .child(uId + DateTime.now().toString() + '.jpg');
+      // putting file
+      await ref.putFile(shopImage).whenComplete(() => null);
+      // gettting url
+      shopImgUrl = await ref.getDownloadURL();
+      print(shopImgUrl);
+    } catch (e) {
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text('Failed to upload shop image')),
+      // );
+    }
+  }
 
   Widget build(BuildContext context) {
+    final uId = FirebaseAuth.instance.currentUser.uid;
+    setImgUrl();
+
+    Future<void> postShop() async {
+      try {
+        await FirebaseFirestore.instance.collection('shops').add({
+          'city': dropdownValue,
+          'ownerId': uId,
+          'ownerName': widget.myName,
+          'shopAddress': _shopAddress.text,
+          'shopDesc': _shopDesc.text,
+          'shopImgUrl': shopImgUrl,
+          'shopName': _shopName.text,
+          'shopType': _shopType.text,
+        });
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to post shop')),
+        );
+      }
+      Navigator.of(context).pop();
+    }
+
     return Stack(
       children: [
         Container(
@@ -152,6 +207,7 @@ class _NewShopState extends State<NewShop> {
                   ),
                   // Shop Name
                   TextFormField(
+                    controller: _shopName,
                     autofocus: true,
                     maxLength: 20,
                     decoration: InputDecoration(
@@ -169,6 +225,7 @@ class _NewShopState extends State<NewShop> {
                   ),
                   // Working Hours
                   TextFormField(
+                    controller: _shopType,
                     autofocus: true,
                     maxLength: 20,
                     decoration: InputDecoration(
@@ -185,11 +242,18 @@ class _NewShopState extends State<NewShop> {
                   ),
 
                   Container(
-                    padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                    // padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: Row(
                       children: [
+                        Icon(
+                          Icons.location_city,
+                          color: Colors.grey[600],
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
                         Text(
-                          'Type of Profession:',
+                          'City:',
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 18,
@@ -208,22 +272,18 @@ class _NewShopState extends State<NewShop> {
                             });
                           },
                           items: <String>[
-                            'Peon',
-                            'Driver',
-                            'Private Tutor',
-                            'Security Gaurd',
-                            'Halwai',
-                            'Labour',
-                            'Watchman',
-                            'Sweeper',
-                            'Waiter',
-                            'Maid',
+                            'Mumbai',
+                            'Delhi',
+                            'Lucknow',
+                            'Chennai',
+                            'Kolkata',
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(
                                 value,
-                                style: TextStyle(fontSize: 16),
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.grey[700]),
                               ),
                             );
                           }).toList(),
@@ -231,8 +291,25 @@ class _NewShopState extends State<NewShop> {
                       ],
                     ),
                   ),
-
                   TextFormField(
+                    controller: _shopDesc,
+                    autofocus: true,
+                    maxLines: 2,
+                    maxLength: 100,
+                    decoration: InputDecoration(
+                      // contentPadding: EdgeInsets.all(8),
+                      icon: Icon(Icons.insert_drive_file_rounded),
+                      hintText: '',
+                      labelText: 'Shop Description',
+                    ),
+                    validator: (value) {
+                      if (value.length == 0 || value == null)
+                        return '*required';
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _shopAddress,
                     autofocus: true,
                     maxLines: 2,
                     maxLength: 100,
@@ -248,16 +325,6 @@ class _NewShopState extends State<NewShop> {
                       return null;
                     },
                   ),
-                  TextFormField(
-                    autofocus: true,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      // contentPadding: EdgeInsets.all(8),
-                      icon: Icon(Icons.group_rounded),
-                      hintText: 'e.g. 15',
-                      labelText: 'Current number of employees',
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -270,7 +337,7 @@ class _NewShopState extends State<NewShop> {
             child: FloatingActionButton(
               onPressed: () {
                 if (formkey.currentState.validate() && shopImage != null) {
-                  Navigator.of(context).pop();
+                  postShop();
                 }
               },
               child: Icon(Icons.save),
