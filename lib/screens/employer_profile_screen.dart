@@ -136,7 +136,8 @@ class _EmployerProfileState extends State<EmployerProfile> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => ManageShops(),
+                                          builder: (context) =>
+                                              ManageShops(userData['name']),
                                         ),
                                       );
                                     }),
@@ -155,7 +156,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
                                         return Padding(
                                           padding:
                                               MediaQuery.of(context).viewInsets,
-                                          child: NewShop(),
+                                          child: NewShop(userData['name']),
                                         );
                                       },
                                     );

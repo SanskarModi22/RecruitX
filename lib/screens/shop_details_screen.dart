@@ -125,7 +125,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                                       width: 5,
                                     ),
                                     Text(
-                                      shopData['shopType'] + ' Shop',
+                                      shopData['shopType'],
                                       style: TextStyle(
                                         fontSize: 28,
                                         color: Colors.white,
@@ -238,6 +238,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                             trailing: Icon(Icons.edit),
                           ),
                           Container(
+                            width: double.maxFinite,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               border: Border.all(
@@ -593,7 +594,7 @@ class _JobAvailableState extends State<JobAvailable> {
                           ),
                         ),
                       ),
-                    if (widget.specialRequests != null && _expanded)
+                    if (widget.specialRequests != '' && _expanded)
                       Container(
                         width: double.maxFinite,
                         margin: EdgeInsets.only(
@@ -619,31 +620,22 @@ class _JobAvailableState extends State<JobAvailable> {
                   ],
                 ),
               ),
-              Positioned(
-                left: 5,
-                bottom: -10,
-                child: TextButton(
-                  child: Text('Details'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => JobDetailsScreen(
-                          jobId: widget.jobId,
-                          shopId: widget.providedShopId,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
               Positioned.fill(
                 bottom: -25,
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: TextButton(
                     style: TextButton.styleFrom(padding: EdgeInsets.zero),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (ctx) => JobDetailsScreen(
+                            jobId: widget.jobId,
+                            shopId: widget.providedShopId,
+                          ),
+                        ),
+                      );
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -656,7 +648,7 @@ class _JobAvailableState extends State<JobAvailable> {
                       padding:
                           EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       child: Text(
-                        'Apply Now !',
+                        'More Details',
                         style: TextStyle(
                           color: Colors.white,
                         ),

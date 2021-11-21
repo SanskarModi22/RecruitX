@@ -4,12 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Services/Authentication.dart';
-import 'package:helping_hand/drawer/rate_us.dart';
+// import 'package:helping_hand/drawer/rate_us.dart';
 // import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/about_us_screen.dart';
 import 'package:helping_hand/screens/account_screen.dart';
 import 'package:helping_hand/screens/filters_Employee_screen.dart';
-import 'package:helping_hand/screens/filters_Employer_screen.dart';
+// import 'package:helping_hand/screens/filters_Employer_screen.dart';
 import 'package:helping_hand/screens/manage_post_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Shared/base.dart';
@@ -123,39 +123,34 @@ class _drawerState extends State<drawer> {
           SizedBox(
             height: 10,
           ),
-          ListTile(
-            leading: Icon(
-              Icons.filter_alt_rounded,
-              color: Colors.black,
-            ),
-            title: Text(
-              'Filters',
-              textScaleFactor: 1.2,
-              style: TextStyle(
+          if (userIsEmployee == true)
+            ListTile(
+              leading: Icon(
+                Icons.filter_alt_rounded,
                 color: Colors.black,
               ),
+              title: Text(
+                'Filters',
+                textScaleFactor: 1.2,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              onTap: () {
+                userIsEmployee
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EmployeeFilterScreen(),
+                        ),
+                      )
+                    : Navigator.of(context).pop();
+              },
             ),
-            onTap: () {
-              userIsEmployee
-                  ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EmployeeFilterScreen(),
-                      ),
-                    )
-                  : userIsEmployer
-                      ? Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EmployerFilterScreen(),
-                          ),
-                        )
-                      : Navigator.of(context).pop();
-            },
-          ),
-          SizedBox(
-            height: 10,
-          ),
+          if (userIsEmployee == true)
+            SizedBox(
+              height: 10,
+            ),
           ListTile(
             leading: Icon(
               Icons.edit,
@@ -171,29 +166,6 @@ class _drawerState extends State<drawer> {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ManagePost()));
-            },
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.thumb_up,
-              color: Colors.black,
-            ),
-            title: Text(
-              'Rate us',
-              textScaleFactor: 1.2,
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RateUs(),
-                  ));
             },
           ),
           SizedBox(
