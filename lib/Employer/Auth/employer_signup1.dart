@@ -136,6 +136,11 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
+    if(OwnerImage!=null) {
+      _storeEmployerImages();
+    }else{
+      print("Kartik is smart");
+    }
     _storeEmployerImages();
     return Form(
       key: _formkey,
