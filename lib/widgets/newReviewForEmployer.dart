@@ -4,62 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class NewReview extends StatefulWidget {
+class NewReviewForEmployer extends StatefulWidget {
   final String rUid;
-  final bool isEmployee;
-  final bool isEmployer;
-  NewReview(this.rUid, {this.isEmployee, this.isEmployer});
+
+  NewReviewForEmployer(
+    this.rUid,
+  );
   @override
-  State<NewReview> createState() => _NewReviewState();
+  State<NewReviewForEmployer> createState() => _NewReviewForEmployerState();
 }
 
-class _NewReviewState extends State<NewReview> {
+class _NewReviewForEmployerState extends State<NewReviewForEmployer> {
   double _rating = 3.0;
   var _reviewPara = '';
-  var _workedAs = '';
+  var _workedAs = 'Peon';
   final workedAsCtrl = TextEditingController();
   final reviewParaCtrl = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  Future<void> addReviewForEmployee(String cuid, String ruid) async {
-    // ruid = user id of employer who is being reviewed
-    // cuid = user id of current user i.e who is reviewing
-    final isValid = _formKey.currentState.validate();
-    FocusScope.of(context).unfocus();
-    if (isValid == true) {
-      _formKey.currentState.save();
-      final cUser = await FirebaseFirestore.instance
-          .collection('employeeProfile')
-          .doc(cuid)
-          .get();
-      try {
-        await FirebaseFirestore.instance.collection('employeeReviews').add(
-          {
-            // change fields
-            'reviewedId': ruid,
-            'reviewerId': cuid,
-            'workedAs': _workedAs,
-            'shopName': 'Some Shop',
-
-            'shopImgUrl':
-                'https://www.texascooppower.com/content/detail_heart-to-heart-2-main.jpg',
-            'rating': _rating,
-            'reviewPara': _reviewPara,
-          },
-        ).then((value) => () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('You reviewed successfully.')),
-              );
-              Navigator.of(context).pop();
-            });
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.toString())),
-        );
-      }
-      Navigator.of(context).pop();
-    }
-  }
 
   Future<void> addReviewForEmployer(String cuid, String ruid) async {
     // ruid = user id of employer who is being reviewed
@@ -80,11 +41,9 @@ class _NewReviewState extends State<NewReview> {
             'reviewedId': ruid,
             'reviewerId': cuid,
             'jobWorked': _workedAs,
-            'reviewerName': 'random person',
-            'userProfileImgUrl':
-                'https://i1.sndcdn.com/avatars-000655118672-xb0aun-t500x500.jpg',
-            'backgroundImgUrl':
-                'https://media.proprofs.com/images/QM/user_images/2503852/New%20Project%20(81)(127).jpg',
+            'reviewerName': cUser['name'],
+            'userProfileImgUrl': cUser['img_url'],
+            'backgroundImgUrl': cUser['backgroundImgUrl'],
             'rating': _rating,
             'reviewPara': _reviewPara,
           },
@@ -163,30 +122,52 @@ class _NewReviewState extends State<NewReview> {
                           color: Colors.teal,
                           width: 2,
                         )),
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 15.0, vertical: 10),
-                    child: TextFormField(
-                      controller: workedAsCtrl,
-                      onSaved: (val) {
-                        setState(() {
-                          _workedAs = val;
-                        });
-                      },
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return '*required';
-                        }
-                        return null;
-                      },
-                      // maxLines: 5,
-                      // maxLength: 150,
-                      decoration: InputDecoration(
-                        labelText: 'Worked As',
-                        labelStyle: TextStyle(color: Colors.teal[900]),
-                      ),
+                        horizontal: 30.0, vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Worked As:',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        DropdownButton<String>(
+                          value: _workedAs,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.black),
+                          onChanged: (String newValue) {
+                            setState(() {
+                              _workedAs = newValue;
+                            });
+                          },
+                          menuMaxHeight: 300,
+                          items: <String>[
+                            'Peon',
+                            'Driver',
+                            'Private Tutor',
+                            'Security Gaurd',
+                            'Halwai',
+                            'Labour',
+                            'Watchman',
+                            'Sweeper',
+                            'Waiter',
+                            'Maid',
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
@@ -228,12 +209,7 @@ class _NewReviewState extends State<NewReview> {
                   ),
                   TextButton(
                     onPressed: () {
-                      if (widget.isEmployer == true) {
-                        addReviewForEmployer(cUid, widget.rUid);
-                      }
-                      if (widget.isEmployee == true) {
-                        addReviewForEmployee(cUid, widget.rUid);
-                      }
+                      addReviewForEmployer(cUid, widget.rUid);
                     },
                     child: Container(
                         decoration: BoxDecoration(

@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:helping_hand/widgets/newReview.dart';
+import 'package:helping_hand/widgets/newReviewForEmployee.dart';
+import 'package:helping_hand/widgets/newReviewForEmployer.dart';
 
 class ReviewsForEmployee extends StatefulWidget {
   // const ReviewsForEmployee({ Key? key }) : super(key: key);
@@ -36,33 +37,37 @@ class _ReviewsForEmployeeState extends State<ReviewsForEmployee> {
             child: Column(
               children: [
                 ListTile(
-                  leading: FaIcon(
-                    FontAwesomeIcons.chartLine,
-                    size: 28,
-                    color: Colors.teal,
-                  ),
-                  title: Text('Reviews'),
-                  trailing: cUid != widget.ruid
-                      ? IconButton(
-                          icon: Icon(Icons.add_comment),
-                          onPressed: () {
-                            showModalBottomSheet<void>(
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Padding(
-                                  padding: MediaQuery.of(context).viewInsets,
-                                  child: NewReview(
-                                    widget.ruid,
-                                    isEmployee: true,
-                                    isEmployer: false,
-                                  ),
-                                );
-                              },
-                            );
-                          })
-                      : null,
-                ),
+                    leading: FaIcon(
+                      FontAwesomeIcons.chartLine,
+                      size: 28,
+                      color: Colors.teal,
+                    ),
+                    title: Text('Reviews'),
+                    trailing:
+                        // cUid != widget.ruid
+                        //     ?
+                        IconButton(
+                            icon: Icon(Icons.add_comment),
+                            onPressed: () {
+                              // showModalBottomSheet<void>(
+                              //   isScrollControlled: true,
+                              //   context: context,
+                              //   builder: (BuildContext context) {
+                              //     return Padding(
+                              //       padding: MediaQuery.of(context).viewInsets,
+                              //       child: NewReviewForEmployee(widget.ruid),
+                              //     );
+                              //   },
+                              // );
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (ctx) =>
+                                      NewReviewForEmployee(widget.ruid),
+                                ),
+                              );
+                            })
+                    // : null,
+                    ),
                 snapshot.data != null
                     ? reviews.isEmpty
                         ? SizedBox(

@@ -10,7 +10,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/widgets/reviewsForEmployee.dart';
 import 'package:provider/provider.dart';
-import '../widgets/newReview.dart';
+import '../widgets/newReviewForEmployer.dart';
 
 // ignore: camel_case_types
 class EmployeeProfile extends StatefulWidget {
