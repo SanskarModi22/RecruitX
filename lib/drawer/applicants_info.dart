@@ -34,15 +34,19 @@ class _applicants_InfoState extends State<applicants_Info> {
           body:ListView.builder(
             itemCount: applicantsInfo.length,
             itemBuilder: (context,index){
-              return Card(
-                child:ListTile(
-                  onTap: (){},
-                  title: Text(applicantsInfo[index].name),
-                  subtitle: Text(applicantsInfo[index].number.toString()),
-                  leading: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/${applicantsInfo[index].displayimage}'),
-                  ),
-                ) ,
+              return Padding(
+                padding: EdgeInsets.fromLTRB(4, 1, 4, 0),
+                child: Card(
+                  child:ListTile(
+                    onTap: (){},
+
+                    title: Text(applicantsInfo[index].name),
+                    trailing: Text(applicantsInfo[index].number.toString()),
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/${applicantsInfo[index].displayimage}'),
+                    ),
+                  ) ,
+                ),
               );
             },
           )
