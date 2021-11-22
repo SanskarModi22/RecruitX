@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:helping_hand/providers/user_information.dart';
-import 'package:helping_hand/widgets/newReview.dart';
+import 'package:helping_hand/widgets/newReviewForEmployer.dart';
 import 'package:provider/provider.dart';
 
 class ReviewsForEmployer extends StatefulWidget {
@@ -36,33 +36,33 @@ class _ReviewsForEmployerState extends State<ReviewsForEmployer> {
             child: Column(
               children: [
                 ListTile(
-                  leading: FaIcon(
-                    FontAwesomeIcons.chartLine,
-                    size: 28,
-                    color: Colors.teal,
-                  ),
-                  title: Text('Reviews'),
-                  trailing: cUid != widget.ruid
-                      ? IconButton(
-                          icon: Icon(Icons.add_comment),
-                          onPressed: () {
-                            showModalBottomSheet<void>(
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Padding(
-                                  padding: MediaQuery.of(context).viewInsets,
-                                  child: NewReview(
-                                    widget.ruid,
-                                    isEmployer: true,
-                                    isEmployee: false,
-                                  ),
-                                );
-                              },
-                            );
-                          })
-                      : null,
-                ),
+                    leading: FaIcon(
+                      FontAwesomeIcons.chartLine,
+                      size: 28,
+                      color: Colors.teal,
+                    ),
+                    title: Text('Reviews'),
+                    trailing:
+                        // cUid != widget.ruid
+                        // ?
+                        IconButton(
+                            icon: Icon(Icons.add_comment),
+                            onPressed: () {
+                              showModalBottomSheet<void>(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Padding(
+                                    padding: MediaQuery.of(context).viewInsets,
+                                    child: NewReviewForEmployer(
+                                      widget.ruid,
+                                    ),
+                                  );
+                                },
+                              );
+                            })
+                    // : null,
+                    ),
                 snapshot.data != null
                     ? reviews.isEmpty
                         ? SizedBox(
