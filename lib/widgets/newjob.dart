@@ -62,7 +62,7 @@ class _NewJobState extends State<NewJob> {
           appBar: AppBar(
             title: Text('Post a new Job.'),
           ),
-          resizeToAvoidBottomInset: false,
+          // resizeToAvoidBottomInset: false,
           body: Container(
             padding: EdgeInsets.all(20),
             // margin: EdgeInsets.all(8),
@@ -117,6 +117,8 @@ class __MyFormState extends State<_MyForm> {
   String shopId;
   String shopImgUrl;
   String shopType;
+  bool _nightShift = false;
+  bool _partTime = true;
 
   @override
   Widget build(BuildContext context) {
@@ -178,6 +180,8 @@ class __MyFormState extends State<_MyForm> {
             "shopId": shopId,
             "shopImgUrl": shopImgUrl,
             "shopType": shopType,
+            "partTime": _partTime,
+            "nightShift": _nightShift,
           });
           Navigator.of(context).pop();
           clear();
@@ -337,6 +341,38 @@ class __MyFormState extends State<_MyForm> {
                 if (value == null || value.isEmpty) return '*required';
                 return null;
               },
+            ),
+            ListTile(
+              leading: Icon(
+                _partTime ? Icons.hourglass_full : Icons.hourglass_bottom,
+                // color: Colors.blue,
+              ),
+              // contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              title: _partTime ? Text('Part-Time') : Text('Full-Time'),
+              trailing: Switch(
+                value: _partTime,
+                onChanged: (val) {
+                  setState(() {
+                    _partTime = val;
+                  });
+                },
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                _nightShift ? Icons.nightlight : Icons.wb_sunny,
+                // color: Colors.blue,
+              ),
+              // contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              title: _nightShift ? Text('Night-Shift') : Text('Day-Shift'),
+              trailing: Switch(
+                value: _nightShift,
+                onChanged: (val) {
+                  setState(() {
+                    _nightShift = val;
+                  });
+                },
+              ),
             ),
             TextFormField(
               controller: _vacancy,

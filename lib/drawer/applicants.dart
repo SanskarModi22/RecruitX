@@ -4,8 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/drawer/applicants_info.dart';
+
 class applicants_Page extends StatefulWidget {
- // const applicants_Page({Key? key}) : super(key: key);
+  // const applicants_Page({Key? key}) : super(key: key);
 
   @override
   _applicants_PageState createState() => _applicants_PageState();
@@ -25,8 +26,8 @@ class _applicants_PageState extends State<applicants_Page> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
               body: Center(
-                child: CircularProgressIndicator(),
-              ));
+            child: CircularProgressIndicator(),
+          ));
         }
         final shops = snapshot.data.docs;
         return Scaffold(
@@ -66,8 +67,8 @@ class ShopPostItem extends StatefulWidget {
   final String shopName;
   ShopPostItem(
       {@required this.shopId,
-        @required this.shopImgUrl,
-        @required this.shopName});
+      @required this.shopImgUrl,
+      @required this.shopName});
   @override
   _ShopPostItemState createState() => _ShopPostItemState();
 }
@@ -100,9 +101,9 @@ class _ShopPostItemState extends State<ShopPostItem> {
                     clipBehavior: Clip.hardEdge,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10),
-                        )),
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    )),
                     height: 100,
                     width: MediaQuery.of(context).size.width,
                     child: Image(
@@ -143,21 +144,21 @@ class _ShopPostItemState extends State<ShopPostItem> {
                           : min(jobs.length.toDouble() * 170, 400),
                       child: jobs.length != 0
                           ? ListView.builder(
-                        itemCount: jobs.length,
-                        itemBuilder: (ctx, i) => AvailableJobItem(
-                          shopId: widget.shopId,
-                          jobId: jobs[i].id,
-                          jobName: jobs[i]['jobName'],
-                          salary: jobs[i]['salary'].toString(),
-                          workingDays: jobs[i]['workingDays'],
-                          specialRequest: jobs[i]['specialRequest'],
-                          workingHours: jobs[i]['workingHours'],
-                        ),
-                      )
+                              itemCount: jobs.length,
+                              itemBuilder: (ctx, i) => AvailableJobItem(
+                                shopId: widget.shopId,
+                                jobId: jobs[i].id,
+                                jobName: jobs[i]['jobName'],
+                                salary: jobs[i]['salary'].toString(),
+                                workingDays: jobs[i]['workingDays'],
+                                specialRequest: jobs[i]['specialRequest'],
+                                workingHours: jobs[i]['workingHours'],
+                              ),
+                            )
                           : Container(
-                        height: 100,
-                        child: Text('No Job Posted'),
-                      ),
+                              height: 100,
+                              child: Text('No Job Posted'),
+                            ),
                     )
                 ],
               ),
@@ -211,62 +212,62 @@ class _AvailableJobItemState extends State<AvailableJobItem> {
 
     return (_owner)
         ? Dismissible(
-      key: ValueKey(widget.jobId),
-      background: Container(
-        color: Colors.orange,
-        child: Icon(
-          Icons.delete,
-          color: Colors.white,
-          size: 40,
-        ),
-        alignment: Alignment.centerRight,
-        padding: EdgeInsets.only(right: 20),
-        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-      ),
-      confirmDismiss: (direction) {
-        // return Future.value(true);
-        return showDialog(
-            context: context,
-            builder: (ctx) => AlertDialog(
-              title: Text('Are you sure? '),
-              content:
-              Text('Do you want to delete this job posting?'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    deleteJob();
-                    Navigator.of(ctx).pop();
-                  },
-                  child: Text('YES!'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: Text('NO!'),
-                ),
-              ],
-            ));
-      },
-      direction: DismissDirection.endToStart,
-      onDismissed: (direction) {},
-      child: InsideBody(
-        id: widget.jobId,
-        job: widget.jobName,
-        salary: widget.salary,
-        workDays: widget.workingDays,
-        workHours: widget.workingHours,
-        specialRequests: widget.specialRequest,
-      ),
-    )
+            key: ValueKey(widget.jobId),
+            background: Container(
+              color: Colors.orange,
+              child: Icon(
+                Icons.delete,
+                color: Colors.white,
+                size: 40,
+              ),
+              alignment: Alignment.centerRight,
+              padding: EdgeInsets.only(right: 20),
+              margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+            ),
+            confirmDismiss: (direction) {
+              // return Future.value(true);
+              return showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                        title: Text('Are you sure? '),
+                        content:
+                            Text('Do you want to delete this job posting?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              deleteJob();
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Text('YES!'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Text('NO!'),
+                          ),
+                        ],
+                      ));
+            },
+            direction: DismissDirection.endToStart,
+            onDismissed: (direction) {},
+            child: InsideBody(
+              id: widget.jobId,
+              job: widget.jobName,
+              salary: widget.salary,
+              workDays: widget.workingDays,
+              workHours: widget.workingHours,
+              specialRequests: widget.specialRequest,
+            ),
+          )
         : InsideBody(
-      id: widget.jobId,
-      job: widget.jobName,
-      salary: widget.salary,
-      workDays: widget.workingDays,
-      workHours: widget.workingHours,
-      specialRequests: widget.specialRequest,
-    );
+            id: widget.jobId,
+            job: widget.jobName,
+            salary: widget.salary,
+            workDays: widget.workingDays,
+            workHours: widget.workingHours,
+            specialRequests: widget.specialRequest,
+          );
   }
 }
 
@@ -288,13 +289,13 @@ class InsideBody extends StatefulWidget {
   });
   @override
   _InsideBodyState createState() => _InsideBodyState(
-    id: id,
-    job: job,
-    salary: salary,
-    workDays: workDays,
-    workHours: workHours,
-    specialRequests: specialRequests,
-  );
+        id: id,
+        job: job,
+        salary: salary,
+        workDays: workDays,
+        workHours: workHours,
+        specialRequests: specialRequests,
+      );
 }
 
 class _InsideBodyState extends State<InsideBody> {
@@ -315,7 +316,6 @@ class _InsideBodyState extends State<InsideBody> {
   var _expanded = false;
 
   Widget build(BuildContext context) {
-
     final Color random_color = Colors.orange[800];
     return Container(
       margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
@@ -542,9 +542,7 @@ class _InsideBodyState extends State<InsideBody> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>applicants_Info (
-
-                        ),
+                        builder: (context) => ApplicantsInfo(id),
                       ),
                     );
                   },

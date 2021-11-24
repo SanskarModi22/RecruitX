@@ -1,56 +1,128 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-class applicants_info{
-  String name;
-  num number;
-  String displayimage;
-  applicants_info(this.name,this.number,this.displayimage);
-}
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:helping_hand/screens/employee_profile_screen.dart';
 
-
-
-class applicants_Info extends StatefulWidget {
- // const applicants_Info({Key? key}) : super(key: key);
+class ApplicantsInfo extends StatefulWidget {
+  // const ApplicantsInfo({Key? key}) : super(key: key);
+  final String jobId;
+  ApplicantsInfo(this.jobId);
 
   @override
-  _applicants_InfoState createState() => _applicants_InfoState();
+  _ApplicantsInfoState createState() => _ApplicantsInfoState();
 }
 
-class _applicants_InfoState extends State<applicants_Info> {
-  List<applicants_info> applicantsInfo=[
-    applicants_info ('pranay',988888888,'avatar.png'),
-    applicants_info ('kartik',988888888,'avatar.png'),
-    applicants_info ('sanskar',988888888,'avatar.png'),
-    applicants_info ('gunjan',988888888,'avatar.png'),
-    applicants_info ('surya',988888888,'avatar.png'),
-    applicants_info ('modi bhai',988888888,'avatar.png'),
-
-
-  ];
+class _ApplicantsInfoState extends State<ApplicantsInfo> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(title: Text('Applicants'),),
-          body:ListView.builder(
-            itemCount: applicantsInfo.length,
-            itemBuilder: (context,index){
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('jobs')
+          .doc(widget.jobId)
+          .collection('applicants')
+          .snapshots(),
+      builder: (context,
+          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.teal,
+            ),
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+        final applicants = snapshot.data.docs;
+        if (applicants.length == 0 ||
+            applicants.isEmpty ||
+            snapshot.data == null) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Applicants'),
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.teal,
+            ),
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.network(
+                    'https://lh3.googleusercontent.com/proxy/G9UA7sx_strAte2zz9hw2WyhommRDmG-ztTlvZpPPaPegGw0bJstENQiXoV7D2nHwChrdc1JHlGdvGJoXBbdZTFr',
+                    height: MediaQuery.of(context).size.height * 0.3,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'No one has applied for the job!',
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Applicants'),
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.teal,
+          ),
+          body: ListView.builder(
+            itemCount: applicants.length,
+            itemBuilder: (context, index) {
               return Padding(
                 padding: EdgeInsets.fromLTRB(4, 1, 4, 0),
                 child: Card(
-                  child:ListTile(
-                    onTap: (){},
-
-                    title: Text(applicantsInfo[index].name),
-                    trailing: Text(applicantsInfo[index].number.toString()),
-                    leading: CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/${applicantsInfo[index].displayimage}'),
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (ctx) =>
+                              EmployeeProfile(applicants[index]['applicantId']),
+                        ),
+                      );
+                    },
+                    title: Text(applicants[index]['applicantName']),
+                    subtitle:
+                        Text('Contact: +91 ' + applicants[index]['contact']),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Text(applicants[index]['contact']),
+                        // SizedBox(
+                        //   width: 10,
+                        // ),
+                        IconButton(
+                          key: Key(applicants[index]['applicantName']),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => EmployeeProfile(
+                                    applicants[index]['applicantId']),
+                              ),
+                            );
+                          },
+                          icon: FaIcon(FontAwesomeIcons.infoCircle),
+                        ),
+                      ],
                     ),
-                  ) ,
+                    leading: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(applicants[index]['profileImage']),
+                    ),
+                  ),
                 ),
               );
             },
-          )
-      ),
+          ),
+        );
+      },
     );
   }
 }
