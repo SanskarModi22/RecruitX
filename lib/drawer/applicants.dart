@@ -5,14 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/drawer/applicants_info.dart';
 
-class applicants_Page extends StatefulWidget {
-  // const applicants_Page({Key? key}) : super(key: key);
+class ApplicantsPage extends StatefulWidget {
+  // const ApplicantsPage({Key? key}) : super(key: key);
 
   @override
-  _applicants_PageState createState() => _applicants_PageState();
+  _ApplicantsPageState createState() => _ApplicantsPageState();
 }
 
-class _applicants_PageState extends State<applicants_Page> {
+class _ApplicantsPageState extends State<ApplicantsPage> {
   @override
   Widget build(BuildContext context) {
     final cUser = FirebaseAuth.instance.currentUser.uid;

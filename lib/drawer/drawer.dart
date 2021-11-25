@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Home/manage_post_screen.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/drawer/applicants.dart';
 // import 'package:helping_hand/drawer/rate_us.dart';
@@ -152,41 +153,59 @@ class _drawerState extends State<drawer> {
             SizedBox(
               height: 10,
             ),
-          ListTile(
-            leading: Icon(
-              Icons.person,
-              color: Colors.black,
-            ),
-            title: Text(
-              'Applicants',
-              textScaleFactor: 1.2,
-              style: TextStyle(
+          if (userIsEmployer == true)
+            ListTile(
+              leading: Icon(
+                Icons.person,
                 color: Colors.black,
               ),
+              title: Text(
+                'Applicants',
+                textScaleFactor: 1.2,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ApplicantsPage()),
+                );
+              },
             ),
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => applicants_Page()));
-            },
-          ),
-          SizedBox(
-            height: 10,
-          ),
+          if (userIsEmployer == true)
+            SizedBox(
+              height: 10,
+            ),
           ListTile(
             leading: Icon(
               Icons.edit,
               color: Colors.black,
             ),
             title: Text(
-              'Manage Posts',
+              userIsEmployer
+                  ? 'Manage Posts'
+                  : userIsEmployee
+                      ? 'Manage Applications'
+                      : null,
               textScaleFactor: 1.2,
               style: TextStyle(
                 color: Colors.black,
               ),
             ),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ManagePost()));
+              userIsEmployee
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ManagePostForEmployee(),
+                      ),
+                    )
+                  : userIsEmployer
+                      ? Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => ManagePost()),
+                        )
+                      : Navigator.of(context).pop();
             },
           ),
           SizedBox(
