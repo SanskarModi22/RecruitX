@@ -41,7 +41,8 @@ class JobDetailsScreen extends StatefulWidget {
   // const JobDetailsScreen({ Key? key }) : super(key: key);
   final String jobId;
   final String shopId;
-  JobDetailsScreen({this.jobId, this.shopId});
+  final bool isWithdrawing;
+  JobDetailsScreen({this.jobId, this.shopId, @required this.isWithdrawing});
 
   @override
   State<JobDetailsScreen> createState() => _JobDetailsScreenState(
@@ -53,6 +54,7 @@ class JobDetailsScreen extends StatefulWidget {
 class _JobDetailsScreenState extends State<JobDetailsScreen> {
   final String jobId;
   final String shopId;
+
   _JobDetailsScreenState({this.jobId, this.shopId});
   @override
   Widget build(BuildContext context) {
@@ -91,6 +93,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           'contact': userData['contact'],
           'profileImage': userData['img_url'],
         });
+
+        List jobs = userData['appliedJobs'];
+        jobs.add(widget.jobId.toString());
+
+        await FirebaseFirestore.instance
+            .collection('employeeProfile')
+            .doc(cUser)
+            .update({'appliedJobs': jobs});
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('You have Applied for this Job'),
@@ -101,6 +111,40 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           SnackBar(
             content: Text('Failed to Apply for the Job'),
           ),
+        );
+      }
+    }
+
+    Future<void> removeApplication() async {
+      final uid = FirebaseAuth.instance.currentUser.uid;
+
+      try {
+        await FirebaseFirestore.instance
+            .collection('jobs')
+            .doc(widget.jobId)
+            .collection('applicants')
+            .doc(uid)
+            .delete();
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to remove from applicants!')),
+        );
+      }
+      try {
+        final userData = await FirebaseFirestore.instance
+            .collection('employeeProfile')
+            .doc(uid)
+            .get();
+        List jobs = userData['appliedJobs'];
+        jobs.remove(widget.jobId.toString());
+
+        await FirebaseFirestore.instance
+            .collection('employeeProfile')
+            .doc(uid)
+            .update({'appliedJobs': jobs});
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('failed to remove from employee profile!')),
         );
       }
     }
@@ -164,12 +208,19 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
-                    "Apply Now!",
+                    widget.isWithdrawing
+                        ? "Withdraw Application"
+                        : "Apply Now!",
                     style: TextStyle(color: Colors.white, fontSize: 23),
                   ),
                 ),
                 onPressed: () {
-                  apply();
+                  if (widget.isWithdrawing == true) {
+                    removeApplication();
+                    Navigator.of(context).pop();
+                  } else {
+                    apply();
+                  }
                 },
               ),
             ),

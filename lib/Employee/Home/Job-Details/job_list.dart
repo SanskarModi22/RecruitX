@@ -422,23 +422,21 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                   child: ElevatedButton(
                                       onPressed: () {
                                         Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => JobDetailsScreen(
-                                                      jobId:
-                                                          fetchAndSetEmployerShops2
-                                                              .shops[
-                                                                  widget.index]
-                                                              .jobsAvailable[
-                                                                  widget.index %
-                                                                      2]
-                                                              .jobId,
-                                                      shopId:
-                                                          fetchAndSetEmployerShops2
-                                                              .shops[
-                                                                  widget.index]
-                                                              .shopid,
-                                                    ),),);
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                JobDetailsScreen(
+                                              isWithdrawing: false,
+                                              jobId: fetchAndSetEmployerShops2
+                                                  .shops[widget.index]
+                                                  .jobsAvailable[
+                                                      widget.index % 2]
+                                                  .jobId,
+                                              shopId: fetchAndSetEmployerShops2
+                                                  .shops[widget.index].shopid,
+                                            ),
+                                          ),
+                                        );
                                       },
                                       style: ButtonStyle(
                                           backgroundColor:
