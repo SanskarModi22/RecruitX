@@ -16,7 +16,7 @@ class EmployeeSignUp extends StatefulWidget {
 
 class _EmployeeSignUpState extends State<EmployeeSignUp> {
   final ImagePicker _picker = ImagePicker();
-  File shopImage;
+  File ProfileImg;
   //image from camera
   _imgFromCamera() async {
     XFile pickedImage = await _picker.pickImage(
@@ -24,7 +24,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
     );
     if (pickedImage != null) {
       setState(() {
-        shopImage = File(pickedImage.path);
+        ProfileImg = File(pickedImage.path);
       });
     } else {
       return;
@@ -38,7 +38,7 @@ class _EmployeeSignUpState extends State<EmployeeSignUp> {
     );
     if (pickedImage != null) {
       setState(() {
-        shopImage = File(pickedImage.path);
+        ProfileImg = File(pickedImage.path);
       });
     } else {
       return;
@@ -92,9 +92,9 @@ void _storeEmployeeImages() async{
   final ref = FirebaseStorage.instance
       .ref()
       .child('Employee Photo')
-      .child(user.uid +'.png');
+      .child(user.uid +'.jpg');
   // putting file
-  await ref.putFile(shopImage).whenComplete(() => null);
+  await ref.putFile(ProfileImg).whenComplete(() => null);
   // gettting url
    imgUrl = await ref.getDownloadURL();
 }
@@ -123,7 +123,10 @@ void _storeEmployeeImages() async{
 
   bool isChecked = false;
   Widget build(BuildContext context) {
-    _storeEmployeeImages();
+if(ProfileImg!=null){
+      _storeEmployeeImages();}
+    print("Img Url = $imgUrl");
+
     return Form(
       key: _formkey,
       child: Scaffold(
@@ -151,9 +154,9 @@ void _storeEmployeeImages() async{
                         margin: EdgeInsets.symmetric(vertical: 10),
                         height: 110,
                         width: 110,
-                        child: shopImage != null
+                        child: ProfileImg != null
                             ? Image.file(
-                                shopImage,
+                                ProfileImg,
                                 fit: BoxFit.cover,
                               )
                             : Center(
@@ -395,13 +398,13 @@ void _storeEmployeeImages() async{
                       fixedSize: Size(400, 45),
                     ),
                     onPressed: () {
-                      if (shopImage == null) {
+                      if (ProfileImg == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Please enter image!')),
                         );
                       }
                       if (_formkey.currentState.validate() &&
-                          shopImage != null) {
+                          ProfileImg != null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(

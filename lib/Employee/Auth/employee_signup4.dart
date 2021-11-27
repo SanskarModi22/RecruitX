@@ -16,12 +16,13 @@ class signup_page4 extends StatefulWidget {
   final String dob;
   final String Bio;
   final String Aadhar;
-  final String SalaryExpextation;
 
+final String minSal;
+final String maxSal;
   final String ImgUrl;
   final String Experience;
 
-  const signup_page4({Key key, this.address, this.EmployeeName, this.EmployeeAge, this.contact, this.dob, this.Bio, this.Aadhar, this.SalaryExpextation, this.ImgUrl, this.Experience}) : super(key: key);
+  const signup_page4({Key key, this.address, this.EmployeeName, this.EmployeeAge, this.contact, this.dob, this.Bio, this.Aadhar, this.ImgUrl, this.Experience, this.minSal, this.maxSal}) : super(key: key);
   @override
   _signup_page4State createState() => _signup_page4State();
 }
@@ -453,7 +454,8 @@ class _signup_page4State extends State<signup_page4> {
                       contact: widget.contact,
                       address: widget.address,
                       Experience: widget.Experience,
-                      SalaryExpextation: widget.SalaryExpextation,
+                     minSal: widget.minSal,
+                      maxSal: widget.maxSal,
                       ImgUrl: widget.ImgUrl,
                       ExpectedJobs: result,
                     )),

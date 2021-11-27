@@ -531,6 +531,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                               Provider.of<UserType>(context, listen: false)
                                   .userAsEmployee,
                           shopImg: imgUrl,
+                          shopDesc: shopDescription.text,
                           employerImg: widget.OwnerImage,
                            employerBio: bio.text,
                         );

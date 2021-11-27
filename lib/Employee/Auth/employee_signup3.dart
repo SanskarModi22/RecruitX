@@ -18,7 +18,8 @@ class signup_page3 extends StatefulWidget {
   final String dob;
   final String Bio;
   final String Aadhar;
-  final String SalaryExpextation;
+ final String minSal;
+ final String maxSal;
   final  ExpectedJobs;
 final String ImgUrl;
   final String Experience;
@@ -33,9 +34,9 @@ final String ImgUrl;
       this.dob,
       this.Bio,
       this.Aadhar,
-      this.SalaryExpextation,
+
       this.ExpectedJobs,
-      this.Experience, this.ImgUrl})
+      this.Experience, this.ImgUrl, this.minSal, this.maxSal})
       : super(key: key);
 
   @override
@@ -235,7 +236,8 @@ class _signup_page3State extends State<signup_page3> {
                             preferredJobType: dropdownValue,
                             employeeAddress: widget.address,
                             employeeExperience: widget.Experience,
-                            employeeExpectedSalary: widget.SalaryExpextation,
+                          minSal: widget.minSal,
+                            maxSal: widget.maxSal,
                             currentlyWorkingAt: currentlyWorking.text,
                            imgUrl: widget.ImgUrl,
                           employeeExpectedJobs: widget.ExpectedJobs,

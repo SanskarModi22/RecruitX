@@ -14,11 +14,14 @@ class Employee {
   String employeeImage;
   String employeeExpectedSalary;
   dynamic employeeExpectedJobs;
+  dynamic applications;
   String currentlyWorkingAt;
   String preferredJobType;
   String employeePreferedShift;
   double averageRating;
   String aadhar;
+  String minSal;
+  String maxSal;
   bool isEmployee = false;
 // non  values
   List<ReviewByEmployer> reviews = [];
@@ -43,5 +46,8 @@ class Employee {
     this.reviews,
     this.isEmployee,
     this.employeeImage,
+    this.maxSal,
+    this.minSal,
+    this.applications
   });
 }
