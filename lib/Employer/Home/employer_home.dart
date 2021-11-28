@@ -87,34 +87,34 @@ class _EmployerHomeState extends State<EmployerHome> {
                                 SizedBox(
                                   width: 6.w,
                                 ),
-                                ElevatedButton(
-                                  style: ButtonStyle(
-                                      minimumSize: MaterialStateProperty.all(
-                                          Size(4.w, 6.h),),
-                                      shape: MaterialStateProperty.all(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                            BorderRadius.circular(14.sp),
-                                          )),
-                                      backgroundColor:
-                                      MaterialStateProperty.all(
-                                          Colors.white)),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => JobList(),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    child: Image.asset(
-                                      "assets/images/filter.png",
-                                      height: 4.h,
-                                      fit: BoxFit.fill,
-                                      color: Colors.blue,
-                                    ),
-                                  ),
-                                )
+                                // ElevatedButton(
+                                //   style: ButtonStyle(
+                                //       minimumSize: MaterialStateProperty.all(
+                                //           Size(4.w, 6.h),),
+                                //       shape: MaterialStateProperty.all(
+                                //           RoundedRectangleBorder(
+                                //             borderRadius:
+                                //             BorderRadius.circular(14.sp),
+                                //           )),
+                                //       backgroundColor:
+                                //       MaterialStateProperty.all(
+                                //           Colors.white)),
+                                //   onPressed: () {
+                                //     Navigator.of(context).push(
+                                //       MaterialPageRoute(
+                                //         builder: (context) => JobList(),
+                                //       ),
+                                //     );
+                                //   },
+                                //   child: Container(
+                                //     child: Image.asset(
+                                //       "assets/images/filter.png",
+                                //       height: 4.h,
+                                //       fit: BoxFit.fill,
+                                //       color: Colors.blue,
+                                //     ),
+                                //   ),
+                                // )
                               ],
                             ),
                           ],
