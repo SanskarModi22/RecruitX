@@ -57,14 +57,18 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                       padding: EdgeInsets.fromLTRB(15.sp, 0, 0, 0),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Stack(
+
                           children: [
-                            Text(
-                              "Hello Sanskar",
-                              style: TextStyle(
-                                  fontSize: 16.sp, fontWeight: FontWeight.bold),
-                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Hello Sanskar",
+                                  style: TextStyle(
+                                      fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                ),
+
                             SizedBox(
                               height: 1.h,
                             ),
@@ -74,42 +78,57 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             ),
                             SizedBox(
                               height: 3.h,
+                            ),  ],
                             ),
-                            Row(
-                              children: [
-                                EmployeeCustomSearch(),
-                                SizedBox(
-                                  width: 6.w,
-                                ),
-                                ElevatedButton(
-                                  style: ButtonStyle(
-                                      minimumSize: MaterialStateProperty.all(
-                                          Size(4.w, 6.h)),
-                                      shape: MaterialStateProperty.all(
-                                          RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(14.sp),
-                                      )),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.white)),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) => JobList(),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    child: Image.asset(
-                                      "assets/images/filter.png",
-                                      height: 4.h,
-                                      fit: BoxFit.fill,
-                                      color: Colors.blue,
-                                    ),
-                                  ),
-                                )
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0,80,0,0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  EmployeeCustomSearch(),
+                                  // SizedBox(
+                                  //   width: 6.w,
+                                  // ),
+                                  // Container(
+                                  //   height: 100,
+                                  //   child: Column(
+                                  //     children: [
+                                  //       Align(
+                                  //         alignment: Alignment.center,
+                                  //         child: ElevatedButton(
+                                  //           style: ButtonStyle(
+                                  //               minimumSize: MaterialStateProperty.all(
+                                  //                   Size(4.w, 6.h)),
+                                  //               shape: MaterialStateProperty.all(
+                                  //                   RoundedRectangleBorder(
+                                  //                 borderRadius:
+                                  //                     BorderRadius.circular(14.sp),
+                                  //               )),
+                                  //               backgroundColor:
+                                  //                   MaterialStateProperty.all(
+                                  //                       Colors.white)),
+                                  //           onPressed: () {
+                                  //             Navigator.of(context).push(
+                                  //               MaterialPageRoute(
+                                  //                 builder: (context) => JobList(),
+                                  //               ),
+                                  //             );
+                                  //           },
+                                  //           child: Container(
+                                  //             child: Image.asset(
+                                  //               "assets/images/filter.png",
+                                  //               height: 4.h,
+                                  //               fit: BoxFit.fill,
+                                  //               color: Colors.blue,
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // )
+                                ],
+                              ),
                             ),
                           ],
                         ),
