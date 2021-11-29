@@ -6,6 +6,8 @@ import 'package:helping_hand/Services/database_service.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import 'Job-Details/job_list.dart';
+
 class EmployeeCustomSearch extends StatefulWidget {
   const EmployeeCustomSearch({Key key}) : super(key: key);
 
@@ -19,6 +21,7 @@ class _EmployeeCustomSearchState extends State<EmployeeCustomSearch> {
   Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
+  List<String>JobTypes=["Driver","Halwai","Peon","Labour","Tutor","Security Guard","Waiter","Maid","Watchman"];
   bool isExpanded = false;
   @override
   void initState() {
@@ -47,11 +50,11 @@ class _EmployeeCustomSearchState extends State<EmployeeCustomSearch> {
     var showResults = [];
 
     if (_searchController.text != "") {
-      for (var tripSnapshot in _allResults) {
-        var title = tripSnapshot["shopType"].toString().toLowerCase();
+      for (var i in JobTypes) {
+        // var title = tripSnapshot["shopType"].toString().toLowerCase();
 
-        if (title.contains(_searchController.text.toLowerCase())) {
-          showResults.add(tripSnapshot);
+        if (i.toString().toLowerCase().contains(_searchController.text.toLowerCase())) {
+          showResults.add(i);
           setState(() {
             isExpanded = true;
           });
@@ -130,11 +133,20 @@ class _EmployeeCustomSearchState extends State<EmployeeCustomSearch> {
                 child: ListView.builder(
                   itemCount: _resultsList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    print(_resultsList[index]["shopType"]);
+                    print(_resultsList[index]);
                     return Card(
-                      child: ListTile(
-                        title:
-                            Text(_resultsList[index]["shopType"] ?? "Sweets"),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => JobList(text: _resultsList[index],),
+                              ));
+                        },
+                        child: ListTile(
+                          title:
+                              Text(_resultsList[index] ?? "Sweets"),
+                        ),
                       ),
                     );
                   },

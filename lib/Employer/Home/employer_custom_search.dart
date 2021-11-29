@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:helping_hand/Employer/Home/Employee-Details/employee_list.dart';
 import 'package:sizer/sizer.dart';
 
 class EmployerCustomSearch extends StatefulWidget {
@@ -134,8 +135,17 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
                   itemBuilder: (BuildContext context, int index) {
                     print(_resultsList[index]);
                     return Card(
-                      child: ListTile(
-                        title: Text(_resultsList[index] ?? "Sweets"),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EmployeeList(text: _resultsList[index],),
+                              ));
+                        },
+                        child: ListTile(
+                          title: Text(_resultsList[index] ?? "Sweets"),
+                        ),
                       ),
                     );
                   },
