@@ -13,11 +13,15 @@ class EmployeeOptions extends StatefulWidget {
 class _EmployeeOptionsState extends State<EmployeeOptions> {
   // ignore: non_constant_identifier_names
   List<String> employeeFields = [
-    "Grocery",
-    "Watchmen",
-    "Medical",
-    "Restaurant",
-    "Maid Service"
+    "Driver",
+    "Watchman",
+    "Halwai",
+    "Peon",
+    "Tutor",
+    "Labour",
+    "Waiter",
+    "Maid",
+    "Security Guard"
   ];
   Widget build(BuildContext context) {
     return Container(
