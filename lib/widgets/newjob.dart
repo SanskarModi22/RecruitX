@@ -114,6 +114,7 @@ class __MyFormState extends State<_MyForm> {
   String ownerImgUrl;
   String ownerName;
   String shopAddress;
+  String city;
   String shopId;
   String shopImgUrl;
   String shopType;
@@ -149,6 +150,7 @@ class __MyFormState extends State<_MyForm> {
         shopId = shopData.id;
         shopImgUrl = shopData['shopImgUrl'];
         shopType = shopData['shopType'];
+        city = shopData['city'];
       });
     }
 
@@ -182,6 +184,7 @@ class __MyFormState extends State<_MyForm> {
             "shopType": shopType,
             "partTime": _partTime,
             "nightShift": _nightShift,
+            "city":city,
           });
           Navigator.of(context).pop();
           clear();
