@@ -117,7 +117,6 @@ class __MyFormState extends State<_MyForm> {
   String shopId;
   String shopImgUrl;
   String shopType;
-  String city;
   bool _nightShift = false;
   bool _partTime = true;
 
@@ -150,7 +149,6 @@ class __MyFormState extends State<_MyForm> {
         shopId = shopData.id;
         shopImgUrl = shopData['shopImgUrl'];
         shopType = shopData['shopType'];
-        city = shopData['city'];
       });
     }
 
@@ -184,7 +182,6 @@ class __MyFormState extends State<_MyForm> {
             "shopType": shopType,
             "partTime": _partTime,
             "nightShift": _nightShift,
-            "city": city,
           });
           Navigator.of(context).pop();
           clear();
@@ -312,7 +309,6 @@ class __MyFormState extends State<_MyForm> {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) return '*required';
-
                 return null;
               },
               keyboardType: TextInputType.numberWithOptions(),
