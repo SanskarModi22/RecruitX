@@ -36,59 +36,7 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
       duration: Duration(milliseconds: 400),
     );
   }
-  // @override
-  // void dispose() {
-  //   _searchController.removeListener(_onSearchChanged);
-  //   _searchController.dispose();
-  //   super.dispose();
-  // }
-  //
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   resultsLoaded = getUsersPastTripsStreamSnapshots();
-  // }
-  //
-  // _onSearchChanged() {
-  //   searchResultsList();
-  // }
-  //
-  // searchResultsList() {
-  //   var showResults = [];
-  //
-  //   if (_searchController.text != "") {
-  //     for (var tripSnapshot in _allResults) {
-  //       var title = tripSnapshot["shopName"].toString().toLowerCase();
-  //
-  //       if (title.toLowerCase().contains(_searchController.text.toLowerCase())) {
-  //         showResults.add(tripSnapshot);
-  //         setState(() {
-  //           isExpanded = true;
-  //         });
-  //       }
-  //     }
-  //   } else {
-  //     // showResults = List.from(_allResults);
-  //     setState(() {
-  //       isExpanded = false;
-  //     });
-  //   }
-  //   setState(() {
-  //     _resultsList = showResults;
-  //   });
-  // }
-  //
-  // getUsersPastTripsStreamSnapshots() async {
-  //   // final user = Provider.of<MyUser>(context);
-  //   var data = await FirebaseFirestore.instance
-  //       .collection('jobs')
-  //       .get();
-  //   setState(() {
-  //     _allResults = data.docs;
-  //   });
-  //   searchResultsList();
-  //   return "complete";
-  // }
+
 
 
   @override
@@ -108,7 +56,7 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
             alignment: Alignment(-1.0, 0.0),
             child: AnimatedContainer(
               duration: Duration(milliseconds: 400),
-              height: 48.0,
+              height: 6.h,
               width: (toggle == 0) ? width / 8.166 : width / 1.57,
               curve: Curves.easeOut,
               decoration: BoxDecoration(
@@ -142,7 +90,7 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
                         child: AnimatedBuilder(
                           child: Icon(
                             Icons.mic,
-                            size: 22.0,
+                            size: 17.sp,
                             color: Colors.blue[900],
                           ),
                           builder: (context, widget) {
@@ -158,15 +106,15 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
                   ),
                   AnimatedPositioned(
                     duration: Duration(milliseconds: 375),
-                    left: (toggle == 0) ? 20.0 : 40.0,
+                    left: (toggle == 0) ? 5.w : 10.w,
                     curve: Curves.easeOut,
                     top: 11.0,
                     child: AnimatedOpacity(
                       opacity: (toggle == 0) ? 0.0 : 1.0,
                       duration: Duration(milliseconds: 200),
                       child: Container(
-                      height: 23.0,
-                      width: 180.0,
+                      height: 2.8.h,
+                      width: 45.w,
                       child: TextField(
                         controller:widget.textEditingController,
                         cursorRadius: Radius.circular(10.0),
@@ -177,7 +125,7 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
                           labelText: 'Shop Name..',
                           labelStyle: TextStyle(
                             color: Color(0xff5B5B5B),
-                            fontSize: 17.0,
+                            fontSize: 13.sp,
                             fontWeight: FontWeight.w500,
                           ),
                           alignLabelWithHint: true,

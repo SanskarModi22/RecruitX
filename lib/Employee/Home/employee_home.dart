@@ -21,6 +21,9 @@ class EmployeeHome extends StatefulWidget {
 class _EmployeeHomeState extends State<EmployeeHome> {
   @override
   Widget build(BuildContext context) {
+    print("sp=${1.sp}");
+    print("w=${1.w}");
+    print("h=${1.h}");
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -81,7 +84,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             ),  ],
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(0,80,0,0),
+                              padding:  EdgeInsets.fromLTRB(0,20.w,0,0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -145,7 +148,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                         child: Text(
                       "High Paying Jobs",
                       style: TextStyle(
-                        fontSize: 24.0,
+                        fontSize: 18.4.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     )),
@@ -160,7 +163,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                       child: Text(
                         "Related To your Role",
                         style: TextStyle(
-                          fontSize: 24.0,
+                          fontSize: 18.4.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

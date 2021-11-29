@@ -86,6 +86,7 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
 
   @override
   Widget build(BuildContext context) {
+
     return Stack(
       children: [
         Container(
