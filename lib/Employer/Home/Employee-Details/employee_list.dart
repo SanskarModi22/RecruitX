@@ -149,7 +149,7 @@ class _EmployeeListState extends State<EmployeeList>
           )
         ],
       ),
-      body: Stack(
+      body: _resultsList.length>0? Stack(
         children: [
           ListView(
             physics:
@@ -226,7 +226,7 @@ class _EmployeeListState extends State<EmployeeList>
             child: Container(height: 0),
           ),
         ],
-      ),
+      ):Center(child: Text("Sorry No Employee Availaible",)),
     );
   }
 }

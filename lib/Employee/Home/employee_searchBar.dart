@@ -174,7 +174,7 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
                         cursorColor: Colors.black,
                         decoration: InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.never,
-                          labelText: 'Type Here',
+                          labelText: 'Shop Name..',
                           labelStyle: TextStyle(
                             color: Color(0xff5B5B5B),
                             fontSize: 17.0,

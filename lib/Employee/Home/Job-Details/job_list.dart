@@ -142,7 +142,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
           )
         ],
       ),
-      body: Stack(
+      body: _resultsList.length>0? Stack(
         children: [
           ListView(
             physics:
@@ -219,7 +219,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
             child: Container(height: 0),
           ),
         ],
-      ),
+      ):Center(child: Text("Sorry No jobs Availaible",),)
     );
   }
 }
