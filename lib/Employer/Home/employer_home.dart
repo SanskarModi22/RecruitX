@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/employee_Custom_Search.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
@@ -6,9 +7,11 @@ import 'package:helping_hand/Employee/Home/employee_pref.dart';
 import 'package:helping_hand/Employee/Home/employee_cards.dart';
 import 'package:helping_hand/Employer/Home/employer_preference.dart';
 import 'package:helping_hand/Model/Profile/employer_profile.dart';
+import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/drawer/drawer.dart';
 
 import 'package:helping_hand/Employee/Home/job_options.dart';
+import 'package:provider/provider.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -27,6 +30,18 @@ class EmployerHome extends StatefulWidget {
 class _EmployerHomeState extends State<EmployerHome> {
   @override
   Widget build(BuildContext context) {
+    // final user = Provider.of<MyUser>(context);
+    // var data;
+    // getEmployerData() async{
+    //    data =
+    //   await FirebaseFirestore.instance.collection('employerProfile').doc(user.uid).get();
+    // }
+    // @override
+    // Future<void> initState() async {
+    //   super.initState();
+    //  await getEmployerData();
+    // }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
