@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -23,21 +24,26 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
   Animation<double> _animation2;
   bool isTapped;
   bool isExpanded;
+  TextEditingController _searchController;
+
+  Future resultsLoaded;
+  List _allResults = [];
+  List _resultsList = [];
+  bool isExpand = false;
   @override
   void initState() {
     super.initState();
-
+    _searchController = TextEditingController();
+    _searchController.addListener(_onSearchChanged);
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
     );
-
     _animation = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut))
       ..addListener(() {
         setState(() {});
       });
-
     _animation2 = Tween<double>(begin: 0, end: -30)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
@@ -46,8 +52,60 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
 
   @override
   void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
     _controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    resultsLoaded = getUsersPastTripsStreamSnapshots();
+  }
+
+  _onSearchChanged() {
+    searchResultsList();
+  }
+
+  searchResultsList() {
+    var showResults = [];
+
+    if (_searchController.text != "") {
+      for (var tripSnapshot in _allResults) {
+        var shopName = tripSnapshot["shopName"].toString().toLowerCase();
+        var jobName = tripSnapshot["jobName"].toString().toLowerCase();
+
+        if (shopName
+
+            .contains(_searchController.text.toLowerCase())&&jobName.contains(widget.text.toLowerCase())) {
+          showResults.add(tripSnapshot);
+          setState(() {
+            isExpanded = true;
+          });
+        }
+      }
+    } else {
+      showResults = List.from(_allResults);
+      setState(() {
+        isExpanded = false;
+      });
+    }
+    setState(() {
+      _resultsList = showResults;
+    });
+  }
+
+  getUsersPastTripsStreamSnapshots() async {
+    // final user = Provider.of<MyUser>(context);
+    var data = await FirebaseFirestore.instance.collection('jobs').where("jobName",isEqualTo:widget.text).get();
+    setState(() {
+      _allResults = data.docs;
+      print(_allResults);
+      print(widget.text);
+    });
+    searchResultsList();
+    return "complete";
   }
 
   @override
@@ -77,7 +135,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
         ),
         centerTitle: true,
         actions: [
-          EmployeeSearchBar(),
+          EmployeeSearchBar(textEditingController: _searchController,),
           EmployeeFilterButton(
             height: 3.h,
             margin: 8.5,
@@ -128,7 +186,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
                                   padding: EdgeInsets.all(_w / 30),
                                   physics: BouncingScrollPhysics(
                                       parent: AlwaysScrollableScrollPhysics()),
-                                  itemCount: 2,
+                                  itemCount: _resultsList.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return AnimationConfiguration.staggeredList(
@@ -141,6 +199,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
                                         verticalOffset: -850,
                                         child: ExpandedDetails(
                                           index: index,
+                                          result: _resultsList[index],
                                         ),
                                       ),
                                     );
@@ -205,8 +264,8 @@ class MyPainter extends CustomPainter {
 
 class ExpandedDetails extends StatefulWidget {
   final int index;
-
-  const ExpandedDetails({Key key, this.index}) : super(key: key);
+final result;
+  const ExpandedDetails({Key key, this.index, this.result}) : super(key: key);
   @override
   _ExpandedDetailsState createState() => _ExpandedDetailsState();
 }
@@ -271,15 +330,13 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                             CircleAvatar(
                               radius: 21,
                               backgroundImage: NetworkImage(
-                                  fetchAndSetEmployerShops2
-                                      .shops[widget.index].shopImageUrl),
+                                  widget.result["shopImgUrl"]),
                             ),
                             SizedBox(
                               width: 25,
                             ),
                             Text(
-                              fetchAndSetEmployerShops2
-                                  .shops[widget.index].shopName,
+                              widget.result["shopName"],
                               style: TextStyle(
                                   fontSize: 21, fontWeight: FontWeight.bold),
                             ),
@@ -294,8 +351,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(fetchAndSetEmployerShops2
-                                        .shops[widget.index].city ??
+                                Text(widget.result["city"] ??
                                     "Null"),
                               ],
                             ),
@@ -319,8 +375,8 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              fetchAndSetEmployerShops2
-                                  .shops[widget.index].shopName,
+
+                                  widget.result["shopName"],
                               style: TextStyle(
                                   color: Colors.blue[900],
                                   fontSize: 22,
@@ -337,8 +393,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              fetchAndSetEmployerShops2
-                                      .shops[widget.index].city ??
+                              widget.result["city"] ??
                                   "Null",
                               style: TextStyle(
                                   color: Colors.black,
@@ -361,13 +416,11 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Hero(
-                              tag: fetchAndSetEmployerShops2
-                                  .shops[widget.index].shopImageUrl,
+                              tag: widget.result["shopImgUrl"],
                               child: CircleAvatar(
                                 radius: 75,
                                 backgroundImage: NetworkImage(
-                                    fetchAndSetEmployerShops2
-                                        .shops[widget.index].shopImageUrl),
+                                    widget.result["shopImgUrl"]),
                               ),
                             ),
                             SizedBox(
@@ -384,8 +437,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  fetchAndSetEmployerShops2
-                                      .shops[widget.index].ownerName,
+                                  widget.result["ownerName"],
                                 ),
                                 SizedBox(
                                   height: 10,
@@ -396,10 +448,8 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(fetchAndSetEmployerShops2
-                                    .shops[widget.index]
-                                    .jobsAvailable[widget.index]
-                                    .workingHours),
+                                Text(widget.result["workingHours"]
+                                    ),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -409,10 +459,9 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(fetchAndSetEmployerShops2
-                                    .shops[widget.index]
-                                    .jobsAvailable[widget.index % 2]
-                                    .salary),
+                                Text(
+                                    widget.result["salary"]
+                                    ),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -421,19 +470,15 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       const EdgeInsets.fromLTRB(35.0, 4, 0, 0),
                                   child: ElevatedButton(
                                       onPressed: () {
+
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 JobDetailsScreen(
                                               isWithdrawing: false,
-                                              jobId: fetchAndSetEmployerShops2
-                                                  .shops[widget.index]
-                                                  .jobsAvailable[
-                                                      widget.index % 2]
-                                                  .jobId,
-                                              shopId: fetchAndSetEmployerShops2
-                                                  .shops[widget.index].shopid,
+                                              jobId: widget.result.id,
+                                              shopId: widget.result['shopId'],
                                             ),
                                           ),
                                         );

@@ -36,6 +36,8 @@ class _signup_page2State extends State<signup_page2> {
   final SalaryExpextation = TextEditingController();
   final ExpectedJobs = TextEditingController();
   final Experience = TextEditingController();
+  final minSal = TextEditingController();
+  final maxSal = TextEditingController();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -45,6 +47,8 @@ class _signup_page2State extends State<signup_page2> {
     SalaryExpextation.dispose();
     ExpectedJobs.dispose();
     Experience.dispose();
+    minSal.dispose();
+    maxSal.dispose();
     super.dispose();
   }
 
@@ -60,6 +64,7 @@ class _signup_page2State extends State<signup_page2> {
   DateTime _dateTime;
 
   Widget build(BuildContext context) {
+    print(widget.imgUrl);
     return Form(
       key: _formkey2,
       child: Scaffold(
@@ -230,7 +235,7 @@ class _signup_page2State extends State<signup_page2> {
                         height: 50,
                         width: 90,
                         child: TextFormField(
-                          // controller: Aadhar,
+                          controller: minSal,
                           decoration: InputDecoration(
                             floatingLabelStyle: TextStyle(
                               color: Colors.green,
@@ -291,7 +296,7 @@ class _signup_page2State extends State<signup_page2> {
                         height: 50,
                         width: 90,
                         child: TextFormField(
-                          //  controller: Aadhar,
+                           controller: maxSal,
                           decoration: InputDecoration(
                             floatingLabelStyle: TextStyle(
                               color: Colors.green,
@@ -408,7 +413,8 @@ class _signup_page2State extends State<signup_page2> {
                                     Bio: Bio.text,
                                     dob: _dateTime.toString(),
                                     Experience: Experience.text,
-                                    SalaryExpextation: SalaryExpextation.text,
+                                    minSal: minSal.text,
+                                maxSal: maxSal.text,
                                 ImgUrl: widget.imgUrl,
                                   ),),
                         );

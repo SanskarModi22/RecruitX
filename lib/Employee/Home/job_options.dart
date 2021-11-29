@@ -12,11 +12,15 @@ class JobOptions extends StatefulWidget {
 class _JobOptionsState extends State<JobOptions> {
   // ignore: non_constant_identifier_names
   List<String> Jobs = [
-    "Grocery",
-    "Watchmen",
-    "Medical",
-    "Restaurant",
-    "Maid Service"
+    "Driver",
+    "Watchman",
+    "Halwai",
+    "Peon",
+    "Tutor",
+    "Labour",
+    "Waiter",
+    "Maid",
+    "Security Guard"
   ];
   Widget build(BuildContext context) {
     return Container(

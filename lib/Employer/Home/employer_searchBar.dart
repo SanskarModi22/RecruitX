@@ -4,23 +4,23 @@ import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
 class EmployerSearchBar extends StatefulWidget {
-  const EmployerSearchBar({key}) : super(key: key);
-
+   EmployerSearchBar({key,this.textEditingController}) : super(key: key);
+TextEditingController textEditingController;
   @override
   _EmployerSearchBarState createState() => _EmployerSearchBarState();
 }
 
-int toggle = 0;
+int toggler = 0;
 
 // ignore: camel_case_types
 class _EmployerSearchBarState extends State<EmployerSearchBar>
     with SingleTickerProviderStateMixin {
   AnimationController _con;
-  TextEditingController _textEditingController;
+
   @override
   void initState() {
     super.initState();
-    _textEditingController = TextEditingController();
+    // _textEditingController = TextEditingController();
     _con = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 400),
@@ -40,12 +40,12 @@ class _EmployerSearchBarState extends State<EmployerSearchBar>
           padding: const EdgeInsets.all(8.0),
           child: Container(
             height: height / 8,
-            width: (toggle == 0) ? width / 8.166 : width / 1.57,
+            width: (toggler == 0) ? width / 8.166 : width / 1.57,
             alignment: Alignment(-1.0, 0.0),
             child: AnimatedContainer(
               duration: Duration(milliseconds: 400),
               height: 48.0,
-              width: (toggle == 0) ? width / 8.166 : width / 1.57,
+              width: (toggler == 0) ? width / 8.166 : width / 1.57,
               curve: Curves.easeOut,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -67,7 +67,7 @@ class _EmployerSearchBarState extends State<EmployerSearchBar>
                     right: 7.0,
                     curve: Curves.easeOut,
                     child: AnimatedOpacity(
-                      opacity: (toggle == 0) ? 0.0 : 1.0,
+                      opacity: (toggler == 0) ? 0.0 : 1.0,
                       duration: Duration(milliseconds: 200),
                       child: Container(
                         padding: EdgeInsets.all(8.0),
@@ -94,17 +94,17 @@ class _EmployerSearchBarState extends State<EmployerSearchBar>
                   ),
                   AnimatedPositioned(
                     duration: Duration(milliseconds: 375),
-                    left: (toggle == 0) ? 20.0 : 40.0,
+                    left: (toggler == 0) ? 20.0 : 40.0,
                     curve: Curves.easeOut,
                     top: 11.0,
                     child: AnimatedOpacity(
-                      opacity: (toggle == 0) ? 0.0 : 1.0,
+                      opacity: (toggler == 0) ? 0.0 : 1.0,
                       duration: Duration(milliseconds: 200),
                       child: Container(
                         height: 23.0,
                         width: 180.0,
                         child: TextField(
-                          controller: _textEditingController,
+                          controller: widget.textEditingController,
                           cursorRadius: Radius.circular(10.0),
                           cursorWidth: 2.0,
                           cursorColor: Colors.black,
@@ -135,12 +135,12 @@ class _EmployerSearchBarState extends State<EmployerSearchBar>
                       onPressed: () {
                         setState(
                               () {
-                            if (toggle == 0) {
-                              toggle = 1;
+                            if (toggler == 0) {
+                              toggler = 1;
                               _con.forward();
                             } else {
-                              toggle = 0;
-                              _textEditingController.clear();
+                              toggler = 0;
+                              widget.textEditingController.clear();
                               _con.reverse();
                             }
                           },

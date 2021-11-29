@@ -1,10 +1,14 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 // ignore: camel_case_types
 class EmployeeSearchBar extends StatefulWidget {
-  const EmployeeSearchBar({key}) : super(key: key);
+   EmployeeSearchBar({key,this.textEditingController}) : super(key: key);
+  TextEditingController textEditingController;
+
 
   @override
   _EmployeeSearchBarState createState() => _EmployeeSearchBarState();
@@ -16,16 +20,76 @@ int toggle = 0;
 class _EmployeeSearchBarState extends State<EmployeeSearchBar>
     with SingleTickerProviderStateMixin {
   AnimationController _con;
-  TextEditingController _textEditingController;
+  // TextEditingController _searchController=widget.textEditingController;
+  //
+  // Future resultsLoaded;
+  // List _allResults = [];
+  // List _resultsList = [];
+  // bool isExpanded = false;
   @override
   void initState() {
     super.initState();
-    _textEditingController = TextEditingController();
+    // _searchController = TextEditingController();
+    // _searchController.addListener(_onSearchChanged);
     _con = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 400),
     );
   }
+  // @override
+  // void dispose() {
+  //   _searchController.removeListener(_onSearchChanged);
+  //   _searchController.dispose();
+  //   super.dispose();
+  // }
+  //
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   resultsLoaded = getUsersPastTripsStreamSnapshots();
+  // }
+  //
+  // _onSearchChanged() {
+  //   searchResultsList();
+  // }
+  //
+  // searchResultsList() {
+  //   var showResults = [];
+  //
+  //   if (_searchController.text != "") {
+  //     for (var tripSnapshot in _allResults) {
+  //       var title = tripSnapshot["shopName"].toString().toLowerCase();
+  //
+  //       if (title.toLowerCase().contains(_searchController.text.toLowerCase())) {
+  //         showResults.add(tripSnapshot);
+  //         setState(() {
+  //           isExpanded = true;
+  //         });
+  //       }
+  //     }
+  //   } else {
+  //     // showResults = List.from(_allResults);
+  //     setState(() {
+  //       isExpanded = false;
+  //     });
+  //   }
+  //   setState(() {
+  //     _resultsList = showResults;
+  //   });
+  // }
+  //
+  // getUsersPastTripsStreamSnapshots() async {
+  //   // final user = Provider.of<MyUser>(context);
+  //   var data = await FirebaseFirestore.instance
+  //       .collection('jobs')
+  //       .get();
+  //   setState(() {
+  //     _allResults = data.docs;
+  //   });
+  //   searchResultsList();
+  //   return "complete";
+  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -101,29 +165,29 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
                       opacity: (toggle == 0) ? 0.0 : 1.0,
                       duration: Duration(milliseconds: 200),
                       child: Container(
-                        height: 23.0,
-                        width: 180.0,
-                        child: TextField(
-                          controller: _textEditingController,
-                          cursorRadius: Radius.circular(10.0),
-                          cursorWidth: 2.0,
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            labelText: 'Type Here',
-                            labelStyle: TextStyle(
-                              color: Color(0xff5B5B5B),
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            alignLabelWithHint: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                              borderSide: BorderSide.none,
-                            ),
+                      height: 23.0,
+                      width: 180.0,
+                      child: TextField(
+                        controller:widget.textEditingController,
+                        cursorRadius: Radius.circular(10.0),
+                        cursorWidth: 2.0,
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          labelText: 'Type Here',
+                          labelStyle: TextStyle(
+                            color: Color(0xff5B5B5B),
+                            fontSize: 17.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          alignLabelWithHint: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: BorderSide.none,
                           ),
                         ),
                       ),
+                        ),
                     ),
                   ),
                   Material(
@@ -140,7 +204,7 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
                               _con.forward();
                             } else {
                               toggle = 0;
-                              _textEditingController.clear();
+                              widget.textEditingController.clear();
                               _con.reverse();
                             }
                           },

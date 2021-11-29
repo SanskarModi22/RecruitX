@@ -9,39 +9,39 @@ import 'package:helping_hand/Model/user.dart';
 import 'package:provider/provider.dart';
 
 class DatabaseServices {
-
   final String uid;
   DatabaseServices({this.uid});
   CollectionReference employeeProfile =
       FirebaseFirestore.instance.collection('employeeProfile');
   CollectionReference employerProfile =
       FirebaseFirestore.instance.collection('employerProfile');
-  CollectionReference shops =
-  FirebaseFirestore.instance.collection('shops');
-
+  CollectionReference shops = FirebaseFirestore.instance.collection('shops');
 
   // ignore: todo
   //TODO:EMPLOYEE
   //ADD and UPDATE Employee
-  Future<void> updateEmployeeData({ String aadhar,
-    String employeeName,
-    String employeeAddress,
-    String employeeContactNumber,
-    String employeeBio,
-    String employeeAge,
-    String employeeDOB,
-    String employeeExperience,
-    String employeeExpectedSalary,
-    dynamic employeeExpectedJobs,
-    String currentlyWorkingAt,
-    String preferredJobType,
-    String employeePreferedShift,
-    double averageRating,
-    String imgUrl,
-    List<ReviewByEmployer> reviews,
-    bool isEmployee,
-    String uid
-  }) async {
+  Future<void> updateEmployeeData(
+      {String aadhar,
+      String employeeName,
+      String employeeAddress,
+      String employeeContactNumber,
+      String employeeBio,
+      String employeeAge,
+      String employeeDOB,
+      String employeeExperience,
+      String employeeExpectedSalary,
+      dynamic employeeExpectedJobs,
+      dynamic applications,
+      String currentlyWorkingAt,
+      String preferredJobType,
+      String employeePreferedShift,
+      double averageRating,
+      String imgUrl,
+      List<ReviewByEmployer> reviews,
+      bool isEmployee,
+      String minSal,
+      String maxSal,
+      String uid}) async {
     return await employeeProfile.doc(this.uid).set(
       {
         'name': employeeName,
@@ -51,17 +51,17 @@ class DatabaseServices {
         'dob': employeeDOB,
         'age': employeeAge,
         'experience': employeeExperience,
-        'expectedSalary': employeeExpectedSalary,
         'expectedJobs': employeeExpectedJobs,
         'currentWork': currentlyWorkingAt,
-        'preferredJob': preferredJobType,
+        'jobType': preferredJobType,
         'preferredShift': employeePreferedShift,
-        'averageRating': averageRating,
-        'reviews': reviews,
         'aadhar': aadhar,
-        'isEmployee':isEmployee,
-        'img_url':imgUrl,
-        'uid':uid
+        'isEmployee': isEmployee,
+        'img_url': imgUrl,
+        'minExpSalary': minSal,
+        'maxExpSalary': maxSal,
+        'appliedJobs': applications,
+        'backgroundImgUrl':"https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg",
       },
     );
   }
@@ -78,27 +78,27 @@ class DatabaseServices {
   //READ Employee
   Employee _empFromSnap(DocumentSnapshot snapshot) {
     return Employee(
-      uid: snapshot['uid'],
-      employeeImage: snapshot['img_url'],
-      averageRating: snapshot['averageRating'],
-      currentlyWorkingAt: snapshot['currentWork'],
-      employeeAge: snapshot['age'],
-      employeeAddress: snapshot['address'],
-      employeeBio: snapshot['bio'],
-      employeeDOB: snapshot['dob'],
-      employeeContactNumber: snapshot['contact'],
-      preferredJobType: snapshot['preferredJob'],
-      employeeExpectedJobs: snapshot['expectedJobs'],
-      employeeExpectedSalary: snapshot['expectedSalary'],
-      employeeExperience: snapshot['experience'],
-      employeeName: snapshot['name'],
-      employeePreferedShift: snapshot['preferredShift'],
-      reviews: snapshot['reiews'],
-      aadhar: snapshot['aadhar'],
-      isEmployee: snapshot['isEmployee'],
-
-
-    );
+        uid: snapshot['uid'],
+        employeeImage: snapshot['img_url'],
+        averageRating: snapshot['averageRating'],
+        currentlyWorkingAt: snapshot['currentWork'],
+        employeeAge: snapshot['age'],
+        employeeAddress: snapshot['address'],
+        employeeBio: snapshot['bio'],
+        employeeDOB: snapshot['dob'],
+        employeeContactNumber: snapshot['contact'],
+        preferredJobType: snapshot['preferredJob'],
+        employeeExpectedJobs: snapshot['expectedJobs'],
+        employeeExpectedSalary: snapshot['expectedSalary'],
+        employeeExperience: snapshot['experience'],
+        employeeName: snapshot['name'],
+        employeePreferedShift: snapshot['preferredShift'],
+        reviews: snapshot['reiews'],
+        aadhar: snapshot['aadhar'],
+        isEmployee: snapshot['isEmployee'],
+        applications: snapshot['applications'],
+        maxSal: snapshot['maxExpSal'],
+        minSal: snapshot['minExpSal']);
   }
 
   //FETCHING Employee
@@ -110,26 +110,24 @@ class DatabaseServices {
   //TODO:EMPLOYER
   //ADDING and UPDATING Employer
   Future<void> updateEmployerData(
-  { String aadhar,
-    String employerName,
-    String employerAddress,
-    String employerContactNumber,
-    String employerBio,
-    String employerAge,
-    String employerDOB,
-    double averageRating,
-    String shopDesc,
-    List<ReviewByEmployer> reviews,
-    List<Shop> shops,
+      {String aadhar,
+      String employerName,
+      String employerAddress,
+      String employerContactNumber,
+      String employerBio,
+      String employerAge,
+      String employerDOB,
+      double averageRating,
+      String shopDesc,
+      List<ReviewByEmployer> reviews,
+      List<Shop> shops,
       String shopName,
-    String city,
-    String state,
-    bool isEmployer,
-    bool isEmployee,
-    String shopImg,
-    String employerImg
-  }
-  ) async {
+      String city,
+      String state,
+      bool isEmployer,
+      bool isEmployee,
+      String shopImg,
+      String employerImg}) async {
     return await employerProfile.doc(uid).set(
       {
         'name': employerName,
@@ -138,46 +136,40 @@ class DatabaseServices {
         'bio': employerBio,
         'dob': employerDOB,
         'age': employerAge,
-        'averageRating': averageRating,
-        'reviews': reviews,
-        'shops': shops,
+        'averageRating': 4.99,
         'aadhar': aadhar,
-        'shopName':shopName,
-        'shopDesc':shopDesc,
-        'city':city,
-        'state':state,
-        'isEmployer':isEmployer,
-        'isEmployee':isEmployee,
-        'shopImg':shopImg,
-        'employerImg':employerImg,
+        'city': city,
+        'state': state,
+        'isEmployer': isEmployer,
+        'isEmployee': isEmployee,
+        'shopImg': shopImg,
+        'employerImg': employerImg,
+
       },
     );
   }
-  Future<void> updateShop(
-      {
-        String employerName,
-        String shopAddress,
-        String employerContactNumber,
 
-        String shopDesc,
-        String shopType,
-        String shopName,
-        String city,
-        String state,
-        String shopImage,
-
-      }
-      ) async {
+  Future<void> updateShop({
+    String employerName,
+    String shopAddress,
+    String employerContactNumber,
+    String shopDesc,
+    String shopType,
+    String shopName,
+    String city,
+    String state,
+    String shopImage,
+  }) async {
     return await shops.doc(uid).set(
       {
         'ownerName': employerName,
         'shopAddress': shopAddress,
-        'shopName':shopName,
-        'shopDesc':shopDesc,
-        'city':city,
-        'shopType':shopType,
-        'shopImgUrl':shopImage,
-        'ownerId':uid
+        'shopName': shopName,
+        'shopDesc': shopDesc,
+        'city': city,
+        'shopType': "Company",
+        'shopImgUrl': shopImage,
+        'ownerId': uid
       },
     );
   }
@@ -194,6 +186,7 @@ class DatabaseServices {
           ),
         );
   }
+
   //DELETING Shop
   Future<void> deleteShop(uid) {
     return shops
@@ -202,9 +195,9 @@ class DatabaseServices {
         .then((value) => print("$uid Deleted"))
         .catchError(
           (error) => print(
-        "Failed to delete user: $error",
-      ),
-    );
+            "Failed to delete user: $error",
+          ),
+        );
   }
 
 //READING Employer
@@ -221,15 +214,14 @@ class DatabaseServices {
         reviews: snapshot.get('reviews'),
         aadhar: snapshot.get('aadhar'),
         shops: snapshot.get('shops'),
-    shopName:snapshot.get('shopName'),
-      shopDesc: snapshot.get('shopDesc'),
-      city: snapshot.get('city'),
-      state: snapshot.get('state'),
-      isEmployer: snapshot.get('isEmployer'),
-      isEmployee: snapshot.get('isEmployee'),
-      shopImg: snapshot.get('shopImg'),
-      EmployerImg: snapshot.get('employerImg')
-    );
+        shopName: snapshot.get('shopName'),
+        shopDesc: snapshot.get('shopDesc'),
+        city: snapshot.get('city'),
+        state: snapshot.get('state'),
+        isEmployer: snapshot.get('isEmployer'),
+        isEmployee: snapshot.get('isEmployee'),
+        shopImg: snapshot.get('shopImg'),
+        EmployerImg: snapshot.get('employerImg'));
   }
 
   //FETCHING Employer

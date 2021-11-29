@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 // import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
@@ -7,6 +8,7 @@ import 'package:helping_hand/providers/user_information.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../employer_searchBar.dart';
 import 'employee_detail.dart';
 
 class EmployeeList extends StatefulWidget {
@@ -24,10 +26,17 @@ class _EmployeeListState extends State<EmployeeList>
   Animation<double> _animation2;
   bool isTapped;
   bool isExpanded;
+  TextEditingController _searchController = TextEditingController();
+
+  Future resultsLoaded;
+  List _allResults = [];
+  List _resultsList = [];
+  List<String>JobTypes=["Driver","Halwai","Peon","Labour","Tutor","Security Guard","Waiter","Maid","Watchman"];
+
   @override
   void initState() {
     super.initState();
-
+    _searchController.addListener(_onSearchChanged);
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
@@ -48,8 +57,63 @@ class _EmployeeListState extends State<EmployeeList>
   @override
   void dispose() {
     _controller.dispose();
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
     super.dispose();
   }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    resultsLoaded = getUsersPastTripsStreamSnapshots();
+  }
+
+  _onSearchChanged() {
+    searchResultsList();
+  }
+
+  searchResultsList() {
+    var showResults = [];
+
+    if (_searchController.text != "") {
+      for (var tripSnapshot in _allResults) {
+
+        var title = tripSnapshot["name"].toString().toLowerCase();
+        print(title);
+        // print(title);
+        // print(title[0].toString());
+        // print(title.map((e)=>title(e)=="Driver"));
+        // for(int i=0;i<title.length;i++){
+        if (title.contains(_searchController.text.toLowerCase())) {
+          showResults.add(tripSnapshot);
+          setState(() {
+            isExpanded = true;
+          });
+        }}
+
+    } else {
+      showResults = List.from(_allResults);
+      setState(() {
+        isExpanded = false;
+      });
+    }
+    setState(() {
+      _resultsList = showResults;
+    });
+  }
+
+  getUsersPastTripsStreamSnapshots() async {
+    // final user = Provider.of<MyUser>(context);
+    var data =
+    await FirebaseFirestore.instance.collection('employeeProfile').where("expectedJobs",arrayContains: widget.text).get();
+    setState(() {
+      _allResults = data.docs;
+      print(_allResults.toList());
+    });
+    searchResultsList();
+    return "complete";
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +126,7 @@ class _EmployeeListState extends State<EmployeeList>
         titleSpacing: 7.w,
         title: Row(
           children: [
-            toggle == 0
+            toggler == 0
                 ? Text(
                     '${widget.text}',
                     style: TextStyle(
@@ -78,7 +142,7 @@ class _EmployeeListState extends State<EmployeeList>
         ),
         centerTitle: true,
         actions: [
-          EmployeeSearchBar(),
+          EmployerSearchBar(textEditingController: _searchController,),
           EmployeeFilterButton(
             height: 3.h,
             margin: 8.5,
@@ -129,7 +193,7 @@ class _EmployeeListState extends State<EmployeeList>
                                   padding: EdgeInsets.all(_w / 30),
                                   physics: BouncingScrollPhysics(
                                       parent: AlwaysScrollableScrollPhysics()),
-                                  itemCount: 2,
+                                  itemCount: _resultsList.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return AnimationConfiguration.staggeredList(
@@ -142,6 +206,7 @@ class _EmployeeListState extends State<EmployeeList>
                                         verticalOffset: -850,
                                         child: EmployeeExpandedDetails(
                                           index: index,
+                                          result: _resultsList[index],
                                         ),
                                       ),
                                     );
@@ -206,8 +271,8 @@ class MyPainter extends CustomPainter {
 
 class EmployeeExpandedDetails extends StatefulWidget {
   final int index;
-
-  const EmployeeExpandedDetails({Key key, this.index}) : super(key: key);
+final result;
+  const EmployeeExpandedDetails({Key key, this.index, this.result}) : super(key: key);
   @override
   _EmployeeExpandedDetailsState createState() =>
       _EmployeeExpandedDetailsState();
@@ -277,13 +342,13 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                             CircleAvatar(
                               radius: 21,
                               backgroundImage: NetworkImage(
-                                  fetchAndSetUserinfoforEmployee.employeeImage),
+                                  widget.result['img_url']),
                             ),
                             SizedBox(
                               width: 25,
                             ),
                             Text(
-                              fetchAndSetUserinfoforEmployee.employeeName,
+                              widget.result['name'],
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.bold),
                             ),
@@ -299,8 +364,8 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(fetchAndSetUserinfoforEmployee
-                                    .employeeExperience),
+                                Text(widget.result["experience"]
+                                    ),
                               ],
                             ),
                             SizedBox(
@@ -323,7 +388,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              fetchAndSetUserinfoforEmployee.employeeName,
+                              widget.result['name'],
                               style: TextStyle(
                                   color: Colors.blue[900],
                                   fontSize: 22,
@@ -345,12 +410,11 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Hero(
-                              tag: fetchAndSetUserinfoforEmployee.employeeImage,
+                              tag:  widget.result['img_url'],
                               child: CircleAvatar(
                                 radius: 75,
                                 backgroundImage: NetworkImage(
-                                    fetchAndSetUserinfoforEmployee
-                                        .employeeImage),
+                                    widget.result['img_url']),
                               ),
                             ),
                             SizedBox(
@@ -367,7 +431,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  fetchAndSetUserinfoforEmployee.averageRating
+                                  widget.result['averageRating']
                                       .toString(),
                                 ),
                                 SizedBox(
@@ -379,8 +443,8 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(fetchAndSetUserinfoforEmployee
-                                    .employeePreferedShift),
+                                Text(widget.result['preferredShift']
+                                    ),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -390,8 +454,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(fetchAndSetUserinfoforEmployee
-                                    .employeeExpectedSalary),
+                                Text("${widget.result['minExpSalary']}-${widget.result['maxExpSalary']}"),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -405,7 +468,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 EmployeeDetailScreen(
-                                                    empId: "123"),
+                                                    result:widget.result),
                                           ),
                                         );
                                       },
