@@ -83,7 +83,10 @@ class _JobCardsState extends State<JobCards> {
         );
       }
       else {
-        return CircularProgressIndicator();
+        return SizedBox(
+          width: 20,
+            height: 20,
+            child: Center(child: CircularProgressIndicator()));
       }
     });
           }),
