@@ -230,6 +230,7 @@ class __BodyState extends State<_Body> {
                         ),
                         // width: 180,
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
@@ -242,7 +243,7 @@ class __BodyState extends State<_Body> {
                             ),
                             Container(
                               margin: EdgeInsets.all(2),
-                              width: 15.w,
+                              // width: 15.w,
                               // margin: EdgeInsets.symmetric(vertical: 5),
                               padding: EdgeInsets.symmetric(
                                 vertical: 5,
