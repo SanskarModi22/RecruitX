@@ -327,12 +327,12 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                 boxShadow: [
                   BoxShadow(
                     color: Color(0xff6F12E8).withOpacity(0.5),
-                    blurRadius: 20,
+                    blurRadius: 15.3.sp,
                     offset: Offset(0, 10),
                   ),
                 ],
               ),
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(15.3.sp),
               child: isTapped
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -413,7 +413,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                             Hero(
                               tag:  widget.result['img_url'],
                               child: CircleAvatar(
-                                radius: 75,
+                                radius: 57.sp,
                                 backgroundImage: NetworkImage(
                                     widget.result['img_url']),
                               ),

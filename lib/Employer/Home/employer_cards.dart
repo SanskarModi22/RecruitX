@@ -14,14 +14,14 @@ class EmployeeCards extends StatefulWidget {
 class _EmployeeCardsState extends State<EmployeeCards> {
   // ignore: non_constant_identifier_names
   List<String> PopularJobs = [
-    "Driver",
-    "Watchman",
-    "Halwai",
-    "Peon",
     "Tutor",
     "Labour",
     "Waiter",
     "Maid",
+    "Driver",
+    "Watchman",
+    "Halwai",
+    "Peon",
     "Guard"
   ];
   // var len;

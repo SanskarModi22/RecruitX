@@ -315,7 +315,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                 boxShadow: [
                   BoxShadow(
                     color: Color(0xff6F12E8).withOpacity(0.5),
-                    blurRadius: 20,
+                    blurRadius: 15.3.sp,
                     offset: Offset(0, 10),
                   ),
                 ],
@@ -328,7 +328,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                         Row(
                           children: [
                             CircleAvatar(
-                              radius: 21,
+                              radius: 16.15.sp,
                               backgroundImage: NetworkImage(
                                   widget.result["shopImgUrl"]),
                             ),
@@ -418,7 +418,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                             Hero(
                               tag: widget.result["shopImgUrl"],
                               child: CircleAvatar(
-                                radius: 75,
+                                radius: 57.sp,
                                 backgroundImage: NetworkImage(
                                     widget.result["shopImgUrl"]),
                               ),

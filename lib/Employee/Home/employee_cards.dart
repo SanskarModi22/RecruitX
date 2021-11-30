@@ -74,7 +74,7 @@ class _JobCardsState extends State<JobCards> {
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.center,
                         maxLines: 2,
-                        style: TextStyle(fontSize: 13.sp),
+                        style: TextStyle(fontSize: 14.sp),
                       ),
                     )
                   ]),
