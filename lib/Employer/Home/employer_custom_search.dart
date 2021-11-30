@@ -86,6 +86,7 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
 
   @override
   Widget build(BuildContext context) {
+
     return Stack(
       children: [
         Container(
@@ -118,8 +119,8 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
                 color: Colors.blueAccent,
               ),
               contentPadding: EdgeInsets.all(1.2.h),
-              hintText: "Find Employees",
-              hintStyle: TextStyle(color: Colors.grey[600], fontSize: 2.7.h),
+              hintText: "maid,driver,etc",
+              hintStyle: TextStyle(color: Colors.grey[600], fontSize: 14.sp),
             ),
           ),
         ),

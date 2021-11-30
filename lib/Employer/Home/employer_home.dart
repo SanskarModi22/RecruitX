@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/employee_Custom_Search.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
@@ -6,9 +8,11 @@ import 'package:helping_hand/Employee/Home/employee_pref.dart';
 import 'package:helping_hand/Employee/Home/employee_cards.dart';
 import 'package:helping_hand/Employer/Home/employer_preference.dart';
 import 'package:helping_hand/Model/Profile/employer_profile.dart';
+import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/drawer/drawer.dart';
 
 import 'package:helping_hand/Employee/Home/job_options.dart';
+import 'package:provider/provider.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -25,144 +29,183 @@ class EmployerHome extends StatefulWidget {
 }
 
 class _EmployerHomeState extends State<EmployerHome> {
+
+  // final user = Provider.of<MyUser>(context);
+  final cUser = FirebaseAuth.instance.currentUser.uid;
+  // var data;
+  // var result;
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   result = getEmployerData();
+  // }
+  // Future <void> getEmployerData() async{
+  //   try{
+  //     data =
+  //   await FirebaseFirestore.instance.collection('employerProfile').doc(cUser).get();
+  //   }
+  //   catch(err){
+  //     print(err.toString());
+  //   }
+  //
+  // }
+  // @override
+  //  initState()  {
+  //   super.initState();
+  //    getEmployerData();
+  // }
   @override
   Widget build(BuildContext context) {
+// print(data['name'].toString());
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.greenAccent,
-          elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
-          actions: <Widget>[
-            CircleAvatar(
-              radius: 20.sp,
-              child: Image.asset(
-                "assets/images/avatar.png",
-                height: 7.h,
-                fit: BoxFit.cover,
-              ),
-            )
-          ],
-        ),
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              ClipPath(
-                clipper: ClipPathClass(),
-                child: Container(
-                  color: Colors.greenAccent,
-                  height: 26.4.h,
-                  width: 100.w,
+      child: FutureBuilder(
+        future: FirebaseFirestore.instance.collection('employerProfile').doc(cUser).get(),
+        builder: (context,AsyncSnapshot snapshot){
+          if(snapshot.hasData)
+            {
+              var data = snapshot.data;
+              return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.greenAccent,
+                  elevation: 0,
+                  iconTheme: IconThemeData(color: Colors.black),
+                  actions: <Widget>[
+                    CircleAvatar(
+                      radius: 20.sp,backgroundColor: Colors.transparent,
+                      backgroundImage: NetworkImage(
+                        data['employerImg'],
+
+                       //  width: 10.w,
+                      )
+                    )
+                  ],
                 ),
-              ),
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15.sp, 0, 0, 0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
+                body: SingleChildScrollView(
+                  child: Stack(
+                    children: [
+                      ClipPath(
+                        clipper: ClipPathClass(),
+                        child: Container(
+                          color: Colors.greenAccent,
+                          height: 26.4.h,
+                          width: 100.w,
+                        ),
+                      ),
+                      Container(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Hello Sanskar",
-                              style: TextStyle(
-                                  fontSize: 16.sp, fontWeight: FontWeight.bold),
+                            Padding(
+                              padding: EdgeInsets.fromLTRB(15.sp, 0, 0, 0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Hello ${data['name']}",
+                                      style: TextStyle(
+                                          fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    Text(
+                                      "Find Your Employee",
+                                      style: TextStyle(fontSize: 16.sp),
+                                    ),
+                                    SizedBox(
+                                      height: 3.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        EmployerCustomSearch(),
+                                        SizedBox(
+                                          width: 6.w,
+                                        ),
+                                        // ElevatedButton(
+                                        //   style: ButtonStyle(
+                                        //       minimumSize: MaterialStateProperty.all(
+                                        //           Size(4.w, 6.h),),
+                                        //       shape: MaterialStateProperty.all(
+                                        //           RoundedRectangleBorder(
+                                        //             borderRadius:
+                                        //             BorderRadius.circular(14.sp),
+                                        //           )),
+                                        //       backgroundColor:
+                                        //       MaterialStateProperty.all(
+                                        //           Colors.white)),
+                                        //   onPressed: () {
+                                        //     Navigator.of(context).push(
+                                        //       MaterialPageRoute(
+                                        //         builder: (context) => JobList(),
+                                        //       ),
+                                        //     );
+                                        //   },
+                                        //   child: Container(
+                                        //     child: Image.asset(
+                                        //       "assets/images/filter.png",
+                                        //       height: 4.h,
+                                        //       fit: BoxFit.fill,
+                                        //       color: Colors.blue,
+                                        //     ),
+                                        //   ),
+                                        // )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 4.h,
+                            ),
+                            EmployeeOptions(),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Center(
+                                child: Text(
+                                  "Availaible Employees",
+                                  style: TextStyle(
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            EmployeeCards(),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Center(
+                              child: Text(
+                                "Related To your Preference",
+                                style: TextStyle(
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                             SizedBox(
                               height: 1.h,
                             ),
-                            Text(
-                              "Find Your Employee",
-                              style: TextStyle(fontSize: 16.sp),
-                            ),
-                            SizedBox(
-                              height: 3.h,
-                            ),
-                            Row(
-                              children: [
-                                EmployerCustomSearch(),
-                                SizedBox(
-                                  width: 6.w,
-                                ),
-                                // ElevatedButton(
-                                //   style: ButtonStyle(
-                                //       minimumSize: MaterialStateProperty.all(
-                                //           Size(4.w, 6.h),),
-                                //       shape: MaterialStateProperty.all(
-                                //           RoundedRectangleBorder(
-                                //             borderRadius:
-                                //             BorderRadius.circular(14.sp),
-                                //           )),
-                                //       backgroundColor:
-                                //       MaterialStateProperty.all(
-                                //           Colors.white)),
-                                //   onPressed: () {
-                                //     Navigator.of(context).push(
-                                //       MaterialPageRoute(
-                                //         builder: (context) => JobList(),
-                                //       ),
-                                //     );
-                                //   },
-                                //   child: Container(
-                                //     child: Image.asset(
-                                //       "assets/images/filter.png",
-                                //       height: 4.h,
-                                //       fit: BoxFit.fill,
-                                //       color: Colors.blue,
-                                //     ),
-                                //   ),
-                                // )
-                              ],
-                            ),
+                            EmployerEmployeePreference()
                           ],
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 4.h,
-                    ),
-                    EmployeeOptions(),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Center(
-                        child: Text(
-                          "Availaible Employees",
-                          style: TextStyle(
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    EmployeeCards(),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    Center(
-                      child: Text(
-                        "Related To your Preference",
-                        style: TextStyle(
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 1.h,
-                    ),
-                    EmployerEmployeePreference()
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        drawer: drawer(),
+                drawer: drawer(),
+              );
+            }
+          else{
+            return CircularProgressIndicator();
+          }
+        }
+
       ),
     );
   }

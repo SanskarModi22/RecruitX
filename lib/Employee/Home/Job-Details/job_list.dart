@@ -142,7 +142,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
           )
         ],
       ),
-      body: Stack(
+      body: _resultsList.length>0? Stack(
         children: [
           ListView(
             physics:
@@ -219,7 +219,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
             child: Container(height: 0),
           ),
         ],
-      ),
+      ):Center(child: Text("Sorry No jobs Availaible",),)
     );
   }
 }
@@ -281,7 +281,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
     return Column(
       children: [
         SizedBox(
-          height: 30,
+          height: 3.75.h,
         ),
         InkWell(
           highlightColor: Colors.transparent,
@@ -333,15 +333,15 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                   widget.result["shopImgUrl"]),
                             ),
                             SizedBox(
-                              width: 25,
+                              width: 6.25.w,
                             ),
                             Text(
                               widget.result["shopName"],
                               style: TextStyle(
-                                  fontSize: 21, fontWeight: FontWeight.bold),
+                                  fontSize: 16.15.sp, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              width: 25,
+                              width: 6.25.w,
                             ),
                             Column(
                               children: [
@@ -356,14 +356,14 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                               ],
                             ),
                             SizedBox(
-                              width: 60,
+                              width: 15.w,
                             ),
                             Icon(
                               isTapped
                                   ? Icons.keyboard_arrow_down
                                   : Icons.keyboard_arrow_up,
                               color: Colors.black,
-                              size: 27,
+                              size: 20.sp,
                             ),
                           ],
                         ),
@@ -379,17 +379,17 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                   widget.result["shopName"],
                               style: TextStyle(
                                   color: Colors.blue[900],
-                                  fontSize: 22,
+                                  fontSize: 17.sp,
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              width: 40,
+                              width: 10.w,
                             ),
                             Text(
                               "City - ",
                               style: TextStyle(
                                   color: Colors.blue[900],
-                                  fontSize: 22,
+                                  fontSize: 17.sp,
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
@@ -398,19 +398,19 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 22),
+                                  fontSize: 17.sp),
                             ),
                             Icon(
                               isTapped
                                   ? Icons.keyboard_arrow_down
                                   : Icons.keyboard_arrow_up,
                               color: Colors.black,
-                              size: 27,
+                              size: 20.sp,
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 2.5.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -424,7 +424,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                               ),
                             ),
                             SizedBox(
-                              width: 30,
+                              width: 7.5.w,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -440,7 +440,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                   widget.result["ownerName"],
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 1.25.h,
                                 ),
                                 Text(
                                   "Working Hours",
@@ -451,7 +451,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                 Text(widget.result["workingHours"]
                                     ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 1.25.h,
                                 ),
                                 Text(
                                   "Salary offered",
@@ -463,11 +463,11 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                     widget.result["salary"]
                                     ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 1.25.h,
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(35.0, 4, 0, 0),
+                                       EdgeInsets.fromLTRB(8.75.w, 0.5.h, 0, 0),
                                   child: ElevatedButton(
                                       onPressed: () {
 

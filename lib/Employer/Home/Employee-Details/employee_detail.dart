@@ -66,7 +66,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Job Details',
+          'Employee Details',
           style: TextStyle(color: randomColor),
         ),
         iconTheme: IconThemeData(

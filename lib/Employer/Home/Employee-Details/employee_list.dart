@@ -149,7 +149,7 @@ class _EmployeeListState extends State<EmployeeList>
           )
         ],
       ),
-      body: Stack(
+      body: _resultsList.length>0? Stack(
         children: [
           ListView(
             physics:
@@ -226,7 +226,7 @@ class _EmployeeListState extends State<EmployeeList>
             child: Container(height: 0),
           ),
         ],
-      ),
+      ):Center(child: Text("Sorry No Employee Availaible",)),
     );
   }
 }
@@ -293,7 +293,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
     return Column(
       children: [
         SizedBox(
-          height: 30,
+          height: 3.75.h,
         ),
         InkWell(
           highlightColor: Colors.transparent,
@@ -345,15 +345,15 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                   widget.result['img_url']),
                             ),
                             SizedBox(
-                              width: 25,
+                              width: 6.25.w,
                             ),
                             Text(
                               widget.result['name'],
                               style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
+                                  fontSize: 10.7.sp, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
-                              width: 23,
+                              width: 5.75.w,
                             ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -364,19 +364,20 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
+
                                 Text(widget.result["experience"]
                                     ),
                               ],
                             ),
                             SizedBox(
-                              width: 30,
+                              width: 7.w,
                             ),
                             Icon(
                               isTapped
                                   ? Icons.keyboard_arrow_down
                                   : Icons.keyboard_arrow_up,
                               color: Colors.black,
-                              size: 27,
+                              size: 20.7.sp,
                             ),
                           ],
                         ),
@@ -391,7 +392,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                               widget.result['name'],
                               style: TextStyle(
                                   color: Colors.blue[900],
-                                  fontSize: 22,
+                                  fontSize: 17.sp,
                                   fontWeight: FontWeight.bold),
                             ),
                             Icon(
@@ -399,12 +400,12 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                   ? Icons.keyboard_arrow_down
                                   : Icons.keyboard_arrow_up,
                               color: Colors.black,
-                              size: 27,
+                              size: 20.7.sp,
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 2.5.h,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -418,7 +419,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                               ),
                             ),
                             SizedBox(
-                              width: 30,
+                              width: 7.5.w,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -435,7 +436,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                       .toString(),
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 1.25.h,
                                 ),
                                 Text(
                                   "Preferred Shift",
@@ -446,7 +447,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                 Text(widget.result['preferredShift']
                                     ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 1.25.h,
                                 ),
                                 Text(
                                   "Salary Expected",
@@ -456,11 +457,11 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                 ),
                                 Text("${widget.result['minExpSalary']}-${widget.result['maxExpSalary']}"),
                                 SizedBox(
-                                  height: 10,
+                                  height: 1.25.h,
                                 ),
                                 Padding(
                                   padding:
-                                      const EdgeInsets.fromLTRB(35.0, 4, 0, 0),
+                                       EdgeInsets.fromLTRB(8.75.w, 4, 0, 0),
                                   child: ElevatedButton(
                                       onPressed: () {
                                         Navigator.push(

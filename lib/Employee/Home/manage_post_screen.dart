@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
 import 'package:random_color/random_color.dart';
+import 'package:sizer/sizer.dart';
 
 class ManagePostForEmployee extends StatefulWidget {
   // const ManagePostForEmployee({ Key? key }) : super(key: key);
@@ -91,7 +92,7 @@ class _AppliedJobState extends State<AppliedJob> {
           AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return SizedBox(
-            height: 100,
+            height: 12.5.h,
             child: Center(child: CircularProgressIndicator()),
           );
         }
@@ -102,7 +103,7 @@ class _AppliedJobState extends State<AppliedJob> {
           return Text('error');
         }
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+          padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.875.h),
           child: _Body(
             workingDays: jobData['workingDays'],
             workingHours: jobData['workingHours'],
@@ -232,8 +233,8 @@ class __BodyState extends State<_Body> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: 60,
-                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              width: 15.w,
+                              padding: EdgeInsets.symmetric(horizontal: 2.5.w),
                               child: Text(
                                 'Salary',
                                 style: TextStyle(color: Colors.white),
@@ -241,11 +242,11 @@ class __BodyState extends State<_Body> {
                             ),
                             Container(
                               margin: EdgeInsets.all(2),
-                              width: 100,
+                              width: 15.w,
                               // margin: EdgeInsets.symmetric(vertical: 5),
                               padding: EdgeInsets.symmetric(
                                 vertical: 5,
-                                horizontal: 10,
+                                horizontal: 2.5.w,
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
@@ -267,8 +268,8 @@ class __BodyState extends State<_Body> {
                   widthFactor: 1,
                   child: Container(
                     margin: EdgeInsets.only(
-                      left: 10,
-                      right: 10,
+                      left: 2.5.w,
+                      right: 2.5.w,
                       top: 0,
                       bottom: 10,
                     ),
@@ -282,8 +283,8 @@ class __BodyState extends State<_Body> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 120,
-                          padding: EdgeInsets.only(left: 10, right: 15),
+                          width: 30.w,
+                          padding: EdgeInsets.only(left: 2.5.w, right: 3.75.w),
                           child: Text(
                             'Working Hours',
                             style: TextStyle(color: Colors.white),
@@ -296,7 +297,7 @@ class __BodyState extends State<_Body> {
                             // margin: EdgeInsets.symmetric(vertical: 5),
                             padding: EdgeInsets.symmetric(
                               vertical: 5,
-                              horizontal: 10,
+                              horizontal: 2.5.w,
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
