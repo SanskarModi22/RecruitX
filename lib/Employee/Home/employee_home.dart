@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/employee_Custom_Search.dart';
 import 'package:helping_hand/Employee/Home/employee_pref.dart';
@@ -21,11 +23,18 @@ class EmployeeHome extends StatefulWidget {
 class _EmployeeHomeState extends State<EmployeeHome> {
   @override
   Widget build(BuildContext context) {
-    print("sp=${1.sp}");
-    print("w=${1.w}");
-    print("h=${1.h}");
+    final cUser = FirebaseAuth.instance.currentUser.uid;
+    // print("sp=${1.sp}");
+    // print("w=${1.w}");
+    // print("h=${1.h}");
     return SafeArea(
-      child: Scaffold(
+      child: FutureBuilder(
+        future: FirebaseFirestore.instance.collection('employeeProfile').doc(cUser).get(),
+    builder: (context,AsyncSnapshot snapshot){
+    if(snapshot.hasData)
+    {
+      var data = snapshot.data;
+      return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.pink[600],
           elevation: 0,
@@ -33,10 +42,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
           actions: <Widget>[
             CircleAvatar(
               radius: 20.sp,
-              child: Image.asset(
-                "assets/images/avatar.png",
-                height: 7.h,
-                fit: BoxFit.cover,
+              backgroundImage: NetworkImage(
+                data['img_url']
               ),
             )
           ],
@@ -67,21 +74,20 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Hello Sanskar",
+                                  "Hello ${data['name']}",
                                   style: TextStyle(
                                       fontSize: 16.sp, fontWeight: FontWeight.bold),
                                 ),
-
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            Text(
-                              "Find Your Dream Job",
-                              style: TextStyle(fontSize: 16.sp),
-                            ),
-                            SizedBox(
-                              height: 3.h,
-                            ),  ],
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Text(
+                                  "Find Your Dream Job",
+                                  style: TextStyle(fontSize: 16.sp),
+                                ),
+                                SizedBox(
+                                  height: 3.h,
+                                ),  ],
                             ),
                             Padding(
                               padding:  EdgeInsets.fromLTRB(0,20.w,0,0),
@@ -146,12 +152,12 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                     ),
                     Center(
                         child: Text(
-                      "High Paying Jobs",
-                      style: TextStyle(
-                        fontSize: 18.4.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )),
+                          "High Paying Jobs",
+                          style: TextStyle(
+                            fontSize: 18.4.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )),
                     SizedBox(
                       height: 1.h,
                     ),
@@ -179,6 +185,16 @@ class _EmployeeHomeState extends State<EmployeeHome> {
           ),
         ),
         drawer: drawer(),
+      );
+    }
+    else{
+      return Container(
+        height: 2.h,
+          width: 5.w,
+          child: Center(child: CircularProgressIndicator()));
+    }
+    }
+
       ),
     );
   }
