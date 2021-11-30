@@ -81,10 +81,13 @@ class _signup_page2State extends State<signup_page2> {
                   SizedBox(
                     height: 50,
                   ),
-                  Container(
+                  Container(  decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+            ),
                     height: 50,
                     width: 200,
-                    color: Colors.white,
+
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
@@ -98,9 +101,14 @@ class _signup_page2State extends State<signup_page2> {
                     ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 9,
                   ),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      side: BorderSide(width: 150),
+                      primary: Colors.green,
+                      fixedSize: Size(200, 45),
+                    ),
                       onPressed: () {
                         showDatePicker(
                                 initialDatePickerMode: DatePickerMode.day,
@@ -114,7 +122,7 @@ class _signup_page2State extends State<signup_page2> {
                           });
                         });
                       },
-                      child: Text('pick a date')),
+                      child: Text('pick a date',style: TextStyle(fontSize: 16),)),
                   SizedBox(
                     height: 20,
                   ),

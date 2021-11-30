@@ -76,6 +76,7 @@ class _signup_page3State extends State<signup_page3> {
     return Form(
       key: _formkey3,
       child: Scaffold(
+        backgroundColor: Colors.black,
         body: Container(
           constraints: BoxConstraints(
             maxHeight: double.infinity,
@@ -258,9 +259,7 @@ class _signup_page3State extends State<signup_page3> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 500,
-                  )
+
                 ],
               ),
             ),
