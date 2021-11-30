@@ -36,33 +36,31 @@ class _ReviewsForEmployerState extends State<ReviewsForEmployer> {
             child: Column(
               children: [
                 ListTile(
-                    leading: FaIcon(
-                      FontAwesomeIcons.chartLine,
-                      size: 28,
-                      color: Colors.teal,
-                    ),
-                    title: Text('Reviews'),
-                    trailing:
-                        // cUid != widget.ruid
-                        // ?
-                        IconButton(
-                            icon: Icon(Icons.add_comment),
-                            onPressed: () {
-                              showModalBottomSheet<void>(
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Padding(
-                                    padding: MediaQuery.of(context).viewInsets,
-                                    child: NewReviewForEmployer(
-                                      widget.ruid,
-                                    ),
-                                  );
-                                },
-                              );
-                            })
-                    // : null,
-                    ),
+                  leading: FaIcon(
+                    FontAwesomeIcons.chartLine,
+                    size: 28,
+                    color: Colors.teal,
+                  ),
+                  title: Text('Reviews'),
+                  trailing: cUid != widget.ruid
+                      ? IconButton(
+                          icon: Icon(Icons.add_comment),
+                          onPressed: () {
+                            showModalBottomSheet<void>(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Padding(
+                                  padding: MediaQuery.of(context).viewInsets,
+                                  child: NewReviewForEmployer(
+                                    widget.ruid,
+                                  ),
+                                );
+                              },
+                            );
+                          })
+                      : null,
+                ),
                 snapshot.data != null
                     ? reviews.isEmpty
                         ? SizedBox(

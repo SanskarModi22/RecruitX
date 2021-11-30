@@ -76,9 +76,8 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
         var shopName = tripSnapshot["shopName"].toString().toLowerCase();
         var jobName = tripSnapshot["jobName"].toString().toLowerCase();
 
-        if (shopName
-
-            .contains(_searchController.text.toLowerCase())&&jobName.contains(widget.text.toLowerCase())) {
+        if (shopName.contains(_searchController.text.toLowerCase()) &&
+            jobName.contains(widget.text.toLowerCase())) {
           showResults.add(tripSnapshot);
           setState(() {
             isExpanded = true;
@@ -98,7 +97,10 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
 
   getUsersPastTripsStreamSnapshots() async {
     // final user = Provider.of<MyUser>(context);
-    var data = await FirebaseFirestore.instance.collection('jobs').where("jobName",isEqualTo:widget.text).get();
+    var data = await FirebaseFirestore.instance
+        .collection('jobs')
+        .where("jobName", isEqualTo: widget.text)
+        .get();
     setState(() {
       _allResults = data.docs;
       print(_allResults);
@@ -111,116 +113,128 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF5F5F5),
-      appBar: AppBar(
-        backgroundColor: Color(0xffF57752),
-        brightness: Brightness.dark,
-        elevation: 0,
-        titleSpacing: 7.w,
-        title: Row(
-          children: [
-            toggle == 0
-                ? Text(
-                    '${widget.text}',
-                    style: TextStyle(
-                        fontSize: 19.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  )
-                : Container(),
-            SizedBox(
-              width: 3.w,
+        backgroundColor: Color(0xffF5F5F5),
+        appBar: AppBar(
+          backgroundColor: Color(0xffF57752),
+          brightness: Brightness.dark,
+          elevation: 0,
+          titleSpacing: 7.w,
+          title: Row(
+            children: [
+              toggle == 0
+                  ? Text(
+                      '${widget.text}',
+                      style: TextStyle(
+                          fontSize: 19.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    )
+                  : Container(),
+              SizedBox(
+                width: 3.w,
+              )
+            ],
+          ),
+          centerTitle: true,
+          actions: [
+            EmployeeSearchBar(
+              textEditingController: _searchController,
+            ),
+            EmployeeFilterButton(
+              height: 3.h,
+              margin: 8.5,
             )
           ],
         ),
-        centerTitle: true,
-        actions: [
-          EmployeeSearchBar(textEditingController: _searchController,),
-          EmployeeFilterButton(
-            height: 3.h,
-            margin: 8.5,
-          )
-        ],
-      ),
-      body: _resultsList.length>0? Stack(
-        children: [
-          ListView(
-            physics:
-                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              Container(
-                height: 100.h,
-                child: ListView.builder(
-                    itemCount: 8,
-                    itemBuilder: (context, item) {
-                      double _w = MediaQuery.of(context).size.width;
-                      return Opacity(
-                        opacity: _animation.value,
-                        child: Transform.translate(
-                          offset: Offset(0, _animation2.value),
-                          child: InkWell(
-                            enableFeedback: true,
-                            onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //       builder: (context) => RouteWhereYouGo(),
-                              //     ));
+        body: _resultsList.length > 0
+            ? Stack(
+                children: [
+                  ListView(
+                    physics: BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    children: [
+                      Container(
+                        height: 100.h,
+                        child: ListView.builder(
+                            itemCount: 8,
+                            itemBuilder: (context, item) {
+                              double _w = MediaQuery.of(context).size.width;
+                              return Opacity(
+                                opacity: _animation.value,
+                                child: Transform.translate(
+                                  offset: Offset(0, _animation2.value),
+                                  child: InkWell(
+                                    enableFeedback: true,
+                                    onTap: () {
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (context) => RouteWhereYouGo(),
+                                      //     ));
 
-                              setState(() {
-                                isTapped = !isTapped;
-                              });
-                            },
-                            onHighlightChanged: (value) {
-                              setState(() {
-                                isExpanded = value;
-                              });
-                            },
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                            child: Container(
-                              height: 100.h,
-                              child: AnimationLimiter(
-                                child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  padding: EdgeInsets.all(_w / 30),
-                                  physics: BouncingScrollPhysics(
-                                      parent: AlwaysScrollableScrollPhysics()),
-                                  itemCount: _resultsList.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return AnimationConfiguration.staggeredList(
-                                      position: index,
-                                      delay: Duration(milliseconds: 100),
-                                      child: SlideAnimation(
-                                        duration: Duration(milliseconds: 2500),
-                                        curve: Curves.fastLinearToSlowEaseIn,
-                                        horizontalOffset: -300,
-                                        verticalOffset: -850,
-                                        child: ExpandedDetails(
-                                          index: index,
-                                          result: _resultsList[index],
+                                      setState(() {
+                                        isTapped = !isTapped;
+                                      });
+                                    },
+                                    onHighlightChanged: (value) {
+                                      setState(() {
+                                        isExpanded = value;
+                                      });
+                                    },
+                                    highlightColor: Colors.transparent,
+                                    splashColor: Colors.transparent,
+                                    child: Container(
+                                      height: 100.h,
+                                      child: AnimationLimiter(
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.vertical,
+                                          padding: EdgeInsets.all(_w / 30),
+                                          physics: BouncingScrollPhysics(
+                                              parent:
+                                                  AlwaysScrollableScrollPhysics()),
+                                          itemCount: _resultsList.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return AnimationConfiguration
+                                                .staggeredList(
+                                              position: index,
+                                              delay:
+                                                  Duration(milliseconds: 100),
+                                              child: SlideAnimation(
+                                                duration: Duration(
+                                                    milliseconds: 2500),
+                                                curve: Curves
+                                                    .fastLinearToSlowEaseIn,
+                                                horizontalOffset: -300,
+                                                verticalOffset: -850,
+                                                child: ExpandedDetails(
+                                                  index: index,
+                                                  result: _resultsList[index],
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
-                                    );
-                                  },
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-            ],
-          ),
-          CustomPaint(
-            painter: MyPainter(),
-            child: Container(height: 0),
-          ),
-        ],
-      ):Center(child: Text("Sorry No jobs Availaible",),)
-    );
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                  CustomPaint(
+                    painter: MyPainter(),
+                    child: Container(height: 0),
+                  ),
+                ],
+              )
+            : Center(
+                child: Text(
+                  "Sorry No jobs Availaible",
+                ),
+              ));
   }
 }
 
@@ -264,7 +278,7 @@ class MyPainter extends CustomPainter {
 
 class ExpandedDetails extends StatefulWidget {
   final int index;
-final result;
+  final result;
   const ExpandedDetails({Key key, this.index, this.result}) : super(key: key);
   @override
   _ExpandedDetailsState createState() => _ExpandedDetailsState();
@@ -297,7 +311,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
             });
           },
           child: Container(
-            height: isTapped ? 11.h : 34.h,
+            height: isTapped ? 12.h : 35.h,
             child: AnimatedContainer(
               duration: Duration(seconds: 1),
               curve: Curves.fastLinearToSlowEaseIn,
@@ -329,8 +343,8 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                           children: [
                             CircleAvatar(
                               radius: 16.15.sp,
-                              backgroundImage: NetworkImage(
-                                  widget.result["shopImgUrl"]),
+                              backgroundImage:
+                                  NetworkImage(widget.result["shopImgUrl"]),
                             ),
                             SizedBox(
                               width: 6.25.w,
@@ -338,7 +352,8 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                             Text(
                               widget.result["shopName"],
                               style: TextStyle(
-                                  fontSize: 16.15.sp, fontWeight: FontWeight.bold),
+                                  fontSize: 16.15.sp,
+                                  fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               width: 6.25.w,
@@ -351,8 +366,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(widget.result["city"] ??
-                                    "Null"),
+                                Text(widget.result["city"] ?? "Null"),
                               ],
                             ),
                             SizedBox(
@@ -375,8 +389,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-
-                                  widget.result["shopName"],
+                              widget.result["shopName"],
                               style: TextStyle(
                                   color: Colors.blue[900],
                                   fontSize: 17.sp,
@@ -393,8 +406,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              widget.result["city"] ??
-                                  "Null",
+                              widget.result["city"] ?? "Null",
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -419,8 +431,8 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                               tag: widget.result["shopImgUrl"],
                               child: CircleAvatar(
                                 radius: 57.sp,
-                                backgroundImage: NetworkImage(
-                                    widget.result["shopImgUrl"]),
+                                backgroundImage:
+                                    NetworkImage(widget.result["shopImgUrl"]),
                               ),
                             ),
                             SizedBox(
@@ -448,8 +460,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(widget.result["workingHours"]
-                                    ),
+                                Text(widget.result["workingHours"]),
                                 SizedBox(
                                   height: 1.25.h,
                                 ),
@@ -459,18 +470,15 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(
-                                    widget.result["salary"]
-                                    ),
+                                Text(widget.result["salary"]),
                                 SizedBox(
                                   height: 1.25.h,
                                 ),
                                 Padding(
                                   padding:
-                                       EdgeInsets.fromLTRB(8.75.w, 0.5.h, 0, 0),
+                                      EdgeInsets.fromLTRB(8.75.w, 0.5.h, 0, 0),
                                   child: ElevatedButton(
                                       onPressed: () {
-
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(

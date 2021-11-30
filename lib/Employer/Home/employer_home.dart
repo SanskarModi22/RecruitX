@@ -20,7 +20,6 @@ import 'employee_options.dart';
 import 'employer_cards.dart';
 import 'employer_custom_search.dart';
 
-
 class EmployerHome extends StatefulWidget {
   const EmployerHome({key}) : super(key: key);
 
@@ -29,7 +28,6 @@ class EmployerHome extends StatefulWidget {
 }
 
 class _EmployerHomeState extends State<EmployerHome> {
-
   // final user = Provider.of<MyUser>(context);
   final cUser = FirebaseAuth.instance.currentUser.uid;
   // var data;
@@ -59,10 +57,12 @@ class _EmployerHomeState extends State<EmployerHome> {
 // print(data['name'].toString());
     return SafeArea(
       child: FutureBuilder(
-        future: FirebaseFirestore.instance.collection('employerProfile').doc(cUser).get(),
-        builder: (context,AsyncSnapshot snapshot){
-          if(snapshot.hasData)
-            {
+          future: FirebaseFirestore.instance
+              .collection('employerProfile')
+              .doc(cUser)
+              .get(),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
               var data = snapshot.data;
               return Scaffold(
                 appBar: AppBar(
@@ -70,13 +70,16 @@ class _EmployerHomeState extends State<EmployerHome> {
                   elevation: 0,
                   iconTheme: IconThemeData(color: Colors.black),
                   actions: <Widget>[
-                    CircleAvatar(
-                      radius: 20.sp,backgroundColor: Colors.transparent,
-                      backgroundImage: NetworkImage(
-                        data['employerImg'],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8, right: 8),
+                      child: CircleAvatar(
+                          radius: 20.sp,
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: NetworkImage(
+                            data['employerImg'],
 
-                       //  width: 10.w,
-                      )
+                            //  width: 10.w,
+                          )),
                     )
                   ],
                 ),
@@ -105,7 +108,8 @@ class _EmployerHomeState extends State<EmployerHome> {
                                     Text(
                                       "Hello ${data['name']}",
                                       style: TextStyle(
-                                          fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     SizedBox(
                                       height: 1.h,
@@ -166,12 +170,12 @@ class _EmployerHomeState extends State<EmployerHome> {
                             ),
                             Center(
                                 child: Text(
-                                  "Availaible Employees",
-                                  style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )),
+                              "Availaible Employees",
+                              style: TextStyle(
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
                             SizedBox(
                               height: 1.h,
                             ),
@@ -200,13 +204,10 @@ class _EmployerHomeState extends State<EmployerHome> {
                 ),
                 drawer: drawer(),
               );
+            } else {
+              return CircularProgressIndicator();
             }
-          else{
-            return CircularProgressIndicator();
-          }
-        }
-
-      ),
+          }),
     );
   }
 }

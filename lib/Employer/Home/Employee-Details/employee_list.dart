@@ -31,7 +31,17 @@ class _EmployeeListState extends State<EmployeeList>
   Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
-  List<String>JobTypes=["Driver","Halwai","Peon","Labour","Tutor","Security Guard","Waiter","Maid","Watchman"];
+  List<String> JobTypes = [
+    "Driver",
+    "Halwai",
+    "Peon",
+    "Labour",
+    "Tutor",
+    "Security Guard",
+    "Waiter",
+    "Maid",
+    "Watchman"
+  ];
 
   @override
   void initState() {
@@ -77,7 +87,6 @@ class _EmployeeListState extends State<EmployeeList>
 
     if (_searchController.text != "") {
       for (var tripSnapshot in _allResults) {
-
         var title = tripSnapshot["name"].toString().toLowerCase();
         print(title);
         // print(title);
@@ -89,8 +98,8 @@ class _EmployeeListState extends State<EmployeeList>
           setState(() {
             isExpanded = true;
           });
-        }}
-
+        }
+      }
     } else {
       showResults = List.from(_allResults);
       setState(() {
@@ -104,8 +113,10 @@ class _EmployeeListState extends State<EmployeeList>
 
   getUsersPastTripsStreamSnapshots() async {
     // final user = Provider.of<MyUser>(context);
-    var data =
-    await FirebaseFirestore.instance.collection('employeeProfile').where("expectedJobs",arrayContains: widget.text).get();
+    var data = await FirebaseFirestore.instance
+        .collection('employeeProfile')
+        .where("expectedJobs", arrayContains: widget.text)
+        .get();
     setState(() {
       _allResults = data.docs;
       print(_allResults.toList());
@@ -113,7 +124,6 @@ class _EmployeeListState extends State<EmployeeList>
     searchResultsList();
     return "complete";
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -142,91 +152,102 @@ class _EmployeeListState extends State<EmployeeList>
         ),
         centerTitle: true,
         actions: [
-          EmployerSearchBar(textEditingController: _searchController,),
+          EmployerSearchBar(
+            textEditingController: _searchController,
+          ),
           EmployeeFilterButton(
             height: 3.h,
-            margin: 8.5,
+            margin: 1.h,
           )
         ],
       ),
-      body: _resultsList.length>0? Stack(
-        children: [
-          ListView(
-            physics:
-                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              Container(
-                height: 100.h,
-                child: ListView.builder(
-                    itemCount: 8,
-                    itemBuilder: (context, item) {
-                      double _w = MediaQuery.of(context).size.width;
-                      return Opacity(
-                        opacity: _animation.value,
-                        child: Transform.translate(
-                          offset: Offset(0, _animation2.value),
-                          child: InkWell(
-                            enableFeedback: true,
-                            onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //       builder: (context) => RouteWhereYouGo(),
-                              //     ));
+      body: _resultsList.length > 0
+          ? Stack(
+              children: [
+                ListView(
+                  physics: BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  children: [
+                    Container(
+                      height: 100.h,
+                      child: ListView.builder(
+                          itemCount: 8,
+                          itemBuilder: (context, item) {
+                            double _w = MediaQuery.of(context).size.width;
+                            return Opacity(
+                              opacity: _animation.value,
+                              child: Transform.translate(
+                                offset: Offset(0, _animation2.value),
+                                child: InkWell(
+                                  enableFeedback: true,
+                                  onTap: () {
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //       builder: (context) => RouteWhereYouGo(),
+                                    //     ));
 
-                              setState(() {
-                                isTapped = !isTapped;
-                              });
-                            },
-                            onHighlightChanged: (value) {
-                              setState(() {
-                                isExpanded = value;
-                              });
-                            },
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                            child: Container(
-                              height: 100.h,
-                              child: AnimationLimiter(
-                                child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  padding: EdgeInsets.all(_w / 30),
-                                  physics: BouncingScrollPhysics(
-                                      parent: AlwaysScrollableScrollPhysics()),
-                                  itemCount: _resultsList.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return AnimationConfiguration.staggeredList(
-                                      position: index,
-                                      delay: Duration(milliseconds: 100),
-                                      child: SlideAnimation(
-                                        duration: Duration(milliseconds: 2500),
-                                        curve: Curves.fastLinearToSlowEaseIn,
-                                        horizontalOffset: -300,
-                                        verticalOffset: -850,
-                                        child: EmployeeExpandedDetails(
-                                          index: index,
-                                          result: _resultsList[index],
-                                        ),
-                                      ),
-                                    );
+                                    setState(() {
+                                      isTapped = !isTapped;
+                                    });
                                   },
+                                  onHighlightChanged: (value) {
+                                    setState(() {
+                                      isExpanded = value;
+                                    });
+                                  },
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  child: Container(
+                                    height: 100.h,
+                                    child: AnimationLimiter(
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        padding: EdgeInsets.all(_w / 30),
+                                        physics: BouncingScrollPhysics(
+                                            parent:
+                                                AlwaysScrollableScrollPhysics()),
+                                        itemCount: _resultsList.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return AnimationConfiguration
+                                              .staggeredList(
+                                            position: index,
+                                            delay: Duration(milliseconds: 100),
+                                            child: SlideAnimation(
+                                              duration:
+                                                  Duration(milliseconds: 2500),
+                                              curve:
+                                                  Curves.fastLinearToSlowEaseIn,
+                                              horizontalOffset: -300,
+                                              verticalOffset: -850,
+                                              child: EmployeeExpandedDetails(
+                                                index: index,
+                                                result: _resultsList[index],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-            ],
-          ),
-          CustomPaint(
-            painter: MyPainter(),
-            child: Container(height: 0),
-          ),
-        ],
-      ):Center(child: Text("Sorry No Employee Availaible",)),
+                            );
+                          }),
+                    ),
+                  ],
+                ),
+                CustomPaint(
+                  painter: MyPainter(),
+                  child: Container(height: 0),
+                ),
+              ],
+            )
+          : Center(
+              child: Text(
+              "Sorry No Employee Availaible",
+            )),
     );
   }
 }
@@ -271,8 +292,9 @@ class MyPainter extends CustomPainter {
 
 class EmployeeExpandedDetails extends StatefulWidget {
   final int index;
-final result;
-  const EmployeeExpandedDetails({Key key, this.index, this.result}) : super(key: key);
+  final result;
+  const EmployeeExpandedDetails({Key key, this.index, this.result})
+      : super(key: key);
   @override
   _EmployeeExpandedDetailsState createState() =>
       _EmployeeExpandedDetailsState();
@@ -309,7 +331,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
             });
           },
           child: Container(
-            height: isTapped ? 11.h : 34.h,
+            height: isTapped ? 12.h : 35.h,
             child: AnimatedContainer(
               duration: Duration(seconds: 1),
               curve: Curves.fastLinearToSlowEaseIn,
@@ -340,9 +362,9 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                         Row(
                           children: [
                             CircleAvatar(
-                              radius: 21,
-                              backgroundImage: NetworkImage(
-                                  widget.result['img_url']),
+                              radius: 16.sp,
+                              backgroundImage:
+                                  NetworkImage(widget.result['img_url']),
                             ),
                             SizedBox(
                               width: 6.25.w,
@@ -350,7 +372,8 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                             Text(
                               widget.result['name'],
                               style: TextStyle(
-                                  fontSize: 10.7.sp, fontWeight: FontWeight.bold),
+                                  fontSize: 10.7.sp,
+                                  fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               width: 5.75.w,
@@ -364,9 +387,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-
-                                Text(widget.result["experience"]
-                                    ),
+                                Text(widget.result["experience"]),
                               ],
                             ),
                             SizedBox(
@@ -411,11 +432,11 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Hero(
-                              tag:  widget.result['img_url'],
+                              tag: widget.result['img_url'],
                               child: CircleAvatar(
                                 radius: 57.sp,
-                                backgroundImage: NetworkImage(
-                                    widget.result['img_url']),
+                                backgroundImage:
+                                    NetworkImage(widget.result['img_url']),
                               ),
                             ),
                             SizedBox(
@@ -432,8 +453,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  widget.result['averageRating']
-                                      .toString(),
+                                  widget.result['averageRating'].toString(),
                                 ),
                                 SizedBox(
                                   height: 1.25.h,
@@ -444,8 +464,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(widget.result['preferredShift']
-                                    ),
+                                Text(widget.result['preferredShift']),
                                 SizedBox(
                                   height: 1.25.h,
                                 ),
@@ -455,13 +474,13 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text("${widget.result['minExpSalary']}-${widget.result['maxExpSalary']}"),
+                                Text(
+                                    "${widget.result['minExpSalary']}-${widget.result['maxExpSalary']}"),
                                 SizedBox(
                                   height: 1.25.h,
                                 ),
                                 Padding(
-                                  padding:
-                                       EdgeInsets.fromLTRB(8.75.w, 4, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(8.75.w, 4, 0, 0),
                                   child: ElevatedButton(
                                       onPressed: () {
                                         Navigator.push(
@@ -469,7 +488,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 EmployeeDetailScreen(
-                                                    result:widget.result),
+                                                    result: widget.result),
                                           ),
                                         );
                                       },

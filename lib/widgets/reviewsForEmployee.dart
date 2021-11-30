@@ -37,37 +37,25 @@ class _ReviewsForEmployeeState extends State<ReviewsForEmployee> {
             child: Column(
               children: [
                 ListTile(
-                    leading: FaIcon(
-                      FontAwesomeIcons.chartLine,
-                      size: 28,
-                      color: Colors.teal,
-                    ),
-                    title: Text('Reviews'),
-                    trailing:
-                        // cUid != widget.ruid
-                        //     ?
-                        IconButton(
-                            icon: Icon(Icons.add_comment),
-                            onPressed: () {
-                              // showModalBottomSheet<void>(
-                              //   isScrollControlled: true,
-                              //   context: context,
-                              //   builder: (BuildContext context) {
-                              //     return Padding(
-                              //       padding: MediaQuery.of(context).viewInsets,
-                              //       child: NewReviewForEmployee(widget.ruid),
-                              //     );
-                              //   },
-                              // );
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (ctx) =>
-                                      NewReviewForEmployee(widget.ruid),
-                                ),
-                              );
-                            })
-                    // : null,
-                    ),
+                  leading: FaIcon(
+                    FontAwesomeIcons.chartLine,
+                    size: 28,
+                    color: Colors.teal,
+                  ),
+                  title: Text('Reviews'),
+                  trailing: cUid != widget.ruid
+                      ? IconButton(
+                          icon: Icon(Icons.add_comment),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) =>
+                                    NewReviewForEmployee(widget.ruid),
+                              ),
+                            );
+                          })
+                      : null,
+                ),
                 snapshot.data != null
                     ? reviews.isEmpty
                         ? SizedBox(
@@ -145,6 +133,7 @@ class EmployeeReviewItem extends StatelessWidget {
                 Image(
                   image: NetworkImage(shopImgUrl),
                   height: 200,
+                  width: double.maxFinite,
                   fit: BoxFit.cover,
                 ),
                 Positioned(

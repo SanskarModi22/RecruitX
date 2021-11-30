@@ -95,18 +95,23 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
           );
         });
   }
+
   String imgUrl;
-  void _storeEmployerImages() async{
-    final user = await FirebaseAuth.instance.currentUser;
+  void _storeEmployerImages() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      return;
+    }
     final ref = FirebaseStorage.instance
         .ref()
         .child('Employer Photo')
-        .child(user.uid +'.png');
+        .child(user.uid + '.png');
     // putting file
     await ref.putFile(OwnerImage).whenComplete(() => null);
     // gettting url
     imgUrl = await ref.getDownloadURL();
   }
+
   final shopName = TextEditingController();
   final OwnerName = TextEditingController();
   final OwnerAge = TextEditingController();
@@ -136,9 +141,9 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
-    if(OwnerImage!=null) {
+    if (OwnerImage != null) {
       _storeEmployerImages();
-    }else{
+    } else {
       print("Kartik is smart");
     }
     _storeEmployerImages();

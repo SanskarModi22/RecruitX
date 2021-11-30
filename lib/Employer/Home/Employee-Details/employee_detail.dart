@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:helping_hand/providers/user_information.dart';
+import 'package:helping_hand/screens/employee_profile_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
+
 class ClipPathClass extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -77,22 +79,30 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         elevation: 0,
-        child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.yellowAccent),
-            shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
+        child: Padding(
+          padding: const EdgeInsets.only(
+              left: 5.0, right: 5.0, top: 4.0, bottom: 2.0),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              // padding: EdgeInsets.symmetric(horizontal: 5),
+              shadowColor: randomColor,
+              primary: randomColor,
+
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
-                  20,
+                  15,
                 ),
               ),
             ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(
+                "Contact Now!",
+                style: TextStyle(color: Colors.white, fontSize: 23),
+              ),
+            ),
+            onPressed: () {},
           ),
-          child: Text(
-            "Contact Now",
-            style: TextStyle(color: randomColor, fontSize: 23),
-          ),
-          onPressed: () {},
         ),
       ),
       body: SingleChildScrollView(
@@ -145,10 +155,12 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       )
                     ],
                   ),
-                  subtitle: Text(
-                      result['contact']),
+                  subtitle: Text(result['contact']),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) => EmployeeProfile(result.id)));
+                    },
                     icon: FaIcon(
                       FontAwesomeIcons.infoCircle,
                       color: randomColor,
@@ -167,8 +179,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         size: 35,
                       ),
                       title: Text('Rating'),
-                      subtitle: Text(result['averageRating']
-                          .toString()),
+                      subtitle: Text(result['averageRating'].toString()),
                       trailing: Column(
                         children: [
                           Text(
@@ -177,8 +188,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Text(
-                              result['experience'])
+                          Text(result['experience'])
                         ],
                       ),
                     ),
@@ -190,8 +200,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         size: 35,
                       ),
                       title: Text('Currently Working At'),
-                      subtitle: Text(
-                          result['currentWork']),
+                      subtitle: Text(result['currentWork']),
                     ),
                     Divider(),
                     ListTile(
@@ -201,7 +210,8 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         size: 35,
                       ),
                       title: Text('Expected Salary'),
-                      subtitle: Text("${result['minExpSalary']}-${result['maxExpSalary']}"),
+                      subtitle: Text(
+                          "${result['minExpSalary']}-${result['maxExpSalary']}"),
                     ),
                     Divider(),
                     ListTile(
@@ -211,8 +221,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         color: randomColor,
                       ),
                       title: Text('Preferred Shift'),
-                      subtitle: Text(
-                          result['preferredShift']),
+                      subtitle: Text(result['preferredShift']),
                     ),
                     Divider(),
                     ListTile(
@@ -222,8 +231,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         color: randomColor,
                       ),
                       title: Text('Preferred Job-Type'),
-                      subtitle:
-                          Text(result["expectedJobs"].toString()),
+                      subtitle: Text(result["expectedJobs"].toString()),
                     ),
                   ],
                 ),
@@ -240,6 +248,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       title: Text('Employee Address'),
                     ),
                     Container(
+                      width: double.maxFinite,
                       margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -249,8 +258,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                             color: randomColor,
                           ),
                           borderRadius: BorderRadius.circular(8)),
-                      child:
-                          Text(result['address']),
+                      child: Text(result['address']),
                     ),
                   ],
                 ),
@@ -268,6 +276,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                         title: Text('Bio'),
                       ),
                       Container(
+                        width: double.maxFinite,
                         margin:
                             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         padding:

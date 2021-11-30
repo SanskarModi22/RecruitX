@@ -61,7 +61,9 @@ class DatabaseServices {
         'minExpSalary': minSal,
         'maxExpSalary': maxSal,
         'appliedJobs': applications,
-        'backgroundImgUrl':"https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg",
+        'preferredCities': [],
+        'backgroundImgUrl':
+            "https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg",
       },
     );
   }
@@ -144,7 +146,6 @@ class DatabaseServices {
         'isEmployee': isEmployee,
         'shopImg': shopImg,
         'employerImg': employerImg,
-
       },
     );
   }
