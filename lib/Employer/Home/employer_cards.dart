@@ -24,18 +24,18 @@ class _EmployeeCardsState extends State<EmployeeCards> {
     "Maid",
     "Guard"
   ];
-  var len;
-  // ignore: non_constant_identifier_names
-  List<String> JobAvailable = ["15", "27", "18", "19", "20", "21"];
-  getUsersPastTripsStreamSnapshots(String job) async {
-    // final user = Provider.of<MyUser>(context);
-    var data =
-    await FirebaseFirestore.instance.collection('employeeProfile').where("expectedJobs",arrayContains: job).get();
-
-  len=data.docs.length;
-
-    return len;
-  }
+  // var len;
+  // // ignore: non_constant_identifier_names
+  // List<String> JobAvailable = ["15", "27", "18", "19", "20", "21"];
+  // getUsersPastTripsStreamSnapshots(String job) async {
+  //   // final user = Provider.of<MyUser>(context);
+  //   var data =
+  //   await FirebaseFirestore.instance.collection('employeeProfile').where("expectedJobs",arrayContains: job).get();
+  //
+  // len=data.docs.length;
+  //
+  //   return len;
+  // }
   Widget build(BuildContext context) {
     return Container(
       height: 25.h,
@@ -45,7 +45,7 @@ class _EmployeeCardsState extends State<EmployeeCards> {
           itemBuilder: (ctx, index) {
 
             return FutureBuilder(
-              future: getUsersPastTripsStreamSnapshots(PopularJobs[index]),
+              future: FirebaseFirestore.instance.collection('employeeProfile').where("expectedJobs",arrayContains: PopularJobs[index]).get(),
               builder: (context, AsyncSnapshot snapshot) {
                 if(snapshot.hasData)
                   {
@@ -84,7 +84,7 @@ class _EmployeeCardsState extends State<EmployeeCards> {
                                   Container(
                                     width: 90.w,
                                     child: Text(
-                                      "${len} employees are availaible",
+                                      "${snapshot.data.docs.length} employees are availaible",
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
                                       maxLines: 2,
@@ -98,7 +98,11 @@ class _EmployeeCardsState extends State<EmployeeCards> {
                     );
                   }
                 else
-                  return CircularProgressIndicator();
+                  return Center(
+                    child: Align(
+                      alignment: Alignment.center,
+                        child: CircularProgressIndicator()),
+                  );
               }
 
             );

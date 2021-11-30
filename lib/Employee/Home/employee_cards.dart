@@ -23,14 +23,14 @@ class _JobCardsState extends State<JobCards> {
     "Guard"
   ];
   // ignore: non_constant_identifier_names
-  List<String> JobAvailable = [
-    "15",
-    "27",
-    "18",
-    "19",
-    "20",
-    "21",
-  ];
+  // List<String> JobAvailable = [
+  //   "15",
+  //   "27",
+  //   "18",
+  //   "19",
+  //   "20",
+  //   "21",
+  // ];
   Widget build(BuildContext context) {
     return Container(
       height: 25.h,
