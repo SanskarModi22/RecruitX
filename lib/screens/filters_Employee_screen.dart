@@ -46,14 +46,14 @@ class _EmployeeFilterScreenState extends State<EmployeeFilterScreen> {
                 : false,
             // jobs
             peon: expectedJobs.contains('Peon'),
-            privateTutor: expectedJobs.contains('Private Tutor'),
+            privateTutor: expectedJobs.contains('Tutor'),
             driver: expectedJobs.contains('Driver'),
             securityGuard: expectedJobs.contains('Security Guard'),
             labour: expectedJobs.contains('Labour'),
             halwai: expectedJobs.contains('Halwai'),
             waiter: expectedJobs.contains('Waiter'),
             watchmen: expectedJobs.contains('Watchman'),
-            sweeper: expectedJobs.contains('Sweeper'),
+            sweeper: expectedJobs.contains('Delivery Boy'),
             maid: expectedJobs.contains('Maid'),
             allJobs: allJobs,
             // cities
@@ -139,7 +139,7 @@ class __BodyState extends State<_Body> {
   bool _labour;
   bool _halwai;
   bool _watchmen;
-  bool _sweeper;
+  bool _deliveryBoy;
   bool _waiter;
   bool _maid;
   // cities
@@ -157,7 +157,7 @@ class __BodyState extends State<_Body> {
         _securityGuard == false &&
         _labour == false &&
         _halwai == false &&
-        _sweeper == false &&
+        _deliveryBoy == false &&
         _watchmen == false &&
         _waiter == false &&
         _maid == false) {
@@ -171,7 +171,7 @@ class __BodyState extends State<_Body> {
         _securityGuard == true ||
         _labour == true ||
         _halwai == true ||
-        _sweeper == true ||
+        _deliveryBoy == true ||
         _watchmen == true ||
         _waiter == true ||
         _maid == true) {
@@ -243,8 +243,8 @@ class __BodyState extends State<_Body> {
     if (_watchmen == null) {
       _watchmen = widget.watchmen;
     }
-    if (_sweeper == null) {
-      _sweeper = widget.sweeper;
+    if (_deliveryBoy == null) {
+      _deliveryBoy = widget.sweeper;
     }
     if (_waiter == null) {
       _waiter = widget.waiter;
@@ -312,7 +312,7 @@ class __BodyState extends State<_Body> {
         preferredJobs.add('Driver');
       }
       if (_privateTutor == true) {
-        preferredJobs.add('Private Tutor');
+        preferredJobs.add('Tutor');
       }
       if (_peon == true) {
         preferredJobs.add('Peon');
@@ -329,8 +329,8 @@ class __BodyState extends State<_Body> {
       if (_watchmen == true) {
         preferredJobs.add('Watchman');
       }
-      if (_sweeper == true) {
-        preferredJobs.add('Sweeper');
+      if (_deliveryBoy == true) {
+        preferredJobs.add('Delivery Boy');
       }
       if (_waiter == true) {
         preferredJobs.add('Waiter');
@@ -343,11 +343,11 @@ class __BodyState extends State<_Body> {
           'Driver',
           'Peon',
           'Security Guard',
-          'Private Tutor',
+          'Tutor',
+          'Delivery Boy',
           'Labour',
           'Halwai',
           'Watchman',
-          'Sweeper',
           'Waiter',
           'Maid'
         ];
@@ -506,7 +506,7 @@ class __BodyState extends State<_Body> {
                   ),
                   Container(),
                   CustomCheckBox(
-                    jobText: "Private Tutor",
+                    jobText: "Tutor",
                     checkbox: Checkbox(
                       value: _privateTutor,
                       onChanged: (val) {
@@ -592,10 +592,10 @@ class __BodyState extends State<_Body> {
                   CustomCheckBox(
                     jobText: "Sweeper",
                     checkbox: Checkbox(
-                      value: _sweeper,
+                      value: _deliveryBoy,
                       onChanged: (val) {
                         setState(() {
-                          _sweeper = val;
+                          _deliveryBoy = val;
                           _autoAllJobs();
                         });
                       },

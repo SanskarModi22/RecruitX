@@ -234,7 +234,7 @@ class __BodyState extends State<_Body> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: 15.w,
+                              // width: 15.w,
                               padding: EdgeInsets.symmetric(horizontal: 2.5.w),
                               child: Text(
                                 'Salary',
