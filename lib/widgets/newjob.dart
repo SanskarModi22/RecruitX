@@ -167,7 +167,7 @@ class __MyFormState extends State<_MyForm> {
           jobs.add({
             "jobName": jobName,
             "shopName": shopName,
-            "salary": _salary.text,
+            "salary": double.parse(_salary.text),
             "vacancy": _vacancy.text,
             "specialRequest":
                 _specialReq.text.isNotEmpty ? _specialReq.text : '',
@@ -184,7 +184,7 @@ class __MyFormState extends State<_MyForm> {
             "shopType": shopType,
             "partTime": _partTime,
             "nightShift": _nightShift,
-            "city":city,
+            "city": city,
           });
           Navigator.of(context).pop();
           clear();
@@ -312,6 +312,9 @@ class __MyFormState extends State<_MyForm> {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) return '*required';
+                if (double.parse(value) > 50000) {
+                  return 'salary should be less than 50000';
+                }
                 return null;
               },
               keyboardType: TextInputType.numberWithOptions(),
