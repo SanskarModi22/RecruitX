@@ -105,11 +105,10 @@ class _signup_page2State extends State<signup_page2> {
                     height: 9,
                   ),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(width: 150),
-                      primary: Colors.green,
-                      fixedSize: Size(200, 45),
-                    ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.green),
+                        fixedSize: MaterialStateProperty.all(Size(200,50)),
+                      ),
                       onPressed: () {
                         showDatePicker(
                                 initialDatePickerMode: DatePickerMode.day,
@@ -404,10 +403,9 @@ class _signup_page2State extends State<signup_page2> {
                     height: 30,
                   ),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(width: 150),
-                      primary: Colors.green,
-                      fixedSize: Size(400, 45),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
+                      fixedSize: MaterialStateProperty.all(Size(400,50)),
                     ),
                     onPressed: () {
                       if (_formkey2.currentState.validate()) {

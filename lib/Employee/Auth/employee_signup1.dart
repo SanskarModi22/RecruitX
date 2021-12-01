@@ -392,10 +392,9 @@ if(ProfileImg!=null){
                     height: 30,
                   ),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(width: 150),
-                      primary: Colors.green,
-                      fixedSize: Size(400, 45),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
+                      fixedSize: MaterialStateProperty.all(Size(400,50)),
                     ),
                     onPressed: () {
                       if (ProfileImg == null) {

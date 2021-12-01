@@ -399,11 +399,10 @@ class _signup_page4State extends State<signup_page4> {
             ),
 
                ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  side: BorderSide(width: 150),
-                  primary: Colors.green,
-                  fixedSize: Size(400, 45),
-                ),
+                 style: ButtonStyle(
+                   backgroundColor: MaterialStateProperty.all(Colors.green),
+                   fixedSize: MaterialStateProperty.all(Size(400,50)),
+                 ),
                 onPressed: () async {
                   // bool peon = false;
                   // bool driver = false;

@@ -217,10 +217,9 @@ class _signup_page3State extends State<signup_page3> {
                     height: 30,
                   ),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      side: BorderSide(width: 150),
-                      primary: Colors.green,
-                      fixedSize: Size(400, 45),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.green),
+                      fixedSize: MaterialStateProperty.all(Size(400,50)),
                     ),
                     onPressed: () {
                       if (_formkey3.currentState.validate()) {
