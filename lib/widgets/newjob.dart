@@ -274,12 +274,12 @@ class __MyFormState extends State<_MyForm> {
                         items: <String>[
                           'Peon',
                           'Driver',
-                          'Private Tutor',
-                          'Security Gaurd',
+                          'Tutor',
+                          'Security Guard',
                           'Halwai',
                           'Labour',
                           'Watchman',
-                          'Sweeper',
+                          'Delivery Boy',
                           'Waiter',
                           'Maid',
                         ].map<DropdownMenuItem<String>>((String value) {
@@ -312,7 +312,7 @@ class __MyFormState extends State<_MyForm> {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) return '*required';
-                if (double.parse(value) > 50000) {
+                if (double.parse(value) > 100000) {
                   return 'salary should be less than 50000';
                 }
                 return null;

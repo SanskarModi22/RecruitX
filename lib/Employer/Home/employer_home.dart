@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:helping_hand/Employee/Home/employee_Custom_Search.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
 import 'package:helping_hand/Employee/Home/employee_pref.dart';
@@ -12,9 +14,12 @@ import 'package:helping_hand/Employee/Home/employee_cards.dart';
 import 'package:helping_hand/Employer/Home/employer_preference.dart';
 import 'package:helping_hand/Model/Profile/employer_profile.dart';
 import 'package:helping_hand/Model/user.dart';
+import 'package:helping_hand/drawer/applicants.dart';
 import 'package:helping_hand/drawer/drawer.dart';
 
 import 'package:helping_hand/Employee/Home/job_options.dart';
+import 'package:helping_hand/widgets/newjob.dart';
+import 'package:helping_hand/widgets/newshop.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 
@@ -60,9 +65,8 @@ class _EmployerHomeState extends State<EmployerHome> {
   @override
   initState() {
     super.initState();
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen(showConnectivityResult);
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityResult);
   }
 
 // Be sure to cancel subscription after you are done
@@ -71,12 +75,12 @@ class _EmployerHomeState extends State<EmployerHome> {
     super.dispose();
     subscription.cancel();
   }
+
   void showConnectivityResult(ConnectivityResult result) {
     final hasInternet = result != ConnectivityResult.none;
     print(hasInternet);
-    final message = hasInternet
-        ? 'You are connected to Network'
-        : 'You have no Internet';
+    final message =
+        hasInternet ? 'You are connected to Network' : 'You have no Internet';
     final colour = hasInternet ? Colors.green : Colors.red;
     showTopSnackbar(context, message, colour);
   }
@@ -84,6 +88,35 @@ class _EmployerHomeState extends State<EmployerHome> {
   void showTopSnackbar(BuildContext context, String message, Color color) =>
       showSimpleNotification(Text('Internet Connectivity Update'),
           subtitle: Text(message), background: color);
+
+  Future<String> totalJobsPosted() async {
+    final jobs = await FirebaseFirestore.instance
+        .collection('jobs')
+        .where(
+          'ownerId',
+          isEqualTo: cUser,
+        )
+        .get();
+    if (jobs.docs.isEmpty || jobs == null) {
+      return '0';
+    }
+    return jobs.docs.length.toString();
+  }
+
+  Future<String> totalShops() async {
+    final shops = await FirebaseFirestore.instance
+        .collection('shops')
+        .where(
+          'ownerId',
+          isEqualTo: cUser,
+        )
+        .get();
+    if (shops.docs.isEmpty || shops == null) {
+      return '0';
+    }
+    return shops.docs.length.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
 // print(data['name'].toString());
@@ -113,6 +146,90 @@ class _EmployerHomeState extends State<EmployerHome> {
                           )),
                     )
                   ],
+                ),
+                floatingActionButton: FloatingActionButton(
+                  backgroundColor: Colors.green[600],
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NewJob(),
+                      ),
+                    );
+                  },
+                  child: Icon(
+                    Icons.add,
+                    size: 30,
+                  ),
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                bottomNavigationBar: BottomAppBar(
+                  color: Colors.white,
+                  shape: CircularNotchedRectangle(),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: TextButton.icon(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ApplicantsPage()),
+                              );
+                            },
+                            label: Text(
+                              'Applicants',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green[600]),
+                            ),
+                            icon: Icon(
+                              Icons.people,
+                              size: 30,
+                              color: Colors.green[800],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: TextButton.icon(
+                            icon: Icon(
+                              Icons.add_business_sharp,
+                              size: 30,
+                              color: Colors.green[600],
+                            ),
+                            label: Text(
+                              'New Shop',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green[600]),
+                            ),
+                            onPressed: () {
+                              showModalBottomSheet<void>(
+                                isScrollControlled: true,
+                                context: context,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(20),
+                                      topRight: Radius.circular(20)),
+                                ),
+                                builder: (BuildContext context) {
+                                  return Padding(
+                                    padding: MediaQuery.of(context).viewInsets,
+                                    child: NewShop(data['name']),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ]),
                 ),
                 body: SingleChildScrollView(
                   child: Stack(
@@ -158,34 +275,6 @@ class _EmployerHomeState extends State<EmployerHome> {
                                         SizedBox(
                                           width: 6.w,
                                         ),
-                                        // ElevatedButton(
-                                        //   style: ButtonStyle(
-                                        //       minimumSize: MaterialStateProperty.all(
-                                        //           Size(4.w, 6.h),),
-                                        //       shape: MaterialStateProperty.all(
-                                        //           RoundedRectangleBorder(
-                                        //             borderRadius:
-                                        //             BorderRadius.circular(14.sp),
-                                        //           )),
-                                        //       backgroundColor:
-                                        //       MaterialStateProperty.all(
-                                        //           Colors.white)),
-                                        //   onPressed: () {
-                                        //     Navigator.of(context).push(
-                                        //       MaterialPageRoute(
-                                        //         builder: (context) => JobList(),
-                                        //       ),
-                                        //     );
-                                        //   },
-                                        //   child: Container(
-                                        //     child: Image.asset(
-                                        //       "assets/images/filter.png",
-                                        //       height: 4.h,
-                                        //       fit: BoxFit.fill,
-                                        //       color: Colors.blue,
-                                        //     ),
-                                        //   ),
-                                        // )
                                       ],
                                     ),
                                   ],
@@ -216,7 +305,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                             ),
                             Center(
                               child: Text(
-                                "Related To your Preference",
+                                "My Info",
                                 style: TextStyle(
                                   fontSize: 24.0,
                                   fontWeight: FontWeight.bold,
@@ -224,9 +313,106 @@ class _EmployerHomeState extends State<EmployerHome> {
                               ),
                             ),
                             SizedBox(
-                              height: 1.h,
+                              height: 20,
                             ),
-                            EmployerEmployeePreference()
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: ListTile(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                tileColor: Colors.amber,
+                                leading: Icon(Icons.work),
+                                title: Text(
+                                  'Total Jobs Posted',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                trailing: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: FutureBuilder(
+                                      future: totalJobsPosted(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Text(
+                                            '0',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                              // color: Colors.amber,
+                                            ),
+                                          );
+                                        }
+                                        final nums = snapshot.data.toString();
+                                        return Text(
+                                          nums,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            // color: Colors.amber,
+                                          ),
+                                        );
+                                      }),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: ListTile(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                tileColor: Colors.purple[300],
+                                leading: Icon(
+                                  Icons.other_houses_sharp,
+                                  color: Colors.white,
+                                ),
+                                title: Text(
+                                  'Total Shops',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                trailing: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: FutureBuilder(
+                                      future: totalShops(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Text(
+                                            '0',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                              // color: Colors.amber,
+                                            ),
+                                          );
+                                        }
+                                        final nums = snapshot.data.toString();
+                                        return Text(
+                                          nums,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            // color: Colors.amber,
+                                          ),
+                                        );
+                                      }),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            )
+                            // EmployerEmployeePreference()
                           ],
                         ),
                       ),
@@ -236,7 +422,11 @@ class _EmployerHomeState extends State<EmployerHome> {
                 drawer: drawer(),
               );
             } else {
-              return CircularProgressIndicator();
+              return Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
             }
           }),
     );
