@@ -24,6 +24,8 @@ class _JobCardsState extends State<JobCards> {
     "Security Guard",
     "Delivery Boy"
   ];
+  @override
+
   // ignore: non_constant_identifier_names
   // List<String> JobAvailable = [
   //   "15",
