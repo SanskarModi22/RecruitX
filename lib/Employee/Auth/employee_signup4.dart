@@ -397,78 +397,80 @@ class _signup_page4State extends State<signup_page4> {
             SizedBox(
               height: 30,
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                side: BorderSide(width: 150),
-                primary: Colors.green,
-                fixedSize: Size(400, 45),
-              ),
-              onPressed: () async {
-                // bool peon = false;
-                // bool driver = false;
-                // bool tutor = false;
-                // bool securityguard = false;
-                // bool labour = false;
-                // bool halwai = false;
-                // bool watchman = false;
-                // bool maid = false;
-                // bool waiter = false;
-                // bool sweeper = false;
-                if (count == 0) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Please choose atleast one job')),
-                  );
-                } else {
-                  final user = await FirebaseAuth.instance.currentUser;
-                  if(driver==true)
-                    temp.add("Driver");
-                  if(halwai==true)
-                    temp.add("Halwai");
-                  if(peon==true)
-                    temp.add("Peon");
-                  if(tutor==true)
-                    temp.add("Tutor");
-                  if(securityguard==true)
-                    temp.add("Security Guard");
-                  if(labour==true)
-                    temp.add("Labour");
-                  if(waiter==true)
-                    temp.add("Waiter");
-                  if(maid==true)
-                    temp.add("Maid");
-                  if(watchman==true)
-                    temp.add("Wachman");
-                  result=temp.toList();
-                  DatabaseServices(uid: user.uid).updateEmployeeData(
-                    employeeExpectedJobs: result,
-                  );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => signup_page3(
-                      Aadhar: widget.Aadhar,
-                      dob: widget.dob,
-                      EmployeeName: widget.EmployeeName,
-                      Bio: widget.Bio,
-                      EmployeeAge: widget.EmployeeAge,
-                      contact: widget.contact,
-                      address: widget.address,
-                      Experience: widget.Experience,
-                     minSal: widget.minSal,
-                      maxSal: widget.maxSal,
-                      ImgUrl: widget.ImgUrl,
-                      ExpectedJobs: result,
-                    )),
-                  );
-                }
-              },
-              child: Text(
-                'Next',
-                style: TextStyle(
-                  fontSize: 18,
+
+               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  side: BorderSide(width: 150),
+                  primary: Colors.green,
+                  fixedSize: Size(400, 45),
+                ),
+                onPressed: () async {
+                  // bool peon = false;
+                  // bool driver = false;
+                  // bool tutor = false;
+                  // bool securityguard = false;
+                  // bool labour = false;
+                  // bool halwai = false;
+                  // bool watchman = false;
+                  // bool maid = false;
+                  // bool waiter = false;
+                  // bool sweeper = false;
+                  if (count == 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Please choose atleast one job')),
+                    );
+                  } else {
+                    final user = await FirebaseAuth.instance.currentUser;
+                    if(driver==true)
+                      temp.add("Driver");
+                    if(halwai==true)
+                      temp.add("Halwai");
+                    if(peon==true)
+                      temp.add("Peon");
+                    if(tutor==true)
+                      temp.add("Tutor");
+                    if(securityguard==true)
+                      temp.add("Security Guard");
+                    if(labour==true)
+                      temp.add("Labour");
+                    if(waiter==true)
+                      temp.add("Waiter");
+                    if(maid==true)
+                      temp.add("Maid");
+                    if(watchman==true)
+                      temp.add("Wachman");
+                    result=temp.toList();
+                    DatabaseServices(uid: user.uid).updateEmployeeData(
+                      employeeExpectedJobs: result,
+                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => signup_page3(
+                        Aadhar: widget.Aadhar,
+                        dob: widget.dob,
+                        EmployeeName: widget.EmployeeName,
+                        Bio: widget.Bio,
+                        EmployeeAge: widget.EmployeeAge,
+                        contact: widget.contact,
+                        address: widget.address,
+                        Experience: widget.Experience,
+                       minSal: widget.minSal,
+                        maxSal: widget.maxSal,
+                        ImgUrl: widget.ImgUrl,
+                        ExpectedJobs: result,
+                      )),
+                    );
+                  }
+                },
+                child: Text(
+                  'Next',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
               ),
-            ),
+
           ],
         ),
       ),

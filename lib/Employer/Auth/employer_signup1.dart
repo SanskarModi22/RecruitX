@@ -1,5 +1,6 @@
 import 'dart:io';
 
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -138,6 +139,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
   }
 
   DateTime _dateTime2;
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
@@ -360,9 +362,13 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     height: 20,
                   ),
                   Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     height: 50,
                     width: 200,
-                    color: Colors.white,
+                    //color: Colors.white,
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
@@ -371,12 +377,14 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                             : _dateTime2.toString(),
                         style: TextStyle(
                           fontSize: 20,
+                          color: Colors.grey,
                         ),
                       ),
                     ),
                   ),
+
                   SizedBox(
-                    height: 5,
+                    height: 9,
                   ),
                   ElevatedButton(
                       onPressed: () {
@@ -391,7 +399,14 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                           });
                         });
                       },
-                      child: Text('pick a date')),
+                      child: Text('pick a date', style: TextStyle(
+                        fontSize: 18,
+                      ),),
+                    style: ElevatedButton.styleFrom(
+                      side: BorderSide(width: 150),
+                      primary: Colors.green,
+                      fixedSize: Size(400, 45),
+                    ),),
                   SizedBox(
                     height: 20,
                   ),
@@ -480,9 +495,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 100,
-                  ),
+
                 ],
               ),
             ),
@@ -491,4 +504,6 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
       ),
     );
   }
+
+
 }

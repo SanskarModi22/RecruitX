@@ -227,10 +227,10 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         width: 20,
                       ),
                       DropdownButton<String>(
-
+                        value: dropdownValue,
                         elevation: 16,
-                        dropdownColor: Colors.black,
-                        style: const TextStyle(color: Colors.white),
+                       dropdownColor: Colors.black,
+                        style: TextStyle(color: Colors.white),
                         onChanged: (String newValue) {
                           setState(() {
                             dropdownValue = newValue;
@@ -271,10 +271,10 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         width: 20,
                       ),
                       DropdownButton<String>(
-
+                        value: dropdownValue2,
                         elevation: 16,
                         dropdownColor: Colors.black,
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.black),
                         onChanged: (String newValue) {
                           setState(() {
                             dropdownValue2 = newValue;
@@ -291,7 +291,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                             value: value,
                             child: Text(
                               value,
-                              style: TextStyle(fontSize: 20,color: Colors.white),
+                              style: TextStyle(fontSize: 18,color: Colors.white),
                             ),
                           );
                         }).toList(),
