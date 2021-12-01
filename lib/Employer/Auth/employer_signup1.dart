@@ -152,6 +152,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
     return Form(
       key: _formkey,
       child: Scaffold(
+        backgroundColor: Colors.black,
         body: Container(
           decoration: BoxDecoration(
             color: Colors.black,
@@ -392,7 +393,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                                 context: context,
                                 initialDate: DateTime.now(),
                                 firstDate: DateTime(1960),
-                                lastDate: DateTime(2024))
+                                lastDate: DateTime(2070))
                             .then((value) {
                           setState(() {
                             _dateTime2 = value;
