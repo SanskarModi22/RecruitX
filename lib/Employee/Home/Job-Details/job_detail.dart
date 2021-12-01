@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/employer_profile_screen.dart';
 import 'package:helping_hand/screens/shop_details_screen.dart';
+import 'package:overlay_support/overlay_support.dart';
 // import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -56,6 +60,34 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   final String shopId;
 
   _JobDetailsScreenState({this.jobId, this.shopId});
+  StreamSubscription subscription;
+  @override
+  initState() {
+    super.initState();
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen(showConnectivityResult);
+  }
+
+// Be sure to cancel subscription after you are done
+  @override
+  dispose() {
+    super.dispose();
+    subscription.cancel();
+  }
+  void showConnectivityResult(ConnectivityResult result) {
+    final hasInternet = result != ConnectivityResult.none;
+    print(hasInternet);
+    final message = hasInternet
+        ? 'You are connected to Network'
+        : 'You have no Internet';
+    final colour = hasInternet ? Colors.green : Colors.red;
+    showTopSnackbar(context, message, colour);
+  }
+
+  void showTopSnackbar(BuildContext context, String message, Color color) =>
+      showSimpleNotification(Text('Internet Connectivity Update'),
+          subtitle: Text(message), background: color);
   @override
   Widget build(BuildContext context) {
     RandomColor _randomColor = RandomColor();

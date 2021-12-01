@@ -17,7 +17,7 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
   Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
-  List<String>JobTypes=["Driver","Halwai","Peon","Labour","Tutor","Security Guard","Waiter","Maid","Watchman"];
+  List<String>JobTypes=["Driver","Halwai","Peon","Labour","Tutor","Guard","Waiter","Maid","Watchman"];
   bool isExpanded = false;
   @override
   void initState() {

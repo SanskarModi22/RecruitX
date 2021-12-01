@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
+import 'package:overlay_support/overlay_support.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:helping_hand/Employee/Auth/employeeBase.dart';
 // import 'package:helping_hand/Employer/Auth/employerBase.dart';
@@ -17,6 +21,34 @@ class Base extends StatefulWidget {
 
 class _BaseState extends State<Base> {
   @override
+  StreamSubscription subscription;
+  @override
+  initState() {
+    super.initState();
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen(showConnectivityResult);
+  }
+
+// Be sure to cancel subscription after you are done
+  @override
+  dispose() {
+    super.dispose();
+    subscription.cancel();
+  }
+  void showConnectivityResult(ConnectivityResult result) {
+    final hasInternet = result != ConnectivityResult.none;
+    print(hasInternet);
+    final message = hasInternet
+        ? 'You are connected to Network'
+        : 'You have no Internet';
+    final colour = hasInternet ? Colors.green : Colors.red;
+    showTopSnackbar(context, message, colour);
+  }
+
+  void showTopSnackbar(BuildContext context, String message, Color color) =>
+      showSimpleNotification(Text('Internet Connectivity Update'),
+          subtitle: Text(message), background: color);
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;
     // final height = MediaQuery.of(context).size.height.toDouble();

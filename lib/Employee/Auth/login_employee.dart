@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // ignore: unused_import
@@ -8,6 +11,7 @@ import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/mobile_signUp.dart';
 import 'package:helping_hand/wrapper.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -21,6 +25,34 @@ class LoginEmp extends StatefulWidget {
 class _LoginEmpState extends State<LoginEmp> {
   final AuthServices _auth = AuthServices();
   final formGlobalKey = GlobalKey<FormState>();
+  StreamSubscription subscription;
+  @override
+  initState() {
+    super.initState();
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen(showConnectivityResult);
+  }
+
+// Be sure to cancel subscription after you are done
+  @override
+  dispose() {
+    super.dispose();
+    subscription.cancel();
+  }
+  void showConnectivityResult(ConnectivityResult result) {
+    final hasInternet = result != ConnectivityResult.none;
+    print(hasInternet);
+    final message = hasInternet
+        ? 'You are connected to network'
+        : 'You have no Internet';
+    final colour = hasInternet ? Colors.green : Colors.red;
+    showTopSnackbar(context, message, colour);
+  }
+
+  void showTopSnackbar(BuildContext context, String message, Color color) =>
+      showSimpleNotification(Text('Internet Connectivity Update'),
+          subtitle: Text(message), background: color);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

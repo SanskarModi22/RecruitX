@@ -14,6 +14,7 @@ import 'package:helping_hand/Splash/splash_screen.dart';
 // import 'package:helping_hand/Shared/base.dart';
 // import 'package:helping_hand/base.dart';
 import 'package:helping_hand/providers/user_information.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:sizer/sizer.dart';
 import 'package:provider/provider.dart';
 
@@ -51,13 +52,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-            // primarySwatch: Colors.blue,
-            ),
-        debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+      return OverlaySupport(
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+              // primarySwatch: Colors.blue,
+              ),
+          debugShowCheckedModeBanner: false,
+          home: SplashScreen(),
+        ),
       );
     });
   }

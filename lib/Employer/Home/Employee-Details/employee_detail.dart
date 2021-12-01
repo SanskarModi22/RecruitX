@@ -1,6 +1,10 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/employee_profile_screen.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -50,17 +54,42 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   bool _hasCallSupport = false;
   Future<void> _launched;
   String _phone = '';
+  StreamSubscription subscription;
+
 
   @override
   void initState() {
     super.initState();
     // Check for phone call support.
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen(showConnectivityResult);
     canLaunch('tel:123').then((bool result) {
       setState(() {
         _hasCallSupport = result;
       });
     });
   }
+// Be sure to cancel subscription after you are done
+  @override
+  dispose() {
+    super.dispose();
+    subscription.cancel();
+  }
+  void showConnectivityResult(ConnectivityResult result) {
+    final hasInternet = result != ConnectivityResult.none;
+    print(hasInternet);
+    final message = hasInternet
+        ? 'You are connected to Network'
+        : 'You have no Internet';
+    final colour = hasInternet ? Colors.green : Colors.red;
+    showTopSnackbar(context, message, colour);
+  }
+
+  void showTopSnackbar(BuildContext context, String message, Color color) =>
+      showSimpleNotification(Text('Internet Connectivity Update'),
+          subtitle: Text(message), background: color);
+
   Future<void> _makePhoneCall(String phoneNumber) async {
     // Use `Uri` to ensure that `phoneNumber` is properly URL-encoded.
     // Just using 'tel:$phoneNumber' would create invalid URLs in some cases,

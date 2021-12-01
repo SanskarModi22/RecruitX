@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:helping_hand/Employer/Auth/employer_signup1.dart';
@@ -9,6 +12,7 @@ import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Shared/mobile_signUp.dart';
 import 'package:helping_hand/wrapper.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -25,8 +29,34 @@ class _LoginEmployerState extends State<LoginEmployer> {
 
   final AuthServices _auth = AuthServices();
   final formGlobalKey = GlobalKey<FormState>();
+        StreamSubscription subscription;
   @override
+  initState() {
+    super.initState();
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen(showConnectivityResult);
+  }
 
+// Be sure to cancel subscription after you are done
+  @override
+  dispose() {
+    super.dispose();
+    subscription.cancel();
+  }
+  void showConnectivityResult(ConnectivityResult result) {
+    final hasInternet = result != ConnectivityResult.none;
+    print(hasInternet);
+    final message = hasInternet
+        ? 'You are connected to network'
+        : 'You have no Internet';
+    final colour = hasInternet ? Colors.green : Colors.red;
+    showTopSnackbar(context, message, colour);
+  }
+
+  void showTopSnackbar(BuildContext context, String message, Color color) =>
+      showSimpleNotification(Text('Internet Connectivity Update'),
+          subtitle: Text(message), background: color);
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
 
@@ -199,39 +229,39 @@ class _LoginEmployerState extends State<LoginEmployer> {
                           SizedBox(
                             height: 20,
                           ),
-                          Center(
-                            child: Container(
-                                child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Dont Have an account?",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EmployerSignUp()));
-                                    },
-                                    child: Text(
-                                      "Sign Up",
-                                      style: TextStyle(
-                                        color: Colors.green,
-                                        fontSize: 17,
-                                      ),
-                                    )),
-                              ],
-                            )),
-                          ),
+                          // Center(
+                          //   child: Container(
+                          //       child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Text(
+                          //         "Dont Have an account?",
+                          //         style: TextStyle(
+                          //           color: Colors.white,
+                          //           fontSize: 17,
+                          //         ),
+                          //       ),
+                          //       SizedBox(
+                          //         width: 5,
+                          //       ),
+                          //       TextButton(
+                          //           onPressed: () {
+                          //             Navigator.push(
+                          //                 context,
+                          //                 MaterialPageRoute(
+                          //                     builder: (context) =>
+                          //                         EmployerSignUp()));
+                          //           },
+                          //           child: Text(
+                          //             "Sign Up",
+                          //             style: TextStyle(
+                          //               color: Colors.green,
+                          //               fontSize: 17,
+                          //             ),
+                          //           )),
+                          //     ],
+                          //   )),
+                          // ),
                         ],
                       ),
                     )

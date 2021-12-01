@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 // import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
 import 'package:helping_hand/Employee/Home/employee_filter_button.dart';
 import 'package:helping_hand/Employee/Home/employee_searchBar.dart';
 import 'package:helping_hand/providers/user_information.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -42,10 +46,13 @@ class _EmployeeListState extends State<EmployeeList>
     "Maid",
     "Watchman"
   ];
-
+  StreamSubscription subscription;
   @override
   void initState() {
     super.initState();
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen(showConnectivityResult);
     _searchController.addListener(_onSearchChanged);
     _controller = AnimationController(
       vsync: this,
@@ -69,8 +76,22 @@ class _EmployeeListState extends State<EmployeeList>
     _controller.dispose();
     _searchController.removeListener(_onSearchChanged);
     _searchController.dispose();
+    subscription.cancel();
     super.dispose();
   }
+  void showConnectivityResult(ConnectivityResult result) {
+    final hasInternet = result != ConnectivityResult.none;
+    print(hasInternet);
+    final message = hasInternet
+        ? 'You are connected to Network'
+        : 'You have no Internet';
+    final colour = hasInternet ? Colors.green : Colors.red;
+    showTopSnackbar(context, message, colour);
+  }
+
+  void showTopSnackbar(BuildContext context, String message, Color color) =>
+      showSimpleNotification(Text('Internet Connectivity Update'),
+          subtitle: Text(message), background: color);
 
   @override
   void didChangeDependencies() {
