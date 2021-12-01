@@ -22,6 +22,7 @@ class EmployeeJobPreferences extends StatelessWidget {
     "Waiter": FontAwesomeIcons.userTie,
     "Maid": FontAwesomeIcons.handsWash,
     "Delivery Man": FontAwesomeIcons.biking,
+    "Tutor":FontAwesomeIcons.book,
   };
   // ignore: non_constant_identifier_names
   Widget build(BuildContext context) {

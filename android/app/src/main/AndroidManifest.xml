@@ -23,7 +23,7 @@
         </intent>
     </queries>
    <application
-        android:label="helping_hand"
+        android:label="RecruitX"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
