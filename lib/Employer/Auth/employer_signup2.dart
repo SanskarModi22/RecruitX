@@ -311,7 +311,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       ),
                       fillColor: Colors.white,
                       filled: true,
-                      hintText: 'Aadhar number',
+                      hintText: 'Aadhar number with proper spacing',
                       enabledBorder: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(
                           10,
@@ -340,12 +340,15 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value == null ||
-                          value.isEmpty ||
-                          value.length != 12) {
-                        return 'Enter valid Aadhar number';
+                          value.isEmpty ) {
+                        return 'Required*';
                       }
+                      if(RegExp(r"^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$").hasMatch(value)==false||
+                          value.length != 12)
+                      return 'Enter valid Aadhar number';
                       return null;
-                    },
+                    }
+
                   ),
                   SizedBox(
                     height: 30,

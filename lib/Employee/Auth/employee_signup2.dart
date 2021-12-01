@@ -213,10 +213,12 @@ class _signup_page2State extends State<signup_page2> {
                     keyboardType: TextInputType.number,
                     validator: (value) {
                       if (value == null ||
-                          value.isEmpty ||
-                          value.length >= 13) {
-                        return 'Please enter your AADHAR number';
+                          value.isEmpty ) {
+                        return 'Required*';
                       }
+                      if(RegExp(r"^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$").hasMatch(value)==false||
+                          value.length >= 13)
+                        return 'Enter valid Aadhar number';
                       return null;
                     },
                   ),
