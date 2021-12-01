@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Auth/employee_signup3.dart';
 import 'package:intl/intl.dart';
 
 import 'employee_signup4.dart';
@@ -10,16 +8,16 @@ import 'employee_signup4.dart';
 class signup_page2 extends StatefulWidget {
   // const signup_page2({ Key? key }) : super(key: key);
   final String address;
-  final String EmployeeName;
-  final String EmployeeAge;
+  final String employeeName;
+  final String employeeAge;
   final String contact;
   final String imgUrl;
 
   const signup_page2(
       {Key key,
       this.address,
-      this.EmployeeName,
-      this.EmployeeAge,
+      this.employeeName,
+      this.employeeAge,
       this.contact,
       this.imgUrl})
       : super(key: key);
@@ -32,22 +30,22 @@ class _signup_page2State extends State<signup_page2> {
   @override
   final _formkey2 = GlobalKey<FormState>();
   final dob = TextEditingController();
-  final Bio = TextEditingController();
-  final Aadhar = TextEditingController();
-  final SalaryExpextation = TextEditingController();
+  final bio = TextEditingController();
+  final aadhar = TextEditingController();
+  final salaryExpectation = TextEditingController();
   final ExpectedJobs = TextEditingController();
-  final Experience = TextEditingController();
+  final experience = TextEditingController();
   final minSal = TextEditingController();
   final maxSal = TextEditingController();
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     dob.dispose();
-    Bio.dispose();
-    Aadhar.dispose();
-    SalaryExpextation.dispose();
+    bio.dispose();
+    aadhar.dispose();
+    salaryExpectation.dispose();
     ExpectedJobs.dispose();
-    Experience.dispose();
+    experience.dispose();
     minSal.dispose();
     maxSal.dispose();
     super.dispose();
@@ -55,11 +53,11 @@ class _signup_page2State extends State<signup_page2> {
 
   clearText() {
     dob.clear();
-    Bio.clear();
-    Aadhar.clear();
-    SalaryExpextation.clear();
+    bio.clear();
+    aadhar.clear();
+    salaryExpectation.clear();
     ExpectedJobs.clear();
-    Experience.clear();
+    experience.clear();
   }
 
   DateTime _dateTime;
@@ -127,7 +125,7 @@ class _signup_page2State extends State<signup_page2> {
                     height: 20,
                   ),
                   TextFormField(
-                    controller: Bio,
+                    controller: bio,
                     minLines: 2,
                     maxLines: null,
                     decoration: InputDecoration(
@@ -175,7 +173,7 @@ class _signup_page2State extends State<signup_page2> {
                     height: 30,
                   ),
                   TextFormField(
-                    controller: Aadhar,
+                    controller: aadhar,
                     decoration: InputDecoration(
                       floatingLabelStyle: TextStyle(
                         color: Colors.green,
@@ -216,8 +214,7 @@ class _signup_page2State extends State<signup_page2> {
                           value.isEmpty ) {
                         return 'Required*';
                       }
-                      if(RegExp(r"^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$").hasMatch(value)==false||
-                          value.length >= 13)
+                      if(RegExp(r"^[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}$").hasMatch(value)==false)
                         return 'Enter valid Aadhar number';
                       return null;
                     },
@@ -357,7 +354,7 @@ class _signup_page2State extends State<signup_page2> {
                     height: 30,
                   ),
                   TextFormField(
-                    controller: Experience,
+                    controller: experience,
                     minLines: 2,
                     maxLines: null,
                     decoration: InputDecoration(
@@ -415,14 +412,14 @@ class _signup_page2State extends State<signup_page2> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => signup_page4(
-                                    EmployeeName: widget.EmployeeName,
-                                    EmployeeAge: widget.EmployeeAge,
+                                    EmployeeName: widget.employeeName,
+                                    EmployeeAge: widget.employeeAge,
                                     address: widget.address,
                                     contact: widget.contact,
-                                    Aadhar: Aadhar.text,
-                                    Bio: Bio.text,
+                                    Aadhar: aadhar.text,
+                                    Bio: bio.text,
                                     dob: DateFormat.yMMMd().format(_dateTime),
-                                    Experience: Experience.text,
+                                    Experience: experience.text,
                                     minSal: int.parse(minSal.text),
                                 maxSal: int.parse(maxSal.text),
                                 ImgUrl: widget.imgUrl,

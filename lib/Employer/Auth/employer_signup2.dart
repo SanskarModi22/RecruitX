@@ -343,8 +343,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                           value.isEmpty ) {
                         return 'Required*';
                       }
-                      if(RegExp(r"^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$").hasMatch(value)==false||
-                          value.length != 12)
+                      if(RegExp(r"^[0-9]{4}[ -]?[0-9]{4}[ -]?[0-9]{4}$").hasMatch(value)==false)
                       return 'Enter valid Aadhar number';
                       return null;
                     }

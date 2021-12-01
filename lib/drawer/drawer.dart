@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/manage_post_screen.dart';
 import 'package:helping_hand/Services/Authentication.dart';
+import 'package:helping_hand/Splash/splash_screen.dart';
 import 'package:helping_hand/drawer/applicants.dart';
 // import 'package:helping_hand/drawer/rate_us.dart';
 // import 'package:helping_hand/providers/user_information.dart';

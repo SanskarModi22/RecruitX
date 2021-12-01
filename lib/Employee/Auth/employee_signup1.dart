@@ -98,26 +98,24 @@ void _storeEmployeeImages() async{
   // gettting url
    imgUrl = await ref.getDownloadURL();
 }
-  @override
   final address = TextEditingController();
-  final EmployeeName = TextEditingController();
-  final EmployeeAge = TextEditingController();
+  final employeeName = TextEditingController();
+  final employeeAge = TextEditingController();
   final contact = TextEditingController();
-  @override
   final _formkey = GlobalKey<FormState>();
   void dispose() {
     // Clean up the controller when the widget is disposed.
     address.dispose();
-    EmployeeName.dispose();
-    EmployeeAge.dispose();
+    employeeName.dispose();
+    employeeAge.dispose();
     contact.dispose();
     super.dispose();
   }
 
   clearText() {
     address.clear();
-    EmployeeName.clear();
-    EmployeeAge.clear();
+    employeeName.clear();
+    employeeAge.clear();
     contact.clear();
   }
 
@@ -184,7 +182,7 @@ if(ProfileImg!=null){
                     height: 20,
                   ),
                   TextFormField(
-                    controller: EmployeeName,
+                    controller: employeeName,
                     decoration: InputDecoration(
                       floatingLabelStyle: TextStyle(
                         color: Colors.green,
@@ -327,7 +325,7 @@ if(ProfileImg!=null){
                   Container(
                     width: 180,
                     child: TextFormField(
-                      controller: EmployeeAge,
+                      controller: employeeAge,
                       decoration: InputDecoration(
                         floatingLabelStyle: TextStyle(
                           color: Colors.green,
@@ -410,8 +408,8 @@ if(ProfileImg!=null){
                               builder: (context) => signup_page2(
                                     contact: contact.text,
                                     address: address.text,
-                                    EmployeeAge: EmployeeAge.text,
-                                    EmployeeName: EmployeeName.text,
+                                    employeeAge: employeeAge.text,
+                                    employeeName: employeeName.text,
                                 imgUrl: imgUrl,
                                   )),
                         );

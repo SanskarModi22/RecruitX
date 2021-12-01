@@ -158,7 +158,7 @@ print("hello");
               ? EmployeeSignUp()
               : Provider.of<UserType>(context).isEmployer
                   ? EmployerSignUp()
-                  : Base();
+                  : Base(isEmployee: isEmployee,isEmployer: isEmployer,);
         });
   }
 }

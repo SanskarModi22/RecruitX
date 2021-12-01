@@ -18,14 +18,17 @@ import 'package:sizer/sizer.dart';
 
 // ignore: camel_case_types
 class LoginEmployer extends StatefulWidget {
-  @override
+  bool isEmployer;
+
+  LoginEmployer({this.isEmployer});
+
   _LoginEmployerState createState() => _LoginEmployerState();
 }
 
 // ignore: camel_case_types
 class _LoginEmployerState extends State<LoginEmployer> {
-        bool isEmployer;
-      bool isEmployee;
+      //   bool isEmployer;
+      // bool isEmployee;
 
   final AuthServices _auth = AuthServices();
   final formGlobalKey = GlobalKey<FormState>();
@@ -146,7 +149,7 @@ class _LoginEmployerState extends State<LoginEmployer> {
                                     size: 35,
                                   ),
                                   Text(
-                                    "SignUp with Mobile",
+                                    widget.isEmployer?"LogIn with Mobile":"SignUp with Mobile",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
@@ -215,7 +218,7 @@ class _LoginEmployerState extends State<LoginEmployer> {
                                     height: 40,
                                   ),
                                   Text(
-                                    "SignUp with Google",
+                                    widget.isEmployer?"LogIn with Google":"SignUp with Google",
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 18,

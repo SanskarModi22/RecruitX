@@ -13,8 +13,9 @@ import 'package:provider/provider.dart';
 import 'package:helping_hand/Model/user.dart';
 
 class Base extends StatefulWidget {
-  const Base({key}) : super(key: key);
-
+  Base({key,this.isEmployer,this.isEmployee}) : super(key: key);
+bool isEmployer;
+bool isEmployee;
   @override
   _BaseState createState() => _BaseState();
 }
@@ -117,7 +118,7 @@ class _BaseState extends State<Base> {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        LoginEmployer(),
+                                        LoginEmployer(isEmployer: widget.isEmployer??false,),
                                   ),
                                 );
                               },
@@ -166,7 +167,7 @@ class _BaseState extends State<Base> {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        LoginEmp(),
+                                        LoginEmp(isEmployee: widget.isEmployee??false,),
                                   ),
                                 );
                               },
