@@ -109,7 +109,7 @@ class _AppliedJobState extends State<AppliedJob> {
             workingHours: jobData['workingHours'],
             jobId: widget.jobId,
             jobName: jobData['jobName'],
-            salary: jobData['salary'],
+            salary: jobData['salary'].toString(),
             specialRequest: jobData['specialRequest'],
             color: randomColor,
             shopId: jobData['shopId'],

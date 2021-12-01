@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:helping_hand/screens/employee_profile_screen.dart';
@@ -49,18 +50,16 @@ class _ApplicantsInfoState extends State<ApplicantsInfo> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Image.network(
-                    'https://lh3.googleusercontent.com/proxy/G9UA7sx_strAte2zz9hw2WyhommRDmG-ztTlvZpPPaPegGw0bJstENQiXoV7D2nHwChrdc1JHlGdvGJoXBbdZTFr',
+                  Image.asset(
+                    'assets/images/waiting.png',
                     height: MediaQuery.of(context).size.height * 0.3,
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   Text(
-                    'No one has applied for the job!',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
+                    'No one has applied for the job !',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

@@ -338,6 +338,20 @@ class __BodyState extends State<_Body> {
       if (_maid == true) {
         preferredJobs.add('Maid');
       }
+      if (_allJobs == true) {
+        preferredJobs = [
+          'Driver',
+          'Peon',
+          'Security Guard',
+          'Private Tutor',
+          'Labour',
+          'Halwai',
+          'Watchman',
+          'Sweeper',
+          'Waiter',
+          'Maid'
+        ];
+      }
       try {
         await FirebaseFirestore.instance
             .collection('employeeProfile')
@@ -369,6 +383,9 @@ class __BodyState extends State<_Body> {
       }
       if (_kolkata == true) {
         preferredCities.add('Kolkata');
+      }
+      if (_allCities == true) {
+        preferredCities = ['Mumbai', 'Chennai', 'Lucknow', 'Delhi', 'Kolkata'];
       }
       try {
         await FirebaseFirestore.instance

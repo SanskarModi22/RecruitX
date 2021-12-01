@@ -388,6 +388,34 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           title: Text('Work Days'),
                           subtitle: Text(job['workingDays']),
                         ),
+                        Divider(),
+                        ListTile(
+                          leading: Icon(
+                            job['nightShift'] == true
+                                ? Icons.nightlight_sharp
+                                : Icons.wb_sunny_rounded,
+                            size: 35,
+                            color: randomColor,
+                          ),
+                          title: Text('Shift'),
+                          subtitle: Text(job['nightShift'] == true
+                              ? 'Night Shift'
+                              : 'Day Time'),
+                        ),
+                        Divider(),
+                        ListTile(
+                          leading: Icon(
+                            job['partTime'] == true
+                                ? Icons.hourglass_bottom
+                                : Icons.hourglass_full_outlined,
+                            size: 35,
+                            color: randomColor,
+                          ),
+                          title: Text('Type of Job'),
+                          subtitle: Text(job['partTime'] == true
+                              ? 'Part-Time'
+                              : 'Full-Time'),
+                        ),
                       ],
                     ),
                   ),
