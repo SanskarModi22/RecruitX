@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Auth/employee_signup3.dart';
+import 'package:intl/intl.dart';
 
 import 'employee_signup4.dart';
 
@@ -93,7 +94,7 @@ class _signup_page2State extends State<signup_page2> {
                       child: Text(
                         _dateTime == null
                             ? 'Enter your DOB'
-                            : _dateTime.toString(),
+                            : DateFormat.yMMMd().format(_dateTime),
                         style: TextStyle(
                           fontSize: 20,
                         ),

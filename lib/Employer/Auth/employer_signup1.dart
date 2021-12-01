@@ -6,13 +6,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/database_service.dart';
 
 import 'package:helping_hand/Employer/Auth/employer_signup2.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class EmployerSignUp extends StatefulWidget {
@@ -374,7 +375,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                       child: Text(
                         _dateTime2 == null
                             ? 'Enter your DOB'
-                            : _dateTime2.toString(),
+                            : DateFormat.yMMMd().format(_dateTime2),
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.grey,
