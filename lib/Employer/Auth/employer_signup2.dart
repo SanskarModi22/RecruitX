@@ -156,6 +156,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
     return Form(
       key: _formkey2,
       child: Scaffold(
+        backgroundColor: Colors.black,
         body: Container(
           decoration: BoxDecoration(
             color: Colors.black,
