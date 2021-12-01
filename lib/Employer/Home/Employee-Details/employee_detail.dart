@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ClipPathClass extends CustomClipper<Path> {
   @override
@@ -46,6 +47,31 @@ class EmployeeDetailScreen extends StatefulWidget {
 }
 
 class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
+  bool _hasCallSupport = false;
+  Future<void> _launched;
+  String _phone = '';
+
+  @override
+  void initState() {
+    super.initState();
+    // Check for phone call support.
+    canLaunch('tel:123').then((bool result) {
+      setState(() {
+        _hasCallSupport = result;
+      });
+    });
+  }
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    // Use `Uri` to ensure that `phoneNumber` is properly URL-encoded.
+    // Just using 'tel:$phoneNumber' would create invalid URLs in some cases,
+    // such as spaces in the input, which would cause `launch` to fail on some
+    // platforms.
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: "+91${phoneNumber}",
+    );
+    await launch(launchUri.toString());
+  }
   @override
   Widget build(BuildContext context) {
     RandomColor _randomColor = RandomColor();
@@ -96,12 +122,22 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Text(
+              child: _hasCallSupport
+                  ?Text(
                 "Contact Now!",
                 style: TextStyle(color: Colors.white, fontSize: 23),
-              ),
+              ):Text(
+                "Calling not supported",
+                style: TextStyle(color: Colors.white, fontSize: 23),
+              )
             ),
-            onPressed: () {},
+            onPressed: () {
+              _hasCallSupport
+                  ?  setState(() {
+                _launched = _makePhoneCall(result['contact']);
+              })
+                  : null;
+            },
           ),
         ),
       ),
