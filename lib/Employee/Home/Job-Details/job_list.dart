@@ -495,7 +495,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(widget.result["salary"]),
+                                Text(widget.result["salary"].toString()),
                                 SizedBox(
                                   height: 1.25.h,
                                 ),
