@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -38,9 +39,8 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
   StreamSubscription subscription;
   void initState() {
     super.initState();
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen(showConnectivityResult);
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityResult);
     _searchController = TextEditingController();
     _searchController.addListener(_onSearchChanged);
     _controller = AnimationController(
@@ -58,15 +58,13 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
     _controller.forward();
   }
 
-
 // Be sure to cancel subscription after you are done
 
   void showConnectivityResult(ConnectivityResult result) {
     final hasInternet = result != ConnectivityResult.none;
     print(hasInternet);
-    final message = hasInternet
-        ? 'You are connected to Network'
-        : 'You have no Internet';
+    final message =
+        hasInternet ? 'You are connected to Network' : 'You have no Internet';
     final colour = hasInternet ? Colors.green : Colors.red;
     showTopSnackbar(context, message, colour);
   }
@@ -121,11 +119,29 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
   }
 
   getUsersPastTripsStreamSnapshots() async {
-    // final user = Provider.of<MyUser>(context);
+    final user = FirebaseAuth.instance.currentUser.uid;
+    final userData = await FirebaseFirestore.instance
+        .collection('employeeProfile')
+        .doc(user)
+        .get();
+    final maxSal = userData['maxExpSalary'];
+    final minSal = userData['minExpSalary'];
+    final bool nightShift =
+        userData['preferredShift'] == 'Night Shift' ? true : false;
+    final bool partTime = userData['jobType'] == 'Part-Time' ? true : false;
+    final List cities = userData['preferredCities'];
+    // print(cities);
+
     var data = await FirebaseFirestore.instance
         .collection('jobs')
         .where("jobName", isEqualTo: widget.text)
+        .where('salary', isGreaterThan: minSal)
+        .where('salary', isLessThan: maxSal)
+        .where('city', whereIn: cities)
+        .where('partTime', isEqualTo: partTime)
+        .where('nightShift', isEqualTo: nightShift)
         .get();
+
     setState(() {
       _allResults = data.docs;
       print(_allResults);
@@ -144,23 +160,14 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
           brightness: Brightness.dark,
           elevation: 0,
           titleSpacing: 7.w,
-          title: Row(
-            children: [
-              toggle == 0
-                  ? Text(
-                      '${widget.text}',
-                      style: TextStyle(
-                          fontSize: 19.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    )
-                  : Container(),
-              SizedBox(
-                width: 3.w,
-              )
-            ],
+          title: Text(
+            '${widget.text}',
+            style: TextStyle(
+                // fontSize: 19.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.black),
           ),
-          centerTitle: true,
+          centerTitle: false,
           actions: [
             EmployeeSearchBar(
               textEditingController: _searchController,
@@ -495,7 +502,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(widget.result["salary"]),
+                                Text(widget.result["salary"].toString()),
                                 SizedBox(
                                   height: 1.25.h,
                                 ),
