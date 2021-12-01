@@ -482,7 +482,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                               shopName: shopName.text,
                               employerName: OwnerName.text,
                               employerAge: OwnerAge.text,
-                              employerDOB: _dateTime2.toString(),
+                              employerDOB: DateFormat.yMMMd().format(_dateTime2),
                               employerContactNumber: contact.text,
                               OwnerImage: imgUrl,
                             ),

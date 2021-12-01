@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
 import 'package:sizer/sizer.dart';
 
 class JobCards extends StatefulWidget {
@@ -20,7 +21,8 @@ class _JobCardsState extends State<JobCards> {
     "Labour",
     "Waiter",
     "Maid",
-    "Guard"
+    "Security Guard",
+    "Delivery Boy"
   ];
   // ignore: non_constant_identifier_names
   // List<String> JobAvailable = [
@@ -45,39 +47,48 @@ class _JobCardsState extends State<JobCards> {
        return
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Card(
-            elevation: 0,
-            shadowColor: Colors.transparent,
-            child: Container(
-              width: 40.w,
-              decoration: BoxDecoration(
-                  color:
-                  (index % 2) == 0 ? Colors.purple[300] : Colors.orange,
-                  borderRadius: BorderRadius.circular(20.sp)),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      PopularJobs[index],
-                      style: TextStyle(
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    Container(
-                      width: 90.w,
-                      child: Text(
-                        "${snapshot.data.docs.length} jobs are availaible",
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        style: TextStyle(fontSize: 14.sp),
+          child: InkWell(
+            onTap: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => JobList(text: PopularJobs[index],),
+                  ));
+            },
+            child: Card(
+              elevation: 0,
+              shadowColor: Colors.transparent,
+              child: Container(
+                width: 40.w,
+                decoration: BoxDecoration(
+                    color:
+                    (index % 2) == 0 ? Colors.purple[300] : Colors.orange,
+                    borderRadius: BorderRadius.circular(20.sp)),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        PopularJobs[index],
+                        style: TextStyle(
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
-                    )
-                  ]),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Container(
+                        width: 90.w,
+                        child: Text(
+                          "${snapshot.data.docs.length} jobs are availaible",
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          style: TextStyle(fontSize: 14.sp),
+                        ),
+                      )
+                    ]),
+              ),
             ),
           ),
         );

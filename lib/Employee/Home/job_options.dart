@@ -20,7 +20,8 @@ class _JobOptionsState extends State<JobOptions> {
     "Labour",
     "Waiter",
     "Maid",
-    "Guard"
+    "Security Guard",
+    "Delivery Boy"
   ];
   Widget build(BuildContext context) {
     return Container(

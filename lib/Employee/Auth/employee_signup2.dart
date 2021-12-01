@@ -245,6 +245,7 @@ class _signup_page2State extends State<signup_page2> {
                         width: 90,
                         child: TextFormField(
                           controller: minSal,
+
                           decoration: InputDecoration(
                             floatingLabelStyle: TextStyle(
                               color: Colors.green,
@@ -420,10 +421,10 @@ class _signup_page2State extends State<signup_page2> {
                                     contact: widget.contact,
                                     Aadhar: Aadhar.text,
                                     Bio: Bio.text,
-                                    dob: _dateTime.toString(),
+                                    dob: DateFormat.yMMMd().format(_dateTime),
                                     Experience: Experience.text,
-                                    minSal: minSal.text,
-                                maxSal: maxSal.text,
+                                    minSal: int.parse(minSal.text),
+                                maxSal: int.parse(maxSal.text),
                                 ImgUrl: widget.imgUrl,
                                   ),),
                         );

@@ -434,7 +434,7 @@ class __BodyState extends State<_Body> {
             RangeSlider(
               values: _currentSalaryRangeValues,
               min: 0,
-              max: 50000,
+              max: 100000,
               onChanged: (RangeValues values) {
                 setState(() {
                   _currentSalaryRangeValues = values;

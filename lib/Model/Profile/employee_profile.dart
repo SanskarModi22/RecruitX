@@ -20,8 +20,8 @@ class Employee {
   String employeePreferedShift;
   double averageRating;
   String aadhar;
-  String minSal;
-  String maxSal;
+  int minSal;
+  int maxSal;
   bool isEmployee = false;
 // non  values
   List<ReviewByEmployer> reviews = [];

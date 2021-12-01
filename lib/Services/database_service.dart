@@ -39,8 +39,8 @@ class DatabaseServices {
       String imgUrl,
       List<ReviewByEmployer> reviews,
       bool isEmployee,
-      String minSal,
-      String maxSal,
+      int minSal,
+      int maxSal,
       String uid}) async {
     return await employeeProfile.doc(this.uid).set(
       {

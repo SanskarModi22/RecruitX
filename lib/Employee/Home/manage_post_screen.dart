@@ -33,7 +33,7 @@ class _ManagePostForEmployeeState extends State<ManagePostForEmployee> {
           );
         }
         final List appliedJobs = snapshot.data['appliedJobs'];
-        if (appliedJobs.isEmpty || appliedJobs == null) {
+        if (appliedJobs == null||appliedJobs.isEmpty) {
           return Scaffold(
             appBar: AppBar(
               title: Text('Manage Applications'),

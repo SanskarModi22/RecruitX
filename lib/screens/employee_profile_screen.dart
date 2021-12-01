@@ -111,7 +111,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
                   dob: user['dob'],
                   name: user['name'],
                   profileImgUrl: user['img_url'],
-                  rating: user['averageRating'],
+                  rating: 4.7,
                 ),
                 // currently working at
                 Card(

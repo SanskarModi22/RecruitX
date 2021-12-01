@@ -141,7 +141,6 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
         .where('partTime', isEqualTo: partTime)
         .where('nightShift', isEqualTo: nightShift)
         .get();
-
     setState(() {
       _allResults = data.docs;
       print(_allResults);

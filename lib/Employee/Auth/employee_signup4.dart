@@ -17,8 +17,8 @@ class signup_page4 extends StatefulWidget {
   final String Bio;
   final String Aadhar;
 
-final String minSal;
-final String maxSal;
+final int minSal;
+final int maxSal;
   final String ImgUrl;
   final String Experience;
 
@@ -38,7 +38,7 @@ class _signup_page4State extends State<signup_page4> {
   bool watchman = false;
   bool maid = false;
   bool waiter = false;
-  bool sweeper = false;
+  bool deliveryBoy = false;
   int count = 0;
   var result ;
   List<String> temp =[];
@@ -335,19 +335,19 @@ class _signup_page4State extends State<signup_page4> {
                           scale: 1.1,
                           child: Checkbox(
                             fillColor: MaterialStateProperty.all(Colors.green),
-                            value: sweeper,
+                            value: deliveryBoy,
                             onChanged: (val) {
                               setState(() {
                                 driver = val;
-                                if (sweeper == true)
+                                if (deliveryBoy == true)
                                   count++;
-                                else if (sweeper == false) count--;
+                                else if (deliveryBoy == false) count--;
                               });
                             },
                           ),
                         ),
                         Text(
-                          'Sweeper',
+                          'Delivery Boy',
                           style: TextStyle(
                             color: Colors.green,
                             fontSize: 20,
@@ -439,7 +439,9 @@ class _signup_page4State extends State<signup_page4> {
                     if(maid==true)
                       temp.add("Maid");
                     if(watchman==true)
-                      temp.add("Wachman");
+                      temp.add("Watchman");
+                    if(deliveryBoy==true)
+                      temp.add("Delivery Boy");
                     result=temp.toList();
                     DatabaseServices(uid: user.uid).updateEmployeeData(
                       employeeExpectedJobs: result,

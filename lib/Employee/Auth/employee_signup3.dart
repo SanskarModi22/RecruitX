@@ -18,8 +18,8 @@ class signup_page3 extends StatefulWidget {
   final String dob;
   final String Bio;
   final String Aadhar;
- final String minSal;
- final String maxSal;
+ final int minSal;
+ final int maxSal;
   final  ExpectedJobs;
 final String ImgUrl;
   final String Experience;

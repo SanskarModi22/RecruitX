@@ -21,7 +21,8 @@ class _EmployeeOptionsState extends State<EmployeeOptions> {
     "Labour",
     "Waiter",
     "Maid",
-    "Guard"
+    "Security Guard",
+    "Delivery Boy"
   ];
   Widget build(BuildContext context) {
     return Container(

@@ -22,7 +22,8 @@ class _EmployeeCardsState extends State<EmployeeCards> {
     "Watchman",
     "Halwai",
     "Peon",
-    "Guard"
+    "Security Guard",
+    "Delivery Boy"
   ];
   // var len;
   // // ignore: non_constant_identifier_names
