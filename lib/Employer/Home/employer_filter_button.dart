@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
+import 'package:helping_hand/Employer/Home/employer_filter_screen.dart';
 import 'package:helping_hand/screens/filters_Employee_screen.dart';
 import 'package:sizer/sizer.dart';
 
 class EmployerFilterButton extends StatefulWidget {
-  const EmployerFilterButton({key, this.height, this.margin}) : super(key: key);
+  const EmployerFilterButton(
+      {key, this.height, this.margin, @required this.text})
+      : super(key: key);
   final double height;
   final double margin;
+  final String text;
   @override
   _EmployerFilterButtonState createState() => _EmployerFilterButtonState();
 }
@@ -26,7 +30,9 @@ class _EmployerFilterButtonState extends State<EmployerFilterButton> {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => EmployeeFilterScreen(),
+                builder: (context) => EmployerFilterScreen(
+                  text: widget.text,
+                ),
               ),
             );
           },
