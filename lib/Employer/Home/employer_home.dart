@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:helping_hand/drawer/applicants.dart';
 import 'package:helping_hand/drawer/drawer.dart';
+import 'package:helping_hand/screens/employer_profile_screen.dart';
 import 'package:helping_hand/widgets/newjob.dart';
 import 'package:helping_hand/widgets/newshop.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -103,13 +104,19 @@ class _EmployerHomeState extends State<EmployerHome> {
                   actions: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 8, right: 8),
-                      child: CircleAvatar(
-                          radius: 20.sp,
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: NetworkImage(
-                            data['employerImg'],
-                            //  width: 10.w,
-                          )),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => EmployerProfile(data.id)));
+                        },
+                        child: CircleAvatar(
+                            radius: 20.sp,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: NetworkImage(
+                              data['employerImg'],
+                              //  width: 10.w,
+                            )),
+                      ),
                     )
                   ],
                 ),
