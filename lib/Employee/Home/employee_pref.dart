@@ -21,17 +21,17 @@ class EmployeeJobPreferences extends StatelessWidget {
     "Watchman": FontAwesomeIcons.userShield,
     "Waiter": FontAwesomeIcons.userTie,
     "Maid": FontAwesomeIcons.handsWash,
-    "Delivery Man": FontAwesomeIcons.biking,
+    "Delivery Boy": FontAwesomeIcons.biking,
     "Tutor":FontAwesomeIcons.book,
   };
   // ignore: non_constant_identifier_names
   Widget build(BuildContext context) {
     final cUser = FirebaseAuth.instance.currentUser.uid;
-    return FutureBuilder(
-        future: FirebaseFirestore.instance
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
             .collection('employeeProfile')
             .doc(cUser)
-            .get(),
+            .snapshots(),
         builder: (context, AsyncSnapshot snap) {
           if (snap.hasData) {
             return Container(
@@ -41,12 +41,12 @@ class EmployeeJobPreferences extends StatelessWidget {
                   itemCount: snap.data['expectedJobs'].length,
                   itemBuilder: (ctx, index) {
                     print(snap.data['expectedJobs'].length);
-                    return FutureBuilder(
-                        future: FirebaseFirestore.instance
+                    return StreamBuilder(
+                        stream: FirebaseFirestore.instance
                             .collection('jobs')
                             .where('jobName',
                                 isEqualTo: snap.data['expectedJobs'][index])
-                            .get(),
+                            .snapshots(),
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.hasData) {
                             return Padding(

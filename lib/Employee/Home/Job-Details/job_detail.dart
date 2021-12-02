@@ -190,11 +190,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             .collection('jobs')
             .doc(widget.jobId)
             .get();
-        sendSms(userData['contact'], data['shopName'], data['jobName']);
+        // sendSms(userData['contact'], data['shopName'], data['jobName']);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-                'You have Successfully Applied for this Job a message has been sent to you'),
+                'You have Successfully Applied for this Job.'),
             backgroundColor: Colors.green,
           ),
         );
