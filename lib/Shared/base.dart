@@ -59,23 +59,21 @@ class _BaseState extends State<Base> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/base_background.jpg'),
-                fit: BoxFit.fitHeight),
-          ),
+
           alignment: Alignment.center,
           child: Center(
             child: Padding(
               padding: const EdgeInsets.only(top: 100),
               child: Column(
                 children: [
-                  Text(
-                    "Who Are You?",
-                    style: GoogleFonts.andada(
-                      fontSize: 55.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
+                  FittedBox(
+                    child: Text(
+                      "Who Are You?",
+                      style: GoogleFonts.andada(
+                        fontSize: 55.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -93,11 +91,11 @@ class _BaseState extends State<Base> {
                                 backgroundColor: Colors.amber,
                                 radius: 35,
                                 backgroundImage:
-                                    AssetImage('assets/images/avatar.png'),
+                                    AssetImage('assets/images/employer.png'),
                               ),
                             ),
                             SizedBox(
-                              height: 15,
+                              height: 30,
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -144,10 +142,10 @@ class _BaseState extends State<Base> {
                                   backgroundColor: Colors.amber,
                                   radius: 35,
                                   backgroundImage:
-                                      AssetImage('assets/images/avatar.png')),
+                                      AssetImage('assets/images/employee.png')),
                             ),
                             SizedBox(
-                              height: 15,
+                              height: 30,
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
