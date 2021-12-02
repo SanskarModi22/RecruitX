@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:helping_hand/Employer/Home/Employee-Details/employee_list.dart';
@@ -17,7 +18,17 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
   Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
-  List<String>JobTypes=["Driver","Halwai","Peon","Labour","Tutor","Guard","Waiter","Maid","Watchman"];
+  List<String> JobTypes = [
+    "Driver",
+    "Halwai",
+    "Peon",
+    "Labour",
+    "Tutor",
+    "Guard",
+    "Waiter",
+    "Maid",
+    "Watchman"
+  ];
   bool isExpanded = false;
   @override
   void initState() {
@@ -47,20 +58,21 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
 
     if (_searchController.text != "") {
       for (var i in JobTypes) {
-
         // List title = tripSnapshot["expectedJobs"];
         // print(title);
         // print(title[0].toString());
         // print(title.map((e)=>title(e)=="Driver"));
         // for(int i=0;i<title.length;i++){
-        if (i.toString().toLowerCase().contains(_searchController.text.toLowerCase())) {
-
+        if (i
+            .toString()
+            .toLowerCase()
+            .contains(_searchController.text.toLowerCase())) {
           showResults.add(i);
           setState(() {
             isExpanded = true;
           });
-        }}
-
+        }
+      }
     } else {
       // showResults = List.from(_allResults);
       setState(() {
@@ -86,7 +98,6 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
 
   @override
   Widget build(BuildContext context) {
-
     return Stack(
       children: [
         Container(
@@ -98,7 +109,7 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
             borderRadius: BorderRadius.circular(2.h),
           ),
           child: TextField(
-            controller:_searchController,
+            controller: _searchController,
             cursorColor: Colors.blue[100],
             keyboardType: TextInputType.text,
             keyboardAppearance: Brightness.light,
@@ -137,11 +148,16 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
                     print(_resultsList[index]);
                     return Card(
                       child: InkWell(
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => EmployeeList(text: _resultsList[index],),
+                                builder: (context) => EmployeeList(
+                                  text: _resultsList[index],
+                                  salary: 100000,
+                                  partTime: false,
+                                  nightShift: false,
+                                ),
                               ));
                         },
                         child: ListTile(

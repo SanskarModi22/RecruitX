@@ -136,8 +136,8 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
     var data = await FirebaseFirestore.instance
         .collection('jobs')
         .where("jobName", isEqualTo: widget.text)
-        .where('salary', isGreaterThan: minSal)
-        .where('salary', isLessThan: maxSal)
+        .where('salary', isGreaterThanOrEqualTo: minSal)
+        .where('salary', isLessThanOrEqualTo: maxSal)
         .where('city', whereIn: cities)
         .where('partTime', isEqualTo: partTime)
         .where('nightShift', isEqualTo: nightShift)

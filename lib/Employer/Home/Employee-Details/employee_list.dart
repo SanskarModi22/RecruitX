@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 // import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
 import 'package:helping_hand/Employee/Home/employee_filter_button.dart';
+import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Employee/Home/employee_searchBar.dart';
+import 'package:helping_hand/Employer/Home/employer_filter_button.dart';
+import 'package:helping_hand/Employer/Home/employer_home.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +19,17 @@ import '../employer_searchBar.dart';
 import 'employee_detail.dart';
 
 class EmployeeList extends StatefulWidget {
-  const EmployeeList({Key key, this.text}) : super(key: key);
+  const EmployeeList({
+    Key key,
+    @required this.text,
+    @required this.salary,
+    @required this.partTime,
+    @required this.nightShift,
+  }) : super(key: key);
+  final double salary;
+
+  final bool partTime;
+  final bool nightShift;
 
   @override
   _EmployeeListState createState() => _EmployeeListState();
@@ -50,9 +63,8 @@ class _EmployeeListState extends State<EmployeeList>
   @override
   void initState() {
     super.initState();
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen(showConnectivityResult);
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityResult);
     _searchController.addListener(_onSearchChanged);
     _controller = AnimationController(
       vsync: this,
@@ -79,12 +91,12 @@ class _EmployeeListState extends State<EmployeeList>
     subscription.cancel();
     super.dispose();
   }
+
   void showConnectivityResult(ConnectivityResult result) {
     final hasInternet = result != ConnectivityResult.none;
     print(hasInternet);
-    final message = hasInternet
-        ? 'You are connected to Network'
-        : 'You have no Internet';
+    final message =
+        hasInternet ? 'You are connected to Network' : 'You have no Internet';
     final colour = hasInternet ? Colors.green : Colors.red;
     showTopSnackbar(context, message, colour);
   }
@@ -134,9 +146,27 @@ class _EmployeeListState extends State<EmployeeList>
 
   getUsersPastTripsStreamSnapshots() async {
     // final user = Provider.of<MyUser>(context);
+    String jobType = 'Full-Time';
+    String preferredShift = 'Day Shift';
+    if (widget.nightShift == true) {
+      preferredShift = 'Night Shift';
+    } else {
+      preferredShift = 'Day Shift';
+    }
+    if (widget.partTime == true) {
+      jobType = 'Part-Time';
+    } else {
+      jobType = 'Full-Time';
+    }
+
     var data = await FirebaseFirestore.instance
         .collection('employeeProfile')
         .where("expectedJobs", arrayContains: widget.text)
+        .where('minExpSalary', isLessThanOrEqualTo: widget.salary)
+        // .where('maxExpSalary', isLessThanOrEqualTo: widget.maxSal)
+        // .where('preferredCities', isEqualTo: widget.city)
+        .where('preferredShift', isEqualTo: preferredShift)
+        .where('jobType', isEqualTo: jobType)
         .get();
     setState(() {
       _allResults = data.docs;
@@ -154,6 +184,15 @@ class _EmployeeListState extends State<EmployeeList>
         backgroundColor: Color(0xffF57752),
         brightness: Brightness.dark,
         elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => EmployerHome()),
+            );
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
         titleSpacing: 7.w,
         title: Row(
           children: [
@@ -176,9 +215,10 @@ class _EmployeeListState extends State<EmployeeList>
           EmployerSearchBar(
             textEditingController: _searchController,
           ),
-          EmployeeFilterButton(
+          EmployerFilterButton(
             height: 3.h,
-            margin: 1.h,
+            margin: 8.5,
+            text: widget.text,
           )
         ],
       ),
