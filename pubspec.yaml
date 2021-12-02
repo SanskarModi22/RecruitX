@@ -50,6 +50,7 @@ dependencies:
   overlay_support: ^1.2.1
   intl: ^0.17.0
   twilio_flutter: ^0.0.9
+  telephony: ^0.1.4
 dev_dependencies:
   flutter_test:
     sdk: flutter
