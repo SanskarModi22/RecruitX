@@ -6,11 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
 import 'package:overlay_support/overlay_support.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:helping_hand/Employee/Auth/employeeBase.dart';
-// import 'package:helping_hand/Employer/Auth/employerBase.dart';
 import 'package:provider/provider.dart';
 import 'package:helping_hand/Model/user.dart';
+import 'package:sizer/sizer.dart';
 
 class Base extends StatefulWidget {
   Base({key,this.isEmployer,this.isEmployee}) : super(key: key);
@@ -53,6 +51,9 @@ class _BaseState extends State<Base> {
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;
     // final height = MediaQuery.of(context).size.height.toDouble();
+    print("w=${1.w}");
+    print("h=${1.h}");
+    print("sp=${1.sp}");
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -70,14 +71,14 @@ class _BaseState extends State<Base> {
                     child: Text(
                       "Who Are You?",
                       style: GoogleFonts.andada(
-                        fontSize: 55.0,
+                        fontSize: 42.3.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 120.0,
+                    height: 15.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -86,16 +87,16 @@ class _BaseState extends State<Base> {
                         child: Column(
                           children: [
                             CircleAvatar(
-                              radius: 38,
+                              radius: 29.2.sp,
                               child: CircleAvatar(
                                 backgroundColor: Colors.amber,
-                                radius: 35,
+                                radius: 26.9.sp,
                                 backgroundImage:
                                     AssetImage('assets/images/employer.png'),
                               ),
                             ),
                             SizedBox(
-                              height: 30,
+                              height: 3.75.h,
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -123,7 +124,7 @@ class _BaseState extends State<Base> {
                               child: Text(
                                 'Employer',
                                 style: GoogleFonts.scheherazade(
-                                  fontSize: 30,
+                                  fontSize: 23.sp,
                                 ),
                               ),
                             ),
@@ -131,28 +132,28 @@ class _BaseState extends State<Base> {
                         ),
                       ),
                       SizedBox(
-                        width: 50,
+                        width: 12.5.w,
                       ),
                       Container(
                         child: Column(
                           children: [
                             CircleAvatar(
-                              radius: 38,
+                              radius: 29.2.sp,
                               child: CircleAvatar(
                                   backgroundColor: Colors.amber,
-                                  radius: 35,
+                                  radius: 27.sp,
                                   backgroundImage:
                                       AssetImage('assets/images/employee.png')),
                             ),
                             SizedBox(
-                              height: 30,
+                              height: 3.75.h,
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 elevation: 15,
-                                side: BorderSide(width: 150),
+                                side: BorderSide(width: 37.5.w),
                                 primary: Colors.green,
-                                fixedSize: Size(140, 50),
+                                fixedSize: Size(35.w, 6.25.h),
                               ),
                               // onPressed: () async{
                               //   SharedPreferences.setMockInitialValues({});
@@ -172,7 +173,7 @@ class _BaseState extends State<Base> {
                               child: Text(
                                 'Employee',
                                 style: GoogleFonts.scheherazade(
-                                  fontSize: 30,
+                                  fontSize: 23.sp,
                                 ),
                               ),
                             ),

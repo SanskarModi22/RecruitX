@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:helping_hand/Employer/Auth/employer_signup1.dart';
 import 'package:helping_hand/Model/user.dart';
 
 
@@ -103,7 +101,7 @@ class _LoginEmployerState extends State<LoginEmployer> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 2.5.h,
               ),
               Align(
                 alignment: Alignment.center,
@@ -115,11 +113,11 @@ class _LoginEmployerState extends State<LoginEmployer> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 20,
+                            height: 2.5.h,
                           ),
                           Container(
-                            height: 55,
-                            width: 300,
+                            height: 6.875.h,
+                            width: 75.w,
                             child: ElevatedButton(
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
@@ -146,13 +144,13 @@ class _LoginEmployerState extends State<LoginEmployer> {
                                 children: [
                                   Icon(
                                     FontAwesomeIcons.mobile,
-                                    size: 35,
+                                    size: 27.sp,
                                   ),
                                   Text(
                                     widget.isEmployer?"LogIn with Mobile":"SignUp with Mobile",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 18,
+                                      fontSize: 13.8.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   )
@@ -161,22 +159,22 @@ class _LoginEmployerState extends State<LoginEmployer> {
                             ),
                           ),
                           SizedBox(
-                            height: 30,
+                            height: 3.75.h,
                           ),
                           Text(
                             "or",
                             style: TextStyle(
                               color: Colors.green,
-                              fontSize: 18,
+                              fontSize: 13.8.sp,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           SizedBox(
-                            height: 30,
+                            height: 3.75.h,
                           ),
                           Container(
-                            height: 55,
-                            width: 300,
+                            height: 6.875.h,
+                            width: 75.w,
                             child: ElevatedButton(
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
@@ -214,14 +212,14 @@ class _LoginEmployerState extends State<LoginEmployer> {
                                 children: [
                                   Image.asset(
                                     "assets/images/google-icon.png",
-                                    width: 50,
-                                    height: 40,
+                                    width: 12.5.w,
+                                    height: 5.h,
                                   ),
                                   Text(
                                     widget.isEmployer?"LogIn with Google":"SignUp with Google",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 18,
+                                      fontSize: 13.8.sp,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   )
@@ -230,7 +228,7 @@ class _LoginEmployerState extends State<LoginEmployer> {
                             ),
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 2.5.h,
                           ),
                           // Center(
                           //   child: Container(

@@ -13,22 +13,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // Future<void> setUserType() async {
-  //   try {
-  //     await Provider.of<UserType>(context).fetchAndSetUserType();
-  //   } catch (e) {
-  //     print('Fetching Data failed in wrapper');
-  //   }
-  // }
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 7), () {
-      // setUserType().onError((error, stackTrace) {
-      //   print('Failed to set user type');
-      // });
-      // 5 seconds over, navigate to Page2.
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -50,10 +39,10 @@ class _SplashScreenState extends State<SplashScreen> {
             waveColor: Colors.blueAccent,
             // boxBackgroundColor: Colors.redAccent,
             textStyle: TextStyle(
-              fontSize: 80.0,
+              fontSize: 61.5.sp,
               fontWeight: FontWeight.bold,
             ),
-            boxHeight: 300.0,
+            boxHeight: 37.5.h,
           ),
         ),
       ),

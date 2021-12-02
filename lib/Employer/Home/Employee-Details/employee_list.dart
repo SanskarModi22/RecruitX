@@ -197,13 +197,15 @@ class _EmployeeListState extends State<EmployeeList>
         title: Row(
           children: [
             toggler == 0
-                ? Text(
-                    '${widget.text}',
-                    style: TextStyle(
-                        fontSize: 19.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  )
+                ? FittedBox(
+                  child: Text(
+                      '${widget.text}',
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                )
                 : Container(),
             SizedBox(
               width: 3.w,

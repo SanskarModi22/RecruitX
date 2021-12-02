@@ -154,10 +154,10 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
               child: _hasCallSupport
                   ?Text(
                 "Contact Now!",
-                style: TextStyle(color: Colors.white, fontSize: 23),
+                style: TextStyle(color: Colors.white, fontSize: 17.6.sp),
               ):Text(
                 "Calling not supported",
-                style: TextStyle(color: Colors.white, fontSize: 23),
+                style: TextStyle(color: Colors.white, fontSize: 17.6.sp),
               )
             ),
             onPressed: () {
@@ -229,7 +229,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     icon: FaIcon(
                       FontAwesomeIcons.infoCircle,
                       color: randomColor,
-                      size: 30,
+                      size: 23.sp,
                     ),
                   ),
                 ),
@@ -241,7 +241,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       leading: Icon(
                         Icons.work,
                         color: randomColor,
-                        size: 35,
+                        size: 27.sp,
                       ),
                       title: Text('Rating'),
                       subtitle: Text(result['averageRating'].toString()),
@@ -262,7 +262,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       leading: Icon(
                         Icons.home_work_outlined,
                         color: randomColor,
-                        size: 35,
+                        size: 27.sp,
                       ),
                       title: Text('Currently Working At'),
                       subtitle: Text(result['currentWork']),
@@ -272,7 +272,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       leading: Icon(
                         Icons.attach_money_rounded,
                         color: randomColor,
-                        size: 35,
+                        size: 27.sp,
                       ),
                       title: Text('Expected Salary'),
                       subtitle: Text(
@@ -282,7 +282,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     ListTile(
                       leading: Icon(
                         Icons.timer,
-                        size: 35,
+                        size: 27.sp,
                         color: randomColor,
                       ),
                       title: Text('Preferred Shift'),
@@ -292,7 +292,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     ListTile(
                       leading: Icon(
                         Icons.calendar_today,
-                        size: 35,
+                        size: 27.sp,
                         color: randomColor,
                       ),
                       title: Text('Preferred Job-Type'),
@@ -307,16 +307,16 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     ListTile(
                       leading: Icon(
                         Icons.place,
-                        size: 35,
+                        size: 27.sp,
                         color: randomColor,
                       ),
                       title: Text('Employee Address'),
                     ),
                     Container(
                       width: double.maxFinite,
-                      margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                      margin: EdgeInsets.only(left: 2.5.w, right: 2.5.w, bottom: 1.25.h),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.25.h),
                       decoration: BoxDecoration(
                           border: Border.all(
                             width: 2,
@@ -335,7 +335,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       ListTile(
                         leading: Icon(
                           Icons.request_page,
-                          size: 35,
+                          size: 27.sp,
                           color: randomColor,
                         ),
                         title: Text('Bio'),
@@ -343,9 +343,9 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       Container(
                         width: double.maxFinite,
                         margin:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 1.25.h),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                            EdgeInsets.symmetric(horizontal: 3.75.w, vertical: 1.25.h),
                         decoration: BoxDecoration(
                             border: Border.all(
                               width: 2,

@@ -23,7 +23,7 @@ class EmployerEmployeePreference extends StatelessWidget {
           itemCount: Pref.length,
           itemBuilder: (ctx, index) {
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(6.1.sp),
               child: Card(
                 shadowColor: Colors.transparent,
                 child: ListTile(

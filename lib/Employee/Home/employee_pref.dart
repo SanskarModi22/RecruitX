@@ -75,7 +75,7 @@ class EmployeeJobPreferences extends StatelessWidget {
                                     title: Text(
                                       snap.data['expectedJobs'][index],
                                       style: TextStyle(
-                                          fontSize: 15.sp,
+                                          fontSize: 13.sp,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     subtitle: Padding(

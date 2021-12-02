@@ -8,6 +8,7 @@ import 'package:helping_hand/Services/database_service.dart';
 import 'package:helping_hand/widgets/shop_refs.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 // ignore: camel_case_types
 class EmployerSignUp2 extends StatefulWidget {
@@ -73,14 +74,14 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
         builder: (BuildContext bc) {
           return SafeArea(
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 30),
+              padding: EdgeInsets.symmetric(vertical: 3.75.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    radius: 40,
+                    radius: 30.7.sp,
                     child: IconButton(
-                      iconSize: 40,
+                      iconSize: 30.7.sp,
                       icon: Icon(Icons.photo_camera),
                       onPressed: () {
                         _imgFromCamera();
@@ -89,12 +90,12 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     ),
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 7.5.w,
                   ),
                   CircleAvatar(
-                    radius: 40,
+                    radius: 30.7.sp,
                     child: IconButton(
-                        iconSize: 40,
+                        iconSize: 30.7.sp,
                         icon: Icon(Icons.photo_library),
                         onPressed: () {
                           _imgFromGallery();
@@ -162,12 +163,12 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
             color: Colors.black,
           ),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+            padding:  EdgeInsets.fromLTRB(7.5.w, 2.5.h, 7.5.w, 0),
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   SizedBox(
-                    height: 30,
+                    height: 3.75.h,
                   ),
                   TextFormField(
                     controller: address,
@@ -212,7 +213,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     },
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 2.5.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -221,11 +222,11 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         'City',
                         style: TextStyle(
                           color: Colors.green,
-                          fontSize: 22,
+                          fontSize: 17.sp,
                         ),
                       ),
                       SizedBox(
-                        width: 20,
+                        width: 5.w,
                       ),
                       DropdownButton<String>(
                         value: dropdownValue,
@@ -256,7 +257,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 2.5.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -265,11 +266,11 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         'State',
                         style: TextStyle(
                           color: Colors.green,
-                          fontSize: 22,
+                          fontSize: 17.sp,
                         ),
                       ),
                       SizedBox(
-                        width: 20,
+                        width: 5.w,
                       ),
                       DropdownButton<String>(
                         value: dropdownValue2,
@@ -300,7 +301,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 3.75.h,
                   ),
                   TextFormField(
                     controller: AadharNum,
@@ -350,7 +351,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
 
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 3.75.h,
                   ),
                   TextFormField(
                     controller: bio,
@@ -389,7 +390,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         borderSide: BorderSide(color: Colors.green),
                       ),
                     ),
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return '*required';
@@ -398,7 +399,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     },
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 3.75.h,
                   ),
                   TextFormField(
                     controller: shopDescription,
@@ -445,7 +446,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     },
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 3.75.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -460,7 +461,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 22.5.w,
                       ),
                       Stack(
                         children: [
@@ -471,8 +472,8 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                               color: Colors.grey[300],
                             ),
                             margin: EdgeInsets.symmetric(vertical: 10),
-                            height: 110,
-                            width: 110,
+                            height: 13.75.h,
+                            width: 27.5.w,
                             child: ShopImage != null
                                 ? Image.file(
                                     ShopImage,
@@ -502,12 +503,12 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 3.7.h,
                   ),
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.green),
-                      fixedSize: MaterialStateProperty.all(Size(400,50)),
+                      fixedSize: MaterialStateProperty.all(Size(100.w,6.25.h)),
                     ),
                     onPressed: () {
                       if (ShopImage == null) {
@@ -556,12 +557,12 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     child: Text(
                       'Signup',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 13.8.sp,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 1.25.h,
                   ),
                 ],
               ),
