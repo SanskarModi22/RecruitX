@@ -30,9 +30,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
   @override
   initState() {
     super.initState();
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen(showConnectivityResult);
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityResult);
   }
 
 // Be sure to cancel subscription after you are done
@@ -41,12 +40,12 @@ class _EmployeeHomeState extends State<EmployeeHome> {
     super.dispose();
     subscription.cancel();
   }
+
   void showConnectivityResult(ConnectivityResult result) {
     final hasInternet = result != ConnectivityResult.none;
     print(hasInternet);
-    final message = hasInternet
-        ? 'You are connected to network'
-        : 'You have no Internet';
+    final message =
+        hasInternet ? 'You are connected to network' : 'You have no Internet';
     final colour = hasInternet ? Colors.green : Colors.red;
     showTopSnackbar(context, message, colour);
   }

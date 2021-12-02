@@ -70,9 +70,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   @override
   initState() {
     twilioFlutter = TwilioFlutter(
-        accountSid: accountSid,
-        authToken: token,
-        twilioNumber: phone);
+        accountSid: accountSid, authToken: token, twilioNumber: phone);
     super.initState();
     subscription =
         Connectivity().onConnectivityChanged.listen(showConnectivityResult);
@@ -108,12 +106,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
         .join('&');
   }
+
   TwilioFlutter twilioFlutter;
 
-  void sendSms(String number, String shopName, String jobName ) async {
+  void sendSms(String number, String shopName, String jobName) async {
     twilioFlutter.sendSMS(
-        toNumber: ' +91$number', messageBody: 'You have successfully applied for the job of $jobName at $shopName. For tracking your application check in the applications section of the app.');
+        toNumber: ' +91$number',
+        messageBody:
+            'You have successfully applied for the job of $jobName at $shopName. For tracking your application check in the applications section of the app.');
   }
+
   void getSms() async {
     var data = await twilioFlutter.getSmsList();
     print(data);
@@ -184,11 +186,15 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             .collection('employeeProfile')
             .doc(cUser)
             .update({'appliedJobs': jobs});
-        DocumentSnapshot data = await  FirebaseFirestore.instance.collection('jobs').doc(widget.jobId).get();
-sendSms(userData['contact'], data['shopName'], data['jobName']);
+        DocumentSnapshot data = await FirebaseFirestore.instance
+            .collection('jobs')
+            .doc(widget.jobId)
+            .get();
+        sendSms(userData['contact'], data['shopName'], data['jobName']);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('You have Successfully Applied for this Job a message has been sent to you'),
+            content: Text(
+                'You have Successfully Applied for this Job a message has been sent to you'),
             backgroundColor: Colors.green,
           ),
         );
