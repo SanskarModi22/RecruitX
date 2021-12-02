@@ -193,16 +193,18 @@ class _EmployeeListState extends State<EmployeeList>
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
-        titleSpacing: 7.w,
+        // titleSpacing: 7.w,
         title: Row(
           children: [
             toggler == 0
-                ? Text(
-                    '${widget.text}',
-                    style: TextStyle(
-                        fontSize: 19.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                ? FittedBox(
+                    child: Text(
+                      '${widget.text}',
+                      style: TextStyle(
+                          // fontSize: 19.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
                   )
                 : Container(),
             SizedBox(
