@@ -14,6 +14,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobList extends StatefulWidget {
   const JobList({Key key, this.text}) : super(key: key);
