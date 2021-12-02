@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/constants.dart';
 // import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/employer_profile_screen.dart';
 import 'package:helping_hand/screens/shop_details_screen.dart';
@@ -14,6 +15,8 @@ import 'package:sizer/sizer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
+import 'package:twilio_flutter/twilio_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ClipPathClass extends CustomClipper<Path> {
   @override
@@ -61,12 +64,21 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
   _JobDetailsScreenState({this.jobId, this.shopId});
   StreamSubscription subscription;
+  bool _hasSmsSupport = false;
+  Future<void> _launched;
+  var contactNo;
   @override
   initState() {
+    twilioFlutter = TwilioFlutter(
+        accountSid: accountSid, authToken: token, twilioNumber: phone);
     super.initState();
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen(showConnectivityResult);
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityResult);
+    // canLaunch('sms:123').then((bool result) {
+    //   setState(() {
+    //     _hasSmsSupport = result;
+    //   });
+    // });
   }
 
 // Be sure to cancel subscription after you are done
@@ -75,12 +87,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     super.dispose();
     subscription.cancel();
   }
+
   void showConnectivityResult(ConnectivityResult result) {
     final hasInternet = result != ConnectivityResult.none;
     print(hasInternet);
-    final message = hasInternet
-        ? 'You are connected to Network'
-        : 'You have no Internet';
+    final message =
+        hasInternet ? 'You are connected to Network' : 'You have no Internet';
     final colour = hasInternet ? Colors.green : Colors.red;
     showTopSnackbar(context, message, colour);
   }
@@ -88,6 +100,44 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   void showTopSnackbar(BuildContext context, String message, Color color) =>
       showSimpleNotification(Text('Internet Connectivity Update'),
           subtitle: Text(message), background: color);
+  String encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
+  }
+
+  TwilioFlutter twilioFlutter;
+
+  void sendSms(String number, String shopName, String jobName) async {
+    twilioFlutter.sendSMS(
+        toNumber: ' +91$number',
+        messageBody:
+            'You have successfully applied for the job of $jobName at $shopName. For tracking your application check in the applications section of the app.');
+  }
+
+  void getSms() async {
+    var data = await twilioFlutter.getSmsList();
+    print(data);
+    await twilioFlutter.getSMS('***************************');
+  }
+  // Future<void> _sendMessage(
+  //     {String phoneNumber, String shopName, String jobType}) async {
+  //   // Use `Uri` to ensure that `phoneNumber` is properly URL-encoded.
+  //   // Just using 'tel:$phoneNumber' would create invalid URLs in some cases,
+  //   // such as spaces in the input, which would cause `launch` to fail on some
+  //   // platforms.
+  //   final Uri launchUri = Uri(
+  //     scheme: 'sms',
+  //     path: "+91${phoneNumber}",
+  //     query: encodeQueryParameters(<String, String>{
+  //       'body':
+  //           'You have successfully applied for the job of $jobType at $shopName. For tracking your application check in the applications section of the app.'
+  //     }),
+  //   );
+  //   await launch(launchUri.toString());
+  // }
+
   @override
   Widget build(BuildContext context) {
     RandomColor _randomColor = RandomColor();
@@ -114,6 +164,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
       //  posting job
       try {
+        // setState(() {
+        //   contactNo = userData['contact'];
+        // });
         await FirebaseFirestore.instance
             .collection('jobs')
             .doc(widget.jobId)
@@ -133,15 +186,24 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             .collection('employeeProfile')
             .doc(cUser)
             .update({'appliedJobs': jobs});
+        DocumentSnapshot data = await FirebaseFirestore.instance
+            .collection('jobs')
+            .doc(widget.jobId)
+            .get();
+        sendSms(userData['contact'], data['shopName'], data['jobName']);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('You have Applied for this Job'),
+            content: Text(
+                'You have Successfully Applied for this Job a message has been sent to you'),
+            backgroundColor: Colors.green,
           ),
         );
       } catch (e) {
+        print(e.toString());
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to Apply for the Job'),
+            backgroundColor: Colors.red,
           ),
         );
       }
@@ -252,6 +314,15 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     Navigator.of(context).pop();
                   } else {
                     apply();
+                    // _hasSmsSupport
+                    //     ? setState(() {
+                    //         _launched = _sendMessage(
+                    //           phoneNumber: contactNo,
+                    //           shopName: job['shopName'],
+                    //           jobType: job['jobName'],
+                    //         );
+                    //       })
+                    //     : null;
                   }
                 },
               ),

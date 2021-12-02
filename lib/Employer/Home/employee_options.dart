@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
 import 'package:helping_hand/Employer/Home/Employee-Details/employee_list.dart';
@@ -24,6 +26,7 @@ class _EmployeeOptionsState extends State<EmployeeOptions> {
     "Security Guard",
     "Delivery Boy"
   ];
+
   Widget build(BuildContext context) {
     return Container(
       height: 8.h,
@@ -35,17 +38,22 @@ class _EmployeeOptionsState extends State<EmployeeOptions> {
             itemCount: employeeFields.length,
             itemBuilder: (BuildContext context, index) {
               return InkWell(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EmployeeList(text: employeeFields[index],),
+                        builder: (context) => EmployeeList(
+                          text: employeeFields[index],
+                          salary: 100000,
+                          partTime: false,
+                          nightShift: false,
+                        ),
                       ));
                 },
                 child: Padding(
                   padding: EdgeInsets.all(7.sp),
                   child: Card(
-                   elevation: 0,
+                    elevation: 0,
                     shadowColor: Colors.transparent,
                     color: Colors.transparent,
                     child: Container(

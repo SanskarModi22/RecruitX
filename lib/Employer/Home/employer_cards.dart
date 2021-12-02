@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -37,6 +38,7 @@ class _EmployeeCardsState extends State<EmployeeCards> {
   //
   //   return len;
   // }
+
   Widget build(BuildContext context) {
     return Container(
       height: 25.h,
@@ -44,20 +46,26 @@ class _EmployeeCardsState extends State<EmployeeCards> {
           scrollDirection: Axis.horizontal,
           itemCount: PopularJobs.length,
           itemBuilder: (ctx, index) {
-
             return FutureBuilder(
-              future: FirebaseFirestore.instance.collection('employeeProfile').where("expectedJobs",arrayContains: PopularJobs[index]).get(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if(snapshot.hasData)
-                  {
-                   return  Padding(
+                future: FirebaseFirestore.instance
+                    .collection('employeeProfile')
+                    .where("expectedJobs", arrayContains: PopularJobs[index])
+                    .get(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => EmployeeList(text: PopularJobs[index],),
+                                builder: (context) => EmployeeList(
+                                  text: PopularJobs[index],
+                                  salary: 100000,
+                                  partTime: false,
+                                  nightShift: false,
+                                ),
                               ));
                         },
                         child: Card(
@@ -66,11 +74,13 @@ class _EmployeeCardsState extends State<EmployeeCards> {
                           child: Container(
                             width: 40.w,
                             decoration: BoxDecoration(
-                                color:
-                                (index % 2) == 0 ? Colors.purple[300] : Colors.orange,
+                                color: (index % 2) == 0
+                                    ? Colors.purple[300]
+                                    : Colors.orange,
                                 borderRadius: BorderRadius.circular(20.sp)),
                             child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
                                     PopularJobs[index],
@@ -97,16 +107,13 @@ class _EmployeeCardsState extends State<EmployeeCards> {
                         ),
                       ),
                     );
-                  }
-                else
-                  return Center(
-                    child: Align(
-                      alignment: Alignment.center,
-                        child: CircularProgressIndicator()),
-                  );
-              }
-
-            );
+                  } else
+                    return Center(
+                      child: Align(
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator()),
+                    );
+                });
           }),
     );
   }

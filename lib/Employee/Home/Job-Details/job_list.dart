@@ -14,6 +14,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobList extends StatefulWidget {
   const JobList({Key key, this.text}) : super(key: key);
@@ -135,8 +136,8 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
     var data = await FirebaseFirestore.instance
         .collection('jobs')
         .where("jobName", isEqualTo: widget.text)
-        .where('salary', isGreaterThan: minSal)
-        .where('salary', isLessThan: maxSal)
+        .where('salary', isGreaterThanOrEqualTo: minSal)
+        .where('salary', isLessThanOrEqualTo: maxSal)
         .where('city', whereIn: cities)
         .where('partTime', isEqualTo: partTime)
         .where('nightShift', isEqualTo: nightShift)

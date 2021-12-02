@@ -53,7 +53,6 @@ class EmployeeDetailScreen extends StatefulWidget {
 class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   bool _hasCallSupport = false;
   Future<void> _launched;
-  String _phone = '';
   StreamSubscription subscription;
 
 
@@ -97,10 +96,11 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
     // platforms.
     final Uri launchUri = Uri(
       scheme: 'tel',
-      path: "+91${phoneNumber}",
+      path: "+91$phoneNumber",
     );
     await launch(launchUri.toString());
   }
+
   @override
   Widget build(BuildContext context) {
     RandomColor _randomColor = RandomColor();
