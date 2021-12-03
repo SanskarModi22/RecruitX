@@ -14,7 +14,7 @@ class MyUser {
 }
 
 class UserType with ChangeNotifier {
-  bool isEmployee = false;
+  bool isEmployee = true;
   bool isEmployer = false;
   bool get userAsEmployee {
     return isEmployee;

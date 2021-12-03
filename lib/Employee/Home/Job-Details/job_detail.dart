@@ -49,8 +49,11 @@ class JobDetailsScreen extends StatefulWidget {
   // const JobDetailsScreen({ Key? key }) : super(key: key);
   final String jobId;
   final String shopId;
-  final bool isWithdrawing;
-  JobDetailsScreen({this.jobId, this.shopId, @required this.isWithdrawing});
+
+  JobDetailsScreen({
+    this.jobId,
+    this.shopId,
+  });
 
   @override
   State<JobDetailsScreen> createState() => _JobDetailsScreenState(
@@ -243,6 +246,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             .collection('employeeProfile')
             .doc(uid)
             .update({'appliedJobs': jobs});
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Successfully removed Your application!'),
+          ),
+        );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('failed to remove from employee profile!')),
@@ -294,45 +303,66 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 5.0, right: 5.0, top: 4.0, bottom: 2.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  // padding: EdgeInsets.symmetric(horizontal: 5),
-                  shadowColor: randomColor,
-                  primary: randomColor,
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('jobs')
+                      .doc(widget.jobId)
+                      .collection('applicants')
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                          snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shadowColor: randomColor,
+                          primary: randomColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              15,
+                            ),
+                          ),
+                        ),
+                        child: Center(child: CircularProgressIndicator()),
+                        onPressed: () {},
+                      );
+                    }
+                    final isApplied = snapshot.data.docs.any((element) {
+                      final cUser = FirebaseAuth.instance.currentUser.uid;
+                      if (element.id == cUser) {
+                        return true;
+                      }
+                      return false;
+                    });
+                    print(isApplied);
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        // padding: EdgeInsets.symmetric(horizontal: 5),
+                        shadowColor: randomColor,
+                        primary: randomColor,
 
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      15,
-                    ),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    widget.isWithdrawing
-                        ? "Withdraw Application"
-                        : "Apply Now!",
-                    style: TextStyle(color: Colors.white, fontSize: 23),
-                  ),
-                ),
-                onPressed: () {
-                  if (widget.isWithdrawing == true) {
-                    removeApplication();
-                    Navigator.of(context).pop();
-                  } else {
-                    apply();
-                    // _hasSmsSupport
-                    //     ? setState(() {
-                    //         _launched = _sendMessage(
-                    //           phoneNumber: contactNo,
-                    //           shopName: job['shopName'],
-                    //           jobType: job['jobName'],
-                    //         );
-                    //       })
-                    //     : null;
-                  }
-                },
-              ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            15,
+                          ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          isApplied ? "Withdraw Application" : "Apply Now!",
+                          style: TextStyle(color: Colors.white, fontSize: 23),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (isApplied == true) {
+                          removeApplication();
+                        } else {
+                          apply();
+                        }
+                      },
+                    );
+                  }),
             ),
           ),
           body: SingleChildScrollView(

@@ -55,32 +55,31 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
   Future<void> _launched;
   StreamSubscription subscription;
 
-
   @override
   void initState() {
     super.initState();
     // Check for phone call support.
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen(showConnectivityResult);
+    subscription =
+        Connectivity().onConnectivityChanged.listen(showConnectivityResult);
     canLaunch('tel:123').then((bool result) {
       setState(() {
         _hasCallSupport = result;
       });
     });
   }
+
 // Be sure to cancel subscription after you are done
   @override
   dispose() {
     super.dispose();
     subscription.cancel();
   }
+
   void showConnectivityResult(ConnectivityResult result) {
     final hasInternet = result != ConnectivityResult.none;
     print(hasInternet);
-    final message = hasInternet
-        ? 'You are connected to Network'
-        : 'You have no Internet';
+    final message =
+        hasInternet ? 'You are connected to Network' : 'You have no Internet';
     final colour = hasInternet ? Colors.green : Colors.red;
     showTopSnackbar(context, message, colour);
   }
@@ -150,21 +149,23 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: _hasCallSupport
-                  ?Text(
-                "Contact Now!",
-                style: TextStyle(color: Colors.white, fontSize: 17.6.sp),
-              ):Text(
-                "Calling not supported",
-                style: TextStyle(color: Colors.white, fontSize: 17.6.sp),
-              )
-            ),
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: _hasCallSupport
+                    ? Text(
+                        "Contact Now!",
+                        style:
+                            TextStyle(color: Colors.white, fontSize: 17.6.sp),
+                      )
+                    : Text(
+                        "Calling not supported",
+                        style:
+                            TextStyle(color: Colors.white, fontSize: 17.6.sp),
+                      )),
             onPressed: () {
               _hasCallSupport
-                  ?  setState(() {
-                _launched = _makePhoneCall(result['contact']);
-              })
+                  ? setState(() {
+                      _launched = _makePhoneCall(result['contact']);
+                    })
                   : null;
             },
           ),
@@ -197,11 +198,7 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
               Card(
                 child: ListTile(
                   leading: CircleAvatar(
-                    child: Image(
-                      image: NetworkImage(
-                        'https://i.pinimg.com/originals/9a/25/d8/9a25d86d090fc965a7f9c0ad25668b10.jpg',
-                      ),
-                    ),
+                    backgroundImage: NetworkImage(result['img_url']),
                   ),
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -314,9 +311,10 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                     ),
                     Container(
                       width: double.maxFinite,
-                      margin: EdgeInsets.only(left: 2.5.w, right: 2.5.w, bottom: 1.25.h),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.25.h),
+                      margin: EdgeInsets.only(
+                          left: 2.5.w, right: 2.5.w, bottom: 1.25.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 5.w, vertical: 1.25.h),
                       decoration: BoxDecoration(
                           border: Border.all(
                             width: 2,
@@ -342,10 +340,10 @@ class _EmployeeDetailScreenState extends State<EmployeeDetailScreen> {
                       ),
                       Container(
                         width: double.maxFinite,
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 1.25.h),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 3.75.w, vertical: 1.25.h),
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 2.5.w, vertical: 1.25.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 3.75.w, vertical: 1.25.h),
                         decoration: BoxDecoration(
                             border: Border.all(
                               width: 2,
