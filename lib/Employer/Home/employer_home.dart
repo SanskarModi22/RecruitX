@@ -6,22 +6,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:helping_hand/Employee/Home/employee_Custom_Search.dart';
-import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
-import 'package:helping_hand/Employee/Home/employee_pref.dart';
-
-import 'package:helping_hand/Employee/Home/employee_cards.dart';
-import 'package:helping_hand/Employer/Home/employer_preference.dart';
-import 'package:helping_hand/Model/Profile/employer_profile.dart';
-import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/drawer/applicants.dart';
 import 'package:helping_hand/drawer/drawer.dart';
-
-import 'package:helping_hand/Employee/Home/job_options.dart';
+import 'package:helping_hand/screens/employer_profile_screen.dart';
 import 'package:helping_hand/widgets/newjob.dart';
 import 'package:helping_hand/widgets/newshop.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:provider/provider.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -39,28 +29,6 @@ class EmployerHome extends StatefulWidget {
 class _EmployerHomeState extends State<EmployerHome> {
   // final user = Provider.of<MyUser>(context);
   final cUser = FirebaseAuth.instance.currentUser.uid;
-  // var data;
-  // var result;
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   result = getEmployerData();
-  // }
-  // Future <void> getEmployerData() async{
-  //   try{
-  //     data =
-  //   await FirebaseFirestore.instance.collection('employerProfile').doc(cUser).get();
-  //   }
-  //   catch(err){
-  //     print(err.toString());
-  //   }
-  //
-  // }
-  // @override
-  //  initState()  {
-  //   super.initState();
-  //    getEmployerData();
-  // }
   StreamSubscription subscription;
   @override
   initState() {
@@ -119,7 +87,6 @@ class _EmployerHomeState extends State<EmployerHome> {
 
   @override
   Widget build(BuildContext context) {
-// print(data['name'].toString());
     return SafeArea(
       child: FutureBuilder(
           future: FirebaseFirestore.instance
@@ -137,13 +104,19 @@ class _EmployerHomeState extends State<EmployerHome> {
                   actions: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 8, right: 8),
-                      child: CircleAvatar(
-                          radius: 20.sp,
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: NetworkImage(
-                            data['employerImg'],
-                            //  width: 10.w,
-                          )),
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => EmployerProfile(data.id)));
+                        },
+                        child: CircleAvatar(
+                            radius: 20.sp,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: NetworkImage(
+                              data['employerImg'],
+                              //  width: 10.w,
+                            )),
+                      ),
                     )
                   ],
                 ),
@@ -184,13 +157,13 @@ class _EmployerHomeState extends State<EmployerHome> {
                             label: Text(
                               'Applicants',
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.green[600]),
                             ),
                             icon: Icon(
                               Icons.people,
-                              size: 30,
+                              size: 23.sp,
                               color: Colors.green[800],
                             ),
                           ),
@@ -200,13 +173,13 @@ class _EmployerHomeState extends State<EmployerHome> {
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.add_business_sharp,
-                              size: 30,
+                              size: 23.sp,
                               color: Colors.green[600],
                             ),
                             label: Text(
                               'New Shop',
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 14.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.green[600]),
                             ),
@@ -307,13 +280,13 @@ class _EmployerHomeState extends State<EmployerHome> {
                               child: Text(
                                 "My Info",
                                 style: TextStyle(
-                                  fontSize: 24.0,
+                                  fontSize: 18.4.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 2.5.h,
                             ),
                             Padding(
                               padding:
@@ -340,7 +313,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                             '0',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 20,
+                                              fontSize: 15.3.sp,
                                               // color: Colors.amber,
                                             ),
                                           );
@@ -350,7 +323,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                           nums,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 20,
+                                            fontSize: 15.3.sp,
                                             // color: Colors.amber,
                                           ),
                                         );
@@ -359,7 +332,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                               ),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 1.25.h,
                             ),
 
                             Padding(
@@ -391,7 +364,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                             '0',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 20,
+                                              fontSize: 15.3.sp,
                                               // color: Colors.amber,
                                             ),
                                           );
@@ -401,7 +374,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                           nums,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 20,
+                                            fontSize: 15.3.sp,
                                             // color: Colors.amber,
                                           ),
                                         );
@@ -410,7 +383,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 2.5.h,
                             )
                             // EmployerEmployeePreference()
                           ],

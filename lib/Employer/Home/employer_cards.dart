@@ -54,7 +54,7 @@ class _EmployeeCardsState extends State<EmployeeCards> {
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     return Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding:  EdgeInsets.all(6.1.sp),
                       child: InkWell(
                         onTap: () {
                           Navigator.push(
@@ -85,7 +85,7 @@ class _EmployeeCardsState extends State<EmployeeCards> {
                                   Text(
                                     PopularJobs[index],
                                     style: TextStyle(
-                                        fontSize: 15.sp,
+                                        fontSize: 14.sp,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),

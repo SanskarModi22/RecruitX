@@ -53,7 +53,7 @@ class _EmployeeFilterScreenState extends State<EmployeeFilterScreen> {
             halwai: expectedJobs.contains('Halwai'),
             waiter: expectedJobs.contains('Waiter'),
             watchmen: expectedJobs.contains('Watchman'),
-            sweeper: expectedJobs.contains('Delivery Boy'),
+            deliveryBoy: expectedJobs.contains('Delivery Boy'),
             maid: expectedJobs.contains('Maid'),
             allJobs: allJobs,
             // cities
@@ -85,7 +85,7 @@ class _Body extends StatefulWidget {
   bool labour;
   bool halwai;
   bool watchmen;
-  bool sweeper;
+  bool deliveryBoy;
   bool waiter;
   bool maid;
   // cities
@@ -114,7 +114,7 @@ class _Body extends StatefulWidget {
     @required this.peon,
     @required this.privateTutor,
     @required this.securityGuard,
-    @required this.sweeper,
+    @required this.deliveryBoy,
     @required this.waiter,
     @required this.watchmen,
   });
@@ -244,7 +244,7 @@ class __BodyState extends State<_Body> {
       _watchmen = widget.watchmen;
     }
     if (_deliveryBoy == null) {
-      _deliveryBoy = widget.sweeper;
+      _deliveryBoy = widget.deliveryBoy;
     }
     if (_waiter == null) {
       _waiter = widget.waiter;
@@ -590,7 +590,7 @@ class __BodyState extends State<_Body> {
                     ),
                   ),
                   CustomCheckBox(
-                    jobText: "Sweeper",
+                    jobText: "Delivery Boy",
                     checkbox: Checkbox(
                       value: _deliveryBoy,
                       onChanged: (val) {

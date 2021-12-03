@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Employer/Home/Employee-Details/employee_list.dart';
 import 'package:path/path.dart';
+import 'package:sizer/sizer.dart';
 
 class EmployerFilterScreen extends StatefulWidget {
   const EmployerFilterScreen({
@@ -69,7 +68,7 @@ class _EmployerFilterScreenState extends State<EmployerFilterScreen> {
                   subtitle: Text('Select the Range of salary'),
                   title: Text(
                     'Salary',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 13.8.sp),
                   ),
                 ),
                 Slider(

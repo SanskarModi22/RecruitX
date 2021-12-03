@@ -48,7 +48,7 @@ class _JobCardsState extends State<JobCards> {
       if (snapshot.hasData) {
        return
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding:  EdgeInsets.all(6.1.sp),
           child: InkWell(
             onTap: (){
               Navigator.push(
@@ -97,8 +97,8 @@ class _JobCardsState extends State<JobCards> {
       }
       else {
         return SizedBox(
-          width: 20,
-            height: 20,
+          width: 5.w,
+            height: 2.5.h,
             child: Center(child: CircularProgressIndicator()));
       }
     });

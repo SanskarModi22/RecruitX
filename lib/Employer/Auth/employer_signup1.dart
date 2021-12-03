@@ -1,20 +1,13 @@
 import 'dart:io';
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Employee/Home/employee_home.dart';
-import 'package:helping_hand/Employer/Auth/login_employer.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:helping_hand/Model/user.dart';
-import 'package:helping_hand/Services/database_service.dart';
-
 import 'package:helping_hand/Employer/Auth/employer_signup2.dart';
-
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class EmployerSignUp extends StatefulWidget {
   const EmployerSignUp({key}) : super(key: key);
@@ -26,7 +19,7 @@ class EmployerSignUp extends StatefulWidget {
 class _EmployerSignUpState extends State<EmployerSignUp> {
   final ImagePicker _picker = ImagePicker();
 
-  File OwnerImage;
+  File ownerImage;
 
   //image from camera
   _imgFromCamera() async {
@@ -35,7 +28,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
     );
     if (pickedImage != null) {
       setState(() {
-        OwnerImage = File(pickedImage.path);
+        ownerImage = File(pickedImage.path);
       });
     } else {
       return;
@@ -49,7 +42,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
     );
     if (pickedImage != null) {
       setState(() {
-        OwnerImage = File(pickedImage.path);
+        ownerImage = File(pickedImage.path);
       });
     } else {
       return;
@@ -63,14 +56,14 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
         builder: (BuildContext bc) {
           return SafeArea(
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 30),
+              padding: EdgeInsets.symmetric(vertical: 3.75.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    radius: 40,
+                    radius: 30.7.sp,
                     child: IconButton(
-                      iconSize: 40,
+                      iconSize: 30.7.sp,
                       icon: Icon(Icons.photo_camera),
                       onPressed: () {
                         _imgFromCamera();
@@ -79,12 +72,12 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     ),
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 7.5.w,
                   ),
                   CircleAvatar(
-                    radius: 40,
+                    radius: 30.7.sp,
                     child: IconButton(
-                        iconSize: 40,
+                        iconSize: 30.7.sp,
                         icon: Icon(Icons.photo_library),
                         onPressed: () {
                           _imgFromGallery();
@@ -109,7 +102,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
         .child('Employer Photo')
         .child(user.uid + '.png');
     // putting file
-    await ref.putFile(OwnerImage).whenComplete(() => null);
+    await ref.putFile(ownerImage).whenComplete(() => null);
     // gettting url
     imgUrl = await ref.getDownloadURL();
   }
@@ -144,7 +137,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
-    if (OwnerImage != null) {
+    if (ownerImage != null) {
       _storeEmployerImages();
     } else {
       print("Kartik is smart");
@@ -159,7 +152,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
             color: Colors.black,
           ),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+            padding:  EdgeInsets.fromLTRB(7.5.w, 2.5.h, 7.5.w, 0),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -171,11 +164,11 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                         style: TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 14.sp,
                         ),
                       ),
                       SizedBox(
-                        width: 90,
+                        width: 22.5.w,
                       ),
                       //imagepicker
                       Stack(
@@ -187,11 +180,11 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                               color: Colors.grey[300],
                             ),
                             margin: EdgeInsets.symmetric(vertical: 10),
-                            height: 110,
-                            width: 110,
-                            child: OwnerImage != null
+                            height: 13.75.h,
+                            width: 27.5.w,
+                            child: ownerImage != null
                                 ? Image.file(
-                                    OwnerImage,
+                                    ownerImage,
                                     fit: BoxFit.cover,
                                   )
                                 : Center(
@@ -202,8 +195,8 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                                   ),
                           ),
                           Positioned(
-                            top: 70,
-                            left: 45,
+                            top: 8.75.h,
+                            left: 11.25.w,
                             child: RawMaterialButton(
                               shape: CircleBorder(),
                               fillColor: Colors.white,
@@ -218,7 +211,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 3.75.h,
                   ),
                   TextFormField(
                     controller: shopName,
@@ -265,7 +258,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     },
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 3.75.h,
                   ),
                   TextFormField(
                     controller: OwnerName,
@@ -313,10 +306,10 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     },
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 3.75.h,
                   ),
                   Container(
-                    width: 180,
+                    width: 45.w,
                     child: TextFormField(
                       controller: OwnerAge,
                       decoration: InputDecoration(
@@ -361,15 +354,15 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 2.5.h,
                   ),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    height: 50,
-                    width: 200,
+                    height: 6.25.h,
+                    width: 50.w,
                     //color: Colors.white,
                     child: Align(
                       alignment: Alignment.center,
@@ -378,7 +371,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                             ? 'Enter your DOB'
                             : DateFormat.yMMMd().format(_dateTime2),
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 15.3.sp,
                           color: Colors.grey,
                         ),
                       ),
@@ -402,14 +395,14 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                         });
                       },
                       child: Text('Pick a Date', style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 14.sp,
                       ),),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.green),
                       fixedSize: MaterialStateProperty.all(Size(400,50)),
                     ),),
                   SizedBox(
-                    height: 20,
+                    height: 2.5.h,
                   ),
                   TextFormField(
                     controller: contact,
@@ -458,12 +451,12 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     },
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 3.75.h,
                   ),
                   ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.green),
-                      fixedSize: MaterialStateProperty.all(Size(400,50)),
+                      fixedSize: MaterialStateProperty.all(Size(100.w,6.25.h)),
                     ),
                     // style: ElevatedButton.styleFrom(
                     //   side: BorderSide(width: 150),
@@ -472,13 +465,13 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     //   fixedSize: Size(400, 45),
                     // ),
                     onPressed: () {
-                      if (OwnerImage == null) {
+                      if (ownerImage == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Please enter image!')),
                         );
                       }
                       if (_formkey.currentState.validate() &&
-                          OwnerImage != null) {
+                          ownerImage != null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -497,7 +490,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     child: Text(
                       'Next',
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 13.8.sp,
                       ),
                     ),
                   ),

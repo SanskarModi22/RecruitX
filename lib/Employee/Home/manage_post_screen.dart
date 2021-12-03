@@ -495,14 +495,14 @@ class __BodyState extends State<_Body> {
             right: 20,
             child: IconButton(
               icon: CircleAvatar(
-                radius: 18,
+                radius: 13.8.sp,
                 backgroundColor: widget.color,
                 child: CircleAvatar(
-                  radius: 15,
+                  radius: 11.5.sp,
                   backgroundColor: Colors.white,
                   child: Icon(
                     _expanded ? Icons.expand_less : Icons.expand_more,
-                    size: 22,
+                    size: 17.sp,
                     color: widget.color,
                   ),
                 ),

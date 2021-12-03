@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 
 import '../Services/Authentication.dart';
@@ -21,7 +22,7 @@ class _MobileSignUpState extends State<MobileSignUp> {
         child: Column(
           children: [
             SizedBox(
-              height: 220,
+              height: 27.5.h,
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(25, 35, 25, 0),
@@ -69,11 +70,11 @@ class _MobileSignUpState extends State<MobileSignUp> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 3.75.h,
             ),
             Container(
-              height: 55,
-              width: 200,
+              height: 6.875.h,
+              width: 50.w,
               child: ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
@@ -105,7 +106,7 @@ class _MobileSignUpState extends State<MobileSignUp> {
                       "Verify OTP",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     )

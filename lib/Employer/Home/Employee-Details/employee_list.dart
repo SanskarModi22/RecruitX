@@ -432,14 +432,20 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                             SizedBox(
                               width: 6.25.w,
                             ),
-                            Text(
-                              widget.result['name'],
-                              style: TextStyle(
+                            Container(
+                              width: 30.w,
+                              child: Text(
+                                widget.result['name'],
+                                style: TextStyle(
                                   fontSize: 10.7.sp,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                             SizedBox(
-                              width: 5.75.w,
+                              width: 5.w,
                             ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -454,7 +460,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                               ],
                             ),
                             SizedBox(
-                              width: 7.w,
+                              width: 5.w,
                             ),
                             Icon(
                               isTapped

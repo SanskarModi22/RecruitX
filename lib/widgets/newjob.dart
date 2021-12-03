@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:helping_hand/Model/user.dart';
-import 'package:provider/provider.dart';
-
+import 'package:sizer/sizer.dart';
 class NewJob extends StatefulWidget {
-  // const NewJob({ Key? key }) : super(key: key);
-//
-
   @override
   State<NewJob> createState() => _NewJobState();
 }
@@ -44,7 +39,7 @@ class _NewJobState extends State<NewJob> {
               value: name,
               child: Text(
                 name,
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 12.3.sp),
               ),
             ),
           );
@@ -64,7 +59,7 @@ class _NewJobState extends State<NewJob> {
           ),
           // resizeToAvoidBottomInset: false,
           body: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(15.sp),
             // margin: EdgeInsets.all(8),
             // height: 600,
             child: _MyForm(_items, shops),
@@ -213,17 +208,17 @@ class __MyFormState extends State<_MyForm> {
                         color: Colors.grey[600],
                       ),
                       SizedBox(
-                        width: 15,
+                        width: 3.75.w,
                       ),
                       Text(
                         'In Shop:',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14.sp,
                           color: Colors.grey[600],
                         ),
                       ),
                       SizedBox(
-                        width: 20,
+                        width: 5.w,
                       ),
                       DropdownButton<String>(
                         value: shopName,
@@ -234,7 +229,7 @@ class __MyFormState extends State<_MyForm> {
                             shopName = newValue;
                           });
                         },
-                        menuMaxHeight: 200,
+                        menuMaxHeight: 25.h,
                         items: widget._items,
                       ),
                     ],
@@ -249,17 +244,17 @@ class __MyFormState extends State<_MyForm> {
                         color: Colors.grey[600],
                       ),
                       SizedBox(
-                        width: 15,
+                        width: 3.75.w,
                       ),
                       Text(
                         'Looking For:',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14.sp,
                           color: Colors.grey[600],
                         ),
                       ),
                       SizedBox(
-                        width: 15,
+                        width: 3.75.w,
                       ),
                       DropdownButton<String>(
                         value: jobName,
@@ -270,7 +265,7 @@ class __MyFormState extends State<_MyForm> {
                             jobName = newValue;
                           });
                         },
-                        menuMaxHeight: 300,
+                        menuMaxHeight: 37.5.h,
                         items: <String>[
                           'Peon',
                           'Driver',

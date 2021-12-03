@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/api/notification_api.dart';
 import 'package:helping_hand/constants.dart';
 // import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/employer_profile_screen.dart';
@@ -74,6 +75,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     super.initState();
     subscription =
         Connectivity().onConnectivityChanged.listen(showConnectivityResult);
+    NotificationApi.init();
     // canLaunch('sms:123').then((bool result) {
     //   setState(() {
     //     _hasSmsSupport = result;
@@ -190,11 +192,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             .collection('jobs')
             .doc(widget.jobId)
             .get();
-        sendSms(userData['contact'], data['shopName'], data['jobName']);
+        // sendSms(userData['contact'], data['shopName'], data['jobName']);
+        NotificationApi.showNotification(
+          title: 'Job Update',
+          body:
+              'You have successfully applied for the job of ${data['jobName']} at ${data['shopName']}. For tracking your application check in the applications section of the app.',
+          payload: userData['contact'],
+        );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
-                'You have Successfully Applied for this Job a message has been sent to you'),
+            content: Text('You have Successfully Applied for this Job.'),
             backgroundColor: Colors.green,
           ),
         );

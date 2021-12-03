@@ -381,14 +381,19 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                             SizedBox(
                               width: 6.25.w,
                             ),
-                            Text(
-                              widget.result["shopName"],
-                              style: TextStyle(
-                                  fontSize: 16.15.sp,
-                                  fontWeight: FontWeight.bold),
+                            Container(
+                              width: 30.w,
+                              child: Text(
+                                widget.result["shopName"],
+                                style: TextStyle(
+                                    fontSize: 16.15.sp,
+                                    fontWeight: FontWeight.bold),
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                             SizedBox(
-                              width: 6.25.w,
+                              width: 5.w,
                             ),
                             Column(
                               children: [
@@ -402,7 +407,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                               ],
                             ),
                             SizedBox(
-                              width: 15.w,
+                              width: 5.w,
                             ),
                             Icon(
                               isTapped
@@ -427,30 +432,33 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                   fontSize: 17.sp,
                                   fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
-                              width: 10.w,
-                            ),
-                            Text(
-                              "City - ",
-                              style: TextStyle(
-                                  color: Colors.blue[900],
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Text(
-                              widget.result["city"] ?? "Null",
-                              style: TextStyle(
+
+                            Row(
+                              children: [
+                                Text(
+                                  "City - ",
+                                  style: TextStyle(
+                                      color: Colors.blue[900],
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  widget.result["city"] ?? "Null",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14.sp),
+                                ), Icon(
+                                  isTapped
+                                      ? Icons.keyboard_arrow_down
+                                      : Icons.keyboard_arrow_up,
                                   color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17.sp),
+                                  size: 20.sp,
+                                ),
+                              ],
                             ),
-                            Icon(
-                              isTapped
-                                  ? Icons.keyboard_arrow_down
-                                  : Icons.keyboard_arrow_up,
-                              color: Colors.black,
-                              size: 20.sp,
-                            ),
+
+
                           ],
                         ),
                         SizedBox(

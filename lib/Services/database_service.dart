@@ -61,6 +61,7 @@ class DatabaseServices {
         'minExpSalary': minSal,
         'maxExpSalary': maxSal,
         'appliedJobs': [],
+        'averageRating':3.8,
         'preferredCities': [],
         'backgroundImgUrl':
             "https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg",
