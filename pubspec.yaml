@@ -51,6 +51,7 @@ dependencies:
   intl: ^0.17.0
   twilio_flutter: ^0.0.9
   telephony: ^0.1.4
+  flutter_local_notifications: ^8.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
