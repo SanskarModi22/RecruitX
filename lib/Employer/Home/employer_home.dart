@@ -57,6 +57,34 @@ class _EmployerHomeState extends State<EmployerHome> {
       showSimpleNotification(Text('Internet Connectivity Update'),
           subtitle: Text(message), background: color);
 
+  Future<String> totalJobsPosted() async {
+    final jobs = await FirebaseFirestore.instance
+        .collection('jobs')
+        .where(
+          'ownerId',
+          isEqualTo: cUser,
+        )
+        .get();
+    if (jobs.docs.isEmpty || jobs == null) {
+      return '0';
+    }
+    return jobs.docs.length.toString();
+  }
+
+  Future<String> totalShops() async {
+    final shops = await FirebaseFirestore.instance
+        .collection('shops')
+        .where(
+          'ownerId',
+          isEqualTo: cUser,
+        )
+        .get();
+    if (shops.docs.isEmpty || shops == null) {
+      return '0';
+    }
+    return shops.docs.length.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -77,7 +105,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8, right: 8),
                       child: InkWell(
-                        onTap: () {
+                        onTap: (){
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (ctx) => EmployerProfile(data.id)));
                         },
@@ -276,19 +304,9 @@ class _EmployerHomeState extends State<EmployerHome> {
                                 ),
                                 trailing: CircleAvatar(
                                   backgroundColor: Colors.white,
-                                  child: StreamBuilder(
-                                      stream: FirebaseFirestore.instance
-                                          .collection('jobs')
-                                          .where(
-                                            'ownerId',
-                                            isEqualTo: cUser,
-                                          )
-                                          .snapshots(),
-                                      builder: (context,
-                                          AsyncSnapshot<
-                                                  QuerySnapshot<
-                                                      Map<String, dynamic>>>
-                                              snapshot) {
+                                  child: FutureBuilder(
+                                      future: totalJobsPosted(),
+                                      builder: (context, snapshot) {
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
                                           return Text(
@@ -300,9 +318,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                             ),
                                           );
                                         }
-
-                                        final nums = snapshot.data.docs.length
-                                            .toString();
+                                        final nums = snapshot.data.toString();
                                         return Text(
                                           nums,
                                           style: TextStyle(
@@ -339,19 +355,9 @@ class _EmployerHomeState extends State<EmployerHome> {
                                 ),
                                 trailing: CircleAvatar(
                                   backgroundColor: Colors.white,
-                                  child: StreamBuilder(
-                                      stream: FirebaseFirestore.instance
-                                          .collection('shops')
-                                          .where(
-                                            'ownerId',
-                                            isEqualTo: cUser,
-                                          )
-                                          .snapshots(),
-                                      builder: (context,
-                                          AsyncSnapshot<
-                                                  QuerySnapshot<
-                                                      Map<String, dynamic>>>
-                                              snapshot) {
+                                  child: FutureBuilder(
+                                      future: totalShops(),
+                                      builder: (context, snapshot) {
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
                                           return Text(
@@ -363,8 +369,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                             ),
                                           );
                                         }
-                                        final nums = snapshot.data.docs.length
-                                            .toString();
+                                        final nums = snapshot.data.toString();
                                         return Text(
                                           nums,
                                           style: TextStyle(

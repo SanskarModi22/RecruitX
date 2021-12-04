@@ -193,19 +193,19 @@ class _EmployeeListState extends State<EmployeeList>
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
-        // titleSpacing: 7.w,
+        titleSpacing: 7.w,
         title: Row(
           children: [
             toggler == 0
                 ? FittedBox(
-                    child: Text(
+                  child: Text(
                       '${widget.text}',
                       style: TextStyle(
-                          // fontSize: 19.sp,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
                     ),
-                  )
+                )
                 : Container(),
             SizedBox(
               width: 3.w,
@@ -437,8 +437,9 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                               child: Text(
                                 widget.result['name'],
                                 style: TextStyle(
-                                  fontSize: 10.7.sp,
-                                  fontWeight: FontWeight.bold,
+                                    fontSize: 10.7.sp,
+                                    fontWeight: FontWeight.bold,
+
                                 ),
                                 maxLines: 2,
                                 textAlign: TextAlign.center,

@@ -632,6 +632,7 @@ class _JobAvailableState extends State<JobAvailable> {
                           builder: (ctx) => JobDetailsScreen(
                             jobId: widget.jobId,
                             shopId: widget.providedShopId,
+                            isWithdrawing: false,
                           ),
                         ),
                       );

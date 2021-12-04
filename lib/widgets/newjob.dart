@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
 class NewJob extends StatefulWidget {
   @override
   State<NewJob> createState() => _NewJobState();
@@ -132,7 +131,8 @@ class __MyFormState extends State<_MyForm> {
       setState(() {
         contact = owner['contact'];
         ownerId = owner.id;
-        ownerImgUrl = ownerImgUrl = owner['employerImg'];
+        ownerImgUrl =
+            'https://i.pinimg.com/originals/24/1c/d8/241cd83e43200decd3057d14eb407c2d.jpg';
         ownerName = owner['name'];
       });
     }

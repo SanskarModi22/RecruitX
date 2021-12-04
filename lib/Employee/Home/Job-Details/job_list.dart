@@ -432,6 +432,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                   fontSize: 17.sp,
                                   fontWeight: FontWeight.bold),
                             ),
+
                             Row(
                               children: [
                                 Text(
@@ -447,8 +448,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14.sp),
-                                ),
-                                Icon(
+                                ), Icon(
                                   isTapped
                                       ? Icons.keyboard_arrow_down
                                       : Icons.keyboard_arrow_up,
@@ -457,6 +457,8 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                 ),
                               ],
                             ),
+
+
                           ],
                         ),
                         SizedBox(
@@ -522,6 +524,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 JobDetailsScreen(
+                                              isWithdrawing: false,
                                               jobId: widget.result.id,
                                               shopId: widget.result['shopId'],
                                             ),

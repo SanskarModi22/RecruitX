@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:helping_hand/Employer/Home/Employee-Details/employee_detail.dart';
 import 'package:helping_hand/screens/employee_profile_screen.dart';
 
 class ApplicantsInfo extends StatefulWidget {
@@ -98,34 +97,18 @@ class _ApplicantsInfoState extends State<ApplicantsInfo> {
                         // SizedBox(
                         //   width: 10,
                         // ),
-                        FutureBuilder(
-                            future: FirebaseFirestore.instance
-                                .collection('employeeProfile')
-                                .doc(applicants[index]['applicantId'])
-                                .get(),
-                            builder: (context,
-                                AsyncSnapshot<
-                                        DocumentSnapshot<Map<String, dynamic>>>
-                                    snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Icon(Icons.info);
-                              }
-                              final userData = snapshot.data;
-                              return IconButton(
-                                key: Key(applicants[index]['applicantName']),
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (ctx) => EmployeeDetailScreen(
-                                        result: userData,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                icon: FaIcon(FontAwesomeIcons.infoCircle),
-                              );
-                            }),
+                        IconButton(
+                          key: Key(applicants[index]['applicantName']),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (ctx) => EmployeeProfile(
+                                    applicants[index]['applicantId']),
+                              ),
+                            );
+                          },
+                          icon: FaIcon(FontAwesomeIcons.infoCircle),
+                        ),
                       ],
                     ),
                     leading: CircleAvatar(
