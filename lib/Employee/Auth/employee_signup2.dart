@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 import 'employee_signup4.dart';
@@ -354,15 +355,19 @@ class _signup_page2State extends State<signup_page2> {
                     height: 30,
                   ),
                   TextFormField(
+                    inputFormatters: [
+                      new LengthLimitingTextInputFormatter(20),
+                    ],
                     controller: experience,
-                    minLines: 2,
-                    maxLines: null,
+                    minLines: 1,
+                    maxLines: 2,
                     decoration: InputDecoration(
                       floatingLabelStyle: TextStyle(
                         color: Colors.green,
                         fontSize: 20,
                       ),
-                      hintText: 'Experience',
+                      hintText: 'Experience eg:5 years,3 years ,etc',
+
                       // labelText: 'Experience',
                       fillColor: Colors.white,
                       filled: true,

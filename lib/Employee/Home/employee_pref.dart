@@ -35,9 +35,11 @@ class EmployeeJobPreferences extends StatelessWidget {
         builder: (context, AsyncSnapshot snap) {
           if (snap.hasData) {
             return Container(
-              height: 40.h,
+height: 100.h,
               child: ListView.builder(
+                physics:NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
                   itemCount: snap.data['expectedJobs'].length,
                   itemBuilder: (ctx, index) {
                     print(snap.data['expectedJobs'].length);

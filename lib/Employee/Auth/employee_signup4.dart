@@ -338,7 +338,7 @@ class _signup_page4State extends State<signup_page4> {
                             value: deliveryBoy,
                             onChanged: (val) {
                               setState(() {
-                                driver = val;
+                                deliveryBoy = val;
                                 if (deliveryBoy == true)
                                   count++;
                                 else if (deliveryBoy == false) count--;

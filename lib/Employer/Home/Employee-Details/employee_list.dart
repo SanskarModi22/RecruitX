@@ -308,9 +308,9 @@ class _EmployeeListState extends State<EmployeeList>
               ],
             )
           : Center(
-              child: Text(
-              "Sorry No Employee Availaible",
-            )),
+              child: _resultsList.length==0?Text(
+                "Sorry No employees Availaible",
+              ):Text("Please Apply correct filters")),
     );
   }
 }

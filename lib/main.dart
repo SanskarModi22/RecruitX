@@ -54,9 +54,9 @@ class MyApp extends StatelessWidget {
     return Sizer(builder: (context, orientation, deviceType) {
       return OverlaySupport(
         child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'RecruitX',
           theme: ThemeData(
-              // primarySwatch: Colors.blue,
+              primarySwatch: Colors.cyan,
               ),
           debugShowCheckedModeBanner: false,
           home: SplashScreen(),

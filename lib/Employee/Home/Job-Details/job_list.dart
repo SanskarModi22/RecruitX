@@ -263,9 +263,9 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
                 ],
               )
             : Center(
-                child: Text(
+                child: _resultsList.length==0?Text(
                   "Sorry No jobs Availaible",
-                ),
+                ):Text("Please Apply correct filters")
               ));
   }
 }
