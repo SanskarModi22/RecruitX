@@ -329,11 +329,14 @@ class _DrawerHead extends StatelessWidget {
             margin: EdgeInsets.zero,
             accountName: Text(
               userData['name'],
-              style: TextStyle(backgroundColor: Colors.black54),
+              style: TextStyle(color: Colors.white,
+                  backgroundColor: Colors.transparent),
             ),
             accountEmail: Text(
               '+91 ' + userData['contact'],
-              style: TextStyle(backgroundColor: Colors.black87),
+              style: TextStyle(
+                  color: Colors.white,
+                  backgroundColor: Colors.transparent),
             ),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
