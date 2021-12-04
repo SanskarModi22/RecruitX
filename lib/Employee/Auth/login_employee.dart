@@ -72,9 +72,9 @@ class _LoginEmpState extends State<LoginEmp> {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                  18.w,
+                  5.w,
                   10.h,
-                  10.w,
+                  5.w,
                   0,
                 ),
                 child: Container(
@@ -86,9 +86,12 @@ class _LoginEmpState extends State<LoginEmp> {
                         'RecruitX Welcomes You !',
                         textStyle: TextStyle(
                           color: Colors.pink,
-                          fontSize: 20.sp,
+                          fontSize: 6.4.w,
                           fontWeight: FontWeight.bold,
+
                         ),
+                        textAlign: TextAlign.center
+
                       ),
                     ],
                     isRepeatingAnimation: true,
@@ -108,11 +111,11 @@ class _LoginEmpState extends State<LoginEmp> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 20,
+                            height: 2.5.h,
                           ),
                           Container(
-                            height: 55,
-                            width: 300,
+                            height: 6.875.h,
+                            width: 75.w,
                             child: ElevatedButton(
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
@@ -139,13 +142,13 @@ class _LoginEmpState extends State<LoginEmp> {
                                 children: [
                                   Icon(
                                     FontAwesomeIcons.mobile,
-                                    size: 35,
+                                    size: 8.75.w,
                                   ),
                                   Text(
                                     widget.isEmployee?"LogIn with Mobile":"SignUp with Mobile",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 18,
+                                      fontSize: 4.4.w,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   )
@@ -154,22 +157,22 @@ class _LoginEmpState extends State<LoginEmp> {
                             ),
                           ),
                           SizedBox(
-                            height: 30,
+                            height: 3.75.h,
                           ),
                           Text(
                             "or",
                             style: TextStyle(
                               color: Colors.green,
-                              fontSize: 18,
+                              fontSize: 4.4.w,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           SizedBox(
-                            height: 30,
+                            height: 3.75.h,
                           ),
                           Container(
-                            height: 55,
-                            width: 300,
+                            height: 6.875.h,
+                            width: 75.w,
                             child: ElevatedButton(
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
@@ -195,14 +198,14 @@ class _LoginEmpState extends State<LoginEmp> {
                                 children: [
                                   Image.asset(
                                     "assets/images/google-icon.png",
-                                    width: 50,
-                                    height: 40,
+                                    width: 12.5.w,
+                                    height: 5.h,
                                   ),
                                   Text(
                                     widget.isEmployee?"LogIn with Google":"SignUp with Google",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 18,
+                                      fontSize: 4.4.w,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   )

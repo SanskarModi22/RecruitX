@@ -90,7 +90,7 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
                         child: AnimatedBuilder(
                           child: Icon(
                             Icons.mic,
-                            size: 17.sp,
+                            size: 5.5.w,
                             color: Colors.blue[900],
                           ),
                           builder: (context, widget) {
@@ -125,7 +125,7 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
                           labelText: 'Shop Name..',
                           labelStyle: TextStyle(
                             color: Color(0xff5B5B5B),
-                            fontSize: 13.sp,
+                            fontSize: 4.2.w,
                             fontWeight: FontWeight.w500,
                           ),
                           alignLabelWithHint: true,
@@ -142,7 +142,7 @@ class _EmployeeSearchBarState extends State<EmployeeSearchBar>
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(30.0),
                     child: IconButton(
-                      splashRadius: 19.0,
+                      splashRadius: 4.75.w,
                       icon: Icon(Icons.search, size: 20.0,color: Colors.blue[900],),
                       onPressed: () {
                         setState(

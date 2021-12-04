@@ -52,7 +52,7 @@ height: 100.h,
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.hasData) {
                             return Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding:  EdgeInsets.all(2.w),
                               child: InkWell(
                                 onTap: (){
                                   Navigator.push(
@@ -71,13 +71,13 @@ height: 100.h,
                                         borderRadius:
                                             BorderRadius.circular(15.sp)),
                                     leading: CircleAvatar(
-                                      radius: 15.sp,
+                                      radius: 4.8.w,
                                       child: Icon(Jobs[snap.data['expectedJobs'][index]]),
                                     ),
                                     title: Text(
                                       snap.data['expectedJobs'][index],
                                       style: TextStyle(
-                                          fontSize: 13.sp,
+                                          fontSize: 4.225.w,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     subtitle: Padding(
@@ -86,7 +86,7 @@ height: 100.h,
                                         "${snapshot.data.docs.length} jobs availaible",
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
-                                          fontSize: 12.sp,
+                                          fontSize: 3.9.w,
                                         ),
                                       ),
                                     ),

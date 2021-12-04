@@ -343,7 +343,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
             });
           },
           child: Container(
-            height: isTapped ? 12.h : 35.h,
+            height: isTapped ? 14.h : 36.h,
             child: AnimatedContainer(
               duration: Duration(seconds: 1),
               curve: Curves.fastLinearToSlowEaseIn,
@@ -361,101 +361,118 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                 boxShadow: [
                   BoxShadow(
                     color: Color(0xff6F12E8).withOpacity(0.5),
-                    blurRadius: 15.3.sp,
+                    blurRadius: 4.9.w,
                     offset: Offset(0, 10),
                   ),
                 ],
               ),
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(4.w),
               child: isTapped
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 16.15.sp,
-                              backgroundImage:
-                                  NetworkImage(widget.result["shopImgUrl"]),
-                            ),
-                            SizedBox(
-                              width: 6.25.w,
-                            ),
-                            Container(
-                              width: 30.w,
-                              child: Text(
-                                widget.result["shopName"],
-                                style: TextStyle(
-                                    fontSize: 16.15.sp,
-                                    fontWeight: FontWeight.bold),
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
+                  ? FittedBox(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 5.2.w,
+                                backgroundImage:
+                                    NetworkImage(widget.result["shopImgUrl"]),
                               ),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "City",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                              SizedBox(
+                                width: 6.25.w,
+                              ),
+                              Container(
+                                width: 30.w,
+                                child: FittedBox(
+                                  child: Text(
+                                    widget.result["shopName"],
+                                    style: TextStyle(
+                                        fontSize: 5.2.w,
+                                        fontWeight: FontWeight.bold),
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
-                                Text(widget.result["city"] ?? "Null"),
-                              ],
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Icon(
-                              isTapped
-                                  ? Icons.keyboard_arrow_down
-                                  : Icons.keyboard_arrow_up,
-                              color: Colors.black,
-                              size: 20.sp,
-                            ),
-                          ],
-                        ),
-                      ],
-                    )
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    "City",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(widget.result["city"] ?? "Null"),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Icon(
+                                isTapped
+                                    ? Icons.keyboard_arrow_down
+                                    : Icons.keyboard_arrow_up,
+                                color: Colors.black,
+                                size: 6.5.w,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                  )
                   : Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              widget.result["shopName"],
-                              style: TextStyle(
-                                  color: Colors.blue[900],
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  "City - ",
+                            Container(
+                              width:40.w,
+                              child: FittedBox(
+                                child: Text(
+                                  widget.result["shopName"],
                                   style: TextStyle(
                                       color: Colors.blue[900],
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  widget.result["city"] ?? "Null",
-                                  style: TextStyle(
-                                      color: Colors.black,
+                                      fontSize: 5.5.w,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 14.sp),
+                                  ),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
                                 ),
-                                Icon(
-                                  isTapped
-                                      ? Icons.keyboard_arrow_down
-                                      : Icons.keyboard_arrow_up,
-                                  color: Colors.black,
-                                  size: 20.sp,
+                              ),
+                            ),
+                            Container(
+                              width: 40.w,
+                              child: FittedBox(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "City - ",
+                                      style: TextStyle(
+                                          color: Colors.blue[900],
+                                          fontSize: 4.5.w,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      widget.result["city"] ?? "Null",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 4.5.w),
+                                    ),
+                                    Icon(
+                                      isTapped
+                                          ? Icons.keyboard_arrow_down
+                                          : Icons.keyboard_arrow_up,
+                                      color: Colors.black,
+                                      size: 6.5.w,
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
@@ -468,7 +485,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                             Hero(
                               tag: widget.result["shopImgUrl"],
                               child: CircleAvatar(
-                                radius: 57.sp,
+                                radius: 18.5.w,
                                 backgroundImage:
                                     NetworkImage(widget.result["shopImgUrl"]),
                               ),

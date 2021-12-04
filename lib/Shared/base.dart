@@ -64,21 +64,21 @@ class _BaseState extends State<Base> {
           alignment: Alignment.center,
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 100),
+              padding:  EdgeInsets.only(top: 25.h),
               child: Column(
                 children: [
                   FittedBox(
                     child: Text(
                       "Who Are You?",
-                      style: GoogleFonts.andada(
-                        fontSize: 42.3.sp,
+                      style: GoogleFonts.scheherazade(
+                        fontSize: 13.w,
                         fontWeight: FontWeight.bold,
                         color: Colors.green,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: 15.h,
+                    height: 5.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -87,7 +87,7 @@ class _BaseState extends State<Base> {
                         child: Column(
                           children: [
                             CircleAvatar(
-                              radius: 29.2.sp,
+                              radius: 9.49.w,
                               child: CircleAvatar(
                                 backgroundColor: Colors.amber,
                                 radius: 26.9.sp,
@@ -124,24 +124,25 @@ class _BaseState extends State<Base> {
                               child: Text(
                                 'Employer',
                                 style: GoogleFonts.scheherazade(
-                                  fontSize: 23.sp,
+                                  fontSize: 7.w,
+                                  color: Colors.white,
+
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        width: 12.5.w,
-                      ),
+                      Text("Or",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 5.w),),
+
                       Container(
                         child: Column(
                           children: [
                             CircleAvatar(
-                              radius: 29.2.sp,
+                              radius: 9.49.w,
                               child: CircleAvatar(
                                   backgroundColor: Colors.amber,
-                                  radius: 27.sp,
+                                  radius: 8.7.w,
                                   backgroundImage:
                                       AssetImage('assets/images/employee.png')),
                             ),
@@ -173,7 +174,9 @@ class _BaseState extends State<Base> {
                               child: Text(
                                 'Employee',
                                 style: GoogleFonts.scheherazade(
-                                  fontSize: 23.sp,
+                                  fontSize: 7.w,
+                                    color: Colors.white,
+
                                 ),
                               ),
                             ),

@@ -82,7 +82,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               builder: (ctx) => EmployeeProfile(data.id)));
                         },
                         child: CircleAvatar(
-                          radius: 20.sp,
+                          radius: 6.5.w,
                           backgroundImage: NetworkImage(data['img_url']),
                         ),
                       ),
@@ -105,7 +105,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: EdgeInsets.fromLTRB(15.sp, 0, 0, 0),
+                              padding: EdgeInsets.fromLTRB(4.8.w, 0, 0, 0),
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Stack(
@@ -117,7 +117,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         Text(
                                           "Hello ${data['name']}",
                                           style: TextStyle(
-                                              fontSize: 16.sp,
+                                              fontSize: 5.2.w,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(
@@ -125,7 +125,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         ),
                                         Text(
                                           "Find Your Dream Job",
-                                          style: TextStyle(fontSize: 16.sp),
+                                          style: TextStyle(fontSize: 5.2.w),
                                         ),
                                         SizedBox(
                                           height: 3.h,
@@ -199,7 +199,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                 child: Text(
                               "High Paying Jobs",
                               style: TextStyle(
-                                fontSize: 18.4.sp,
+                                fontSize: 5.9.w,
                                 fontWeight: FontWeight.bold,
                               ),
                             )),
@@ -214,7 +214,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               child: Text(
                                 "Related To your Role",
                                 style: TextStyle(
-                                  fontSize: 18.4.sp,
+                                  fontSize: 5.9.w,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

@@ -34,15 +34,17 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Container(
           width: 100.w,
-          child: TextLiquidFill(
-            text: 'RecruitX',
-            waveColor: Colors.blueAccent,
-            // boxBackgroundColor: Colors.redAccent,
-            textStyle: TextStyle(
-              fontSize: 61.5.sp,
-              fontWeight: FontWeight.bold,
+          child: FittedBox(
+            child: TextLiquidFill(
+              text: 'RecruitX',
+              waveColor: Colors.blueAccent,
+              // boxBackgroundColor: Colors.redAccent,
+              textStyle: TextStyle(
+                fontSize: 19.w,
+                fontWeight: FontWeight.bold,
+              ),
+              // boxHeight: 37.5.h,
             ),
-            boxHeight: 37.5.h,
           ),
         ),
       ),

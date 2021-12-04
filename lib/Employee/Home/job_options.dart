@@ -42,7 +42,7 @@ class _JobOptionsState extends State<JobOptions> {
                       ));
                 },
                 child: Padding(
-                  padding: EdgeInsets.all(7.sp),
+                  padding: EdgeInsets.all(2.2.w),
                   child: Card(
                     elevation: 0,
                     shadowColor: Colors.transparent,
@@ -55,11 +55,13 @@ class _JobOptionsState extends State<JobOptions> {
                         borderRadius: BorderRadius.circular(5.w),
                       ),
                       child: Center(
-                        child: Text(
-                          Jobs[index],
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13.sp,
+                        child: FittedBox(
+                          child: Text(
+                            Jobs[index],
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 4.w,
+                            ),
                           ),
                         ),
                       ),

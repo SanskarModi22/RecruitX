@@ -74,9 +74,9 @@ class _LoginEmployerState extends State<LoginEmployer> {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                  18.w,
+                  5.w,
                   10.h,
-                  10.w,
+                  5.w,
                   0,
                 ),
                 child: Container(
@@ -88,9 +88,10 @@ class _LoginEmployerState extends State<LoginEmployer> {
                         'RecruitX Welcomes You !',
                         textStyle: TextStyle(
                           color: Colors.pink,
-                          fontSize: 20.sp,
+                          fontSize: 6.4.w,
                           fontWeight: FontWeight.bold,
                         ),
+                          textAlign: TextAlign.center
                       ),
                     ],
                     isRepeatingAnimation: true,
@@ -144,13 +145,13 @@ class _LoginEmployerState extends State<LoginEmployer> {
                                 children: [
                                   Icon(
                                     FontAwesomeIcons.mobile,
-                                    size: 27.sp,
+                                    size: 8.7.w,
                                   ),
                                   Text(
                                     widget.isEmployer?"LogIn with Mobile":"SignUp with Mobile",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 13.8.sp,
+                                      fontSize: 4.4.w,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   )
@@ -165,7 +166,7 @@ class _LoginEmployerState extends State<LoginEmployer> {
                             "or",
                             style: TextStyle(
                               color: Colors.green,
-                              fontSize: 13.8.sp,
+                              fontSize: 4.4.w,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -219,7 +220,7 @@ class _LoginEmployerState extends State<LoginEmployer> {
                                     widget.isEmployer?"LogIn with Google":"SignUp with Google",
                                     style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 13.8.sp,
+                                      fontSize: 4.4.w,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   )

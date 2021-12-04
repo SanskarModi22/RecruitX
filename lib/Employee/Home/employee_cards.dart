@@ -48,7 +48,7 @@ class _JobCardsState extends State<JobCards> {
       if (snapshot.hasData) {
        return
         Padding(
-          padding:  EdgeInsets.all(6.1.sp),
+          padding:  EdgeInsets.all(1.9.w),
           child: InkWell(
             onTap: (){
               Navigator.push(
@@ -72,9 +72,11 @@ class _JobCardsState extends State<JobCards> {
                       Text(
                         PopularJobs[index],
                         style: TextStyle(
-                            fontSize: 15.sp,
+                            fontSize: 4.8.w,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
                       ),
                       SizedBox(
                         height: 2.h,
@@ -86,7 +88,7 @@ class _JobCardsState extends State<JobCards> {
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
                           maxLines: 2,
-                          style: TextStyle(fontSize: 14.sp),
+                          style: TextStyle(fontSize: 4.5.w),
                         ),
                       )
                     ]),
