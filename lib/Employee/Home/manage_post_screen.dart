@@ -33,7 +33,7 @@ class _ManagePostForEmployeeState extends State<ManagePostForEmployee> {
           );
         }
         final List appliedJobs = snapshot.data['appliedJobs'];
-        if (appliedJobs == null||appliedJobs.isEmpty) {
+        if (appliedJobs == null || appliedJobs.isEmpty) {
           return Scaffold(
             appBar: AppBar(
               title: Text('Manage Applications'),
@@ -411,7 +411,6 @@ class __BodyState extends State<_Body> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (ctx) => JobDetailsScreen(
-                                    isWithdrawing: true,
                                     jobId: widget.jobId,
                                     shopId: widget.shopId,
                                   )),

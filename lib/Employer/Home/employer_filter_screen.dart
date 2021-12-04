@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Employer/Home/Employee-Details/employee_list.dart';
@@ -39,7 +38,7 @@ class _EmployerFilterScreenState extends State<EmployerFilterScreen> {
           builder: (ctx) => EmployeeList(
             text: widget.text,
             salary: salary,
-            partTime: _jobType,
+            partTime: !_jobType,
             nightShift: _nightShift,
           ),
         ),
