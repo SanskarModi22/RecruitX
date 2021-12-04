@@ -247,14 +247,25 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             .doc(uid)
             .update({'appliedJobs': jobs});
         ScaffoldMessenger.of(context).clearSnackBars();
+        DocumentSnapshot data = await FirebaseFirestore.instance
+            .collection('jobs')
+            .doc(widget.jobId)
+            .get();
+        // sendSms(userData['contact'], data['shopName'], data['jobName']);
+        NotificationApi.showNotification(
+          title: 'Job Update',
+          body:
+          'You have successfully removed your application of id ${data.id}.',
+          payload: userData['contact'],
+        );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Successfully removed Your application!'),
+            content: Text('Successfully removed Your application!'),backgroundColor: Colors.green,
           ),
         );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('failed to remove from employee profile!')),
+          SnackBar(content: Text('failed to remove from employee profile!'),backgroundColor: Colors.red,),
         );
       }
     }

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
+import 'package:helping_hand/api/notification_api.dart';
 import 'package:random_color/random_color.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,6 +16,16 @@ class ManagePostForEmployee extends StatefulWidget {
 }
 
 class _ManagePostForEmployeeState extends State<ManagePostForEmployee> {
+  @override
+  initState() {
+    super.initState();
+    NotificationApi.init();
+    // canLaunch('sms:123').then((bool result) {
+    //   setState(() {
+    //     _hasSmsSupport = result;
+    //   });
+    // });
+  }
   @override
   Widget build(BuildContext context) {
     final cUser = FirebaseAuth.instance.currentUser.uid;
@@ -175,6 +186,23 @@ class __BodyState extends State<_Body> {
             .collection('employeeProfile')
             .doc(uid)
             .update({'appliedJobs': jobs});
+        ScaffoldMessenger.of(context).clearSnackBars();
+        DocumentSnapshot data = await FirebaseFirestore.instance
+            .collection('jobs')
+            .doc(widget.jobId)
+            .get();
+        // sendSms(userData['contact'], data['shopName'], data['jobName']);
+        NotificationApi.showNotification(
+          title: 'Job Update',
+          body:
+          'You have successfully removed your application of id ${data.id}.',
+          payload: userData['contact'],
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Successfully removed Your application!'),backgroundColor: Colors.green,
+          ),
+        );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('failed to remove from employee profile!')),
