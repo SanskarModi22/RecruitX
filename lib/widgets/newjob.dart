@@ -48,11 +48,26 @@ class _NewJobState extends State<NewJob> {
         print(_items);
         if (shops == null || shops.isEmpty) {
           return Scaffold(
-            appBar: AppBar(),
-            body: Center(
-              child: Text('Please Add a Shop First'),
-            ),
-          );
+              appBar: AppBar(),
+              body: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      'assets/images/waiting.png',
+                      height: MediaQuery.of(context).size.height * 0.3,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'Please add a shop first !',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ));
         }
         return Scaffold(
           appBar: AppBar(

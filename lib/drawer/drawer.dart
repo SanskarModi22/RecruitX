@@ -35,7 +35,8 @@ class _drawerState extends State<drawer> {
   Widget build(BuildContext context) {
     bool userIsEmployee = Provider.of<UserType>(context).userAsEmployee;
     bool userIsEmployer = Provider.of<UserType>(context).userAsEmployer;
-    final userId = Provider.of<MyUser>(context).uid;
+
+    final userId = FirebaseAuth.instance.currentUser.uid;
 
     return Drawer(
       child: ListView(
@@ -103,26 +104,26 @@ class _drawerState extends State<drawer> {
                   context, MaterialPageRoute(builder: (context) => account()));
             },
           ),
-          SizedBox(
-            height: 10,
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.book,
-              color: Colors.black,
-            ),
-            title: Text(
-              'About us',
-              textScaleFactor: 1.2,
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => aboutus()));
-            },
-          ),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // ListTile(
+          //   leading: Icon(
+          //     Icons.book,
+          //     color: Colors.black,
+          //   ),
+          //   title: Text(
+          //     'About us',
+          //     textScaleFactor: 1.2,
+          //     style: TextStyle(
+          //       color: Colors.black,
+          //     ),
+          //   ),
+          //   onTap: () {
+          //     Navigator.push(
+          //         context, MaterialPageRoute(builder: (context) => aboutus()));
+          //   },
+          // ),
           SizedBox(
             height: 10,
           ),
@@ -329,14 +330,13 @@ class _DrawerHead extends StatelessWidget {
             margin: EdgeInsets.zero,
             accountName: Text(
               userData['name'],
-              style: TextStyle(color: Colors.white,
-                  backgroundColor: Colors.transparent),
+              style: TextStyle(
+                  color: Colors.white, backgroundColor: Colors.transparent),
             ),
             accountEmail: Text(
               '+91 ' + userData['contact'],
               style: TextStyle(
-                  color: Colors.white,
-                  backgroundColor: Colors.transparent),
+                  color: Colors.white, backgroundColor: Colors.transparent),
             ),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,

@@ -22,7 +22,7 @@ class EmployeeJobPreferences extends StatelessWidget {
     "Waiter": FontAwesomeIcons.userTie,
     "Maid": FontAwesomeIcons.handsWash,
     "Delivery Boy": FontAwesomeIcons.biking,
-    "Tutor":FontAwesomeIcons.book,
+    "Tutor": FontAwesomeIcons.book,
   };
   // ignore: non_constant_identifier_names
   Widget build(BuildContext context) {
@@ -34,10 +34,11 @@ class EmployeeJobPreferences extends StatelessWidget {
             .snapshots(),
         builder: (context, AsyncSnapshot snap) {
           if (snap.hasData) {
-            return Container(
-height: 100.h,
+            return ConstrainedBox(
+// height: 100.h,
+              constraints: BoxConstraints(),
               child: ListView.builder(
-                physics:NeverScrollableScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemCount: snap.data['expectedJobs'].length,
@@ -52,19 +53,25 @@ height: 100.h,
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.hasData) {
                             return Padding(
-                              padding:  EdgeInsets.all(2.w),
+                              padding: EdgeInsets.all(2.w),
                               child: InkWell(
-                                onTap: (){
+                                onTap: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => JobList(text: snap.data['expectedJobs'][index],),
+                                        builder: (context) => JobList(
+                                          text: snap.data['expectedJobs']
+                                              [index],
+                                        ),
                                       ));
                                 },
                                 child: Card(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),),
-                                  color:
-                                  (index % 2) == 0 ? Colors.cyan[300] : Colors.yellow,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  color: (index % 2) == 0
+                                      ? Colors.cyan[300]
+                                      : Colors.yellow,
                                   shadowColor: Colors.transparent,
                                   child: ListTile(
                                     shape: RoundedRectangleBorder(
@@ -72,7 +79,8 @@ height: 100.h,
                                             BorderRadius.circular(15.sp)),
                                     leading: CircleAvatar(
                                       radius: 4.8.w,
-                                      child: Icon(Jobs[snap.data['expectedJobs'][index]]),
+                                      child: Icon(Jobs[snap.data['expectedJobs']
+                                          [index]]),
                                     ),
                                     title: Text(
                                       snap.data['expectedJobs'][index],
@@ -97,8 +105,7 @@ height: 100.h,
                             );
                           } else
                             return Center(
-                              child: CircularProgressIndicator(
-                              ),
+                              child: CircularProgressIndicator(),
                             );
                         });
                   }),

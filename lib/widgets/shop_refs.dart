@@ -96,6 +96,7 @@ class Shopitem extends StatelessWidget {
             Positioned(
               bottom: 10,
               child: Container(
+                constraints: BoxConstraints(maxWidth: 140),
                 decoration: BoxDecoration(
                   color: Colors.teal,
                   borderRadius: BorderRadius.only(
@@ -104,11 +105,13 @@ class Shopitem extends StatelessWidget {
                   ),
                 ),
                 padding: EdgeInsets.all(8),
-                child: Text(
-                  shopName,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
+                child: FittedBox(
+                  child: Text(
+                    shopName.toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      // fontSize: 15,
+                    ),
                   ),
                 ),
               ),
@@ -119,16 +122,19 @@ class Shopitem extends StatelessWidget {
               top: 5,
               // bottom: 50,
               child: Container(
+                constraints: BoxConstraints(maxWidth: 100),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 padding: EdgeInsets.all(8),
-                child: Text(
-                  shopType,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
+                child: FittedBox(
+                  child: Text(
+                    shopType,
+                    style: TextStyle(
+                      color: Colors.black,
+                      // fontSize: 12,
+                    ),
                   ),
                 ),
               ),

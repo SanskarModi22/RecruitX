@@ -26,6 +26,7 @@ class _ManagePostForEmployeeState extends State<ManagePostForEmployee> {
     //   });
     // });
   }
+
   @override
   Widget build(BuildContext context) {
     final cUser = FirebaseAuth.instance.currentUser.uid;
@@ -46,13 +47,28 @@ class _ManagePostForEmployeeState extends State<ManagePostForEmployee> {
         final List appliedJobs = snapshot.data['appliedJobs'];
         if (appliedJobs == null || appliedJobs.isEmpty) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text('Manage Applications'),
-            ),
-            body: Center(
-              child: Text('Not Applied Anywhere'),
-            ),
-          );
+              appBar: AppBar(
+                title: Text('Manage Applications'),
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      'assets/images/waiting.png',
+                      height: MediaQuery.of(context).size.height * 0.3,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'No Applications Found !',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ));
         }
         return Scaffold(
           appBar: AppBar(
@@ -195,12 +211,13 @@ class __BodyState extends State<_Body> {
         NotificationApi.showNotification(
           title: 'Job Update',
           body:
-          'You have successfully removed your application of id ${data.id}.',
+              'You have successfully removed your application of id ${data.id}.',
           payload: userData['contact'],
         );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Successfully removed Your application!'),backgroundColor: Colors.green,
+            content: Text('Successfully removed Your application!'),
+            backgroundColor: Colors.green,
           ),
         );
       } catch (e) {
