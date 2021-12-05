@@ -48,6 +48,7 @@ class _EmployeeListState extends State<EmployeeList>
   Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
+  List _tempResult=[];
   List<String> JobTypes = [
     "Driver",
     "Halwai",
@@ -168,7 +169,12 @@ class _EmployeeListState extends State<EmployeeList>
         .where('preferredShift', isEqualTo: preferredShift)
         .where('jobType', isEqualTo: jobType)
         .get();
+    var temp = await FirebaseFirestore.instance
+        .collection('employeeProfile')
+        .where("expectedJobs", arrayContains: widget.text)
+        .get();
     setState(() {
+      _tempResult=temp.docs;
       _allResults = data.docs;
       print(_allResults.toList());
     });
@@ -224,7 +230,7 @@ class _EmployeeListState extends State<EmployeeList>
           )
         ],
       ),
-      body: _allResults.length > 0
+      body: _resultsList.length > 0
           ? Stack(
               children: [
                 ListView(
@@ -308,7 +314,7 @@ class _EmployeeListState extends State<EmployeeList>
               ],
             )
           : Center(
-              child: _resultsList.length==0?Text(
+              child: _tempResult.length==0?Text(
                 "Sorry No employees Availaible",
               ):Text("Please Apply correct filters")),
     );

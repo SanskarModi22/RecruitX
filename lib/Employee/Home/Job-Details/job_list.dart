@@ -35,6 +35,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
   Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
+  List _tempResult=[];
   bool isExpand = false;
   @override
   StreamSubscription subscription;
@@ -142,8 +143,13 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
         .where('partTime', isEqualTo: partTime)
         .where('nightShift', isEqualTo: nightShift)
         .get();
+    var temp= await FirebaseFirestore.instance
+        .collection('jobs')
+        .where("jobName", isEqualTo: widget.text)
+        .get();
     setState(() {
       _allResults = data.docs;
+      _tempResult=temp.docs;
       print(_allResults);
       print(widget.text);
     });
@@ -263,7 +269,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
                 ],
               )
             : Center(
-                child: _allResults.length==0?Text(
+                child: _tempResult.length==0?Text(
                   "Sorry No jobs Availaible",
                 ):Text("Please Apply correct filters")
               ));
