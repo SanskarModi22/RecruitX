@@ -517,7 +517,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         );
                       }
                       if (_formkey2.currentState.validate() &&
-                          ShopImage != null) {
+                          imgUrl != null) {
                         DatabaseServices(uid: user.uid).updateEmployerData(
                           employerAddress: address.text,
                           city: dropdownValue,
