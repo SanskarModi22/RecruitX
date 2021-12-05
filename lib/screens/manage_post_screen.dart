@@ -98,73 +98,99 @@ class _ShopPostItemState extends State<ShopPostItem> {
   var _isexpanded = false;
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('jobs')
-            .where('shopId', isEqualTo: widget.shopId)
-            .snapshots(),
-        builder: (context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          final jobs = snapshot.data.docs;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            child: Card(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    )),
-                    height: 100,
-                    width: MediaQuery.of(context).size.width,
-                    child: Image(
-                      image: NetworkImage(widget.shopImgUrl),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.orange,
-                      child: Text(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Card(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              )),
+              height: 100,
+              width: MediaQuery.of(context).size.width,
+              child: Image(
+                image: NetworkImage(widget.shopImgUrl),
+                fit: BoxFit.cover,
+              ),
+            ),
+            ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Colors.orange,
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('jobs')
+                        .where('shopId', isEqualTo: widget.shopId)
+                        .snapshots(),
+                    builder: (context,
+                        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                            snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text(
+                          '',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        );
+                      }
+                      final jobs = snapshot.data.docs;
+                      return Text(
                         jobs.length.toString(),
                         style: TextStyle(
                           color: Colors.white,
                         ),
-                      ),
-                    ),
-                    title: Text(widget.shopName),
-                    subtitle: Text('Jobs posted for this Shop.'),
-                    trailing: IconButton(
-                      iconSize: 35,
-                      color: Colors.teal,
-                      icon: Icon(
-                        _isexpanded ? Icons.expand_less : Icons.expand_more,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isexpanded = !_isexpanded;
-                        });
-                      },
-                    ),
-                  ),
-                  if (_isexpanded)
-                    Container(
+                      );
+                    }),
+              ),
+              title: Text(widget.shopName),
+              subtitle: Text('Jobs posted for this Shop.'),
+              trailing: IconButton(
+                iconSize: 35,
+                color: Colors.teal,
+                icon: Icon(
+                  _isexpanded ? Icons.expand_less : Icons.expand_more,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isexpanded = !_isexpanded;
+                  });
+                },
+              ),
+            ),
+            if (_isexpanded)
+              StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('jobs')
+                      .where('shopId', isEqualTo: widget.shopId)
+                      .snapshots(),
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                          snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Container(
+                        height: 100,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    final jobs = snapshot.data.docs;
+                    return Container(
+                      constraints: BoxConstraints(),
+
                       padding: EdgeInsets.only(bottom: 20),
-                      height: jobs.length == 1
-                          ? 210
-                          : min(jobs.length.toDouble() * 170, 400),
+                      // height: jobs.length == 1
+                      //     ? 210
+                      //     : min(jobs.length.toDouble() * 170, 400),
                       child: jobs.length != 0
                           ? ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
                               itemCount: jobs.length,
                               itemBuilder: (ctx, i) => AvailableJobItem(
                                 shopId: widget.shopId,
@@ -178,14 +204,20 @@ class _ShopPostItemState extends State<ShopPostItem> {
                             )
                           : Container(
                               height: 100,
-                              child: Text('No Job Posted'),
+                              child: Center(
+                                  child: Text(
+                                'No Jobs Posted',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              )),
                             ),
-                    )
-                ],
-              ),
-            ),
-          );
-        });
+                    );
+                  })
+          ],
+        ),
+      ),
+    );
+    // });
   }
 }
 

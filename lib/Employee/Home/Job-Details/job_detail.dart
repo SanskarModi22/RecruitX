@@ -4,12 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/api/notification_api.dart';
 import 'package:helping_hand/constants.dart';
 // import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/employer_profile_screen.dart';
 import 'package:helping_hand/screens/shop_details_screen.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:provider/provider.dart';
 // import 'package:provider/src/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -146,6 +148,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     RandomColor _randomColor = RandomColor();
+    final isEmployer = Provider.of<UserType>(context).isEmployer;
 
     Color _color = _randomColor.randomColor(
       colorBrightness: ColorBrightness.dark,
@@ -255,17 +258,21 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         NotificationApi.showNotification(
           title: 'Job Update',
           body:
-          'You have successfully removed your application of id ${data.id}.',
+              'You have successfully removed your application of id ${data.id}.',
           payload: userData['contact'],
         );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Successfully removed Your application!'),backgroundColor: Colors.green,
+            content: Text('Successfully removed Your application!'),
+            backgroundColor: Colors.green,
           ),
         );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('failed to remove from employee profile!'),backgroundColor: Colors.red,),
+          SnackBar(
+            content: Text('failed to remove from employee profile!'),
+            backgroundColor: Colors.red,
+          ),
         );
       }
     }
@@ -277,8 +284,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
+            backgroundColor: Colors.white,
             body: Center(
-              child: CircularProgressIndicator(),
+              child: Text('Loading...'),
             ),
           );
         }
@@ -308,74 +316,81 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             ),
             backgroundColor: Colors.white,
           ),
-          bottomNavigationBar: BottomAppBar(
-            color: Colors.transparent,
-            elevation: 0,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 5.0, right: 5.0, top: 4.0, bottom: 2.0),
-              child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('jobs')
-                      .doc(widget.jobId)
-                      .collection('applicants')
-                      .snapshots(),
-                  builder: (context,
-                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                          snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shadowColor: randomColor,
-                          primary: randomColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              15,
-                            ),
-                          ),
-                        ),
-                        child: Center(child: CircularProgressIndicator()),
-                        onPressed: () {},
-                      );
-                    }
-                    final isApplied = snapshot.data.docs.any((element) {
-                      final cUser = FirebaseAuth.instance.currentUser.uid;
-                      if (element.id == cUser) {
-                        return true;
-                      }
-                      return false;
-                    });
-                    print(isApplied);
-                    return ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        // padding: EdgeInsets.symmetric(horizontal: 5),
-                        shadowColor: randomColor,
-                        primary: randomColor,
+          bottomNavigationBar: isEmployer
+              ? null
+              : BottomAppBar(
+                  color: Colors.transparent,
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 5.0, right: 5.0, top: 4.0, bottom: 2.0),
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('jobs')
+                            .doc(widget.jobId)
+                            .collection('applicants')
+                            .snapshots(),
+                        builder: (context,
+                            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                                snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shadowColor: randomColor,
+                                primary: randomColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    15,
+                                  ),
+                                ),
+                              ),
+                              child: Center(child: CircularProgressIndicator()),
+                              onPressed: () {},
+                            );
+                          }
+                          final isApplied = snapshot.data.docs.any((element) {
+                            final cUser = FirebaseAuth.instance.currentUser.uid;
+                            if (element.id == cUser) {
+                              return true;
+                            }
+                            return false;
+                          });
+                          print(isApplied);
+                          return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              // padding: EdgeInsets.symmetric(horizontal: 5),
+                              shadowColor: randomColor,
+                              primary: randomColor,
 
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                            15,
-                          ),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(
-                          isApplied ? "Withdraw Application" : "Apply Now!",
-                          style: TextStyle(color: Colors.white, fontSize: 23),
-                        ),
-                      ),
-                      onPressed: () {
-                        if (isApplied == true) {
-                          removeApplication();
-                        } else {
-                          apply();
-                        }
-                      },
-                    );
-                  }),
-            ),
-          ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  15,
+                                ),
+                              ),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Text(
+                                isApplied
+                                    ? "Withdraw Application"
+                                    : "Apply Now!",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 23),
+                              ),
+                            ),
+                            onPressed: () {
+                              if (isApplied == true) {
+                                removeApplication();
+                              } else {
+                                apply();
+                              }
+                            },
+                          );
+                        }),
+                  ),
+                ),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
