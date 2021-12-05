@@ -131,7 +131,7 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
               ),
               contentPadding: EdgeInsets.all(1.2.h),
               hintText: "maid,driver,etc",
-              hintStyle: TextStyle(color: Colors.grey[600], fontSize: 14.sp),
+              hintStyle: TextStyle(color: Colors.grey[600], fontSize: 4.55.w),
             ),
           ),
         ),

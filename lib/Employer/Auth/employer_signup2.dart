@@ -79,9 +79,9 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    radius: 30.7.sp,
+                    radius: 9.9.w,
                     child: IconButton(
-                      iconSize: 30.7.sp,
+                      iconSize: 9.9.w,
                       icon: Icon(Icons.photo_camera),
                       onPressed: () {
                         _imgFromCamera();
@@ -93,9 +93,9 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     width: 7.5.w,
                   ),
                   CircleAvatar(
-                    radius: 30.7.sp,
+                    radius: 9.9.w,
                     child: IconButton(
-                        iconSize: 30.7.sp,
+                        iconSize: 9.9.w,
                         icon: Icon(Icons.photo_library),
                         onPressed: () {
                           _imgFromGallery();
@@ -222,7 +222,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         'City',
                         style: TextStyle(
                           color: Colors.green,
-                          fontSize: 17.sp,
+                          fontSize: 5.5.w,
                         ),
                       ),
                       SizedBox(
@@ -249,7 +249,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                             value: value,
                             child: Text(
                               value,
-                              style: TextStyle(fontSize: 20,color: Colors.white),
+                              style: TextStyle(fontSize: 5.w,color: Colors.white),
                             ),
                           );
                         }).toList(),
@@ -266,7 +266,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                         'State',
                         style: TextStyle(
                           color: Colors.green,
-                          fontSize: 17.sp,
+                          fontSize: 5.5.w,
                         ),
                       ),
                       SizedBox(
@@ -487,8 +487,8 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                                   ),
                           ),
                           Positioned(
-                            top: 70,
-                            left: 45,
+                            top: 8.75.h,
+                            left: 11.25.w,
                             child: RawMaterialButton(
                               shape: CircleBorder(),
                               fillColor: Colors.white,
@@ -557,7 +557,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                     child: Text(
                       'Signup',
                       style: TextStyle(
-                        fontSize: 13.8.sp,
+                        fontSize: 4.4.w,
                       ),
                     ),
                   ),

@@ -23,27 +23,27 @@ class EmployerEmployeePreference extends StatelessWidget {
           itemCount: Pref.length,
           itemBuilder: (ctx, index) {
             return Padding(
-              padding:  EdgeInsets.all(6.1.sp),
+              padding:  EdgeInsets.all(1.9.w),
               child: Card(
                 shadowColor: Colors.transparent,
                 child: ListTile(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.sp)),
+                      borderRadius: BorderRadius.circular(4.875.w)),
                   leading: CircleAvatar(
-                    radius: 15.sp,
+                    radius: 4.875.w,
                     child: Icon(icons[index]),
                   ),
                   title: Text(
                     Pref[index],
                     style:
-                    TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                    TextStyle(fontSize: 4.875.w, fontWeight: FontWeight.bold),
                   ),
                   subtitle: Padding(
-                    padding: EdgeInsets.all(5.sp),
+                    padding: EdgeInsets.all(1.6.w),
                     child: Text(
                       "${Job[index]} jobs availaible",
                       style: TextStyle(
-                        fontSize: 12.sp,
+                        fontSize: 3.9.w,
                       ),
                     ),
                   ),

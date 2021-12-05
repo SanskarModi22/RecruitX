@@ -100,9 +100,9 @@ class _BaseState extends State<Base> {
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                side: BorderSide(width: 150),
+                                side: BorderSide(width: 37.5.w),
                                 primary: Colors.green,
-                                fixedSize: Size(140, 50),
+                                fixedSize: Size(35.w, 6.25.h),
                                 elevation: 15,
                               ),
                               // onPressed: () async{
