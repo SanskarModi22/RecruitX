@@ -24,10 +24,11 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
     "Peon",
     "Labour",
     "Tutor",
-    "Guard",
+    "Security Guard",
     "Waiter",
     "Maid",
-    "Watchman"
+    "Watchman",
+    "Delivery Boy"
   ];
   bool isExpanded = false;
   @override
@@ -110,7 +111,7 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
           ),
           child: TextField(
             controller: _searchController,
-            cursorColor: Colors.blue[100],
+            cursorColor: Colors.blue[600],
             keyboardType: TextInputType.text,
             keyboardAppearance: Brightness.light,
             textAlign: TextAlign.start,
