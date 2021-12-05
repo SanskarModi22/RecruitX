@@ -350,7 +350,8 @@ class _JobsState extends State<Jobs> {
 
           return SingleChildScrollView(
             child: Container(
-              height: min(jobs.length.toDouble() * 160, 500),
+              // height: min(jobs.length.toDouble() * 160, 500),
+              constraints: BoxConstraints(),
               padding: EdgeInsets.only(
                 top: 0,
                 bottom: 10,
@@ -358,6 +359,8 @@ class _JobsState extends State<Jobs> {
                 left: 5,
               ),
               child: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 // scrollDirection: Axis.horizontal,
                 itemCount: jobs.length,
                 itemBuilder: (ctx, i) => JobAvailable(
