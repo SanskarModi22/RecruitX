@@ -29,14 +29,7 @@ class _ManageShopsState extends State<ManageShops> {
                 height: 140, child: Center(child: CircularProgressIndicator()));
           }
           final shops = snapshot.data.docs;
-          if (shops.isEmpty) {
-            return SizedBox(
-              height: 50,
-              child: Center(
-                child: Text('No Shops Found'),
-              ),
-            );
-          }
+
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -69,21 +62,41 @@ class _ManageShopsState extends State<ManageShops> {
                     })
               ],
             ),
-            body: Container(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              width: MediaQuery.of(context).size.width,
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                child: ListView.builder(
-                  itemCount: shops.length,
-                  itemBuilder: (ctx, i) => ManageShopItem(
-                    shopImgUrl: shops[i]['shopImgUrl'],
-                    shopType: shops[i]['shopType'],
-                    shopId: shops[i].id,
+            body: shops.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(
+                          'assets/images/waiting.png',
+                          height: MediaQuery.of(context).size.height * 0.3,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          'No Shops Found !',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    width: MediaQuery.of(context).size.width,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: ListView.builder(
+                        itemCount: shops.length,
+                        itemBuilder: (ctx, i) => ManageShopItem(
+                          shopImgUrl: shops[i]['shopImgUrl'],
+                          shopType: shops[i]['shopType'],
+                          shopId: shops[i].id,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
           );
         });
   }

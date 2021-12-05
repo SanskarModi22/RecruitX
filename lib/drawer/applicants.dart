@@ -42,17 +42,37 @@ class _ApplicantsPageState extends State<ApplicantsPage> {
             ),
             backgroundColor: Colors.white,
           ),
-          body: Container(
-            height: MediaQuery.of(context).size.height,
-            child: ListView.builder(
-              itemCount: shops.length,
-              itemBuilder: (ctx, i) => ShopPostItem(
-                shopId: shops[i].id,
-                shopImgUrl: shops[i]['shopImgUrl'],
-                shopName: shops[i]['shopName'],
-              ),
-            ),
-          ),
+          body: shops.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(
+                        'assets/images/waiting.png',
+                        height: MediaQuery.of(context).size.height * 0.3,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'No Applicants Found !',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                )
+              : Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: ListView.builder(
+                    itemCount: shops.length,
+                    itemBuilder: (ctx, i) => ShopPostItem(
+                      shopId: shops[i].id,
+                      shopImgUrl: shops[i]['shopImgUrl'],
+                      shopName: shops[i]['shopName'],
+                    ),
+                  ),
+                ),
         );
       },
     );

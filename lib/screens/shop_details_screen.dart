@@ -108,30 +108,38 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
                                   vertical: 8,
                                   horizontal: 12,
                                 ),
+                                constraints: BoxConstraints(
+                                  maxWidth:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                ),
                                 decoration: BoxDecoration(
-                                    // color: Colors.redAccent,
+                                  // color: Colors.redAccent,
 
-                                    color: randomColor,
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(8),
-                                        bottomRight: Radius.circular(8))),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.flag,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      shopData['shopType'],
-                                      style: TextStyle(
-                                        fontSize: 28,
+                                  color: randomColor,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(8),
+                                      bottomRight: Radius.circular(8)),
+                                ),
+                                child: FittedBox(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.flag,
                                         color: Colors.white,
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        shopData['shopType'],
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             )

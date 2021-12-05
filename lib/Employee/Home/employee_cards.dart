@@ -43,67 +43,76 @@ class _JobCardsState extends State<JobCards> {
           itemCount: PopularJobs.length,
           itemBuilder: (ctx, index) {
             return FutureBuilder(
-              future: FirebaseFirestore.instance.collection('jobs').where("jobName",isEqualTo: PopularJobs[index]).get(),
-    builder: (context, AsyncSnapshot snapshot) {
-      if (snapshot.hasData) {
-       return
-        Padding(
-          padding:  EdgeInsets.all(1.9.w),
-          child: InkWell(
-            onTap: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => JobList(text: PopularJobs[index],),
-                  ));
-            },
-            child: Card(
-              elevation: 0,
-              shadowColor: Colors.transparent,
-              child: Container(
-                width: 40.w,
-                decoration: BoxDecoration(
-                    color:
-                    (index % 2) == 0 ? Colors.purple[300] : Colors.orange,
-                    borderRadius: BorderRadius.circular(20.sp)),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        PopularJobs[index],
-                        style: TextStyle(
-                            fontSize: 4.8.w,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Container(
-                        width: 90.w,
-                        child: Text(
-                          "${snapshot.data.docs.length} jobs are availaible",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          style: TextStyle(fontSize: 4.5.w),
+                future: FirebaseFirestore.instance
+                    .collection('jobs')
+                    .where("jobName", isEqualTo: PopularJobs[index])
+                    .get(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return Padding(
+                      padding: EdgeInsets.all(1.9.w),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => JobList(
+                                  text: PopularJobs[index],
+                                ),
+                              ));
+                        },
+                        child: Card(
+                          elevation: 0,
+                          shadowColor: Colors.transparent,
+                          child: Container(
+                            width: 40.w,
+                            decoration: BoxDecoration(
+                                color: (index % 2) == 0
+                                    ? Colors.purple[300]
+                                    : Colors.orange,
+                                borderRadius: BorderRadius.circular(20.sp)),
+                            child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    PopularJobs[index],
+                                    style: TextStyle(
+                                        fontSize: 4.8.w,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    height: 2.h,
+                                  ),
+                                  Container(
+                                    width: 90.w,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5.0),
+                                      child: Text(
+                                        "${snapshot.data.docs.length} jobs are availaible",
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                        style: TextStyle(fontSize: 4.5.w),
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                          ),
                         ),
-                      )
-                    ]),
-              ),
-            ),
-          ),
-        );
-      }
-      else {
-        return SizedBox(
-          width: 5.w,
-            height: 2.5.h,
-            child: Center(child: CircularProgressIndicator()));
-      }
-    });
+                      ),
+                    );
+                  } else {
+                    return SizedBox(
+                        width: 5.w,
+                        height: 2.5.h,
+                        child: Center(child: CircularProgressIndicator()));
+                  }
+                });
           }),
     );
   }
