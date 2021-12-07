@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Employee/Home/manage_applications.dart';
 import 'package:helping_hand/Employee/Home/manage_post_screen.dart';
 import 'package:helping_hand/Services/Authentication.dart';
 import 'package:helping_hand/Splash/splash_screen.dart';
@@ -200,7 +201,7 @@ class _drawerState extends State<drawer> {
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ManagePostForEmployee(),
+                        builder: (context) => JobApplication(),
                       ),
                     )
                   : userIsEmployer
