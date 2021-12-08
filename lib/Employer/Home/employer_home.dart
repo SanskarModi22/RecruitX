@@ -82,7 +82,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                               builder: (ctx) => EmployerProfile(data.id)));
                         },
                         child: CircleAvatar(
-                            radius: 20.sp,
+                            radius: 6.5.w,
                             backgroundColor: Colors.transparent,
                             backgroundImage: NetworkImage(
                               data['employerImg'],
@@ -104,7 +104,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                   },
                   child: Icon(
                     Icons.add,
-                    size: 30,
+                    size: 7.5.w,
                   ),
                 ),
                 floatingActionButtonLocation:
@@ -129,13 +129,13 @@ class _EmployerHomeState extends State<EmployerHome> {
                             label: Text(
                               'Applicants',
                               style: TextStyle(
-                                  fontSize: 14.sp,
+                                  fontSize: 4.5.w,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.green[600]),
                             ),
                             icon: Icon(
                               Icons.people,
-                              size: 23.sp,
+                              size: 7.4.w,
                               color: Colors.green[800],
                             ),
                           ),
@@ -145,13 +145,13 @@ class _EmployerHomeState extends State<EmployerHome> {
                           child: TextButton.icon(
                             icon: Icon(
                               Icons.add_business_sharp,
-                              size: 23.sp,
+                              size: 7.4.w,
                               color: Colors.green[600],
                             ),
                             label: Text(
                               'New Shop',
                               style: TextStyle(
-                                  fontSize: 14.sp,
+                                  fontSize: 4.5.w,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.green[600]),
                             ),
@@ -201,7 +201,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                     Text(
                                       "Hello ${data['name']}",
                                       style: TextStyle(
-                                          fontSize: 16.sp,
+                                          fontSize: 5.2.w,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     SizedBox(
@@ -209,7 +209,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                     ),
                                     Text(
                                       "Find Your Employee",
-                                      style: TextStyle(fontSize: 16.sp),
+                                      style: TextStyle(fontSize: 5.2.w),
                                     ),
                                     SizedBox(
                                       height: 3.h,
@@ -252,7 +252,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                               child: Text(
                                 "My Info",
                                 style: TextStyle(
-                                  fontSize: 18.4.sp,
+                                  fontSize: 5.9.w,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -295,7 +295,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                             '0',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 15.3.sp,
+                                              fontSize: 4.9.w,
                                               // color: Colors.amber,
                                             ),
                                           );
@@ -307,7 +307,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                           nums,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 15.3.sp,
+                                            fontSize: 4.9.w,
                                             // color: Colors.amber,
                                           ),
                                         );
@@ -358,7 +358,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                             '0',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 15.3.sp,
+                                              fontSize: 4.9.w,
                                               // color: Colors.amber,
                                             ),
                                           );
@@ -369,7 +369,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                                           nums,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 15.3.sp,
+                                            fontSize: 4.9.w,
                                             // color: Colors.amber,
                                           ),
                                         );

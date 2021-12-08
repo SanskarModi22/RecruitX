@@ -48,6 +48,7 @@ class _EmployeeListState extends State<EmployeeList>
   Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
+  List _tempResult=[];
   List<String> JobTypes = [
     "Driver",
     "Halwai",
@@ -168,7 +169,12 @@ class _EmployeeListState extends State<EmployeeList>
         .where('preferredShift', isEqualTo: preferredShift)
         .where('jobType', isEqualTo: jobType)
         .get();
+    var temp = await FirebaseFirestore.instance
+        .collection('employeeProfile')
+        .where("expectedJobs", arrayContains: widget.text)
+        .get();
     setState(() {
+      _tempResult=temp.docs;
       _allResults = data.docs;
       print(_allResults.toList());
     });
@@ -308,7 +314,7 @@ class _EmployeeListState extends State<EmployeeList>
               ],
             )
           : Center(
-              child: _resultsList.length==0?Text(
+              child: _tempResult.length==0?Text(
                 "Sorry No employees Availaible",
               ):Text("Please Apply correct filters")),
     );
@@ -394,7 +400,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
             });
           },
           child: Container(
-            height: isTapped ? 12.h : 35.h,
+            height: isTapped ? 12.h : 36.h,
             child: AnimatedContainer(
               duration: Duration(seconds: 1),
               curve: Curves.fastLinearToSlowEaseIn,
@@ -412,12 +418,12 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                 boxShadow: [
                   BoxShadow(
                     color: Color(0xff6F12E8).withOpacity(0.5),
-                    blurRadius: 15.3.sp,
+                    blurRadius: 4.9.w,
                     offset: Offset(0, 10),
                   ),
                 ],
               ),
-              padding: EdgeInsets.all(15.3.sp),
+              padding: EdgeInsets.all(4.w),
               child: isTapped
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -425,7 +431,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                         Row(
                           children: [
                             CircleAvatar(
-                              radius: 16.sp,
+                              radius: 5.2.w,
                               backgroundImage:
                                   NetworkImage(widget.result['img_url']),
                             ),
@@ -437,7 +443,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                               child: Text(
                                 widget.result['name'],
                                 style: TextStyle(
-                                  fontSize: 10.7.sp,
+                                  fontSize: 5.2.w,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 maxLines: 2,
@@ -467,7 +473,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                                   ? Icons.keyboard_arrow_down
                                   : Icons.keyboard_arrow_up,
                               color: Colors.black,
-                              size: 20.7.sp,
+                              size: 6.5.w,
                             ),
                           ],
                         ),
@@ -478,19 +484,26 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              widget.result['name'],
-                              style: TextStyle(
-                                  color: Colors.blue[900],
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.bold),
+                            Container(
+                              width: 40.w,
+                              child: FittedBox(
+                                child: Text(
+                                  widget.result['name'],
+                                  style: TextStyle(
+                                      color: Colors.blue[900],
+                                      fontSize: 5.5.w,
+                                      fontWeight: FontWeight.bold),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             ),
                             Icon(
                               isTapped
                                   ? Icons.keyboard_arrow_down
                                   : Icons.keyboard_arrow_up,
                               color: Colors.black,
-                              size: 20.7.sp,
+                              size: 6.5.w,
                             ),
                           ],
                         ),
@@ -503,7 +516,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                             Hero(
                               tag: widget.result['img_url'],
                               child: CircleAvatar(
-                                radius: 57.sp,
+                                radius: 18.5.w,
                                 backgroundImage:
                                     NetworkImage(widget.result['img_url']),
                               ),

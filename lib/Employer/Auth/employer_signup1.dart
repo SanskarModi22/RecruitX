@@ -61,9 +61,9 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    radius: 30.7.sp,
+                    radius: 9.9.w,
                     child: IconButton(
-                      iconSize: 30.7.sp,
+                      iconSize: 9.9.w,
                       icon: Icon(Icons.photo_camera),
                       onPressed: () {
                         _imgFromCamera();
@@ -75,9 +75,9 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     width: 7.5.w,
                   ),
                   CircleAvatar(
-                    radius: 30.7.sp,
+                    radius: 9.9.w,
                     child: IconButton(
-                        iconSize: 30.7.sp,
+                        iconSize: 9.9.w,
                         icon: Icon(Icons.photo_library),
                         onPressed: () {
                           _imgFromGallery();
@@ -164,7 +164,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                         style: TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
-                          fontSize: 14.sp,
+                          fontSize: 4.5.w,
                         ),
                       ),
                       SizedBox(
@@ -371,7 +371,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                             ? 'Enter your DOB'
                             : DateFormat.yMMMd().format(_dateTime2),
                         style: TextStyle(
-                          fontSize: 15.3.sp,
+                          fontSize: 4.9.w,
                           color: Colors.grey,
                         ),
                       ),
@@ -395,7 +395,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                         });
                       },
                       child: Text('Pick a Date', style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 4.5.w,
                       ),),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.green),
@@ -490,7 +490,7 @@ class _EmployerSignUpState extends State<EmployerSignUp> {
                     child: Text(
                       'Next',
                       style: TextStyle(
-                        fontSize: 13.8.sp,
+                        fontSize: 4.4.w,
                       ),
                     ),
                   ),
