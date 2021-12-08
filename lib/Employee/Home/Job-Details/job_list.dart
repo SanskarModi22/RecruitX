@@ -35,7 +35,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
   Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
-  List _tempResult=[];
+  List _tempResult = [];
   bool isExpand = false;
   @override
   StreamSubscription subscription;
@@ -143,13 +143,13 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
         .where('partTime', isEqualTo: partTime)
         .where('nightShift', isEqualTo: nightShift)
         .get();
-    var temp= await FirebaseFirestore.instance
+    var temp = await FirebaseFirestore.instance
         .collection('jobs')
         .where("jobName", isEqualTo: widget.text)
         .get();
     setState(() {
       _allResults = data.docs;
-      _tempResult=temp.docs;
+      _tempResult = temp.docs;
       print(_allResults);
       print(widget.text);
     });
@@ -269,10 +269,26 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
                 ],
               )
             : Center(
-                child: _tempResult.length==0?Text(
-                  "Sorry No jobs Availaible",
-                ):Text("Please Apply correct filters")
-              ));
+                child: _tempResult.length == 0
+                    ? Text(
+                        "Sorry No jobs Availaible",style: TextStyle(
+                  height: 1.3,
+                  color: Colors.red,
+                  fontWeight: FontWeight.w700,
+                ),
+                      )
+                    : Container(
+                        width: 64.w,
+                        child: Text(
+                          "No jobs availaible for these filters.Please Apply correct filters.",
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            height: 1.3,
+                            color: Colors.red,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ))));
   }
 }
 
@@ -375,7 +391,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
               padding: EdgeInsets.all(4.w),
               child: isTapped
                   ? FittedBox(
-                    child: Column(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(
@@ -389,16 +405,14 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                                 width: 6.25.w,
                               ),
                               Container(
-                                width: 30.w,
-                                child: FittedBox(
-                                  child: Text(
-                                    widget.result["shopName"],
-                                    style: TextStyle(
-                                        fontSize: 5.2.w,
-                                        fontWeight: FontWeight.bold),
-                                    maxLines: 2,
-                                    textAlign: TextAlign.center,
-                                  ),
+                                width: 35.w,
+                                child: Text(
+                                  widget.result["shopName"],
+                                  style: TextStyle(
+                                      fontSize: 5.2.w,
+                                      fontWeight: FontWeight.bold),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                               SizedBox(
@@ -429,23 +443,23 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                           ),
                         ],
                       ),
-                  )
+                    )
                   : Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width:40.w,
+                              width: 40.w,
                               child: FittedBox(
                                 child: Text(
                                   widget.result["shopName"],
                                   style: TextStyle(
-                                      color: Colors.blue[900],
-                                      fontSize: 5.5.w,
-                                      fontWeight: FontWeight.bold,
+                                    color: Colors.blue[900],
+                                    fontSize: 5.5.w,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  maxLines: 2,
+                                  maxLines: 3,
                                   textAlign: TextAlign.center,
                                 ),
                               ),
