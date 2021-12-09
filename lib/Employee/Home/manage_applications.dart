@@ -400,12 +400,15 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
         salary: jobData['salary'].toString(),
         specialRequest: jobData['specialRequest'],
         shopId: jobData['shopId'],
+        shopName: jobData['shopName'],
+        shopImgUrl: jobData['shopImgUrl'],
+        city:jobData['city'],
       );
     });
   }
 }
 class Details extends StatefulWidget {
-  const Details({Key key, this.jobName, this.workingHours, this.jobId, this.salary, this.workingDays, this.specialRequest, this.color, this.shopId}) : super(key: key);
+  const Details({Key key, this.jobName, this.workingHours, this.jobId, this.salary, this.workingDays, this.specialRequest, this.color, this.shopId, this.shopName, this.shopImgUrl, this.city}) : super(key: key);
   final String jobName;
   final String workingHours;
   final String jobId;
@@ -414,6 +417,9 @@ class Details extends StatefulWidget {
   final String specialRequest;
   final Color color;
   final String shopId;
+  final String shopName;
+  final String shopImgUrl;
+  final String city;
   @override
   _DetailsState createState() => _DetailsState();
 }
@@ -475,19 +481,7 @@ class _DetailsState extends State<Details> {
   @override
   Widget build(BuildContext context) {
 
-    return FutureBuilder(
-      future: FirebaseFirestore.instance
-          .collection('shops')
-          .doc(widget.shopId).get(),
-    builder: (context,
-    AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return SizedBox(
-          height: 12.5.h,
-          child: Center(child: CircularProgressIndicator()),
-        );
-      }
-      final shopData = snapshot.data;
+
       return Column(
         children: [
           SizedBox(
@@ -541,7 +535,7 @@ class _DetailsState extends State<Details> {
                           CircleAvatar(
                             radius: 5.2.w,
                             backgroundImage:
-                            NetworkImage(shopData["shopImgUrl"]),
+                            NetworkImage(widget.shopImgUrl),
                           ),
                           SizedBox(
                             width: 6.25.w,
@@ -550,7 +544,7 @@ class _DetailsState extends State<Details> {
                             // width: 30.w,
                             child: FittedBox(
                               child: Text(
-                                shopData["shopName"],
+                                widget.shopName,
                                 style: TextStyle(
                                     fontSize: 4.w,
                                     fontWeight: FontWeight.bold),
@@ -597,7 +591,7 @@ class _DetailsState extends State<Details> {
 
                           child: FittedBox(
                             child: Text(
-                              shopData["shopName"],
+                              widget.shopName,
                               style: TextStyle(
                                 color: Colors.blue[900],
                                 fontSize: 5.5.w,
@@ -621,7 +615,7 @@ class _DetailsState extends State<Details> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  shopData["city"] ?? "Null",
+                                  widget.city ?? "Null",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
@@ -647,11 +641,11 @@ class _DetailsState extends State<Details> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Hero(
-                          tag: shopData["shopImgUrl"],
+                          tag: widget.shopImgUrl,
                           child: CircleAvatar(
                             radius: 18.5.w,
                             backgroundImage:
-                            NetworkImage(shopData["shopImgUrl"]),
+                            NetworkImage(widget.shopImgUrl),
                           ),
                         ),
                         SizedBox(
@@ -798,6 +792,6 @@ class _DetailsState extends State<Details> {
           ),
         ],
       );
-    });}
+    }
   }
 

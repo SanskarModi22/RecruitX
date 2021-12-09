@@ -5,13 +5,11 @@ import 'package:helping_hand/Employee/Auth/employee_signup1.dart';
 import 'package:helping_hand/Employer/Auth/employer_signup1.dart';
 import 'package:helping_hand/Model/user.dart';
 import 'package:provider/provider.dart';
-
-
 import '../wrapper.dart';
 
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   MyUser userfromFirebase(User user) {
     return user != null ? MyUser(uid: user.uid) : null;
   }
@@ -24,6 +22,7 @@ class AuthServices {
 
   Future signOut() async{
     try{
+      await _googleSignIn.signOut();
       return await _auth.signOut();
     }catch(e){
       print(e.toString());
@@ -34,7 +33,8 @@ class AuthServices {
   Future signInWithGoogle() async {
     // Trigger the authentication flow
     try {
-      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAccount googleUser = await
+    _googleSignIn.signIn();
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =

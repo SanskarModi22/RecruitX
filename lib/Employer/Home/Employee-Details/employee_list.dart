@@ -48,7 +48,7 @@ class _EmployeeListState extends State<EmployeeList>
   Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
-  List _tempResult=[];
+  List _tempResult = [];
   List<String> JobTypes = [
     "Driver",
     "Halwai",
@@ -174,7 +174,7 @@ class _EmployeeListState extends State<EmployeeList>
         .where("expectedJobs", arrayContains: widget.text)
         .get();
     setState(() {
-      _tempResult=temp.docs;
+      _tempResult = temp.docs;
       _allResults = data.docs;
       print(_allResults.toList());
     });
@@ -314,9 +314,27 @@ class _EmployeeListState extends State<EmployeeList>
               ],
             )
           : Center(
-              child: _tempResult.length==0?Text(
-                "Sorry No employees Availaible",
-              ):Text("Please Apply correct filters")),
+              child: _tempResult.length == 0
+                  ? Text(
+                      "Sorry No employees Availaible",style: TextStyle(
+                height: 1.3,
+                color: Colors.red,
+                fontWeight: FontWeight.w700,
+              ),
+                    )
+                  : Container(
+                      width: 64.w,
+                      child: Text(
+                          "No employee availaible for these filters. Please Apply correct filters.",maxLines: 2,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          height: 1.3,
+                          color: Colors.red,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+            ),
     );
   }
 }
