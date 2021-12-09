@@ -226,7 +226,7 @@ class _signup_page2State extends State<signup_page2> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Salary Expectation:",
+                      "Salary Expectation(per month):",
                       style: TextStyle(
                         color: Colors.green,
                         fontSize: 17,

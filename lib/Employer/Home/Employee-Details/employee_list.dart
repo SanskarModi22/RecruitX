@@ -451,7 +451,8 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                             CircleAvatar(
                               radius: 5.2.w,
                               backgroundImage:
-                                  NetworkImage(widget.result['img_url']),
+                                  NetworkImage(widget.result['img_url']
+                                  ),
                             ),
                             SizedBox(
                               width: 6.25.w,
@@ -504,14 +505,17 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                           children: [
                             Container(
                               width: 40.w,
-                              child: Text(
-                                widget.result['name'],
-                                style: TextStyle(
-                                    color: Colors.blue[900],
-                                    fontSize: 5.5.w,
-                                    fontWeight: FontWeight.bold),
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
+                              height: 5.h,
+                              child: FittedBox(
+                                child: Text(
+                                  widget.result['name'],
+                                  style: TextStyle(
+                                      color: Colors.blue[900],
+                                      fontSize: 5.5.w,
+                                      fontWeight: FontWeight.bold),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                             Icon(
@@ -523,9 +527,7 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 2.5.h,
-                        ),
+SizedBox(height: 2.5.h,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [

@@ -279,7 +279,7 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
                     : Container(
                         width: 64.w,
                         child: Text(
-                          "No jobs availaible for these filters.Please Apply correct filters.",
+                          "No jobs availaible for these filters. Please Apply correct filters.",
                           maxLines: 2,
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -450,6 +450,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                           children: [
                             Container(
                               width: 40.w,
+                              height: 10.h,
                               child: FittedBox(
                                 child: Text(
                                   widget.result["shopName"],
