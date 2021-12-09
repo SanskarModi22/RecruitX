@@ -24,6 +24,7 @@ class _JobCardsState extends State<JobCards> {
     "Security Guard",
     "Delivery Boy"
   ];
+
   @override
 
   // ignore: non_constant_identifier_names
@@ -35,6 +36,7 @@ class _JobCardsState extends State<JobCards> {
   //   "20",
   //   "21",
   // ];
+
   Widget build(BuildContext context) {
     return Container(
       height: 25.h,
@@ -42,11 +44,11 @@ class _JobCardsState extends State<JobCards> {
           scrollDirection: Axis.horizontal,
           itemCount: PopularJobs.length,
           itemBuilder: (ctx, index) {
-            return FutureBuilder(
-                future: FirebaseFirestore.instance
+            return StreamBuilder(
+                stream: FirebaseFirestore.instance
                     .collection('jobs')
                     .where("jobName", isEqualTo: PopularJobs[index])
-                    .get(),
+                    .snapshots(),
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     return Padding(
@@ -54,12 +56,13 @@ class _JobCardsState extends State<JobCards> {
                       child: InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => JobList(
-                                  text: PopularJobs[index],
-                                ),
-                              ));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => JobList(
+                                text: PopularJobs[index],
+                              ),
+                            ),
+                          );
                         },
                         child: Card(
                           elevation: 0,
