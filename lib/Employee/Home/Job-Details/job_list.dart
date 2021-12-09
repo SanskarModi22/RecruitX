@@ -449,8 +449,8 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: 40.w,
-                              height: 10.h,
+                              width: 35.w,
+                              height: 5.h,
                               child: FittedBox(
                                 child: Text(
                                   widget.result["shopName"],
