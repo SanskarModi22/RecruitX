@@ -15,57 +15,51 @@ class _EmployeeFilterScreenState extends State<EmployeeFilterScreen> {
   @override
   Widget build(BuildContext context) {
     final cuid = FirebaseAuth.instance.currentUser.uid;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Filters'),
-      ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('employeeProfile')
-            .doc(cuid)
-            .snapshots(),
-        builder: (ctx,
-            AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          final userData = snapshot.data;
-          final List expectedJobs = userData['expectedJobs'];
-          final bool allJobs = expectedJobs.isEmpty;
-          final List preferredCities = userData['preferredCities'];
-          final bool allCities = preferredCities.isEmpty;
-          return _Body(
-            maxVal: userData['maxExpSalary'],
-            minVal: userData['minExpSalary'],
-            jobType:
-                userData['jobType'].toString() == 'Full-Time' ? true : false,
-            nightShift: userData['preferredShift'].toString() == 'Night Shift'
-                ? true
-                : false,
-            // jobs
-            peon: expectedJobs.contains('Peon'),
-            privateTutor: expectedJobs.contains('Tutor'),
-            driver: expectedJobs.contains('Driver'),
-            securityGuard: expectedJobs.contains('Security Guard'),
-            labour: expectedJobs.contains('Labour'),
-            halwai: expectedJobs.contains('Halwai'),
-            waiter: expectedJobs.contains('Waiter'),
-            watchmen: expectedJobs.contains('Watchman'),
-            deliveryBoy: expectedJobs.contains('Delivery Boy'),
-            maid: expectedJobs.contains('Maid'),
-            allJobs: allJobs,
-            // cities
-            allCities: allCities,
-            mumbai: preferredCities.contains('Mumbai'),
-            delhi: preferredCities.contains('Delhi'),
-            lucknow: preferredCities.contains('Lucknow'),
-            chennai: preferredCities.contains('Chennai'),
-            kolkata: preferredCities.contains('Kolkata'),
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('employeeProfile')
+          .doc(cuid)
+          .snapshots(),
+      builder: (ctx,
+          AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
           );
-        },
-      ),
+        }
+        final userData = snapshot.data;
+        final List expectedJobs = userData['expectedJobs'];
+        final bool allJobs = expectedJobs.isEmpty;
+        final List preferredCities = userData['preferredCities'];
+        final bool allCities = preferredCities.isEmpty;
+        return _Body(
+          maxVal: userData['maxExpSalary'],
+          minVal: userData['minExpSalary'],
+          jobType: userData['jobType'].toString() == 'Full-Time' ? true : false,
+          nightShift: userData['preferredShift'].toString() == 'Night Shift'
+              ? true
+              : false,
+          // jobs
+          peon: expectedJobs.contains('Peon'),
+          privateTutor: expectedJobs.contains('Tutor'),
+          driver: expectedJobs.contains('Driver'),
+          securityGuard: expectedJobs.contains('Security Guard'),
+          labour: expectedJobs.contains('Labour'),
+          halwai: expectedJobs.contains('Halwai'),
+          waiter: expectedJobs.contains('Waiter'),
+          watchmen: expectedJobs.contains('Watchman'),
+          deliveryBoy: expectedJobs.contains('Delivery Boy'),
+          maid: expectedJobs.contains('Maid'),
+          allJobs: allJobs,
+          // cities
+          allCities: allCities,
+          mumbai: preferredCities.contains('Mumbai'),
+          delhi: preferredCities.contains('Delhi'),
+          lucknow: preferredCities.contains('Lucknow'),
+          chennai: preferredCities.contains('Chennai'),
+          kolkata: preferredCities.contains('Kolkata'),
+        );
+      },
     );
   }
 }
@@ -414,329 +408,333 @@ class __BodyState extends State<_Body> {
       } catch (e) {}
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            // Salary Range
-            ListTile(
-              leading: Icon(
-                Icons.attach_money_outlined,
-                color: Colors.blue,
-              ),
-              subtitle: Text('Select the Range of salary'),
-              title: Text(
-                'Salary',
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
-            RangeSlider(
-              values: _currentSalaryRangeValues,
-              min: 0,
-              max: 100000,
-              onChanged: (RangeValues values) {
-                setState(() {
-                  _currentSalaryRangeValues = values;
-                });
-              },
-              divisions: 10,
-              labels: RangeLabels(
-                _currentSalaryRangeValues.start.round().toString(),
-                _currentSalaryRangeValues.end.round().toString(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Filters'),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: InkWell(
+          onTap: () {
+            saveFilters();
+          },
+          child: Container(
+            color: Colors.cyan,
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Text(
+              'Save ',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
               ),
             ),
-            // Job type
-            ListTile(
-              leading: Icon(
-                _jobType ? Icons.hourglass_full : Icons.hourglass_bottom,
-                // color: Colors.blue,
-              ),
-              // contentPadding: EdgeInsets.symmetric(horizontal: 20),
-              title: _jobType ? Text('Full-Time') : Text('Part-Time'),
-              trailing: Switch(
-                value: _jobType,
-                onChanged: (val) {
-                  setState(() {
-                    _jobType = val;
-                  });
-                },
-              ),
-            ),
-            ListTile(
-              leading: Icon(
-                _nightShift ? Icons.nightlight : Icons.wb_sunny,
-                // color: Colors.blue,
-              ),
-              // contentPadding: EdgeInsets.symmetric(horizontal: 20),
-              title: _nightShift ? Text('Night-Shift') : Text('Day-Shift'),
-              trailing: Switch(
-                value: _nightShift,
-                onChanged: (val) {
-                  setState(() {
-                    _nightShift = val;
-                  });
-                },
-              ),
-            ),
-            Divider(),
-            // jobs
-            ListTile(
-              leading: Icon(Icons.work),
-              title: Text('Prefered Jobs'),
-              subtitle: Text('Select your most prefered jobs'),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.start,
-                alignment: WrapAlignment.spaceBetween,
-                spacing: 5,
-                children: <Widget>[
-                  CustomCheckBox(
-                    jobText: "All Jobs",
-                    checkbox: Checkbox(
-                      value: _allJobs,
-                      onChanged: (val) {
-                        setState(() {
-                          _allJobs = val;
-                        });
-                      },
-                    ),
-                  ),
-                  Container(),
-                  CustomCheckBox(
-                    jobText: "Tutor",
-                    checkbox: Checkbox(
-                      value: _privateTutor,
-                      onChanged: (val) {
-                        setState(() {
-                          _privateTutor = val;
-                          _autoAllJobs();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Peon",
-                    checkbox: Checkbox(
-                      value: _peon,
-                      onChanged: (val) {
-                        setState(() {
-                          _peon = val;
-                          _autoAllJobs();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Driver",
-                    checkbox: Checkbox(
-                      value: _driver,
-                      onChanged: (val) {
-                        setState(() {
-                          _driver = val;
-                          _autoAllJobs();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Security Guard",
-                    checkbox: Checkbox(
-                      value: _securityGuard,
-                      onChanged: (val) {
-                        setState(() {
-                          _securityGuard = val;
-                          _autoAllJobs();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Labour",
-                    checkbox: Checkbox(
-                      value: _labour,
-                      onChanged: (val) {
-                        setState(() {
-                          _labour = val;
-                          _autoAllJobs();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "halwai",
-                    checkbox: Checkbox(
-                      value: _halwai,
-                      onChanged: (val) {
-                        setState(() {
-                          _halwai = val;
-                          _autoAllJobs();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Watchman",
-                    checkbox: Checkbox(
-                      value: _watchmen,
-                      onChanged: (val) {
-                        setState(() {
-                          _watchmen = val;
-                          _autoAllJobs();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Delivery Boy",
-                    checkbox: Checkbox(
-                      value: _deliveryBoy,
-                      onChanged: (val) {
-                        setState(() {
-                          _deliveryBoy = val;
-                          _autoAllJobs();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Waiter",
-                    checkbox: Checkbox(
-                      value: _waiter,
-                      onChanged: (val) {
-                        setState(() {
-                          _waiter = val;
-                          _autoAllJobs();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Maid",
-                    checkbox: Checkbox(
-                      value: _maid,
-                      onChanged: (val) {
-                        setState(() {
-                          _maid = val;
-                          _autoAllJobs();
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Divider(),
-            ListTile(
-              leading: Icon(Icons.location_city),
-              title: Text('Cities'),
-              subtitle: Text('Select the cities to look for jobs. '),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.start,
-                alignment: WrapAlignment.spaceBetween,
-                spacing: 5,
-                children: <Widget>[
-                  CustomCheckBox(
-                    jobText: "All Cities",
-                    checkbox: Checkbox(
-                      value: _allCities,
-                      onChanged: (val) {
-                        setState(() {
-                          _allCities = val;
-                        });
-                      },
-                    ),
-                  ),
-                  // Container(),
-                  CustomCheckBox(
-                    jobText: "Mumbai",
-                    checkbox: Checkbox(
-                      value: _mumbai,
-                      onChanged: (val) {
-                        setState(() {
-                          _mumbai = val;
-                          _autoAllCities();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Delhi",
-                    checkbox: Checkbox(
-                      value: _delhi,
-                      onChanged: (val) {
-                        setState(() {
-                          _delhi = val;
-                          _autoAllCities();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Chennai",
-                    checkbox: Checkbox(
-                      value: _chennai,
-                      onChanged: (val) {
-                        setState(() {
-                          _chennai = val;
-                          _autoAllCities();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Kolkata",
-                    checkbox: Checkbox(
-                      value: _kolkata,
-                      onChanged: (val) {
-                        setState(() {
-                          _kolkata = val;
-                          _autoAllCities();
-                        });
-                      },
-                    ),
-                  ),
-                  CustomCheckBox(
-                    jobText: "Lucknow",
-                    checkbox: Checkbox(
-                      value: _lucknow,
-                      onChanged: (val) {
-                        setState(() {
-                          _lucknow = val;
-                          _autoAllCities();
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              width: double.infinity,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              // Salary Range
+              ListTile(
+                leading: Icon(
+                  Icons.attach_money_outlined,
+                  color: Colors.blue,
                 ),
-                onPressed: () {
-                  saveFilters();
-                },
-                child: Text(
-                  'Save',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
+                subtitle: Text('Select the Range of salary'),
+                title: Text(
+                  'Salary',
+                  style: TextStyle(fontSize: 18),
                 ),
               ),
-            ),
-          ],
+              RangeSlider(
+                values: _currentSalaryRangeValues,
+                min: 0,
+                max: 100000,
+                onChanged: (RangeValues values) {
+                  setState(() {
+                    _currentSalaryRangeValues = values;
+                  });
+                },
+                divisions: 10,
+                labels: RangeLabels(
+                  _currentSalaryRangeValues.start.round().toString(),
+                  _currentSalaryRangeValues.end.round().toString(),
+                ),
+              ),
+              // Job type
+              ListTile(
+                leading: Icon(
+                  _jobType ? Icons.hourglass_full : Icons.hourglass_bottom,
+                  // color: Colors.blue,
+                ),
+                // contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                title: _jobType ? Text('Full-Time') : Text('Part-Time'),
+                trailing: Switch(
+                  value: _jobType,
+                  onChanged: (val) {
+                    setState(() {
+                      _jobType = val;
+                    });
+                  },
+                ),
+              ),
+              ListTile(
+                leading: Icon(
+                  _nightShift ? Icons.nightlight : Icons.wb_sunny,
+                  // color: Colors.blue,
+                ),
+                // contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                title: _nightShift ? Text('Night-Shift') : Text('Day-Shift'),
+                trailing: Switch(
+                  value: _nightShift,
+                  onChanged: (val) {
+                    setState(() {
+                      _nightShift = val;
+                    });
+                  },
+                ),
+              ),
+              Divider(),
+              // jobs
+              ListTile(
+                leading: Icon(Icons.work),
+                title: Text('Prefered Jobs'),
+                subtitle: Text('Select your most prefered jobs'),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.start,
+                  alignment: WrapAlignment.spaceBetween,
+                  spacing: 5,
+                  children: <Widget>[
+                    CustomCheckBox(
+                      jobText: "All Jobs",
+                      checkbox: Checkbox(
+                        value: _allJobs,
+                        onChanged: (val) {
+                          setState(() {
+                            _allJobs = val;
+                          });
+                        },
+                      ),
+                    ),
+                    Container(),
+                    CustomCheckBox(
+                      jobText: "Tutor",
+                      checkbox: Checkbox(
+                        value: _privateTutor,
+                        onChanged: (val) {
+                          setState(() {
+                            _privateTutor = val;
+                            _autoAllJobs();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Peon",
+                      checkbox: Checkbox(
+                        value: _peon,
+                        onChanged: (val) {
+                          setState(() {
+                            _peon = val;
+                            _autoAllJobs();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Driver",
+                      checkbox: Checkbox(
+                        value: _driver,
+                        onChanged: (val) {
+                          setState(() {
+                            _driver = val;
+                            _autoAllJobs();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Security Guard",
+                      checkbox: Checkbox(
+                        value: _securityGuard,
+                        onChanged: (val) {
+                          setState(() {
+                            _securityGuard = val;
+                            _autoAllJobs();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Labour",
+                      checkbox: Checkbox(
+                        value: _labour,
+                        onChanged: (val) {
+                          setState(() {
+                            _labour = val;
+                            _autoAllJobs();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "halwai",
+                      checkbox: Checkbox(
+                        value: _halwai,
+                        onChanged: (val) {
+                          setState(() {
+                            _halwai = val;
+                            _autoAllJobs();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Watchman",
+                      checkbox: Checkbox(
+                        value: _watchmen,
+                        onChanged: (val) {
+                          setState(() {
+                            _watchmen = val;
+                            _autoAllJobs();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Delivery Boy",
+                      checkbox: Checkbox(
+                        value: _deliveryBoy,
+                        onChanged: (val) {
+                          setState(() {
+                            _deliveryBoy = val;
+                            _autoAllJobs();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Waiter",
+                      checkbox: Checkbox(
+                        value: _waiter,
+                        onChanged: (val) {
+                          setState(() {
+                            _waiter = val;
+                            _autoAllJobs();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Maid",
+                      checkbox: Checkbox(
+                        value: _maid,
+                        onChanged: (val) {
+                          setState(() {
+                            _maid = val;
+                            _autoAllJobs();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(Icons.location_city),
+                title: Text('Cities'),
+                subtitle: Text('Select the cities to look for jobs. '),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.start,
+                  alignment: WrapAlignment.spaceBetween,
+                  spacing: 5,
+                  children: <Widget>[
+                    CustomCheckBox(
+                      jobText: "All Cities",
+                      checkbox: Checkbox(
+                        value: _allCities,
+                        onChanged: (val) {
+                          setState(() {
+                            _allCities = val;
+                          });
+                        },
+                      ),
+                    ),
+                    // Container(),
+                    CustomCheckBox(
+                      jobText: "Mumbai",
+                      checkbox: Checkbox(
+                        value: _mumbai,
+                        onChanged: (val) {
+                          setState(() {
+                            _mumbai = val;
+                            _autoAllCities();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Delhi",
+                      checkbox: Checkbox(
+                        value: _delhi,
+                        onChanged: (val) {
+                          setState(() {
+                            _delhi = val;
+                            _autoAllCities();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Chennai",
+                      checkbox: Checkbox(
+                        value: _chennai,
+                        onChanged: (val) {
+                          setState(() {
+                            _chennai = val;
+                            _autoAllCities();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Kolkata",
+                      checkbox: Checkbox(
+                        value: _kolkata,
+                        onChanged: (val) {
+                          setState(() {
+                            _kolkata = val;
+                            _autoAllCities();
+                          });
+                        },
+                      ),
+                    ),
+                    CustomCheckBox(
+                      jobText: "Lucknow",
+                      checkbox: Checkbox(
+                        value: _lucknow,
+                        onChanged: (val) {
+                          setState(() {
+                            _lucknow = val;
+                            _autoAllCities();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
