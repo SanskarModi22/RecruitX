@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Model/user.dart';
 import 'Shared/base.dart';
-
 var option = "";
 
 class Wrapper extends StatefulWidget {
@@ -50,7 +49,6 @@ print("hello");
   @override
   dispose() {
     super.dispose();
-
     subscription.cancel();
   }
   void showConnectivityResult(ConnectivityResult result) {

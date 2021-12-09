@@ -111,20 +111,17 @@ void _storeEmployeeImages() async{
     contact.dispose();
     super.dispose();
   }
-
   clearText() {
     address.clear();
     employeeName.clear();
     employeeAge.clear();
     contact.clear();
   }
-
   bool isChecked = false;
   Widget build(BuildContext context) {
 if(ProfileImg!=null){
       _storeEmployeeImages();}
     print("Img Url = $imgUrl");
-
     return Form(
       key: _formkey,
       child: Scaffold(

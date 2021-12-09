@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,11 +50,11 @@ class _BaseState extends State<Base> {
   Widget build(BuildContext context) {
     // final width = MediaQuery.of(context).size.width;
     // final height = MediaQuery.of(context).size.height.toDouble();
-    print("w=${1.w}");
-    print("h=${1.h}");
-    print("sp=${1.sp}");
+    // print("w=${1.w}");
+    // print("h=${1.h}");
+    // print("sp=${1.sp}");
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -73,7 +72,7 @@ class _BaseState extends State<Base> {
                       style: GoogleFonts.scheherazade(
                         fontSize: 13.w,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                        color: Colors.orange,
                       ),
                     ),
                   ),
@@ -101,7 +100,7 @@ class _BaseState extends State<Base> {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 side: BorderSide(width: 37.5.w),
-                                primary: Colors.green,
+                                primary: Colors.orange,
                                 fixedSize: Size(35.w, 6.25.h),
                                 elevation: 15,
                               ),
@@ -126,14 +125,13 @@ class _BaseState extends State<Base> {
                                 style: GoogleFonts.scheherazade(
                                   fontSize: 7.w,
                                   color: Colors.white,
-
                                 ),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Text("Or",style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold,fontSize: 5.w),),
+                      Text("Or",style: TextStyle(color: Colors.orange,fontWeight: FontWeight.bold,fontSize: 5.w),),
 
                       Container(
                         child: Column(
@@ -153,7 +151,7 @@ class _BaseState extends State<Base> {
                               style: ElevatedButton.styleFrom(
                                 elevation: 15,
                                 side: BorderSide(width: 37.5.w),
-                                primary: Colors.green,
+                                primary: Colors.orange,
                                 fixedSize: Size(35.w, 6.25.h),
                               ),
                               // onPressed: () async{

@@ -111,6 +111,7 @@ class _EmployerCustomSearchState extends State<EmployerCustomSearch> {
           ),
           child: TextField(
             controller: _searchController,
+            textAlignVertical: TextAlignVertical.center,
             cursorColor: Colors.blue[600],
             keyboardType: TextInputType.text,
             keyboardAppearance: Brightness.light,

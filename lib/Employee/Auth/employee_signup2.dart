@@ -311,7 +311,7 @@ class _signup_page2State extends State<signup_page2> {
                               color: Colors.green,
                               fontSize: 20,
                             ),
-                            hintText: 'Max(<30,000)',
+                            hintText: 'Max',
                             //  labelText: 'Salary Expectations',
                             fillColor: Colors.white,
                             filled: true,
@@ -351,12 +351,13 @@ class _signup_page2State extends State<signup_page2> {
                       )
                     ],
                   ),
+                  Text('Note :- Max Salary <35,000',style: TextStyle(color: Colors.green,),),
                   SizedBox(
                     height: 30,
                   ),
                   TextFormField(
                     inputFormatters: [
-                      new LengthLimitingTextInputFormatter(20),
+                      new LengthLimitingTextInputFormatter(25),
                     ],
                     controller: experience,
                     minLines: 1,
@@ -366,7 +367,7 @@ class _signup_page2State extends State<signup_page2> {
                         color: Colors.green,
                         fontSize: 20,
                       ),
-                      hintText: 'Experience eg:5 years,3 years ,etc',
+                      hintText: 'Experience eg: 5 years,3 years ,etc',
 
                       // labelText: 'Experience',
                       fillColor: Colors.white,

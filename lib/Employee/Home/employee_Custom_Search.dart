@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:helping_hand/Model/user.dart';
 import 'package:helping_hand/Services/database_service.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -97,6 +98,7 @@ class _EmployeeCustomSearchState extends State<EmployeeCustomSearch> {
             borderRadius: BorderRadius.circular(2.h),
           ),
           child: TextField(
+            textAlignVertical: TextAlignVertical.center,
             controller: _searchController,
             cursorColor: Colors.blue[600],
             keyboardType: TextInputType.text,
@@ -119,6 +121,7 @@ class _EmployeeCustomSearchState extends State<EmployeeCustomSearch> {
               ),
               contentPadding: EdgeInsets.all(1.2.h),
               hintText: "driver,waiter,maid,etc",
+
               hintStyle: TextStyle(color: Colors.grey[600], fontSize: 4.2.w),
 
             ),

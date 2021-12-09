@@ -50,7 +50,7 @@ class _JobOptionsState extends State<JobOptions> {
                     child: Container(
                       width: 30.w,
                       decoration: BoxDecoration(
-                        color: Colors.yellowAccent,
+                        color: Colors.cyan[600],
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(5.w),
                       ),
@@ -61,6 +61,7 @@ class _JobOptionsState extends State<JobOptions> {
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 4.w,
+                              color: Colors.white
                             ),
                           ),
                         ),

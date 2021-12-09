@@ -69,7 +69,7 @@ class _JobCardsState extends State<JobCards> {
                             decoration: BoxDecoration(
                                 color: (index % 2) == 0
                                     ? Colors.purple[300]
-                                    : Colors.orange,
+                                    : Colors.orange[300],
                                 borderRadius: BorderRadius.circular(20.sp)),
                             child: Column(
                                 mainAxisAlignment:

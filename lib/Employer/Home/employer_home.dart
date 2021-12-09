@@ -202,7 +202,8 @@ class _EmployerHomeState extends State<EmployerHome> {
                                       "Hello ${data['name']}",
                                       style: TextStyle(
                                           fontSize: 5.2.w,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 1.h,

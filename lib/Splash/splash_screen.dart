@@ -24,7 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
           builder: (_) => Wrapper(),
         ),
       );
-    });
+    },
+    );
   }
 
   @override
@@ -37,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: FittedBox(
             child: TextLiquidFill(
               text: 'RecruitX',
-              waveColor: Colors.blueAccent,
+              waveColor: Colors.orange,
               // boxBackgroundColor: Colors.redAccent,
               textStyle: TextStyle(
                 fontSize: 19.w,

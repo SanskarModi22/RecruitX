@@ -6,6 +6,7 @@ import 'package:helping_hand/Employee/Auth/employee_signup3.dart';
 import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Services/database_service.dart';
 import 'package:helping_hand/screens/filters_Employee_screen.dart';
+import 'package:sizer/sizer.dart';
 
 class signup_page4 extends StatefulWidget {
   // const signup_page4({ Key? key }) : super(key: key);
@@ -48,10 +49,10 @@ class _signup_page4State extends State<signup_page4> {
       backgroundColor: Colors.black,
       body: Container(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: 40,
+              height: 20.h,
             ),
             Text(
               'Jobs, You might want:',

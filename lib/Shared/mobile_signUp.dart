@@ -17,7 +17,7 @@ class _MobileSignUpState extends State<MobileSignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.transparent,),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           children: [

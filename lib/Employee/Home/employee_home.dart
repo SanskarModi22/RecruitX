@@ -117,15 +117,16 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         Text(
                                           "Hello ${data['name']}",
                                           style: TextStyle(
+                                            color: Colors.white,
                                               fontSize: 5.2.w,
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.w500),
                                         ),
                                         SizedBox(
                                           height: 1.h,
                                         ),
                                         Text(
                                           "Find Your Dream Job",
-                                          style: TextStyle(fontSize: 5.2.w),
+                                          style: TextStyle(fontSize: 5.2.w,color: Colors.white,),
                                         ),
                                         SizedBox(
                                           height: 3.h,

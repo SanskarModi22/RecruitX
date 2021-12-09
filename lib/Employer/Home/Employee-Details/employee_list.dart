@@ -504,16 +504,14 @@ class _EmployeeExpandedDetailsState extends State<EmployeeExpandedDetails> {
                           children: [
                             Container(
                               width: 40.w,
-                              child: FittedBox(
-                                child: Text(
-                                  widget.result['name'],
-                                  style: TextStyle(
-                                      color: Colors.blue[900],
-                                      fontSize: 5.5.w,
-                                      fontWeight: FontWeight.bold),
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                ),
+                              child: Text(
+                                widget.result['name'],
+                                style: TextStyle(
+                                    color: Colors.blue[900],
+                                    fontSize: 5.5.w,
+                                    fontWeight: FontWeight.bold),
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
                               ),
                             ),
                             Icon(
