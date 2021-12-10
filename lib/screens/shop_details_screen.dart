@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
 import 'package:helping_hand/providers/user_information.dart';
@@ -49,264 +50,379 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
 
     final Color randomColor = _color;
 
-    return FutureBuilder(
-        future: FirebaseFirestore.instance
-            .collection('shops')
-            .doc(widget.providedShopId)
-            .get(),
-        builder: (ctx,
-            AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
-                shopSnapshot) {
-          if (shopSnapshot.connectionState == ConnectionState.waiting) {
-            return SizedBox(
-                height: 140, child: Center(child: CircularProgressIndicator()));
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('shops')
+          .doc(widget.providedShopId)
+          .snapshots(),
+      builder: (ctx,
+          AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> shopSnapshot) {
+        if (shopSnapshot.connectionState == ConnectionState.waiting) {
+          return SizedBox(
+              height: 140, child: Center(child: CircularProgressIndicator()));
+        }
+        final shopData = shopSnapshot.data;
+        if (shopData == null) {
+          return Container();
+        }
+        final cUser = FirebaseAuth.instance.currentUser.uid;
+        final ownerId = shopData['ownerId'];
+        final isMe = cUser == ownerId ? true : false;
+
+        String shopdesc = '';
+
+        Future<void> updateShopDescription() async {
+          try {
+            await FirebaseFirestore.instance
+                .collection('shops')
+                .doc(widget.providedShopId)
+                .update({'shopDesc': shopdesc});
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Shop description updated!')),
+            );
+            Navigator.of(context).pop();
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Failed to update shop description')),
+            );
           }
-          final shopData = shopSnapshot.data;
-          if (shopData == null) {
-            return Container();
-          }
-          final cUser = FirebaseAuth.instance.currentUser.uid;
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                shopData['shopName'],
-                style: TextStyle(
-                  color: randomColor,
-                ),
-              ),
-              iconTheme: IconThemeData(
-                color: randomColor,
-              ),
-              backgroundColor: Colors.white,
+        }
+
+        showTextField(String updateField) {
+          final form = GlobalKey<FormState>();
+          TextEditingController _text = TextEditingController();
+          showModalBottomSheet<void>(
+            isScrollControlled: true,
+            context: context,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
             ),
-            body: Container(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Card(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      margin: EdgeInsets.all(8),
-                      child: Container(
-                        height: 220,
-                        child: Stack(
-                          children: [
-                            Container(
-                              height: 220,
-                              width: MediaQuery.of(context).size.width * 0.95,
-                              child: Image(
-                                image: NetworkImage(shopData['shopImgUrl']),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 20,
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 12,
-                                ),
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                ),
-                                decoration: BoxDecoration(
-                                  // color: Colors.redAccent,
+            builder: (BuildContext context) {
+              void submitForm() {
+                form.currentState.validate();
+                form.currentState.save();
+                if (updateField == shopdesc) {
+                  shopdesc = _text.text;
+                  updateShopDescription();
+                }
+              }
 
-                                  color: randomColor,
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(8),
-                                      bottomRight: Radius.circular(8)),
-                                ),
-                                child: FittedBox(
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Icons.flag,
-                                        color: Colors.white,
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        shopData['shopType'],
-                                        style: TextStyle(
-                                          fontSize: 28,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+              return Padding(
+                padding: MediaQuery.of(context).viewInsets,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        child: Text(
+                          updateField == shopdesc
+                              ? 'Update Shop Description'
+                              : '',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: Icon(
-                              Icons.insert_drive_file_rounded,
-                              // color: Colors.deepOrangeAccent,
-                              color: randomColor,
-                              size: 30,
-                            ),
-
-                            title: Text('Shop Description'),
-                            // subtitle: Text('30'),
-                            trailing: Icon(Icons.edit),
-                          ),
-                          Container(
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                // color: random_color600],
-                                // color: Colors.deepOrangeAccent,
-                                color: randomColor,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            margin: EdgeInsets.only(
-                                left: 10, right: 10, top: 0, bottom: 10),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Text(shopData['shopDesc']),
-                          )
-                        ],
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.account_circle,
-                          color: randomColor,
-                          size: 30,
-                        ),
-                        title: Text('Owner'),
-                        subtitle: Text(shopData['ownerName']),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.open_in_new_rounded,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) =>
-                                    EmployerProfile(shopData['ownerId']),
-                              ),
-                            );
+                      Form(
+                        key: form,
+                        child: TextFormField(
+                          controller: _text,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter new data';
+                            }
+                            return null;
                           },
                         ),
                       ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.adjust_outlined,
-                          // color: Colors.deepOrangeAccent,
-                          color: randomColor,
-                          size: 30,
-                        ),
-                        title: Text('Type of shop'),
-                        subtitle: Text(shopData['shopType']),
-                        trailing: Icon(Icons.edit),
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: Icon(
-                              Icons.place_rounded,
-                              // color: Colors.deepOrangeAccent,
-                              color: randomColor,
-                              size: 30,
-                            ),
-
-                            title: Text('Shop Address'),
-                            // subtitle: Text('30'),
-                            trailing: Icon(Icons.edit),
+                      TextButton(
+                        onPressed: () {
+                          submitForm();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: randomColor,
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          Container(
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 25,
+                          ),
+                          child: Text(
+                            'Save',
+                            style: TextStyle(
                               color: Colors.white,
-                              border: Border.all(
-                                // color: random_color600],
-                                // color: Colors.deepOrangeAccent,
-                                color: randomColor,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(5),
+                              fontSize: 16,
                             ),
-                            margin: EdgeInsets.only(
-                                left: 10, right: 10, top: 0, bottom: 10),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Text(shopData['shopAddress']),
-                          )
-                        ],
-                      ),
-                    ),
-                    Card(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: Icon(
-                              Icons.work_outline_rounded,
-                              // color: Colors.deepOrangeAccent,
-                              color: randomColor,
-                              // color: random_color
-                              size: 30,
-                            ),
-                            title: Text('Jobs Available'),
-                            trailing: shopData['ownerId'] == cUser
-                                ? IconButton(
-                                    icon: Icon(Icons.add),
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (ctx) => NewJob()),
-                                      );
-                                    },
-                                  )
-                                : null,
                           ),
-                          Jobs(widget.providedShopId, randomColor),
-                          SizedBox(
-                            height: 30,
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
+              );
+            },
+          );
+        }
+
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Text(
+              shopData['shopName'],
+              style: TextStyle(
+                color: randomColor,
               ),
             ),
-          );
-        });
+            iconTheme: IconThemeData(
+              color: randomColor,
+            ),
+            backgroundColor: Colors.white,
+          ),
+          body: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  // shop image and name
+                  Card(
+                    elevation: 0,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    margin: EdgeInsets.all(8),
+                    child: Container(
+                      height: 220,
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: 220,
+                            width: MediaQuery.of(context).size.width * 0.95,
+                            child: Image(
+                              image: NetworkImage(shopData['shopImgUrl']),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 20,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 8,
+                                horizontal: 12,
+                              ),
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.8,
+                              ),
+                              decoration: BoxDecoration(
+                                // color: Colors.redAccent,
+
+                                color: randomColor,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    bottomRight: Radius.circular(8)),
+                              ),
+                              child: FittedBox(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.flag,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      shopData['shopType'],
+                                      style: TextStyle(
+                                        fontSize: 28,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Icons.insert_drive_file_rounded,
+                            // color: Colors.deepOrangeAccent,
+                            color: randomColor,
+                            size: 30,
+                          ),
+
+                          title: Text('Shop Description'),
+                          // subtitle: Text('30'),
+                          trailing: isMe
+                              ? IconButton(
+                                  onPressed: () {
+                                    showTextField(shopdesc);
+                                  },
+                                  icon: Icon(Icons.edit),
+                                )
+                              : null,
+                        ),
+                        Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              // color: random_color600],
+                              // color: Colors.deepOrangeAccent,
+                              color: randomColor,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          margin: EdgeInsets.only(
+                              left: 10, right: 10, top: 0, bottom: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Text(shopData['shopDesc']),
+                        )
+                      ],
+                    ),
+                  ),
+                  Card(
+                    margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.account_circle,
+                        color: randomColor,
+                        size: 30,
+                      ),
+                      title: Text('Owner'),
+                      subtitle: Text(shopData['ownerName']),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.open_in_new_rounded,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (ctx) =>
+                                  EmployerProfile(shopData['ownerId']),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  Card(
+                    margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    child: ListTile(
+                      leading: Icon(
+                        Icons.adjust_outlined,
+                        // color: Colors.deepOrangeAccent,
+                        color: randomColor,
+                        size: 30,
+                      ),
+                      title: Text('Type of shop'),
+                      subtitle: Text(shopData['shopType']),
+                      // trailing: Icon(Icons.edit),
+                    ),
+                  ),
+                  Card(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Icons.place_rounded,
+                            // color: Colors.deepOrangeAccent,
+                            color: randomColor,
+                            size: 30,
+                          ),
+
+                          title: Text('Shop Address'),
+                          // subtitle: Text('30'),
+                          // trailing: Icon(Icons.edit),
+                        ),
+                        Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              // color: random_color600],
+                              // color: Colors.deepOrangeAccent,
+                              color: randomColor,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          margin: EdgeInsets.only(
+                              left: 10, right: 10, top: 0, bottom: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Text(shopData['shopAddress']),
+                        )
+                      ],
+                    ),
+                  ),
+                  Card(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(
+                            Icons.work_outline_rounded,
+                            // color: Colors.deepOrangeAccent,
+                            color: randomColor,
+                            // color: random_color
+                            size: 30,
+                          ),
+                          title: Text('Jobs Available'),
+                          trailing: shopData['ownerId'] == cUser
+                              ? IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (ctx) => NewJob()),
+                                    );
+                                  },
+                                )
+                              : null,
+                        ),
+                        Jobs(widget.providedShopId, randomColor),
+                        SizedBox(
+                          height: 30,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 

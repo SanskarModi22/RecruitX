@@ -33,154 +33,156 @@ class _EmployerProfileState extends State<EmployerProfile> {
     //     Provider.of<GetUserInfo>(context).fetchAndSetUserinfoForEmployer;
 
     return FutureBuilder(
-        future: FirebaseFirestore.instance
-            .collection('employerProfile')
-            // .doc(widget.uid)
-            .doc(widget.uid)
-            .get(),
-        builder: (context,
-            AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
-                userSnapShot) {
-          if (userSnapShot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-          final userData = userSnapShot.data;
-          final uId = FirebaseAuth.instance.currentUser.uid;
-
+      future: FirebaseFirestore.instance
+          .collection('employerProfile')
+          // .doc(widget.uid)
+          .doc(widget.uid)
+          .get(),
+      builder: (context,
+          AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> userSnapShot) {
+        if (userSnapShot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              iconTheme: IconThemeData(
-                color: Colors.teal, //change your color here
-              ),
-              backgroundColor: Colors.white,
-              title: Text(
-                // user.employerName,
-                userData['name'],
-                // "Employer",
-                style: TextStyle(
-                  color: Colors.teal[600],
-                ),
-              ),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () {},
-                ),
-                // report from menu
-                PopupMenuButton(
-                  itemBuilder: (_) => [
-                    PopupMenuItem(
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.report,
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Report',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  _UpperBody(
-                    isMe: widget.uid == uId ? true : false,
-                    // isMe: false,
-                    profileImg: userData['employerImg'],
-                    name: userData['name'],
-                    age: userData['age'],
-                    bio: userData['bio'],
-                    dob: userData['dob'],
-                    address: userData['address'],
-                    contact: userData['contact'],
-
-                    shopImg: userData['shopImg'],
-                  ),
-                  // shops
-                  Card(
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: Icon(
-                            Icons.home,
-                            color: Colors.teal,
-                            size: 30,
-                          ),
-                          title: Text('Shops'),
-                          subtitle: Text('shops owned '),
-                          trailing: Container(
-                            width: 100,
-                            child: Row(
-                              children: [
-                                IconButton(
-                                    icon: Icon(Icons.edit),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ManageShops(userData['name']),
-                                        ),
-                                      );
-                                    }),
-                                IconButton(
-                                  icon: Icon(Icons.add_business_sharp),
-                                  onPressed: () {
-                                    showModalBottomSheet<void>(
-                                      isScrollControlled: true,
-                                      context: context,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20)),
-                                      ),
-                                      builder: (BuildContext context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.of(context).viewInsets,
-                                          child: NewShop(userData['name']),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        ShopRefs(widget.uid),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-
-                  // reviews
-                  ReviewsForEmployer(widget.uid),
-                ],
-              ),
+            body: Center(
+              child: CircularProgressIndicator(),
             ),
           );
-        });
+        }
+        final userData = userSnapShot.data;
+        final uId = FirebaseAuth.instance.currentUser.uid;
+
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: Colors.teal, //change your color here
+            ),
+            backgroundColor: Colors.white,
+            title: Text(
+              // user.employerName,
+              userData['name'],
+              // "Employer",
+              style: TextStyle(
+                color: Colors.teal[600],
+              ),
+            ),
+            actions: [
+              // IconButton(
+              //     icon: Icon(Icons.edit),
+              //     onPressed: () {},
+              //   ),
+              // report from menu
+              PopupMenuButton(
+                itemBuilder: (_) => [
+                  PopupMenuItem(
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.report,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            'Report',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                _UpperBody(
+                  isMe: widget.uid == uId ? true : false,
+                  // isMe: false,
+                  profileImg: userData['employerImg'],
+                  name: userData['name'],
+                  age: userData['age'],
+                  bio: userData['bio'],
+                  dob: userData['dob'],
+                  address: userData['address'],
+                  contact: userData['contact'],
+
+                  shopImg: userData['shopImg'],
+                ),
+                // shops
+                Card(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: Icon(
+                          Icons.home,
+                          color: Colors.teal,
+                          size: 30,
+                        ),
+                        title: Text('Shops'),
+                        subtitle: Text('shops owned '),
+                        trailing: widget.uid == uId
+                            ? Container(
+                                width: 100,
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                        icon: Icon(Icons.edit),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ManageShops(userData['name']),
+                                            ),
+                                          );
+                                        }),
+                                    IconButton(
+                                      icon: Icon(Icons.add_business_sharp),
+                                      onPressed: () {
+                                        showModalBottomSheet<void>(
+                                          isScrollControlled: true,
+                                          context: context,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                topRight: Radius.circular(20)),
+                                          ),
+                                          builder: (BuildContext context) {
+                                            return Padding(
+                                              padding: MediaQuery.of(context)
+                                                  .viewInsets,
+                                              child: NewShop(userData['name']),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : null,
+                      ),
+                      ShopRefs(widget.uid),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+
+                // reviews
+                ReviewsForEmployer(widget.uid),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 
