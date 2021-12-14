@@ -8,6 +8,7 @@ import 'package:helping_hand/Employee/Home/employee_Custom_Search.dart';
 import 'package:helping_hand/Employee/Home/employee_pref.dart';
 
 import 'package:helping_hand/Employee/Home/employee_cards.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:helping_hand/drawer/drawer.dart';
 
 import 'package:helping_hand/Employee/Home/job_options.dart';
@@ -233,12 +234,14 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                 drawer: drawer(),
               );
             } else {
-              return Container(
-                  height: 2.h,
-                  width: 5.w,
-                  child: Center(child: CircularProgressIndicator()));
+              return ColorLoader3();
+                // Container(
+                //   height: 2.h,
+                //   width: 5.w,
+                //   child: Center(child: CircularProgressIndicator()));
             }
-          }),
+          }
+          ),
     );
   }
 }

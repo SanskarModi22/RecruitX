@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/employee_profile_screen.dart';
 import 'package:helping_hand/screens/employer_profile_screen.dart';
@@ -58,8 +59,7 @@ class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
       builder: (ctx,
           AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> shopSnapshot) {
         if (shopSnapshot.connectionState == ConnectionState.waiting) {
-          return SizedBox(
-              height: 140, child: Center(child: CircularProgressIndicator()));
+          return ColorLoader3();
         }
         final shopData = shopSnapshot.data;
         if (shopData == null) {

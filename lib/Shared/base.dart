@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:helping_hand/Employee/Auth/login_employee.dart';
 import 'package:helping_hand/Employer/Auth/login_employer.dart';
+import 'package:helping_hand/Splash/splash_screen.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:helping_hand/Model/user.dart';

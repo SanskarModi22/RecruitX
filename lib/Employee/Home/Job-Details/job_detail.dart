@@ -5,6 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Model/user.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:helping_hand/api/notification_api.dart';
 import 'package:helping_hand/constants.dart';
 // import 'package:helping_hand/providers/user_information.dart';
@@ -345,7 +346,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                   ),
                                 ),
                               ),
-                              child: Center(child: CircularProgressIndicator()),
+                              child: Center(child: ColorLoader3()),
                               onPressed: () {},
                             );
                           }

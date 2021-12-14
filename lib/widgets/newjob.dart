@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:sizer/sizer.dart';
 
 class NewJob extends StatefulWidget {
@@ -19,9 +20,7 @@ class _NewJobState extends State<NewJob> {
       builder:
           (ctx, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return ColorLoader3();
         }
         final shops = snapshot.data.docs;
 

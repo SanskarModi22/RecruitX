@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:sizer/sizer.dart';
 
 import 'Employee-Details/employee_list.dart';
@@ -110,11 +111,7 @@ class _EmployeeCardsState extends State<EmployeeCards> {
                       ),
                     );
                   } else
-                    return Center(
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: CircularProgressIndicator()),
-                    );
+                    return ColorLoader3();
                 });
           }),
     );

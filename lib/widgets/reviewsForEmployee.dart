@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:helping_hand/widgets/newReviewForEmployee.dart';
 import 'package:helping_hand/widgets/newReviewForEmployer.dart';
 
@@ -25,7 +26,7 @@ class _ReviewsForEmployeeState extends State<ReviewsForEmployee> {
         builder:
             (ctx, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return ColorLoader3();
           }
 
           final reviews = snapshot.data.docs;

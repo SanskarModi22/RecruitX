@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Shared/loader.dart';
 
 // ignore: must_be_immutable
 class ManagePost extends StatefulWidget {
@@ -24,10 +25,7 @@ class _ManagePostState extends State<ManagePost> {
       builder: (context,
           AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-              body: Center(
-            child: CircularProgressIndicator(),
-          ));
+          return ColorLoader3();
         }
         final shops = snapshot.data.docs;
         return Scaffold(
@@ -172,12 +170,7 @@ class _ShopPostItemState extends State<ShopPostItem> {
                       AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
                           snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Container(
-                        height: 100,
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
+                      return ColorLoader3();
                     }
                     final jobs = snapshot.data.docs;
                     return Container(

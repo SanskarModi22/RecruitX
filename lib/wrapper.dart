@@ -8,6 +8,8 @@ import 'package:helping_hand/Employee/Auth/employee_signup1.dart';
 import 'package:helping_hand/Employee/Home/employee_home.dart';
 import 'package:helping_hand/Employer/Auth/employer_signup1.dart';
 import 'package:helping_hand/Employer/Home/employer_home.dart';
+import 'package:helping_hand/Shared/loader.dart';
+import 'package:helping_hand/Splash/splash_screen.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 import 'package:provider/provider.dart';
@@ -115,7 +117,7 @@ print("hello");
           print(
               "local employer ${Provider.of<UserType>(context).userAsEmployer}");
           if (s.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return ColorLoader3();
           } else if (user != null) {
             print(user.uid);
             if ((isEmployer == true &&

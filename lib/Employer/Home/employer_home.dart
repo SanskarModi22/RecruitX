@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:helping_hand/drawer/applicants.dart';
 import 'package:helping_hand/drawer/drawer.dart';
 import 'package:helping_hand/screens/employer_profile_screen.dart';
@@ -391,11 +392,7 @@ class _EmployerHomeState extends State<EmployerHome> {
                 drawer: drawer(),
               );
             } else {
-              return Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
+              return ColorLoader3();
             }
           }),
     );

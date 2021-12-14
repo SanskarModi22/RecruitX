@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/widgets/newshop.dart';
 import 'package:provider/provider.dart';
@@ -25,8 +26,7 @@ class _ManageShopsState extends State<ManageShops> {
         builder:
             (ctx, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return SizedBox(
-                height: 140, child: Center(child: CircularProgressIndicator()));
+            return ColorLoader3();
           }
           final shops = snapshot.data.docs;
 

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:path/path.dart';
 
 class EmployeeFilterScreen extends StatefulWidget {
@@ -23,9 +24,7 @@ class _EmployeeFilterScreenState extends State<EmployeeFilterScreen> {
       builder: (ctx,
           AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return ColorLoader3();
         }
         final userData = snapshot.data;
         final List expectedJobs = userData['expectedJobs'];

@@ -39,6 +39,13 @@ class UserType with ChangeNotifier {
     print('set as employer');
     // notifyListeners();
   }
+  void reset() async {
+    isEmployee = false;
+    isEmployer = false;
+
+    print('reset');
+    // notifyListeners();
+  }
 }
 
 

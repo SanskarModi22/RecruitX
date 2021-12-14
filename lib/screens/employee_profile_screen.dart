@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:helping_hand/Shared/loader.dart';
 
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/widgets/reviewsForEmployee.dart';
@@ -38,11 +39,7 @@ class _EmployeeProfileState extends State<EmployeeProfile> {
           .get(),
       builder: (ctx, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return ColorLoader3();
         }
         final user = snapshot.data;
         // final List<String> expectedJobs = user['expectedJobs'];

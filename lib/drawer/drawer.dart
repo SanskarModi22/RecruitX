@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/manage_applications.dart';
 import 'package:helping_hand/Employee/Home/manage_post_screen.dart';
 import 'package:helping_hand/Services/Authentication.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:helping_hand/Splash/splash_screen.dart';
 import 'package:helping_hand/drawer/applicants.dart';
 // import 'package:helping_hand/drawer/rate_us.dart';
@@ -15,6 +16,7 @@ import 'package:helping_hand/screens/account_screen.dart';
 import 'package:helping_hand/screens/filters_Employee_screen.dart';
 // import 'package:helping_hand/screens/filters_Employer_screen.dart';
 import 'package:helping_hand/screens/manage_post_screen.dart';
+import 'package:helping_hand/wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Shared/base.dart';
 import 'help.dart';
@@ -254,6 +256,7 @@ class _drawerState extends State<drawer> {
               final SharedPreferences preferences =
                   await SharedPreferences.getInstance();
               preferences.remove('option');
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -308,9 +311,7 @@ class _DrawerHead extends StatelessWidget {
                       "https://cutewallpaper.org/21/coolest-steam-profile-backgrounds/Discussion-Best-Steam-profile-backgrounds-.jpg"),
                   fit: BoxFit.cover),
             ),
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
+            child: ColorLoader3()
           );
         }
         final userData = snapshot.data;

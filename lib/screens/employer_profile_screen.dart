@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:helping_hand/Shared/loader.dart';
 
 // import 'package:helping_hand/providers/user_information.dart';
 import 'package:helping_hand/screens/manage_shops_screen.dart';
@@ -41,11 +42,7 @@ class _EmployerProfileState extends State<EmployerProfile> {
       builder: (context,
           AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> userSnapShot) {
         if (userSnapShot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return ColorLoader3();
         }
         final userData = userSnapShot.data;
         final uId = FirebaseAuth.instance.currentUser.uid;

@@ -9,6 +9,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
 import 'package:helping_hand/Employee/Home/employee_filter_button.dart';
 import 'package:helping_hand/Employee/Home/employee_searchBar.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:helping_hand/api/notification_api.dart';
 import 'package:helping_hand/providers/user_information.dart';
 import 'package:overlay_support/overlay_support.dart';
@@ -171,7 +172,7 @@ class _JobApplicationState extends State<JobApplication> with SingleTickerProvid
       if (snapshot.connectionState == ConnectionState.waiting) {
         return Scaffold(
           body: Center(
-            child: CircularProgressIndicator(),
+            child: ColorLoader3(),
           ),
         );
       }
@@ -381,10 +382,7 @@ class _ExpandedDetailsState extends State<ExpandedDetails> {
     builder: (context,
     AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
-        return SizedBox(
-          height: 12.5.h,
-          child: Center(child: CircularProgressIndicator()),
-        );
+        return ColorLoader3();
       }
       final jobData = snapshot.data;
       print(jobData.toString());

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:helping_hand/Shared/loader.dart';
 
 class NewReviewForEmployee extends StatefulWidget {
   final String rUid;
@@ -26,9 +27,7 @@ class _NewReviewForEmployeeState extends State<NewReviewForEmployee> {
         builder:
             (ctx, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return ColorLoader3();
           }
           final shops = snapshot.data.docs;
           final _shopNames = ['Choose a Shop'];

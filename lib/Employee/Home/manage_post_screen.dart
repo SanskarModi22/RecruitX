@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_detail.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:helping_hand/api/notification_api.dart';
 import 'package:random_color/random_color.dart';
 import 'package:sizer/sizer.dart';
@@ -118,10 +119,7 @@ class _AppliedJobState extends State<AppliedJob> {
       builder: (context,
           AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return SizedBox(
-            height: 12.5.h,
-            child: Center(child: CircularProgressIndicator()),
-          );
+          return ColorLoader3();
         }
         final jobData = snapshot.data;
         print(jobData.toString());

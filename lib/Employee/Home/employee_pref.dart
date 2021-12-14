@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:sizer/sizer.dart';
 
 import 'Job-Details/job_list.dart';
@@ -104,14 +105,13 @@ class EmployeeJobPreferences extends StatelessWidget {
                               ),
                             );
                           } else
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
+                            return ColorLoader3();
+
                         });
                   }),
             );
           } else
-            return CircularProgressIndicator();
+            return ColorLoader3();
         });
   }
 }

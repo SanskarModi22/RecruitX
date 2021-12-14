@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:helping_hand/Employee/Home/Job-Details/job_list.dart';
+import 'package:helping_hand/Shared/loader.dart';
 import 'package:sizer/sizer.dart';
 
 class JobCards extends StatefulWidget {
@@ -110,10 +111,7 @@ class _JobCardsState extends State<JobCards> {
                       ),
                     );
                   } else {
-                    return SizedBox(
-                        width: 5.w,
-                        height: 2.5.h,
-                        child: Center(child: CircularProgressIndicator()));
+                    return ColorLoader3();
                   }
                 });
           }),
