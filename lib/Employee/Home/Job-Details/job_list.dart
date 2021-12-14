@@ -165,12 +165,16 @@ class _JobListState extends State<JobList> with SingleTickerProviderStateMixin {
           brightness: Brightness.dark,
           elevation: 0,
           titleSpacing: 7.w,
-          title: Text(
-            '${widget.text}',
-            style: TextStyle(
-                // fontSize: 19.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
+          title: SizedBox(
+            width: 33.w,
+            height: 4.h,
+            child: Text(
+              '${widget.text}',
+              style: TextStyle(
+                  // fontSize: 19.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
           ),
           centerTitle: false,
           actions: [
