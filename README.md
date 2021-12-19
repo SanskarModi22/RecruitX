@@ -7,3 +7,5 @@ This is a Practicum1 project which is intended to solve the job unavailaibility 
 - Firebase
 - Dart
 
+## Apk of RecruitX
+[RecruitX](/RecruitX.apk)
