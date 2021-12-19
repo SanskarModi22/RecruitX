@@ -103,7 +103,7 @@ class _MobileSignUpState extends State<MobileSignUp> {
                   children: [
 
                     Text(
-                      "Verify OTP",
+                      "Send OTP",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 14.sp,

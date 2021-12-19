@@ -75,7 +75,7 @@ class AuthServices {
               barrierDismissible: false,
               builder: (context) {
                 return AlertDialog(
-                  title: Text("Give the code?"),
+                  title: Text("Enter the Code"),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
