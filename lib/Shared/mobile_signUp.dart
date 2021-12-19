@@ -16,7 +16,7 @@ class _MobileSignUpState extends State<MobileSignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent,),
+      appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,),
       backgroundColor: Colors.white,
       body: Center(
         child: Column(

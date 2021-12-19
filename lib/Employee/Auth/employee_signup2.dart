@@ -351,6 +351,9 @@ class _signup_page2State extends State<signup_page2> {
                       )
                     ],
                   ),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Text('Note :- Max Salary <35,000',style: TextStyle(color: Colors.green,),),
                   SizedBox(
                     height: 30,

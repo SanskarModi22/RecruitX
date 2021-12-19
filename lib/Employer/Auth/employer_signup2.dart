@@ -364,7 +364,7 @@ class _EmployerSignUp2State extends State<EmployerSignUp2> {
                       ),
                       fillColor: Colors.white,
                       filled: true,
-                      hintText: 'Bio',
+                      hintText: 'Write about Yourself',
                       enabledBorder: OutlineInputBorder(
                         borderRadius: new BorderRadius.circular(
                           10,
